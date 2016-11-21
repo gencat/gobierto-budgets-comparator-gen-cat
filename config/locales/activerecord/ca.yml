@@ -1,0 +1,24 @@
+---
+ca:
+  activerecord:
+    models:
+      user: Usuari
+    attributes:
+      user:
+        first_name: Nom
+        last_name: Congnom
+        email: E-mail
+        password: Contrasenya
+        password_confirmation: Confirmació de la contrasenya
+        current_password: Contrasenya actual
+        document_type: Tipus de document
+        document_number: Nombre de document
+    errors:
+      models:
+        user:
+          attributes:
+            document_number:
+              invalid_letter: 'La lletra del document no es vàlida'
+              invalid_dni_format: "El format del document no es vàlid. S'ha de compondre de 8 nombres i una lletra, sense espais"
+            current_password:
+              invalid_current_password: 'La contrasenya actual no és correcta'

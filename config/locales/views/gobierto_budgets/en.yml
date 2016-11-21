@@ -1,6 +1,13 @@
 ---
 en:
   gobierto_budgets:
+    featured_budget_lines:
+      show:
+        title: Featured budget lines
+        question: "How much is %{name} expending in..."
+        per_inhabitant: per inhabitant
+        percentage_over_total: Percentage over total
+        show_me_another: Show me another
     pages:
       ranking:
         rankings: Rankings

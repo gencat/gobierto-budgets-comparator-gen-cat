@@ -1,58 +1,57 @@
 ---
-es:
+ca:
   common:
-    and: y
-    income: ingreso
-    incomes: ingresos
-    expense: gasto
-    expenses: gastos
-    economic: económica
+    and: i
+    income: ingrés
+    incomes: ingressos
+    expense: despesa
+    expenses: despeses
+    economic: econòmica
     functional: funcional
   actions:
     send: Enviar
     create: Crear
-    update: Actualizar
-    confirm: "¿Estás seguro?"
+    update: Actualitzar
+    confirm: "Estàs segur?"
     edit: Editar
     delete: Borrar
-    see_page: Ver página
+    see_page: Veure la pàgina
   layout:
-    council_of: "Ayuntamiento de %{name}"
-    transparency_and_participation: Transparencia y Participación
-    login_or_signup: Haz login o regístrate
-    your_account: Tu Cuenta
-    cta_login: ¿Ya tienes cuenta? Haz login
-    your_email: Tu correo-e
-    your_password: Tu password
-    cta_signup: ¿Eres nuevo? Regístrate
+    council_of: "Ajuntament de %{name}"
+    transparency_and_participation: Transparència i Participació
+    login_or_signup: Fes login o registra't
+    your_account: El teu Compte
+    cta_login: Ja tens compte? Fes login
+    your_email: El teu email
+    your_password: La teua contrasenya
+    cta_signup: Eres nou? Registra't
     login: Login
-    signup: Regístrate
-    gobierto: La plataforma web para Transparencia, Gobierno Abierto y Participación para Administraciones Públicas
+    signup: Registrarse
+    gobierto: La plataforma web per fer Transparència, Gobiern Obert y Participació per a Administracions Públiques
     logout: Desconectar
-    your_notifications: Tus notificaciones
-    your_notifications_temp: En esta sección podrás consultar tus notificaciones personales para que te resulte sencillo realizar seguimiento de todo lo que ocurre en esta web
-    news: Novedades
-    add: Añadir
+    your_notifications: Les teues notificacions
+    your_notifications_temp: En esta secció podràs consultar les teues notificacions personals per a que te resulti sencill realitzar el seguiment de tot el que passa a la web
+    news: Novetats
+    add: Afegir
     edit: Editar
     remove: Eliminar
-    admin: Administración
-    pages: Páginas
-    users: Usuarios
-    configuration: Configuración
-    sections: Secciones
-    search: Buscar
-    news: Novedades
+    admin: Administració
+    pages: Pàgines
+    users: Usuaris
+    configuration: Configuració
+    sections: Seccions
+    search: Cercar
   admin:
     registered_users:
-      one: 1 usuario registrado
-      other: "%{count} usuarios registrados"
-    user_name: Nombre
-    user_email: Correo-e
-    user_signed_up_date: Registrado
-    user_last_activity: Última actividad
-    users_edit: Editar información del usuario
-    users_impersonate: Loguearse como el usuario
-    users_soft_delete: "Eliminar usuario: no podrá hacer login ni publicar contenido; su actividad desaparecerá (seguirá visible para administradores)"
+      one: 1 usuari registrat
+      other: "%{count} usuaris registrats"
+    user_name: Nom
+    user_email: Email
+    user_signed_up_date: Registrat
+    user_last_activity: Última activitat
+    users_edit: Editar informació del usuari
+    users_impersonate: Fer login com el usuari
+    users_soft_delete: "Eliminar usuari: no podrà fer login ni publicar contingut; la seva activitat desapareixerà"
     users_restore: "Restaurar usuario: volverá a poder hacer login y a publicar; su actividad volverá a ser pública"
   users:
     your_account: Tu cuenta
