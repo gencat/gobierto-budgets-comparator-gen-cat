@@ -1,0 +1,16 @@
+<p>¿Entiendes de qué va esta partida?</p>
+
+<div class="reply">
+  <div class="inner">
+    <% if !logged_in? %>
+      <p>Puedes solicitar a tu alcalde que amplie la información sobre esta y otras partidas</p>
+    <% end %>
+
+    <p>
+      <% groups = GobiertoBudgets::Answer.percentages_for_question(1, @budget_line.to_param) %>
+      El <strong><%= groups['No'] %>%</strong> de personas han respondido que No
+    </p>
+
+    <%= render partial: 'gobierto_budgets/answers/login_share', locals: {question_id: 1} %>
+  </div>
+</div>

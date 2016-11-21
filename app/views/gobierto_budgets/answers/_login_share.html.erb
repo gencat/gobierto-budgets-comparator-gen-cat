@@ -1,0 +1,27 @@
+<div class="sep"></div>
+
+<% if !logged_in? %>
+  <%= form_for User.new, url: identify_users_path, data: {remote: true}, html: {id: 'new-user-login-share'} do |f| %>
+    <p><small>Puedes seguir esta partida para recibir noticias ocasionales sobre su evolución y opiniones:</small></p>
+    <%= f.email_field :email, placeholder: 'Tu correo-e' %>
+    <%= hidden_field_tag :context, "new-user-login-share" %>
+    <%= f.submit "Seguir" %>
+    <div class="exp">
+      <p>No spam, tus opiniones serán siempre privadas <%= link_to 'Más información', '/faq' %></p>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="share_post_submit <%= "hidden" if !logged_in? %>">
+  <% if !logged_in? %>
+    <p><small>Genial! Comprueba tu correo y pincha en el enlace que te enviamos</small></p>
+  <% end %>
+
+  <p><small>
+    <% url = gobierto_budgets_budget_line_feedback_url(@budget_line.place.slug, @budget_line.year, @budget_line.code, @budget_line.kind, @budget_line.area_name,question_id) %>
+    ¿Quieres compartir esta estadística en
+    <%= link_to 'Twitter', "https://twitter.com/home?status=#{u twitter_share("¿Qué opina la gente sobre la partida #{@budget_line.category} de #{@budget_line.place.name}?", url)}", class: 'small_button popup', data: {rel: 'Twitter'} %>
+    <%= link_to 'Facebook', "http://www.facebook.com/sharer/sharer.php?u=#{u url}", class: 'small_button popup', data: {rel: 'Facebook'} %>
+    ?
+  </small></p>
+</div>

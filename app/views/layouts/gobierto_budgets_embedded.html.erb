@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% set_meta_tags twitter: { :site => '@gobierto'} %>
+  <%= display_meta_tags site: 'Gobierto Presupuestos Municipales', reverse: true %>
+
+  <%= stylesheet_link_tag    'gobierto_budgets/application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'gobierto_budgets/application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <%= render 'layouts/analytics_header' %>
+
+</head>
+
+<body class="embed" <%= data_attributes %>>
+
+<div class="container">
+
+  <div class="main_content clearfix">
+    <%= yield %>
+  </div>
+
+</div>
+
+
+<script type="text/javascript">
+  $(function () {
+    <%= yield :javascript %>
+  });
+</script>
+
+<%= render 'layouts/analytics_footer' %>
+
+</body>
+</html>

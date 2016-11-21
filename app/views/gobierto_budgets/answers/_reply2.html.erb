@@ -1,0 +1,15 @@
+<p>¿Crees que la cantidad de gasto es apropiada?</p>
+
+<div class="reply">
+  <div class="inner">
+    <p>Gracias por tu opinión. Esta es lo que piensa el resto de la gente que ha opinado:</p>
+    <p>
+      <% groups = GobiertoBudgets::Answer.percentages_for_question(2, @budget_line.to_param) %>
+      <% GobiertoBudgets::Answer::QUESTION_2_ANSWERS.each do |answer_text| %>
+        <div class="button empty"><%= groups[answer_text] || 0 %>% <span><%= answer_text %></span></div>
+      <% end %>
+    </p>
+
+    <%= render partial: 'gobierto_budgets/answers/login_share', locals: {question_id: 2} %>
+  </div>
+</div>

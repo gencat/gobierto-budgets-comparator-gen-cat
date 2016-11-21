@@ -1,0 +1,31 @@
+<div class="widget_graph budget_line_feedback <%= 'hidden' if action_name != 'feedback' %>">
+  <% if @question_id %>
+    <div id="reply"><%= render partial: "gobierto_budgets/answers/reply#{@question_id}" %></div>
+  <% elsif logged_in? and answer = current_user.has_replied?(question_id: 1, place_id: @place.id, year: @year, area_name: @area_name, kind: @kind, code: @code) %>
+    <% if answer.answer_text == 'No' %>
+      <div id="reply"><%= render partial: 'gobierto_budgets/answers/reply1' %></div>
+    <% else %>
+      <div id="reply"><%= render partial: 'gobierto_budgets/answers/reply2' %></div>
+    <% end %>
+  <% else %>
+    <div class="blf_question_1">
+      <p>¿Entiendes de qué va esta partida?</p>
+      <div class="options yes_no">
+        <%= link_to 'Sí', gobierto_budgets_answers_path_with_params(1, 'Sí'), remote: true, method: :post, class: 'button' %>
+        <%= link_to 'No', gobierto_budgets_answers_path_with_params(1, 'No'), remote: true, method: :post, class: 'button' %>
+      </div>
+    </div>
+
+    <div class="blf_question_2 hidden">
+      <p>¿Crees que la cantidad de gasto es apropiada?</p>
+      <div class="options ">
+        <% GobiertoBudgets::Answer::QUESTION_2_ANSWERS.each do |answer_text| %>
+          <%= link_to "Me parece <span>#{answer_text.upcase}</span>".html_safe, gobierto_budgets_answers_path_with_params(2, answer_text), remote: true, method: :post, class: 'button' %>
+        <% end %>
+      </div>
+    </div>
+
+    <div id="reply"></div>
+  <% end %>
+</div>
+

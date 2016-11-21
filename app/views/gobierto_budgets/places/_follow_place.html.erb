@@ -1,0 +1,30 @@
+<% if logged_in? %>
+  <% if subscription = current_user.get_subscriptions_on(@place) %>
+    <%= link_to %Q{<span>#{GobiertoBudgets::Subscription.for_place(subscription.place)}</span> <i class="fa fa-star"></i>}.html_safe, gobierto_budgets_subscription_path(subscription), method: :delete, remote: true, id: 'follow_link', class: 'tool_button tipsit following', title: "Estás suscrito a las actualizaciones en #{@place.name}. Haz click para dejar de seguirlas" %>
+  <% else %>
+    <%= link_to %Q{<span>#{GobiertoBudgets::Subscription.for_place(@place)}</span> <i class="fa fa-star-o"></i>}.html_safe, gobierto_budgets_subscriptions_path(place_id: @place.id), method: :post, remote: true, id: 'follow_link', class: 'tool_button tipsit ', title: "Suscríbete a las actualizaciones en #{@place.name}" %>
+  <% end %>
+<% else %>
+
+  <%= link_to %Q{<span>Seguir (#{GobiertoBudgets::Subscription.for_place(@place)})</span> <i class="fa fa-star-o"></i>}.html_safe, '#', id: 'follow_link', class: 'tool_button tipsit', title: "Suscríbete a las actualizaciones en #{@place.name}" %>
+
+  <div class="inner widget_follow budget_line_feedback" id="user_signup">
+    <p>Puedes guardar <%= @place.name %> como favorito para recibir actualizaciones de datos y nueva información sobre este presupuesto.</p>
+    <%= form_for User.new, url: identify_users_path, data: {remote: true}, html: {id: 'new-user-follow'} do |f| %>
+      <%= f.email_field :email, placeholder: 'Tu correo-e' %>
+      <%= hidden_field_tag :follow, @place.id %>
+      <%= hidden_field_tag :context, "new-user-follow" %>
+      <%= f.submit "Seguir" %>
+      <div class="exp">
+        <p>No spam, tus opiniones serán siempre privadas <%= link_to 'Más información', '/faq', target: 'blank' %></p>
+      </div>
+    <% end %>
+
+    <div class="share_post_submit <%= "hidden" if !logged_in? %>">
+      <% if !logged_in? %>
+        <p class="highlight">Haz click en el link que te hemos enviado por email para validar tu cuenta y confirmar tu acción</p>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+

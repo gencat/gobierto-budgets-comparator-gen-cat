@@ -1,0 +1,26 @@
+<div class="cont clearfix">
+  <%= flush_the_flash %>
+
+  <div class="form clearfix">
+
+    <h1>Recuperar contraseña</h1>
+
+    <p>Introduce tu e-mail y te enviaremos instrucciones para crear una nueva contraseña.</p>
+
+    <%= form_tag password_resets_path do %>
+      <div class="form_item full">
+        <div class="form_item_cont">
+          <%= label_tag :email, 'Tu e-mail' %>
+          <%= email_field_tag :email, '', class: 'i_text', autofocus: true %>
+        </div>
+      </div>
+
+      <div class="form_item full submit_item">
+        <div class="form_item_cont clearfix">
+          <input type="submit" class="submit" value="Enviar">
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+</div>

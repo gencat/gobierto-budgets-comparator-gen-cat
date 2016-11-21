@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% set_meta_tags twitter: { :site => '@gobierto'} %>
+  <%= display_meta_tags site: t('.site_title'), reverse: true %>
+
+  <%= stylesheet_link_tag    'gobierto_budgets/application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'gobierto_budgets/application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="apple-touch-icon" sizes="57x57" href="<%= asset_path('favicons/apple-touch-icon-57x57.png') %>">
+  <link rel="apple-touch-icon" sizes="60x60" href="<%= asset_path('favicons/apple-touch-icon-60x60.png') %>">
+  <link rel="apple-touch-icon" sizes="72x72" href="<%= asset_path('favicons/apple-touch-icon-72x72.png') %>">
+  <link rel="apple-touch-icon" sizes="76x76" href="<%= asset_path('favicons/apple-touch-icon-76x76.png') %>">
+  <link rel="apple-touch-icon" sizes="114x114" href="<%= asset_path('favicons/apple-touch-icon-114x114.png') %>">
+  <link rel="apple-touch-icon" sizes="120x120" href="<%= asset_path('favicons/apple-touch-icon-120x120.png') %>">
+  <link rel="apple-touch-icon" sizes="144x144" href="<%= asset_path('favicons/apple-touch-icon-144x144.png') %>">
+  <link rel="apple-touch-icon" sizes="152x152" href="<%= asset_path('favicons/apple-touch-icon-152x152.png') %>">
+  <link rel="apple-touch-icon" sizes="180x180" href="<%= asset_path('favicons/apple-touch-icon-180x180.png') %>">
+  <link rel="icon" type="image/png" href="<%= asset_path('favicons/favicon-32x32.png') %>" sizes="32x32">
+  <link rel="icon" type="image/png" href="<%= asset_path('favicons/favicon-194x194.png') %>" sizes="194x194">
+  <link rel="icon" type="image/png" href="<%= asset_path('favicons/favicon-96x96.png') %>" sizes="96x96">
+  <link rel="icon" type="image/png" href="<%= asset_path('favicons/android-chrome-192x192.png') %>" sizes="192x192">
+  <link rel="icon" type="image/png" href="<%= asset_path('favicons/favicon-16x16.png') %>" sizes="16x16">
+  <link rel="manifest" href="<%= asset_path('favicons/manifest.json') %>">
+  <link rel="mask-icon" href="<%= asset_path('favicons/safari-pinned-tab.svg') %>" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content="<%= asset_path('favicons/mstile-144x144.png') %>">
+  <meta name="theme-color" content="#ffffff">
+
+  <%= render 'layouts/analytics_header' %>
+
+</head>
+
+<body <%= data_attributes %>>
+
+<% unless logged_in? %>
+  <div class="top-claim">
+    <p>
+      <%= link_to t('.download_guide'), new_user_path(pro: true) %>
+      <span class="f_right"><%= link_to 'English', gobierto_budgets_en_path %></span>
+    </p>
+  </div>
+<% end %>
+
+<div class="container">
+
+  <header class="global">
+
+    <div class="logo">
+      <%= link_to_unless_current image_tag('LogoGobiertoPresupuestos.png', width: '158'), root_path %>
+    </div>
+
+    <div class="resp ham">
+      <%= link_to '<i class="fa fa-bars"></i>'.html_safe, '' %>
+    </div>
+
+    <div class="desktop">
+
+      <input type="text" class="places_search search_auto" value="" placeholder="<%= t('.search_municipality') %>" >
+
+      <menu>
+        <ul>
+          <li><%= link_to t('.municipalities'), root_path, class: class_if('selected', current_page?(root_path))  %></li>
+          <li><%= link_to t('.compare'), gobierto_budgets_compare_path , class: class_if('selected', current_page?(gobierto_budgets_compare_path) || action_name == 'compare')%></li>
+          <li><%= link_to t('.rankings'), gobierto_budgets_ranking_path , class: class_if('selected', current_page?(gobierto_budgets_ranking_path) || action_name == 'ranking')%></li>
+          <li><%= link_to t('.services'), gobierto_budgets_about_path(anchor: 'municipalities') , class: class_if('selected', current_page?(gobierto_budgets_about_path))%></li>
+        </ul>
+      </menu>
+
+      <% if logged_in? %>
+      <div class="links_list personal_links">
+        <p><%= t('.hi') %> <strong><%= current_user.full_name %></strong></p>
+        <% if current_user.place_id %>
+          <p><%= t('.your_municipality') %>: <%= link_to INE::Places::Place.find(current_user.place_id).name, gobierto_budgets_place_path(INE::Places::Place.find(current_user.place_id), year: GobiertoBudgets::SearchEngineConfiguration::Year.last) %></p>
+        <% end %>
+        <p><%= link_to t('.edit_your_personal_data'), edit_user_path %></p>
+        <p><%= link_to t('.close_session'), logout_path, method: :delete, class: 'logout' %></p>
+      </div>
+      <% end %>
+
+      <div class="links_list">
+        <h3><%= t('.recent_municipalities') %></h3>
+        <ul id="history">
+        </ul>
+      </div>
+
+      <div class="links_list">
+        <h3><%= t('.recent_comparisons') %></h3>
+        <ul id="comparisons-history">
+        </ul>
+      </div>
+
+    </div>
+
+  </header>
+
+  <div class="main_content clearfix">
+    <%= yield %>
+  </div>
+
+</div>
+
+<footer>
+  <div class="gobierto_ref">
+    <%= link_to image_tag('GobiertoFooter@2x.png', size: '401x18'), Settings.gobierto_host, target: 'blank' %>
+  </div>
+
+  <menu>
+    <ul>
+      <li><%= link_to t('.about'), gobierto_budgets_about_path %></li>
+      <li><%= link_to t('.faq'), gobierto_budgets_faq_path %></li>
+      <li><%= link_to t('.methodology_and_sources'), gobierto_budgets_about_path(anchor: 'method') %></li>
+      <li><%= link_to t('.contact'), gobierto_budgets_about_path(anchor: 'contact') %></li>
+    </ul>
+
+    <ul class="legal">
+      <li><%= link_to t('.legal_warning'), gobierto_budgets_legal_legal_path %></li>
+      <li><%= link_to t('.privacy'), gobierto_budgets_legal_privacy_path %></li>
+      <li><%= link_to t('.cookies'), gobierto_budgets_legal_cookies_path %></li>
+    </ul>
+  </menu>
+
+  <a href="https://mixpanel.com/f/partner"><img src="//cdn.mxpnl.com/site_media/images/partner/badge_light.png" alt="Mobile Analytics" /></a>
+
+</footer>
+
+
+<script type="text/javascript">
+
+    'use strict';
+    <%= yield :javascript %>
+
+</script>
+
+<%= render 'layouts/analytics_footer' %>
+
+</body>
+</html>

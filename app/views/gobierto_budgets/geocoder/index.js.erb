@@ -1,0 +1,5 @@
+<% if @place %>
+  $('#suggested_location').html('<%= link_to INE::Places::Place.find(@place.id).name, gobierto_budgets_place_path(INE::Places::Place.find(@place.id), year: GobiertoBudgets::SearchEngineConfiguration::Year.last) %>');
+<% else %>
+  $('#suggested_location').hide();
+<% end %>

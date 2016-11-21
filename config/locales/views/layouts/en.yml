@@ -1,0 +1,24 @@
+---
+en:
+  layouts:
+    gobierto_budgets_application:
+      site_title: Gobierto Local Budgets
+      download_guide: Download the Communication Guide for Municipalities
+      search_municipality: Search for a municipality...
+      municipalities: Municipalities
+      compare: Compare
+      rankings: Rankings
+      services: Services
+      hi: Hi
+      your_municipality: Your municipality
+      edit_your_personal_data: Edit your profile
+      close_session: Close session
+      recent_municipalities: Recent municipalities
+      recent_comparisons: Recent comparisons
+      about: About
+      faq: F.A.Q.
+      methodology_and_sources: Methodology and sources
+      contact: Contact
+      legal_warning: Legal warning
+      privacy: Privacy policy
+      cookies: Cookies policy

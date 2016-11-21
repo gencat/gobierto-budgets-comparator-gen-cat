@@ -1,0 +1,48 @@
+<div class="form clearfix">
+  <%= render 'alerts' %>
+
+  <%= form_for @user do |f| %>
+    <div class="form_item">
+      <div class="form_item_cont">
+        <%= f.label :first_name, "Nombre" %>
+        <%= f.text_field :first_name, class: 'i_text', autofocus: true, placeholder: '(opcional)'  %>
+      </div>
+    </div>
+
+    <div class="form_item">
+      <div class="form_item_cont">
+        <%= f.label :last_name, "Apellidos" %>
+        <%= f.text_field :last_name, class: 'i_text', placeholder: '(opcional)' %>
+      </div>
+    </div>
+
+    <%= render partial: 'basic_fields', locals: {f:f} %>
+
+    <div class="form_item">
+      <div class="form_item_cont">
+        <%= f.label :password, "Contraseña" %>
+        <%= f.password_field :password, class: 'i_text', autofocus: true %>
+      </div>
+    </div>
+
+    <div class="form_item">
+      <div class="form_item_cont">
+        <%= f.label :password_confirmation, "Confirma la contraseña" %>
+        <%= f.password_field :password_confirmation, class: 'i_text' %>
+      </div>
+    </div>
+
+    <div class="form_item full submit_item">
+      <div class="form_item_cont clearfix">
+        <div class="conditions">
+          <% unless f.object.terms_of_service? %>
+            <p>También recibirás novedades sobre Gobierto Presupuestos Municipales de vez en cuando. Podrás dejar de recibir cuando quieras.</p>
+            <label><%= f.check_box :terms_of_service %> He leído el <%= link_to 'Aviso legal', gobierto_budgets_legal_legal_path, target: 'blank' %> y la <%= link_to 'Política de privacidad', gobierto_budgets_legal_privacy_path, target: 'blank' %></label>
+          <% end %>
+        </div>
+        <%= hidden_field_tag :back_url, request.referer %>
+        <input type="submit" class="submit" value="Enviar">
+      </div>
+    </div>
+  <% end %>
+</div>

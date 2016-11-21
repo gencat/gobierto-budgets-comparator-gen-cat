@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <%= display_meta_tags :site => ['Mánager', 'Gobierto'], reverse: true %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<header class="meta">
+  <div class="cont">
+    <div class="site_title">Gobierto Manager</div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="cont clearfix">
+
+    <%= yield %>
+
+  </div>
+</div>
+
+<footer>
+  <div class="cont">
+    <p><%= link_to Settings.gobierto_host, 'http://gobierto.es' %></p>
+    La plataforma web para Transparencia, Gobierno Abierto y Participación para Administraciones Públicas
+  </div>
+</footer>
+
+</body>
+</html>

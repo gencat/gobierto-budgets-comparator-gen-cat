@@ -1,0 +1,95 @@
+<%
+  @title = t('.title', name: @place.name, year: @year)
+  set_meta_tags title: @title
+  set_meta_tags description: t('.meta_description', name: @place.name, year: @year)
+%>
+
+<%= render partial: 'place_header' %>
+
+<%= render partial: 'place_widgets' %>
+
+<div class="metric_graphs clearfix">
+  <div class="widget_graph show clearfix">
+    <div class="col-1-2" id="lines_chart"></div>
+    <div class="col-2-2">
+      <div id="lines_tooltip"></div>
+      <div class="help">
+        <%= link_to t('.about_the_data'), gobierto_budgets_faq_path(anchor: 'no_data'), title: t('.about_the_data_desc'), class: 'tipsit' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section_separator" name="separator">
+  <div class="sep"></div>
+  <%= t('.explore_income_expenses', name: @place.name) %>
+  <div class="sep"></div>
+</div>
+
+<div class="ie_intro clearfix">
+
+  <div class="cont-expenses">
+    <header class="cat expenses">
+      <h2><%= link_to t('common.incomes').capitalize, '#', data: {rel: 'cont-switch', target: 'cont-income'} %></h2>
+      <span class="sep">|</span>
+      <h2><%= t('common.expenses').capitalize %></h2>
+
+      <div class="form_filters">
+        <ul>
+          <li><%= link_to t('common.economic').capitalize, gobierto_budgets_place_path(@place.slug, @year, {area: 'economic'}), remote: true, class: 'toggle', id: 'Economica' %></li>
+          <li><%= link_to t('common.functional').capitalize, gobierto_budgets_place_path(@place.slug, @year, {area: 'functional'}), remote: true, class: 'toggle buttonSelected', id: 'Funcional' %></li>
+        </ul>
+      </div>
+
+      <div id="total_expense_budget" class="qty"><%= number_to_currency @expense_lines['aggregations']['total_budget']['value'], precision: 0 %></div>
+    </header>
+
+    <div class="graph" id="expense-treemap"
+                       data-functional-url="<%= gobierto_budgets_place_budget_path(@place.slug, @year, GobiertoBudgets::BudgetLine::EXPENSE, 'functional', format: :json) %>"
+                       data-economic-url="<%= gobierto_budgets_place_budget_path(@place.slug, @year, GobiertoBudgets::BudgetLine::EXPENSE, 'economic', format: :json) %>">
+    </div>
+
+    <div class="items">
+      <table id="expense_lines">
+        <%= render partial: 'gobierto_budgets/places/expense_lines', locals: { area_name: @area_name } %>
+      </table>
+    </div>
+  </div>
+
+  <div class="cont-income hidden">
+    <header class="cat incomes">
+      <h2><%= t('common.incomes').capitalize %></h2>
+      <span class="sep">|</span>
+      <h2><%= link_to t('common.expenses').capitalize, '#', data: {rel: 'cont-switch', target: 'cont-expenses'} %></h2>
+      <div class="qty"><%= number_to_currency @income_lines['aggregations']['total_budget']['value'], precision: 0 %></div>
+    </header>
+
+    <div class="graph" id="income-treemap" data-economic-url="<%= gobierto_budgets_place_budget_path(@place.slug, @year, GobiertoBudgets::BudgetLine::INCOME, 'economic', format: :json) %>">
+    </div>
+
+    <div class="items">
+      <table>
+      <tr>
+        <th>
+          <input type="text" placeholder="<%= t('.search_budget_lines_income') %>" class="search_items search_categories_budget-income" data-search-url="<%= gobierto_budgets_search_categories_path(@place.slug,@year, 'economic', GobiertoBudgets::BudgetLine::INCOME) %>">
+        </th>
+        <th class="right "><%= kind_literal(GobiertoBudgets::BudgetLine::INCOME, false) %> <%= t('.total') %></th>
+        <th class="right "><%= kind_literal(GobiertoBudgets::BudgetLine::INCOME, false) %> <%= t('.per_inhabitant') %></th>
+        <th class="right ">% <%= t('.percentage_over_total') %></th>
+        <th class="bar_cont"></th>
+      </tr>
+      <%= render partial: 'gobierto_budgets/places/budget_lines',
+                  collection: @income_lines['hits'],
+                  as: 'budget_line',
+                  locals: { total_budget: @income_lines['aggregations']['total_budget']['value'], kind: GobiertoBudgets::BudgetLine::INCOME, area_name: 'economic' } %>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="featured_budget_line" data-featured-budget-line="<%= gobierto_budgets_featured_budget_line_path(@place.slug, year: @year) %>">
+</div>
+
+<% if users_enabled? && !logged_in? %>
+  <%= render partial: 'gobierto_budgets/places/cta_block' %>
+<% end %>

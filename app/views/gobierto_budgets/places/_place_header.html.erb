@@ -1,0 +1,79 @@
+<header class="place">
+
+  <div class="tools_cont">
+    <div class="tools sticky">
+      <% if users_enabled? && ['places','budget_lines'].include?(controller_name) %>
+        <div class="modal_widget" id="follow">
+          <%= render 'gobierto_budgets/places/follow_place' %>
+        </div>
+      <% end %>
+      <div class="modal_widget" id="compare">
+        <%= link_to %Q{<span>#{t('.compare')}</span> <i class="fa fa-compass"></i>}.html_safe, '', class: 'tool_button' %>
+        <div class="inner widget_compare">
+
+          <%= link_to t('.add_to_comparing_list_html', name: @place.name), '', class: 'button js-add_compare', data: {place: compare_slug(@place, @year), "parent-code" => parent_code(params[:code])} %>
+
+          <div class="sep"></div>
+
+          <p><%= t('.your_comparison_list') %></p>
+          <ul id='compare_list'>
+          </ul>
+
+          <div id="view_comp_container" class="center">
+            <%= link_to t('.view_comparison_html'), '', id: 'view_compare', class: 'button', data: {"parent-code" => parent_code(params[:code]) } %>
+            <span class="soft" id="without_current_note">(<%= t('.without', name: @place.name) %>)</span>
+          </div>
+
+        </div>
+      </div>
+      <% if users_enabled? && !logged_in? %>
+        <div class="modal_widget" id="in_your_web">
+          <%= link_to %Q{<span>#{t('.in_your_web')}</span> <i class="fa fa-share"></i>}, '', class: 'tool_button' %>
+          <div class="inner widget_share" >
+            <div class="cta_claim">
+              <h3><%= t('.municipality_responsible') %></h3>
+              <p><%= t('.cta_desc') %></p>
+              <%= link_to t('.ask_for_info'), new_user_path(place_id: @place.id, pro: true), class: 'button' %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="breadcrumb geo">
+    <%= @place.province.autonomous_region.name %> » <%= @place.province.name %>
+  </div>
+
+  <h1 title="<%= t('.local_budgets_from', name: @place.name) %>">
+    <%= render partial: 'gobierto_budgets/places/year_switcher' %>
+    <%= link_to_unless_current @place.name, gobierto_budgets_place_path(@place.slug, @year) %>
+    <% if params[:area] %>
+      » <%= kind_literal(@kind).humanize %> <%= t('.planned') %>
+    <% end %>
+  </h1>
+
+  <div class="share_links">
+    <%= link_to '<i class="fa fa-twitter"></i>'.html_safe, "https://twitter.com/home?status=#{u twitter_share(@title || @share_text, request.original_url)}", class: 'small_button popup', data: {rel: 'Twitter'} %>
+    <%= link_to '<i class="fa fa-facebook"></i>'.html_safe, "http://www.facebook.com/sharer/sharer.php?u=#{u request.original_url}", class: 'small_button popup', data: {rel: 'Facebook'} %>
+  </div>
+</header>
+
+<header class="sticky_top">
+  <%= link_to image_tag('Gobierto-Avatar@2x.png', size: '30x30'), root_path %>
+  <input type="text" class="places_search search_auto" value="<%= @place.name %>" placeholder="<%= t('.search_municipality') %>" >
+
+  <% if params['controller'] == 'budget_lines' %>
+  <div class="breadcrumb">
+    <span class="sep"><%= link_to kind_literal(@kind).capitalize, gobierto_budgets_place_budget_path(@place.slug, @year, @kind, @area_name) %> »</span>
+    <%= render partial: 'breadcrumb',
+              collection: budget_line_crumbs(@parent_line, @area_name),
+              as: 'budget_line',
+              spacer_template: 'breadcrumb_spacer' %>
+    </div>
+  <% end %>
+</header>
+
+<% if @no_data %>
+  <%= render 'gobierto_budgets/places/no_data' %>
+<% end %>

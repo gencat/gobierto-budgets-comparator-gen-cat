@@ -1,0 +1,152 @@
+---
+en:
+  gobierto_budgets:
+    pages:
+      ranking:
+        rankings: Rankings
+        subtitle: Check the municipalities with more income or expenses, total or per inhabitant, per budget line.
+        highlights: Some highlights
+      compare_big:
+        compare_municipalities: Compare municipalities
+        select_municipalities: "Select many municipalities to compare their budgets:"
+        search_municipality: "Search municipality %{n}"
+        compare: Compare
+        check_some_examples: Or check some examples
+        how_it_works: 'How does it work?'
+        description: "Apart from using the search from the top of the page, you can add municipalities to your comparison list from the municipality page. Use the button 'Compare' to add it to the comparison. From the comparisons page you will be able to add new municipalities too."
+      home:
+        local_budgets: Local budgets
+        subtitle: Check, analyze and compare local budgets from Spain
+        search_municipality: Search municipality...
+        for_example: For example
+        explore_rankings: Explore rankings
+        explore_the_ranking_for: Explore the Ranking for
+        for_municipalities_of: for municipalities of
+        whole_spain: Whole Spain
+        explore: Explore
+        some_examples: Some examples per budget line
+        more_information: More information
+    places:
+      place_header:
+        compare: Compare
+        add_to_comparing_list_html: "Add <strong>%{name}</strong> to your list and compare"
+        your_comparison_list: Your comparison list
+        view_comparison_html: View comparison
+        without: "without %{name}"
+        in_your_web: In your web
+        municipality_responsible: Are you a worker from the municipality
+        cta_desc: "Gobierto allows you to integrate this visualizations in your website."
+        ask_for_info: 'Ask for information'
+        local_budgets_from: "Local budgets from %{name}"
+        planned: planned
+        search_municipality: Busca municipio...
+      no_data:
+        no_data_this_year: "Hmmm... We don't have data for this year. Try other year"
+        why: 'Why there is no data?'
+      show:
+        title: "Local budgets from %{name} in %{year}"
+        meta_description: "Check and visualize the local budgets from %{name} in %{year}. Check income, expenses, budgets indicators and execution"
+        about_the_data: About the data
+        about_the_data_desc: 'The database we are using does not include information of the 100% of the municipalities, so the averages are calculated only for those which exist (which is the majority). More information in our FAQ page'
+        explore_income_expenses: 'Explore incomes and expenses in %{name}'
+        total: total
+        per_inhabitant: "per inhab."
+        percentage_over_total: "o/ total"
+        search_budget_lines_income: Search budget lines for income
+      expense_lines:
+        total: total
+        per_inhabitant: "per inhab."
+        percentage_over_total: "o/ total"
+        search_budget_lines_expense: Search budget lines for expense
+        search_budget_lines_income: Search budget lines for income
+      compare:
+        title: "Compare local budgets from %{places}"
+        total: Total
+        per_inhabitant: Per inhabitant
+        delete: 'Remove from comparison'
+        add: 'Add another municipality'
+        add_another: 'Add another municipality'
+        totals: Totals
+        population: Population
+      execution:
+        title: "Budget execution in %{place} at %{year}"
+        description: "Detail about the execution of the local budget in %{place} at %{year}. Check the difference between planned and executed"
+        execution_help: The execution is the amount spent based on the planned budget.
+        execution_disclaimer: It's very common to have deviatiatons, due to the difficulty of foreseeing the expenses.
+        budget_lines_income_higher: Income budget lines higher than planned
+        budget_lines_income_lower: Income budget lines lower than planned
+        budget_lines_expense_higher: Expense budget lines higher than planned
+        budget_lines_expense_lower: Expense budget lines lower than planned
+      execution_table:
+        planned: Plann.
+        executed: Execution
+        deviation: Diff
+        view_more: View more
+        view_less: View less
+      ranking:
+        budget_lines_title: "%{kind} ranking in %{year}"
+        budget_lines_short_title: "%{kind} ranking"
+        budget_line_title: "%{budget_line} %{kind} ranking in %{year}"
+        budget_line_short_title: "%{budget_line} %{kind} ranking"
+        population_title: "Population ranking in %{year}"
+        population_short_title: "Population ranking"
+        population: Population
+        per_inhabitant: per inhabitant
+        total: Total
+        size: Municipality population
+        between: Between
+        and: and
+        autonomous_region: Autonomous Region
+        disclaimer: The database we use doesn't include data for the 100% of the municipalities, so only those with data will be included.
+        why: 'Why there is no data for all the municipalities?'
+    budget_lines:
+      show:
+        title: "%{kind} in %{budget_line} in %{place} at %{year}"
+        share_text: "Local %{kind} from %{place} in %{budget_line} at %{year}"
+        description: "Data of %{kind} in %{budget_line} in %@place}. Check and visualize %{budget_line} for %{place} in the last years and compare with other municipalities"
+        total_budget_per_inhabitant: "Total %{kind} of this budget line this year per inhabitant"
+        total_budget: "Total %{kind} of this budget line this year"
+        search: "Search other %{kind} budget lines"
+        about: About this budget line
+        description: Description
+        council_comment: City council comment
+        contracts: 'Contracts associated to this budget line'
+        qa: Questions and answers
+        no_information: There's no information yet
+        ask_for_it: Ask for this information
+        coming_soon: Coming soon
+    api:
+      data:
+        budgets_execution_header: "%{kind} deviation in %{year}"
+        income_up: "It was earnt %{percentage}% (%{diff}) more than planned"
+        income_down: "It was earnt %{percentage}% (%{diff}) less than planned"
+        expense_up: "It was spent %{percentage}% (%{diff}) more than planned"
+        expense_down: "It was spent %{percentage}% (%{diff}) less than planned"
+        total_expense: Total expense
+        expense_per_inhabitant: Expense per inhabitant
+        category_per_inhabitant: "%{category} per inhabitant"
+        total_budget:
+          total_expenses: Total expenses
+        population:
+          population: Population
+        total_budget_per_inhabitant:
+          expenses_per_inhabitant: Expenses per inhabitant
+        budget_execution:
+          expense_planned_vs_executed: Expenses planned vs executed
+          income_planned_vs_executed: Income planned vs executed
+        budget_per_inhabitant:
+          expenses_per_inhabitant: Expenses per inhabitant
+          income_per_inhabitant: Income per inhabitant
+        total_budget_execution:
+          planned_vs_executed: Planned vs executed
+        debt:
+          debt: Debt
+        budget_percentage_over_total:
+          percentage_over_total: "Percentage over total"
+        deviation: "%{kind} deviation in %{year}"
+    visualizations:
+      mean_national: National avg
+      mean_autonomy: Autonomic avg
+      mean_province: Provinces avg
+      previous_year_diff: Previous year diff
+

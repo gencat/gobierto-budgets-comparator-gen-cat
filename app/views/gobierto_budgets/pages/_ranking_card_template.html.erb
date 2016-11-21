@@ -1,0 +1,19 @@
+<script type="text/html" id="widget-template">
+  <div class="share_links">
+    <%= link_to '<i class="fa fa-twitter"></i>'.html_safe, "https://twitter.com/home?status={{twitter_share}}", class: 'small_button popup', data: {rel: 'Twitter'} %>
+    <%= link_to '<i class="fa fa-facebook"></i>'.html_safe, "http://www.facebook.com/sharer/sharer.php?u={{gobierto-budgets_ranking_url}}", class: 'small_button popup', data: {rel: 'Facebook'} %>
+  </div>
+  <h2><a href="{{ranking_url}}">{{title}}</a></h2>
+  <div class="winner">
+    <span>{{top_amount}}</span>
+    <span class="place">{{top_place_name}}</span>
+  </div>
+  <div class="runner_ups">
+    <ol>
+      {{#top_5}}
+        <li>{{place_name}}</li>
+      {{/top_5}}
+    </ol>
+  </div>
+
+</script>

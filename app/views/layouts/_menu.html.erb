@@ -1,0 +1,178 @@
+<menu class="global">
+
+  <div class="side_options">
+
+    <div class="option close resp">
+      <%= link_to '<i class="fa fa-times"></i>'.html_safe, '', :"data-menu" => :close %>
+    </div>
+
+    <div class="option" data-menu="sections"><%= link_to %Q{<i class="fa fa-bars" title="#{t('layout.sections')}"></i> <span>#{t('layout.sections')}</span>}.html_safe, '', class: 'tipsit-w', title: t('layout.sections') %></div>
+    <% pending do %>
+      <div class="option" data-menu="search"><%= link_to %Q{<i class="fa fa-search" title="#{t('layout.search')}"></i> <span>#{t('layout.search')}</span>}.html_safe, '', class: 'tipsit-w', title: t('layout.search') %></div>
+    <% end %>
+    <div class="option" data-menu="news"><%= link_to %Q{<i class="fa fa-newspaper-o" title="#{t('layout.news')}"></i> <span>#{t('layout.news')}</span>}.html_safe, '', class: 'tipsit-w', title: t('layout.news') %></div>
+    <div class="option" data-menu="account"><%= link_to %Q{<i class="fa fa-user" title="#{t('layout.your_account')}"></i> <span>#{t('layout.your_account')}</span>}.html_safe, '', class: 'tipsit-w', title: t('layout.your_account') %></div>
+
+    <% if logged_in? && current_user.admin? %>
+      <div class="admin_actions">
+        <% if admin_can_edit? %>
+          <div class="option admin">
+            <%= link_to %Q{<i class="fa fa-pencil"></i> <span>#{t('layout.edit')}</span>}.html_safe, admin_edit_path, title: t('layout.edit') %>
+          </div>
+        <% end %>
+        <% if admin_can_add? %>
+          <div class="option admin">
+            <%= link_to %Q{<i class="fa fa-plus-circle"></i> <span>#{t('layout.add')}</span>}.html_safe, admin_add_path, title: t('layout.add') %>
+          </div>
+        <% end %>
+        <% if admin_can_remove? %>
+          <div class="option admin">
+            <%= link_to %Q{<i class="fa fa-times"></i> <span>#{t('layout.remove')}</span>}.html_safe, admin_remove_path, method: :delete, data: {confirm: t('actions.confirm')}, title: t('layout.remove') %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+  </div>
+
+  <div class="content">
+    <div class="close desktop">
+      <%= link_to '<i class="fa fa-times"></i>'.html_safe, '', :"data-menu" => :close %>
+    </div>
+
+    <div class="cont clearfix sections" data-menu-section="sections">
+
+      <div class="col-1-2">
+
+        <h2><%= link_to t('gobierto_participation.participation'), main_app.gobierto_participation_root_path %></h2>
+
+        <ul>
+          <li><%= link_to t('gobierto_participation.consultations'), main_app.gobierto_participation_consultations_path, title: t('gobierto_participation.consultations') %></li>
+          <li><%= link_to t('gobierto_participation.ideas'), main_app.gobierto_participation_ideas_path, title: t('gobierto_participation.ideas') %></li>
+          <% pending do %>
+            <li><%= link_to 'Peticiones', '/sandbox/participation_petitions' %></li>
+            <li><%= link_to 'Reportes', '/sandbox/participation_reports' %></li>
+          <% end %>
+        </ul>
+      </div>
+
+      <div class="col-1-2">
+        <h2><%= link_to t('gobierto_cms.information'), main_app.gobierto_cms_root_path %></h2>
+
+        <ul>
+          <% @site.gobierto_cms_pages.root.sorted.each do |page| %>
+            <li><%= link_to page.title, page, title: page.title %></li>
+          <% end %>
+        </ul>
+      </div>
+
+      <% pending do %>
+        <div class="col-2-2">
+
+          <h2>Presupuestos y Cuentas</h2>
+          <ul>
+            <li><%= link_to 'Presupuestos', '' %></li>
+          </ul>
+
+        </div>
+      <% end %>
+
+    </div>
+
+    <% pending do %>
+      <div class="cont clearfix search">
+      </div>
+    <% end %>
+
+    <div class="cont clearfix news">
+
+      <h2><%= t('layout.news') %></h2>
+
+      <ul>
+        <% for activity in Activity.fetch_public_activity %>
+          <%= render_activity(activity) if activity.trackable.present? %>
+        <% end %>
+      </ul>
+
+    </div>
+
+    <div class="cont clearfix account" data-menu-section="account">
+      <% if logged_in? %>
+
+        <div class="col-1-2">
+          <h2><%= t('layout.your_account') %></h2>
+
+          <ul>
+            <li><%= link_to t('layout.your_account'), edit_user_path %></li>
+            <% if current_user.admin? %>
+              <li><%= link_to t('layout.admin'), admin_root_path %></li>
+            <% end %>
+            <li><%= link_to t('layout.logout'), logout_path, method: :delete %></li>
+          </ul>
+
+        </div>
+
+        <% pending do %>
+          <div class="col-2-2">
+            <h2><%= t('layout.your_notifications') %></h2>
+            <p><%= t('layout.your_notifications_temp') %></p>
+          </div>
+        <% end %>
+
+      <% else %>
+
+        <div class="col-1-2">
+          <h2><%= t('layout.cta_login') %></h2>
+
+          <%= flush_sessions_flash %>
+
+          <%= form_for :session, url: sessions_path do |f| %>
+            <div class="form_item">
+              <%= f.label :email do %>
+                <span class="label"><%= t('layout.your_email') %></span>
+                <%= f.email_field :email %>
+              <% end %>
+            </div>
+
+            <div class="form_item">
+              <%= f.label :password do %>
+                <span class="label"><%= t('layout.your_password') %></span>
+                <%= f.password_field :password %>
+              <% end %>
+            </div>
+
+            <%= hidden_field_tag :back_url, request.path %>
+
+            <div class="form_item submit">
+              <input type="submit" value="<%= t('layout.login') %>">
+            </div>
+          <% end %>
+        </div>
+
+        <div class="col-2-2">
+          <h2><%= t('layout.cta_signup') %></h2>
+
+          <%= flush_signup_flash(@user) %>
+
+          <%= form_for User.new, url: users_path do |f| %>
+            <div class="form_item">
+              <%= f.label :email do %>
+                <span class="label"><%= t('layout.your_email') %></span>
+                <%= f.email_field :email %>
+              <% end %>
+            </div>
+
+            <%= hidden_field_tag :back_url, request.path %>
+
+            <div class="form_item submit">
+              <input type="submit" value="<%= t('layout.signup') %>">
+            </div>
+          <% end %>
+        </div>
+
+      <% end %>
+
+    </div>
+  </div>
+
+</menu>

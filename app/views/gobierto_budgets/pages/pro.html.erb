@@ -1,0 +1,401 @@
+<% set_meta_tags title: 'Herramienta para municipios' %>
+
+  <div class="pre_home features">
+
+    <div class="clearfix">
+
+      <div class="about_block about_municipalities" id="municipalities">
+
+        <h2>Para municipios</h2>
+        <div class="big_claim">Gobierto Presupuestos Municipales es la herramienta para mejorar tu comunicación, recoger feedback y conectar mejor con tus vecinos</div>
+
+
+        <div class="sep"></div>
+
+        <menu class="sections">
+          <div class="sticky">
+
+            <h3>Presencia pública</h3>
+
+            <ul>
+              <li><%= link_to 'Presupuestos en tu web', gobierto_budgets_pro_path(anchor: 'presupuestos_en_tu_web') %></li>
+              <li><%= link_to 'Cuentas verificadas', gobierto_budgets_pro_path(anchor: 'cuentas_verificadas') %></li>
+              <li><%= link_to 'Personaliza tu página de municipio', gobierto_budgets_pro_path(anchor: 'personaliza_tu_pagina_de_municipio') %></li>
+              <li><%= link_to 'Integra información extra', gobierto_budgets_pro_path(anchor: 'integra_informacion_extra') %></li>
+              <li><%= link_to 'Historias', gobierto_budgets_pro_path(anchor: 'historias') %></li>
+              <li><%= link_to 'Tu libro de presupuestos', gobierto_budgets_pro_path(anchor: 'tu_libro_de_presupuestos') %></li>
+              <li><%= link_to 'Consultas', gobierto_budgets_pro_path(anchor: 'consultas') %></li>
+              <li><%= link_to 'CRM', gobierto_budgets_pro_path(anchor: 'crm') %></li>
+              <li><%= link_to 'Analítica', gobierto_budgets_pro_path(anchor: 'analitica') %></li>
+              <li><%= link_to 'Métricas municipales', gobierto_budgets_pro_path(anchor: 'metricas_municipales') %></li>
+            </ul>
+
+            <h3>Análisis e integraciones</h3>
+
+            <!-- <ul>
+              <li><%= link_to 'Informes PDF', gobierto_budgets_pro_path(anchor: 'informes_pdf') %>
+              <li><%= link_to 'Descarga de datos en Excel y CSV', gobierto_budgets_pro_path(anchor: 'descarga_datos') %>
+              <li><%= link_to 'Herramientas de análisis', gobierto_budgets_pro_path(anchor: 'herramientas_de_analisis') %>
+              <li><%= link_to 'Cuentas de equipo', gobierto_budgets_pro_path(anchor: 'cuentas_de_equipo') %>
+              <li><%= link_to 'Alertas', gobierto_budgets_pro_path(anchor: 'alertas') %>
+              <li><%= link_to 'Mapas', gobierto_budgets_pro_path(anchor: 'mapas') %>
+              <li><%= link_to 'API', gobierto_budgets_pro_path(anchor: 'api') %>
+            </ul> -->
+
+            <ul>
+              <li><%= 'Informes PDF' %>
+              <li><%= 'Descarga de datos en Excel y CSV' %>
+              <li><%= 'Herramientas de análisis' %>
+              <li><%= 'Cuentas de equipo' %>
+              <li><%= 'Alertas' %>
+              <li><%= 'Mapas' %>
+              <li><%= 'API' %>
+            </ul>
+
+
+          </div>
+        </menu>
+
+        <div class="features_col">
+
+          <div class="feature">
+
+            <h3 id="presupuestos_en_tu_web">Presupuestos en tu web</h3>
+
+            <%= image_tag('illustrations/presupuestos.jpg') %>
+
+            <h4>Qué es</h4>
+
+            <ul>
+              <li>Integra una herramienta de visualización y consulta de presupuestos en tu web</li>
+              <li>Visualizaciones sobre ingresos, gastos, indicadores presupuestarios</li>
+              <li>Consulta del detalle de partidas por los diferentes tipos de clasificación</li>
+              <li>Permite poner en contexto las cifras: evolución temporal, comparación con otros municipios</li>
+              <li>Buscador de partidas, enlace permanente a cada partida y año </li>
+              <li>Integración total con el diseño de tu web</li>
+            </ul>
+
+            <h4>Cómo funciona</h4>
+
+            <ul>
+              <li>Simplemente incluye un código en tu web para incrustar tu aplicación de presupuestos</li>
+              <li>Te proporcionamos todo el hosting y actualización de datos  necesaria (también puedes incluir datos extra). No tienes que preocuparte de incluir datos, ya los tenemos</li>
+            </ul>
+
+            <h4>Ventajas</h4>
+
+            <ul>
+              <li>La herramienta más sencilla para que tus vecinos consulten y entiendan tus presupuestos</li>
+              <li>La forma más eficiente de visualizar tus presupuestos: solo tienes que incluirlo en tu web, los datos ya están listos</li>
+              <li>Mejora tu transparencia y la imagen de modernidad que transmites a tus vecinos</li>
+              <li>Una herramienta con funcionalidades sofisticadas con un coste de integración radicalmente bajo</li>
+            </ul>
+
+          </div>
+
+          <div class="feature">
+
+            <h3 id="cuentas_verificadas">Cuentas verificadas</h3>
+
+            <%= image_tag('illustrations/cuentas.jpg') %>
+
+            <h4>Qué es</h4>
+
+            <ul>
+              <li>La página de tu municipio en Gobierto aparecerá con un distintivo de Cuenta Verificada</li>
+              <li>Podrás interactuar con las distintas herramientas para participar en la comunidad</li>
+              <li>Añade contenido a tu página: comentarios sobre partidas, anotaciones...</li>
+              <li>Participa en la sección de Preguntas y Respuestas para resolver dudas de tus vecinos</li>
+            </ul>
+
+            <h4>Cómo funciona</h4>
+
+            <ul>
+              <li>Las personas designadas de tu municipio podrán acceder con sus cuentas de usuario para administrar la página de tu municipio</li>
+              <li>Todas tus participaciones oficiales aparecerán señaladas como tal</li>
+              <li>Los ciudadanos identificarán que el municipio se comunica de forma oficial</li>
+              <li>Desde Gobierto también podemos administrar tu página en tu nombre</li>
+            </ul>
+
+            <h4>Ventajas</h4>
+
+            <ul>
+              <li>Acerca distancias con tus vecinos y mejora tu comunicación</li>
+              <li>Tus vecinos percibirán positivamente tu presencia</li>
+              <li>Canal de comunicación directo y sencillo para los vecinos con su municipio</li>
+              <li>Publica información de forma sencilla y allá donde están tus vecinos</li>
+            </ul>
+
+          </div>
+
+          <div class="feature">
+
+            <h3 id="personaliza_tu_pagina_de_municipio">Personaliza tu página de municipio</h3>
+
+            <%= image_tag('illustrations/personaliza.jpg') %>
+
+            <h4>Qué es</h4>
+
+            <ul>
+              <li>Añade la imagen corporativa de tu corporación y personaliza el diseño</li>
+              <li>Incluye contenido acerca de tus presupuestos: introducción, anotaciones... </li>
+              <li>Muestra de forma destacada datos y partidas que desees comunicar</li>
+
+            </ul>
+
+            <h4>Cómo funciona</h4>
+
+            <ul>
+              <li>Accede a través de un sencilla herramienta web para gestionar tu página</li>
+              <li>Sube tu logo y añade textos a través de un editor muy fácil de usar</li>
+              <li>Selecciona las partidas y datos que quieras destacar</li>
+            </ul>
+
+            <h4>Ventajas</h4>
+
+            <ul>
+              <li>Guía a tus vecinos a través de aquellas partes del presupuesto más importantes</li>
+              <li>Centra la atención en los temas que más te interese</li>
+              <li>Mejora tu imagen pública</li>
+            </ul>
+
+          </div>
+
+          <div class="feature">
+
+            <h3 id="integra_informacion_extra">Integra información extra</h3>
+
+            <%= image_tag('illustrations/integra.jpg') %>
+
+            <h4>Qué es</h4>
+
+            <ul>
+              <li>Amplía los datos que se ofrecen en tu página más allá de los que ofrece Gobierto por defecto</li>
+              <li>Datos presupuestarios del próximo ejercicio</li>
+              <li>Datos de ejecución en tiempo real</li>
+              <li>Contratos y otros indicadores presupuestarios</li>
+              <li>Toda la información extra que añades estará disponible para que pueda ser reutilizada de forma abierta (si así lo decides)</li>
+
+            </ul>
+
+            <h4>Cómo funciona</h4>
+
+            <ul>
+              <li>Integra la información de forma manual vía ficheros Excel o CSV</li>
+              <li>Crea una integración con tus sistemas via API para actualizaciones en tiempo real</li>
+
+            </ul>
+
+            <h4>Ventajas</h4>
+
+            <ul>
+              <li>Aumenta la cantidad de información que pones a disposición</li>
+              <li>Integra información de forma sencilla</li>
+              <li>Pon a disposición open data de forma automática</li>
+            </ul>
+
+          </div>
+
+          <div class="feature">
+
+            <h3 id="historias">Historias</h3>
+
+            <%= image_tag('illustrations/historias.jpg') %>
+
+            <h4>Qué es</h4>
+
+            <ul>
+              <li>Una Historia es una selección de partidas sobre las que el municipio añade textos de acompañamiento</li>
+              <li>El resultado es un pequeño informe en el que el municipio explica la evolución de determinadas partidas, a través de textos y las visualizaciones que Gobierto genera de forma automática</li>
+              <li>Las Historias aparecen en la página de tu municipio en Gobierto o te las puedes llevar para incrustarlas en tu web y en redes sociales</li>
+              <li>Genera un PDF listo para imprimir</li>
+            </ul>
+
+            <h4>Cómo funciona</h4>
+
+            <ul>
+              <li>Crea una Historia a través de un interfaz web muy sencillo de utilizar</li>
+              <li>Selecciona las partidas que quieres incluir, añade tu texto de explicación y escoge entre los distintos gráficos</li>
+              <li>Crea tantas historias como quieras</li>
+            </ul>
+
+            <h4>Ventajas</h4>
+
+            <ul>
+              <li>Ayuda a que tus vecinos comprendan tus presupuestos guiándoles a través de los temas más importantes</li>
+              <li>Un contenido que tus vecinos compartiran en redes sociales, aumentando la exposición de tu gestión</li>
+              <li>Incluye gráficos de comparación con otros municipios para poner en contexto tus cifras</li>
+              <li>Mejora tu percepción al mostrar esfuerzos por comunicar claramente tus cifras</li>
+            </ul>
+
+          </div>
+
+          <div class="feature">
+
+            <h3 id="tu_libro_de_presupuestos">Tu libro de presupuestos</h3>
+
+            <%= image_tag('illustrations/libro.jpg') %>
+
+            <h4>Qué es</h4>
+
+            <ul>
+              <li>Crea tu libro de proyecto de presupuestos de forma automátic incluyendo tu introducción, anotaciones, tablas de datos y visualizaciones</li>
+              <li>Las visualizaciones se generan de forma automática a partir de los datos que proporciones</li>
+              <li>Permite la consulta en la página web o genera un PDF para descargar e imprimir</li>
+              <li>Permite que los ciudadanos envíen preguntas o dudas</li>
+            </ul>
+
+            <h4>Cómo funciona</h4>
+
+            <ul>
+              <li>Incluye tus textos y tus datos en CSV o Excel</li>
+              <li>Se genera un libro de forma automática que puedes personalizarlo sin necesidad de conocimientos técnicos</li>
+              <li>Se publica en tu página de Gobierto o lo puedes incrustar en tu web actual</li>
+              <li>Se genera un PDF que se puede descargar o imprimir</li>
+            </ul>
+
+            <h4>Ventajas</h4>
+
+            <ul>
+              <li>Crea un proyecto de presupuestos con un aspecto moderno y actual, incluyendo visualizaciones para facilitar la comprensión</li>
+              <li>Reduce drasticamente el coste y tiempo empleado en generar el documento</li>
+              <li>Dispón de un documento listo para ser consumido en web, móvil, o PDF</li>
+            </ul>
+
+          </div>
+
+          <div class="feature">
+
+            <h3 id="consultas">Consultas</h3>
+
+            <%= image_tag('illustrations/consultas.jpg') %>
+
+            <h4>Qué es</h4>
+
+            <ul>
+              <li>Crea consultas (vinculantes o no) sobre tus presupuestos para pedir opinión a tus vecinos sobre a qué áreas dedicar gasto e inversión</li>
+              <li>Ofrece un simulador de presupuestos: los vecinos tienen que elegir como distribuyen el gasto</li>
+              <li>Herramienta didáctica para que los vecinos se vayan introduciendo en la estructura de los presupuestos y visualicen como ampliar gasto en un área supone restarlo de otra </li>
+              <li>Elemento de comunicación para dar difusión a tu actividad presupuestaria</li>
+              <li>El ayuntamiento recibe información agregada y anonimizada sobre la opinión de sus vecinos con la que orientar y justificar sus decisiones</li>
+            </ul>
+
+            <h4>Cómo funciona</h4>
+
+            <ul>
+              <li>Selecciona algunas partidas sobre las que girará la consulta</li>
+              <li>Se genera una página web donde el vecino debe ir asignando mayor o menor gasto a cada partida de forma sencilla; aumentar genera situación de déficit; restar de otra supone reducir servicios</li>
+              <li>Un usuario puede compartir en sus redes sociales el resultado de la simulación</li>
+            </ul>
+
+            <h4>Ventajas</h4>
+
+            <ul>
+              <li>Facilita la recopilación de opiniones de los vecinos</li>
+              <li>Sirve para explicar y enfrentar a los usuarios a conceptos presupuestarios como el déficit</li>
+              <li>El ciuadadano valorará positivamente que su ayuntamiento solicite su opinión</li>
+            </ul>
+
+          </div>
+
+          <div class="feature">
+
+            <h3 id="crm">CRM</h3>
+
+            <%= image_tag('illustrations/crm.jpg') %>
+
+            <h4>Qué es</h4>
+
+            <ul>
+              <li>Herramienta para comunicarte por email con tus vecinos</li>
+              <li>Podrás hacer llegar comunicaciones a aquellos vecinos que están siguiendo tu municipio</li>
+              <li>Realiza seguimiento de los usuarios que envían preguntas y comentarios sobre los presupuestos</li>
+              <li>Avisa de las Historias o nuevos Presupuestos o datos que se publiquen</li>
+            </ul>
+
+            <h4>Cómo funciona</h4>
+
+            <ul>
+              <li>Mensajes automáticos: se enviarán mensajes de forma automática a aquellos usuarios que lo elijan, con alertas sobre nuevos datos o publicaciones</li>
+              <li>Genera comunicaciones personalizadas a tu base de seguidores mediante un interfaz web de fácil uso</li>
+              <li>Selecciona el material que quieres enviar (Historia, Presupuesto, etc) y personaliza un texto para enviar</li>
+            </ul>
+
+            <h4>Ventajas</h4>
+
+            <ul>
+              <li>Realiza acciones proactivas de comunicación</li>
+              <li>Genera comunicaciones automáticas para mantener informados a tus vecinos</li>
+              <li>Adaptate de forma sencilla al canal de comunicación más habitual</li>
+            </ul>
+
+          </div>
+
+          <div class="feature">
+
+            <h3 id="analitica">Analítica</h3>
+
+            <%= image_tag('illustrations/analitica.jpg') %>
+
+            <h4>Qué es</h4>
+
+            <ul>
+              <li>Informes sobre lo más consultado en tus presupuestos</li>
+              <li>Te permite analizar qué contenido es el que despierta más interés entre los visitantes</li>
+              <li>Estadísticas sobre interacción de usuarios: cuántos usuarios siguen a tu municipio, número de preguntas enviadas, visitas a Historias, etc. </li>
+            </ul>
+
+            <h4>Cómo funciona</h4>
+
+            <ul>
+              <li>Dispondrás de reportes analíticos en tu área privada</li>
+              <li>Evolución temporal, cambios porcentuales</li>
+            </ul>
+
+            <h4>Ventajas</h4>
+
+            <ul>
+              <li>Comprende qué áreas generan mayor interés</li>
+              <li>Aumenta la información sobre aquellos temas con más demanda</li>
+              <li>Toma decisiones en torno a la interacción de los usuarios</li>
+            </ul>
+
+          </div>
+
+          <div class="feature">
+
+            <h3 id="metricas_municipales">Métricas Municipales</h3>
+
+            <%= image_tag('illustrations/metricas.jpg') %>
+
+            <h4>Qué es</h4>
+
+            <ul>
+              <li>Trackea métricas socio-económicas de tu municipio</li>
+              <li>Muéstralas en una visualización</li>
+            </ul>
+
+            <h4>Cómo funciona</h4>
+
+            <ul>
+              <li>Dispondrás de una herramienta para dar de alta dichas métricas en tu área privada.</li>
+              <li>También se podrán dar de alta mediante una API</li>
+            </ul>
+
+            <h4>Ventajas</h4>
+
+            <ul>
+              <li>Aumenta la transparencia de tu municipio</li>
+              <li>Informa sobre aquellas métricas que sean más interesantes para la gente</li>
+            </ul>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+
+  </div>

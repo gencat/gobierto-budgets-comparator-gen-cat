@@ -1,0 +1,28 @@
+<%= form_for :session, url: sessions_path, remote: (email.present? ? true : false), html: {id: 'new_session'} do |f| %>
+
+  <% if email.present? %>
+    <p class="highlight">Parece que ya tienes cuenta en Gobierto. Haz login para guardar tu opinión:</p>
+  <% end %>
+
+  <div class="form_item">
+    <div class="form_item_cont">
+      <%= f.label :email, 'Email' %>
+      <%= f.email_field :email, class: 'i_text', autofocus: true, value: email %>
+    </div>
+  </div>
+
+  <div class="form_item">
+    <div class="form_item_cont">
+      <%= f.label :password, 'Contraseña' %>
+      <%= f.password_field :password, class: 'i_text' %>
+    </div>
+  </div>
+
+  <div class="form_item full submit_item">
+    <div class="form_item_cont clearfix">
+      <%= hidden_field_tag :back_url, session[:referer] || request.referer %>
+      <input type="submit" class="submit" value="Enviar"> <span class="recover_password"><%= link_to '¿Contraseña?', new_password_reset_path, class: 'tipsit', title: 'Recuperar contraseña' %></span>
+    </div>
+  </div>
+<% end %>
+

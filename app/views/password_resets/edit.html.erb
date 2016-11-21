@@ -1,0 +1,34 @@
+<div class="cont clearfix">
+  <%= flush_the_flash %>
+
+  <div class="form clearfix">
+
+    <h1>Introduce una nueva contraseña</h1>
+    <div class="intro_text">
+      <p>Introduce tu nueva contraseña</p>
+    </div>
+
+    <%= form_for @user, url: password_reset_path(params[:id]) do |f| %>
+      <div class="form_item">
+        <div class="form_item_cont">
+          <%= f.label :password, 'Contraseña' %>
+          <%= f.password_field :password, class: 'i_text', autofocus: true %>
+        </div>
+      </div>
+
+      <div class="form_item">
+        <div class="form_item_cont">
+          <%= f.label :password_confirmation, 'Confirma la contraseña' %>
+          <%= f.password_field :password_confirmation, class: 'i_text' %>
+        </div>
+      </div>
+
+      <div class="form_item full submit_item">
+        <div class="form_item_cont clearfix">
+          <input type="submit" class="submit" value="Actualizar contraseña">
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+</div>

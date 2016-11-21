@@ -1,0 +1,42 @@
+<div class="rt_cont">
+
+  <div class="spinner">
+    <div class="bg"></div>
+    <div class="cont">
+      ...
+    </div>
+  </div>
+
+
+  <table class="data_table" id="ranking-table">
+    <thead>
+      <th class="r_pos">#</th>
+      <th class="location">Municipio</th>
+      <th class="population"><%= link_to_unless @variable == 'population', 'Habitantes', gobierto_budgets_population_ranking_path(@year, ine_code: params[:ine_code]) %></th>
+      <th class="expense_per" title="Gasto por habitante"><%= link_to_unless @variable == 'amount_per_inhabitant', "#{kind_literal(@kind)}/hab", gobierto_budgets_places_ranking_path(@year,@kind,@area_name,'amount_per_inhabitant', code: @code, ine_code: params[:ine_code], f: params[:f]) %></th>
+      <th class="expense"><%= link_to_unless @variable == 'amount', "#{kind_literal(@kind)} total", gobierto_budgets_places_ranking_path(@year,@kind,@area_name,'amount', code: @code, ine_code: params[:ine_code], f: params[:f]) %></th>
+      <% if @variable != 'population' && @code.present? %>
+        <th class="percentage">% s/ Total</th>
+      <% end %>
+      <th class="compare">Compara</th>
+    </thead>
+
+    <tbody>
+      <% @ranking_items.each_with_index do |ranking_item, i| %>
+        <tr <%= 'class="selected"'.html_safe if ranking_item.place == @place %> id='<%= "place_#{ranking_item.place.id}" %>'>
+          <td class="r_pos"><%= GobiertoBudgets::Ranking.position(i, @page) %>.</td>
+          <td class="location"><%= link_to ranking_item.place.name, gobierto_budgets_place_path(ranking_item.place.slug, @year) %> (<%= ranking_item.place.province.name %>)</td>
+          <td class="population"><%= number_with_precision ranking_item.population, precision: 0, delimiter: '.' %></td>
+          <td class="expense_per"><%= number_to_currency ranking_item.amount_per_inhabitant, strip_insignificant_zeros: true %></td>
+          <td class="expense"><%= number_to_currency ranking_item.amount, strip_insignificant_zeros: true %></td>
+          <% if @variable != 'population' && @code.present? %>
+            <td class="percentage"><%= percentage_of_total(ranking_item.amount, ranking_item.total) %></td>
+          <% end %>
+          <td class="compare">
+            <%= link_to 'Compara', '#', class: 'tool_button js-add_compare_no_hide', data: {place: compare_slug(ranking_item.place,@year)}, title: "Comparar #{ranking_item.place.name} con el resto de municipios que tengas en el comparador" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,133 @@
+<%
+  kind = @kind == 'G' ? t('common.expenses') : t('common.incomes')
+
+  if @variable == 'population'
+    title = t('.population_title', kind: kind, year: @year)
+    short_title = t('.population_short_title', kind: kind)
+  elsif @code
+    title = t('.budget_line_title', kind: kind, budget_line: budget_line_denomination(@area_name, @code, @kind), year: @year)
+    short_title = t('.budget_line_short_title', kind: kind, budget_line: budget_line_denomination(@area_name, @code, @kind))
+  else
+    title = t('.budget_lines_title', kind: kind, year: @year)
+    short_title = t('.budget_lines_short_title', kind: kind)
+  end
+
+  set_meta_tags title: title
+%>
+
+<header class="place">
+
+  <% if @variable != 'population' && @kind == 'G' %>
+    <div class="form_filters">
+      <ul>
+        <li><%= link_to t('common.economic'), gobierto_budgets_places_ranking_path(@year,@kind,'economic',@variable, ine_code: params[:ine_code]), class: "#{'buttonSelected' if @area_name == 'economic'}", id: 'Economica' %></li>
+        <li><%= link_to t('common.functional'), gobierto_budgets_places_ranking_path(@year,@kind,'functional',@variable, ine_code: params[:ine_code]), class: "#{'buttonSelected' if @area_name == 'functional'}", id: 'Funcional' %></li>
+      </ul>
+    </div>
+  <% end %>
+
+  <h1>
+    <%= render partial: 'gobierto_budgets/places/year_switcher' %>
+    <%= short_title %>
+  </h1>
+
+  <div class="share_links">
+    <%= link_to '<i class="fa fa-twitter"></i>'.html_safe, "https://twitter.com/home?status=#{u twitter_share(short_title || @share_text, request.original_url)}", class: 'small_button popup', data: {rel: 'Twitter'} %>
+    <%= link_to '<i class="fa fa-facebook"></i>'.html_safe, "http://www.facebook.com/sharer/sharer.php?u=#{u request.original_url}", class: 'small_button popup', data: {rel: 'Facebook'} %>
+  </div>
+
+  <header class="sub">
+    <% if @variable == 'population' %>
+      <span>
+        <div class="switcher kind_switcher">
+          <%= link_to t('.population'), '', class: 'current' %>
+        </div>
+      </span>
+    <% else %>
+      <span>
+        <div class="switcher kind_switcher">
+          <%= link_to "#{kind_literal(@kind).capitalize} #{t('.per_inhabitant') if @variable == 'amount_per_inhabitant'} <i class='fa fa-angle-down'></i>".html_safe, '', class: 'current' %>
+          <ul>
+            <li><%= link_to kind_literal(@kind).capitalize, gobierto_budgets_places_ranking_path(@year, @kind, @area_name, @variable, ine_code: params[:ine_code], f: params[:f]) %></li>
+            <li><%= link_to kind_literal(other_kind(@kind)).capitalize, gobierto_budgets_places_ranking_path(@year, other_kind(@kind), @area_name, @variable, ine_code: params[:ine_code], f: params[:f]) %></li>
+          </ul>
+        </div>
+
+        <% (1..@compared_level + 1).each do |level| %>
+          <span class="sep"> » </span>
+      </span>
+
+      <span>
+        <div class="switcher kind_switcher">
+          <%
+          selected_branch_code = @code ? @code[0...level] : nil
+          if level == @compared_level + 1
+            previous_branch_code = @code
+            current_link_literal = t('.total')
+          else
+            previous_branch_code = selected_branch_code[0...level-1]
+            current_link_literal = budget_line_denomination(@area_name, selected_branch_code, @kind)
+          end
+          items = categories_in_level(@area_name, @kind, level, previous_branch_code)
+          %>
+
+          <%= link_to "#{current_link_literal} <i class='fa fa-angle-down'></i>".html_safe, gobierto_budgets_places_ranking_path(@year, @kind, @area_name, @variable, selected_branch_code, ine_code: params[:ine_code], f: params[:f]), class: 'current' %>
+          <% if items.any? %>
+            <ul>
+              <% items.each do |code, name| %>
+                <li><%= link_to budget_line_denomination(@area_name, code, @kind), gobierto_budgets_places_ranking_path(@year, @kind, @area_name, @variable, code, ine_code: params[:ine_code], f: params[:f]) %></li>
+              <% end %>
+            </ul>
+          <% end %>
+        </div>
+      <% end %>
+      </span>
+    <% end %>
+  </header>
+</header>
+
+<div class="rankings">
+  <div class="filters " data-ranking-url="<%= url_for(params.except(:f,:page,:offset)) %>">
+    <ul>
+      <li>
+        <h4><%= t('.size') %></h4>
+        <div class="filter_cont">
+          <div id="filter_population"></div>
+        </div>
+        <%= t('.between') %> <span id='size_value_0'></span> <%= t('.and') %> <span id='size_value_1'></span></li>
+      <li>
+        <h4><%= kind_literal(@kind, false).titleize %> <%= t('.total').downcase %></h4>
+        <div class="filter_cont">
+          <div id="filter_total"></div>
+        </div>
+        <%= t('.between') %> <span id='total_value_0'></span> <%= t('.and') %> <span id='total_value_1'></span>
+      </li>
+      <li>
+        <h4><%= kind_literal(@kind, false).titleize %> <%= t('.per_inhabitant') %></h4>
+        <div class="filter_cont">
+          <div id="filter_per_inhabitant"></div>
+        </div>
+        <%= t('.between') %> <span id='per_inhabitant_value_0'></span> <%= t('.and') %> <span id='per_inhabitant_value_1'></span>
+      </li>
+      <% unless GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope? %>
+        <li>
+          <h4><%= t('.autonomous_region') %></h4>
+          <div id="filter_per_aarr">
+            <%= select_tag(:aarr,options_for_select(aarr_for_select), {prompt: 'Todas'}) %>
+          </div>
+        </li>
+      <% end %>
+  </div>
+
+  <%= render partial: 'ranking_table' %>
+  <%= paginate @ranking_items, remote: true %>
+
+  <div class="disclaimer">
+    <div class="sep"></div>
+    <p><%= t('.disclaimer') %>. Más información: <%= link_to t('.why'), gobierto_budgets_faq_path(anchor: 'no_data') %>
+    </p>
+  </div>
+
+</div>
+
+

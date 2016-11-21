@@ -1,0 +1,131 @@
+<%
+set_meta_tags title: t('.title', kind: kind_literal(@kind).capitalize, budget_line: budget_line_denomination(@area_name, @code, @kind), place: @place.name, year: @year)
+@share_text = t('.share_text', kind: kind_literal(@kind, false).capitalize, place: @place.name, budget_line: budget_line_denomination(@area_name, @code, @kind), year: @year)
+set_meta_tags description: t('.description', kind: kind_literal(@kind).singularize, budget_line: budget_line_denomination(@area_name, @code, @kind), place: @place.name)
+%>
+
+<%= render partial: 'gobierto_budgets/places/place_header' %>
+
+<header class="sub ">
+
+  <%= render partial: 'gobierto_budgets/budget_lines/breadcrumb',
+            collection: budget_line_crumbs(@parent_line, @area_name),
+            as: 'budget_line',
+            spacer_template: 'breadcrumb_spacer' %>
+
+</header>
+
+<div class="main_metrics clearfix">
+  <div class="metric selected tipsit" data-widget-template="#widget-template"
+                                      title="<%= t('.total_budget_per_inhabitant', kind: kind_literal(@kind, false).humanize) %>"
+                                      data-widget-type="per_person"
+                                      data-line-widget-series="means"
+                                      data-line-widget-url="<%= gobierto_budgets_api_data_lines_budget_line_path(@place.id, @year, "per_person", @kind, @code.parameterize, @area_name, format: :json ) %>"
+                                      data-line-widget-type="per_person"
+                                      data-widget-data-url="<%= gobierto_budgets_api_data_budget_per_inhabitant_path(ine_code: @place.id, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
+  </div>
+
+  <div class="metric tipsit" data-widget-template="#widget-template"
+                             title="<%= t('.total_budget', kind: kind_literal(@kind, false).humanize) %>"
+                             data-widget-type="budget"
+                             data-line-widget-series="means"
+                             data-line-widget-url="<%= gobierto_budgets_api_data_lines_budget_line_path(@place.id, @year, "total_budget", @kind, @code.parameterize, @area_name, format: :json ) %>"
+                             data-line-widget-type="total_budget"
+                             data-widget-data-url="<%= gobierto_budgets_api_data_budget_path(ine_code: @place.id, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
+  </div>
+
+  <div class="metric"
+    data-widget-template="#widget-template-execution"
+    data-widget-type="total_budget_execution"
+    data-page-href="<%= gobierto_budgets_place_execution_path(slug: @place.slug, year: @year, anchor: 'total_budget_execution')%>"
+    data-widget-data-url="<%= gobierto_budgets_api_data_budget_execution_path(ine_code: @place.id, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
+  </div>
+
+  <div class="metric" data-widget-template="#widget-template-lite"
+                      data-widget-type="budget_percentage_over_total"
+                      data-widget-data-url="<%= gobierto_budgets_api_data_budget_percentage_over_total_path(ine_code: @place.id, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
+  </div>
+
+  <% if users_enabled? %>
+    <div class="metric cta">
+      <%= link_to 'Levanta la mano <i class="fa fa-hand-paper-o"></i>'.html_safe, 'javascript:void(0);', data: {feedback: true} %>
+    </div>
+  <% end %>
+</div>
+
+<div class="metric_graphs clearfix <%= 'hidden' if action_name == 'feedback' %>">
+  <div class="widget_graph show clearfix">
+    <div class="col-1-2" id="lines_chart"></div>
+    <div class="col-2-2">
+      <div id="lines_tooltip"></div>
+      <div class="help">
+        <%= link_to t('gobierto_budgets.places.show.about_the_data'), gobierto_budgets_faq_path(anchor: 'no_data'), title: t('gobierto_budgets.places.show.about_the_data_desc'), class: 'tipsit' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render partial: 'gobierto_budgets/budget_lines/feedback' %>
+
+<% if @budget_lines['hits'].any? %>
+<div class="items">
+  <table>
+    <tr>
+      <th>
+        <input type="text" placeholder="<%= t('.search', kind: kind_literal(@kind, true)) %>" class="search_items" id="search_categories_budget" data-search-url="<%= gobierto_budgets_search_categories_path(@place.slug,@year,@area_name, @kind) %>">
+      </th>
+      <th class="right "><%= kind_literal(@kind, false) %> <%= t('gobierto_budgets.places.show.total') %></th>
+      <th class="right "><%= kind_literal(@kind, false) %> <%= t('gobierto_budgets.places.show.per_inhabitant') %></th>
+      <th class="right ">% <%= t('gobierto_budgets.places.show.percentage_over_total') %></th>
+      <th class="bar_cont"></th>
+    </tr>
+
+    <%= render partial: 'gobierto_budgets/places/nested_budget_lines' %>
+  </table>
+</div>
+<% end %>
+
+<%= render partial: 'shared/widget_template' %>
+
+<%= render partial: 'shared/widget_template_lite' %>
+
+<%= render partial: 'shared/widget_template_execution' %>
+
+<div class="item_description">
+  <h3><%= t('.about') %></h3>
+
+  <div class="tabs">
+    <ul>
+      <li><%= link_to t('.description'), '', class: 'active', data: { "tab-target": 'description' } %></li>
+      <li><%= link_to t('.council_comment'), '', data: { "tab-target": 'comment' } %></li>
+      <li><%= link_to t('.contracts'), '', data: { "tab-target": 'contracts' } %></li>
+      <li><%= link_to t('.qa'), '', data: { "tab-target": 'q&a' } %></li>
+    </ul>
+  </div>
+
+  <div class="tab_content" data-tab="description">
+    <% if desc = budget_line_description(@area_name, @code, @kind) %>
+      <p class=""><strong><%= budget_line_denomination(@area_name, @code, @kind) %></strong><br/>
+      <%= desc %></p>
+    <% else %>
+      <p class="placeholder_no_info"><%= t('.no_information') %></p>
+    <% end %>
+  </div>
+
+  <div class="tab_content" data-tab="comment" style="display: none;">
+    <p class="placeholder_no_info"><%= t('.ask_for_it') %></p>
+  </div>
+
+  <div class="tab_content" data-tab="contracts" style="display: none;">
+    <p class="placeholder_no_info"><%= t('.ask_for_it') %></p>
+  </div>
+
+  <div class="tab_content" data-tab="q&a" style="display: none;">
+    <p class="placeholder_no_info"><%= t('.coming_soon') %></p>
+  </div>
+
+</div>
+
+<% if users_enabled? %>
+  <%= render partial: 'gobierto_budgets/places/cta_block' %>
+<% end %>

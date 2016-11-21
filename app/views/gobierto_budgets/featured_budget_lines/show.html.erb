@@ -1,0 +1,49 @@
+<h3 class="lite">Partidas destacadas</h3>
+
+<div class="cont clearfix">
+  <div class="main">
+    <header>
+      ¿Cuánto se gasta <%= @place.name %> en...
+      <h2><%= link_to budget_line_denomination(@area_name, @code, @kind), gobierto_budgets_budget_line_path(@place.slug, @year, @code.parameterize, @kind, @area_name) %>?</h2>
+    </header>
+
+    <div class="main_metrics clearfix">
+      <div class="metric tipsit" data-widget-template="#widget-template"
+                                 title="<%= kind_literal(@kind, false).humanize %> por habitante"
+                                 data-widget-type="per_person"
+                                 data-widget-data-url="<%= gobierto_budgets_api_data_budget_per_inhabitant_path(ine_code: @place.id, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
+      </div>
+
+      <div class="metric tipsit" data-widget-template="#widget-template"
+                                 title="<%= kind_literal(@kind, false).humanize %>"
+                                 data-widget-type="budget"
+                                 data-widget-data-url="<%= gobierto_budgets_api_data_budget_path(ine_code: @place.id, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
+      </div>
+
+      <div class="metric tipsit" data-widget-template="#widget-template-lite"
+                                 title="Porcentaje sobre el total"
+                                 data-widget-type="budget_percentage_over_total"
+                                 data-widget-data-url="<%= gobierto_budgets_api_data_budget_percentage_over_total_path(ine_code: @place.id, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
+      </div>
+    </div>
+  </div>
+
+  <% if users_enabled? %>
+    <div class="act">
+      <header>
+        <div>¿Entiendes de qué va esta partida?</div>
+        <div>¿Te parece mucho, poco?</div>
+      </header>
+
+      <%= link_to 'Levanta la mano: opina', '', class: 'button user', data: {feedback: true} %>
+    </div>
+  <% end %>
+</div>
+
+<%= link_to 'Enséñame otra', '#', class: 'show_me_another', data: { 'featured-budget-line-load-more' => true } %>
+
+<%= render partial: 'gobierto_budgets/budget_lines/feedback' %>
+
+<%= render partial: 'shared/widget_template' %>
+
+<%= render partial: 'shared/widget_template_lite' %>

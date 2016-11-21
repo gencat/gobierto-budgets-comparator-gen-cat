@@ -1,0 +1,2 @@
+<%= link_to_unless_current budget_line_denomination(@area_name, budget_line['code'], budget_line['kind']),
+                            gobierto_budgets_budget_line_path(@place.slug, budget_line['year'], budget_line['code'], budget_line['kind'], @area_name) %>

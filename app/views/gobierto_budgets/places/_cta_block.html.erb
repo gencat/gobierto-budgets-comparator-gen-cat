@@ -1,0 +1,19 @@
+<div class="cta_majors clearfix">
+
+  <div class="col-1-2">
+    <div class="pro_user ">
+      <h3>¿Eres responsable de este municipio?</h3>
+      <p>Añade introducciones y anotaciones públicas sobre cada partida para dar más información y contextualizar las cifras con los proyectos que lleváis a cabo.</p>
+      <%= link_to 'Solicita información', new_user_path(place_id: @place.id, pro: true), class: 'small_button' %>
+    </div>
+  </div>
+
+  <div class="col-2-2">
+    <div class="end_user ">
+      <h3>¿Eres vecino de este municipio?</h3>
+      <p>Solicita a tu Alcalde que incluya más información para tener una visión más completa sobre el uso de tus impuestos o envía preguntas específicas.</p>
+      <%= link_to 'Pide a tu ayuntamiento', new_user_path(place_id: @place.id), class: 'small_button' %>
+    </div>
+  </div>
+
+</div>

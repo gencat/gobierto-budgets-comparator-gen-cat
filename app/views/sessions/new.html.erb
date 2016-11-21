@@ -1,0 +1,12 @@
+<div class="cont clearfix">
+  <%= flush_the_flash %>
+
+  <div class="form clearfix">
+
+    <h1><%= title "Iniciar sesión" %></h1>
+
+    <%= render partial: 'form', locals: {email: ''} %>
+
+    <p>¿No tienes cuenta todavía? <%= link_to 'Regístrate', new_user_path %></p>
+  </div>
+</div>

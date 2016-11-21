@@ -1,0 +1,71 @@
+<div class="form_item">
+  <div class="form_item_cont">
+    <%= f.label :email, "E-mail" %>
+    <%= f.email_field :email, class: 'i_text' %>
+  </div>
+</div>
+
+<div class="form_item">
+  <div class="form_item_cont">
+    <%= f.label :place_id, "Tu municipio" %>
+    <% if f.object.place_id.blank? || f.object.new_record?  %>
+      <%= f.select :place_id, places_for_select, {include_blank: true, selected: "#{@place_id || f.object.place_id}"}, {class: 'select2'} %>
+      <div class="submit_item explanation"><small>(El municipio donde resides. Además de a éste, podrás seguir a otros para recibir sus actualizaciones)</small></div>
+    <% else %>
+      <input type="text" value="<%= INE::Places::Place.find(f.object.place_id).name %>" class="i_text" disabled="true"/>
+      <span style="color:red">*</span> <small><em>si quieres volver a cambiar tu municipio <%= link_to 'contacta con nosotros', gobierto_budgets_about_path(anchor: 'contact') %></em></small>
+    <% end %>
+  </div>
+</div>
+
+<div class="form_item">
+  <div class="form_item_cont">
+    <label>Eres:</label>
+
+    <div class="radio_option">
+      <%= f.radio_button :pro, false, :"data-user-type" => 'Citizen' %> <%= f.label :pro_false, "Ciudadano" %>
+    </div>
+    <div class="radio_option">
+      <%= f.radio_button :pro, true, :"data-user-type" => 'Professional' %> <%= f.label :pro_true, "Profesional de la administración local" %>
+    </div>
+  </div>
+</div>
+
+<% if params[:pro] == 'true' %>
+  <div class="form_item">
+    <div class="form_item_cont">
+      <label>Teléfono</label>
+      <%= telephone_field :lead, :phone, class: 'i_text' %>
+    </div>
+  </div>
+<% end %>
+
+<% content_for(:javascript) do %>
+  $('.select2').select2({
+    width: '300px',
+    ajax: {
+      url: "/api/places",
+      dataType: 'json',
+      delay: 250,
+      data: function(params) {
+        return {
+          q: params.term
+        };
+      },
+      processResults: function(data) {
+        return {
+          results: $.map(data, function (item) {
+            return {
+              text: item.value,
+              id: item.data.id
+            }
+          })
+        };
+      },
+      cache: true
+    },
+    escapeMarkup: function (markup) { return markup; },
+    minimumInputLength: 3
+  });
+
+<% end %>

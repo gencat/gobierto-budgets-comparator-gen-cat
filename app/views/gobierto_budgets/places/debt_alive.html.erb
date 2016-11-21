@@ -1,0 +1,61 @@
+<%
+  @title = "Deuda viva de #{@place.name} del #{@year}"
+  set_meta_tags title: @title
+  set_meta_tags description: "Detalle sobre la deuda viva de #{@place.name} del #{@year}. Consulta el total de la deuda acumulada de este municipio."
+%>
+
+<%= render partial: 'place_header' %>
+
+<div>INCLUIR LOS WIDGETS</div>
+
+<div class="execution">
+
+	<div class="pure-g">
+		<div class="pure-u-1 pure-u-md-11-24">
+			
+			<h2 class="lite">Deuda viva a 31 de diciembre de 2015</h2>
+
+			<div class="box">
+
+				<div class="inner">
+
+					<h1 title="Deuda viva a 31 de diciembre de 2015">128.234.567€</h1>
+
+					<p>Esto supone un <strong>123% del presupuesto</strong></p>
+					<p>La medida en los municipios españoles es de <strong>un 95%</strong></p>
+
+					<p>En 2016 se dedicará un <strong>15% del presupuesto municipal a pagar deuda</strong></p>
+
+				</div>
+
+			</div>
+
+		</div>
+		<div class="pure-u-1 pure-u-md-2-24"></div>
+		<div class="pure-u-1 pure-u-md-11-24">
+
+			<h2 class="lite">Evolución</h2>
+
+			<div class="box">
+
+				<div class="inner">
+
+					VIS EVO DEUDA VIVA
+					
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+</div>
+
+<div class="m_v_4">
+	<div class="section_separator" name="separator">
+	  <div class="sep"></div>
+	  	<p><strong>La deuda viva es toda la deuda acumulada que un municipio tiene pendiente por devolver.</strong></p>
+			<p>En el presupuesto/ejecución anual hay una partida de Deuda, que es la parte del presupuesto que se dedica a pagar el total de la deuda pendiente (deuda viva) durante una año en específico. </p>
+	  <div class="sep"></div>
+	</div>
+</div>

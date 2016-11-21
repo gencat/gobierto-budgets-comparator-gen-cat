@@ -1,0 +1,15 @@
+---
+en:
+  shared:
+    embed:
+      title_embed: Use the next code to embed this page and the visualization in your website. The height and the width will be adapted automatically
+    widget_template:
+      datum: datum from
+    widget_template_debt:
+      datum: datum from
+      not_available: not available
+    widget_template_execution:
+      not_available: Not available
+    widget_template_deviation:
+      planned: planned
+      real: real

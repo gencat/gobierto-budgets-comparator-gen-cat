@@ -1,0 +1,16 @@
+<% if logged_in? %>
+  $('#new_session').hide();
+  if($('.share_post_submit').length > 0){
+    $('.share_post_submit').show();
+    $('.share_post_submit p:eq(0)').hide();
+  }
+  <% if @place %>
+  if($('#follow').length > 0){
+    $('#follow').html('<%= j(render partial: 'gobierto_budgets/places/follow_place') %>');
+    rebindAll();
+  }
+  <% end %>
+<% else %>
+  $('#new_session input:password').addClass('alert');
+  $('#new_session input:password').attr('placeholder', '<%= flash[:alert] %>');
+<% end %>

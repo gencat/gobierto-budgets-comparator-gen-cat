@@ -1,0 +1,180 @@
+
+<% set_meta_tags title: 'Acerca de ' %>
+
+  <div class="pre_home" data-analytics-track="Page_About">
+
+    <h1><%= image_tag('LogoGobierto.png', width: '180') %> <span>Presupuestos Municipales</span></h1>
+    <h2>Consulta, analiza y compara los presupuestos municipales de España</h2>
+
+    <menu class="sections section_separator">
+      <div class="sep"></div>
+      <%= link_to 'Ciudadanos', gobierto_budgets_about_path(anchor: 'citizens') %>
+      <%= link_to 'Periodistas', gobierto_budgets_about_path(anchor: 'journos') %>
+      <%= link_to 'Municipios', gobierto_budgets_about_path(anchor: 'municipalities') %>
+      <%= link_to 'Funcionalidades', gobierto_budgets_about_path(anchor: 'features') %>
+      <%= link_to 'Metodología y Fuentes', gobierto_budgets_about_path(anchor: 'method') %>
+      <%= link_to 'Quiénes somos', gobierto_budgets_about_path(anchor: 'who') %>
+      <%= link_to 'Contacto', gobierto_budgets_about_path(anchor: 'contact') %>
+      <div class="sep"></div>
+    </menu>
+
+
+    <div class="clearfix">
+
+      <div class="about_block about_citizens" id="citizens">
+
+        <h2>Para ciudadanos</h2>
+
+        <ul>
+          <li><strong>Entiende el destino de tus impuestos</strong> Consulta cómo invierte tu municipio el dinero de tus impuestos</li>
+          <li><strong>Comprende la estructura de tu municipio</strong> Obtén perspectiva de todos los gastos a los que  se hace frente en tu pueblo o ciudad</li>
+          <li><strong>Contextualiza la información</strong> Compara los gastos de tu municipio con otros similares</li>
+        </ul>
+
+      </div>
+
+      <div class="about_block about_journos" id="journos">
+
+        <h2>Para periodistas</h2>
+
+        <ul>
+          <li><strong>Descubre historias</strong> Bucea con facilidad en los gastos y su evolución para destapar historias </li>
+          <li><strong>Complementa tu información local</strong> Genera visualizaciones para tus piezas aportando mayor contexto</li>
+          <li><strong>Haz seguimiento</strong> Realiza un seguimiento de los gastos por municipio, región o tipo de gasto</li>
+          <li><strong>Aporta contexto</strong> Contribuye con tu información a contextualizar los presupuestos</li>
+        </ul>
+
+      </div>
+
+      <div class="about_block about_municipalities" id="municipalities">
+
+        <h2>Para municipios</h2>
+
+        <ul>
+          <li><strong>Mejora tu eficiencia</strong> Analiza tus presupuestos y conoce como te comparas con municipios similares</li>
+          <li><strong>Mejora la información que ofreces</strong> Añade comentarios e información sobre los proyectos y las inversiones para facilitar la compresión a tus vecinos</li>
+          <li><strong>Completa tu web de forma sencilla</strong> Incluye una versión personalizada en tu propia web</li>
+          <li><strong>Simplifica la elaboración de tu documento de presupuestos</strong> Crea el informe con tus presupuestos, visualizaciones y contextualización de forma automática</li>
+        </ul>
+
+        <p><%= link_to 'Conoce los servicios que Gobierto te ofrece. Descarga nuestra guía "Conectando con tus vecinos"', new_user_path(pro: true), class: 'button' %></p>
+
+      </div>
+
+    </div>
+
+    <div class="about_block clearfix" id="features">
+      <h2>Funcionalidades</h2>
+
+      <div class="col-1-3">
+        <ul>
+          <li>Consulta el desglose de ingresos y gastos</li>
+          <li>Acceso a la clasificación económica y funcional</li>
+          <li>Histórico anual </li>
+          <li>Presupuestos, Ejecución e Indicadores económicos</li>
+        </ul>
+      </div>
+
+      <div class="col-2-3">
+        <ul>
+          <li>Visualización y mapas</li>
+          <li>Visualización de las variaciones anuales en las partidas</li>
+          <li>Contextualización de las cifras</li>
+          <li><%= link_to 'Compara entre municipios', gobierto_budgets_compare_path %></li>
+        </ul>
+      </div>
+
+      <div class="col-3-3">
+        <ul>
+          <li>Guarda favoritos</li>
+          <li>Genera informes</li>
+        </ul>
+      </div>
+
+
+    </div>
+
+    <div class="about_block" id="method">
+      <h2>Metodología y Fuentes</h2>
+
+      <p><strong>Datos presupuestarios:</strong> Los datos económicos de los presupuestos de los municipios están extraídos de la base de datos que publica el Ministerio de Economía y Hacienda a través de la Secretaría General de Coordinación Autónomica y Local. La publicación de esta base de datos se realiza en esta URL: <a href="http://serviciostelematicosext.minhap.gob.es/SGCAL/entidadeslocales/" target="_blank">serviciostelematicosext.minhap.gob.es/SGCAL/entidadeslocales/</a>. Se publican de forma anual datos sobre los presupuestos y la ejecución presupuestaria.</p>
+
+      <p>Los datos se publican en formato Microsoft Access. Populate ha transformado esta base de datos para la carga en su sistema y <a href="https://github.com/PopulateTools/gobierto-budgets-data" target="blank">ha publicado dicho código</a>. La Secretaría publica una <a href="http://www.minhap.gob.es/Documentacion/Publico/DGCFEL/InstruccionesAplicaciones/NOTA%20METODOLÓGICA.Presupuestos%20y%20Liquidaciones.pdf" target="_blank">Nota Metodológica</a> sobre los datos de los presupuestos. La última actualización de los datos de los presupuestos corresponde a la actualización del 30/12/2015 por parte del Ministerio.</p>
+
+      <p><strong>Datos de población:</strong> La información sobre la población de los municipios proviene del INE, extraída y transformada usando la librería <a href="https://github.com/PopulateTools/ruby-px" target="_blank">Ruby-PX</a> desarrollada por Populate.</p>
+
+      <p>Temporalmente, los datos de población (población total y gasto por habitante) de 2010 están calculados basados en los de 2011. En cuando podamos cargaremos los datos de población de 2010.</p>
+    </div>
+
+    <div class="about_block" id="who">
+      <h2>Quiénes somos</h2>
+      <p>Gobierto Presupuestos Municipales se encuadra dentro de Gobierto, una linea de trabajo de Populate para fomentar la mejora de las administraciones públicas mediante mecanismos de transparencia, participación y gobierno abierto usando como base el diseño centrado en el usuario y la tecnología. Populate es un estudio dedicado a la creación de productos en torno al <i>civic engagement</i>. Puedes consultar nuestros proyectos en <a href="http://populate.tools">populate.tools</a>.</p>
+
+      <p>Han pensado y construido la herramienta:</p>
+
+      <ul class="team ul_showcase_30">
+        <li>
+          <%= image_tag 'https://pbs.twimg.com/profile_images/305246290/Foto_2_bigger.jpg' %>
+          <strong>Álvaro Ortiz</strong>
+          <%= link_to '@furilo', 'http://twitter.com/furilo' %>
+          <span>Producto, UX, front</span>
+        </li>
+        <li>
+          <%= image_tag 'https://pbs.twimg.com/profile_images/644796859727265792/-gZwsNdM_bigger.png' %>
+          <strong>Fernando Blat</strong>
+          <%= link_to '@ferblape', 'http://twitter.com/ferblape' %>
+          <span>Back, Elastic Search, Rails</span>
+        </li>
+        <li>
+          <%= image_tag 'https://media.licdn.com/mpr/mpr/shrink_100_100/p/4/000/181/330/38d106b.jpg', size: '73x73' %>
+          <strong>Jorge Gómez Sancha</strong>
+          <%= link_to '@jorgesancha', 'http://twitter.com/jorgesancha' %>
+          <span>Producto, Rails</span>
+        </li>
+        <li>
+          <%= image_tag 'https://pbs.twimg.com/profile_images/644504357082398720/Hs2771LP_bigger.jpg' %>
+          <strong>Beatriz Martínez</strong>
+          <%= link_to '@maritrinez', 'http://twitter.com/maritrinez' %>
+          <span>D3.js</span>
+        </li>
+        <li>
+          <%= image_tag 'https://pbs.twimg.com/profile_images/378800000677403757/fb30fb620ed6cad93fea8b84132c2c6b_bigger.jpeg' %>
+          <strong>Ajo Galván</strong>
+          <%= link_to '@AjoGalvan', 'http://twitter.com/AjoGalvan' %>
+          <span>Ilustraciones</span>
+        </li>
+      </ul>
+
+      <p>Han asesorado en la definición:</p>
+
+      <ul class="team ul_showcase_30">
+        <li>
+          <%= image_tag 'https://pbs.twimg.com/profile_images/656460015058997248/X0XjdhQv_bigger.jpg' %>
+          <strong>Nagore de los Ríos</strong>
+          <%= link_to '@nagodelos', 'http://twitter.com/nagodelos' %>
+          <span></span>
+        </li>
+        <li>
+          <%= image_tag 'https://pbs.twimg.com/profile_images/519535276645834752/ZmxVF2NP_bigger.jpeg' %>
+          <strong>Reyes Montiel</strong>
+          <%= link_to '@reyesmontiel', 'http://twitter.com/reyesmontiel' %>
+          <span></span>
+        </li>
+        <li>
+          <%= image_tag 'https://pbs.twimg.com/profile_images/2869487895/ace8770c8319fa72eb4e9fa00d3ea34a_bigger.jpeg' %>
+          <strong>Alberto Ortiz de Zárate</strong>
+          <%= link_to '@alorza', 'http://twitter.com/alorza' %>
+          <span></span>
+        </li>
+
+      </ul>
+
+    </div>
+
+    <div class="about_block" id="contact">
+      <h2>Contacto</h2>
+      <p>Puedes localizarnos en lets@populate.tools. Síguenos en <%= link_to '@gobierto', 'http://twitter.com/gobierto' %> y <%= link_to '@populatetools', 'http://twitter.com/populatetools' %> </p>
+    </div>
+
+
+  </div>

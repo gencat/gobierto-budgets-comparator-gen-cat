@@ -1,0 +1,50 @@
+<% title("Alta usuario")  %>
+
+<div class="cont clearfix">
+
+  <%= render 'alerts' %>
+
+  <%= flush_the_flash %>
+
+  <% if params[:pro] == 'true' %>
+    <h2>Descarga nuestra guía: Conectando con tus vecinos</h2>
+
+    <div class="download_guide">
+
+      <i class="fa fa-file-text-o fa-lg"></i>
+
+      <p><strong>Gobierto te ayuda a conectar mejor con tus vecinos</strong>. Gobierto crea herramientas de bajo coste para mejorar tu comunicación y mejorar
+        la percepción de tus vecinos sobre tu actividad. Regístrate para descargar la guía, o si ya tienes cuenta <%= link_to 'haz login', login_path %></p>
+
+    </div>
+
+  <% else %>
+    <h2>Pide que tu alcalde añada información en Gobierto Presupuestos Municipales</h2>
+
+    <p>Indícanos cuál es tu municipio y nos encargaremos de hacerle llegar tu petición de más información a sus responsables. Te avisaremos si hay respuesta. Si ya tienes cuenta en Gobierto, <%= link_to 'entra aquí', login_path %></p>
+  <% end %>
+
+  <div class="form clearfix">
+
+    <%= render 'alerts' %>
+
+    <%= form_for @user do |f| %>
+      <%= render partial: 'basic_fields', locals: { f: f} %>
+
+      <div class="form_item full submit_item">
+        <div class="form_item_cont clearfix">
+          <div class="conditions">
+            <p>También recibirás novedades sobre Gobierto Presupuestos Municipales de vez en cuando. Podrás dejar de recibir cuando quieras.</p>
+              <label><%= f.check_box :terms_of_service %> He leído el <%= link_to 'Aviso legal', gobierto_budgets_legal_legal_path, target: 'blank' %> y la <%= link_to 'Política de privacidad', gobierto_budgets_legal_privacy_path, target: 'blank' %></label>
+          </div>
+          <%= hidden_field_tag :back_url, request.referer %>
+          <input type="submit" class="submit" value="Enviar">
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+
+  <p>¿Ya tienes una cuenta en Gobierto? <%= link_to "Haz login", login_path %></p>
+
+</div>

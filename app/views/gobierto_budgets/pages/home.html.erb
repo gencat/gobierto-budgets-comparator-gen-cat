@@ -1,0 +1,154 @@
+<%= flush_the_flash %>
+
+<div class="pre_home">
+
+  <%= image_tag('illustration_home.jpg') %>
+
+  <h1><%= image_tag('LogoGobierto.png', width: '180') %> <span><%= t('.local_budgets') %></span></h1>
+  <h2><%= t('.subtitle') %></h2>
+
+  <input type="text" class="places_search search_auto" placeholder="<%= t('.search_municipality') %>" autofocus="true">
+
+  <p class="example"><%= t('.for_example') %>:
+
+    <span class="" id="suggested_location"></span>
+
+    <%= link_to 'Santander', '/places/santander' %>, <%= link_to 'Talaván', '/places/talavan'  %>, <%= link_to 'Órgiva', '/places/orgiva'  %>, <%= link_to 'Zaragoza', '/places/zaragoza'  %>.
+  </p>
+
+  <div class="home_section">
+    <%= render partial: 'gobierto_budgets/pages/compare_big' %>
+  </div>
+
+  <div class="home_section">
+    <h2 class="section_heading"><%= t('.explore_rankings') %></h2>
+
+    <%= form_tag gobierto_budgets_places_ranking_path(GobiertoBudgets::SearchEngineConfiguration::Year.last,'G','functional','amount'), method: 'GET' do %>
+      <%= image_tag('illustrations/analitica.jpg') %>
+      <%= hidden_field_tag 'f[aarr]' %>
+      <div id="explore_prompt">
+        <%= t('.explore_the_ranking_for') %>
+        <div id="home_kind_switcher" class="switcher kind_switcher">
+          <%= link_to "#{t('common.expenses')} <i class='fa fa-angle-down'></i>".html_safe, '#', data: {value: 'G'}, class: 'selected' %>
+          <ul>
+            <li><%= link_to t('common.expenses'), '#', data: {value: 'G'} %></li>
+            <li><%= link_to t('common.incomes'), '#', data: {value: 'I'} %></li>
+          </ul>
+        </div>
+        <%= t('.for_municipalities_of') %>
+        <div id="home_aarr_switcher"  class="switcher aarr_switcher">
+          <%= link_to "#{t('.whole_spain')} <i class='fa fa-angle-down'></i>".html_safe, '#', data: {value: ''}, class: 'selected'  %>
+          <ul>
+            <% [[t('.whole_spain'),'']].concat(aarr_for_select).each do |ar| %>
+              <li><%= link_to ar[0], '#', data: { value: ar[1] } %></li>
+            <% end %>
+          </ul>
+        </div>
+        <%= submit_tag t('.explore') %>
+      </div>
+    <% end %>
+
+    <p id="ranking_examples"><%= t('.some_examples') %></p>
+
+    <div class="ranking_cards_carousel">
+      <div class="nav left_side"><a href='#' class='prev'>&lt;</a></div>
+      <div class="the_content">
+        <% [ "/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/I/economic/amount/344.json",
+           "/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/functional/amount_per_inhabitant/336.json",
+           "/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/functional/amount/342.json",
+           "/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/functional/amount_per_inhabitant/165.json",
+           "/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/functional/amount/162.json",
+           "/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/functional/amount_per_inhabitant/44.json",
+           "/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/I/economic/amount/313.json",
+           "/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/functional/amount_per_inhabitant/171.json" ].each_with_index do |data_url,i| %>
+
+            <div class="ranking_card clearfix"
+                data-widget-type="ranking_<%= i %>"
+                data-widget-template="#widget-template"
+                data-widget-data-url="/api/data/widget/ranking<%= data_url %>">
+            </div>
+      <% end %>
+
+      </div>
+      <div class="nav right_side"><a href='#' class='next'>&gt;</a></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="clearfix">
+
+  <div class="col-1-3 about_block about_citizens">
+
+    <h3>Para ciudadanos</h3>
+
+    <ul>
+      <li><strong>Entiende el destino de tus impuestos</strong> Consulta cómo invierte tu municipio el dinero de tus impuestos</li>
+      <li><strong>Comprende la estructura de tu municipio</strong> Obtén perspectiva de todos los gastos a los que  se hace frente en tu pueblo o ciudad</li>
+      <li><strong>Contextualiza la información</strong> Compara los gastos de tu municipio con otros similares</li>
+    </ul>
+
+  </div>
+
+  <div class="col-2-3 about_block about_journos">
+
+    <h3>Para periodistas</h3>
+
+    <ul>
+      <li><strong>Descubre historias</strong> Bucea con facilidad en los gastos y su evolución para destapar historias </li>
+      <li><strong>Complementa tu información local</strong> Genera visualizaciones para tus piezas aportando mayor contexto a tus piezas</li>
+      <li><strong>Haz seguimiento</strong> Realiza un seguimiento de los gastos por municipio, región o tipo de gasto</li>
+      <li><strong>Aporta contexto</strong> Contribuye con tu información a contextualizar los presupuestos</li>
+    </ul>
+
+  </div>
+
+  <div class="col-3-3 about_block about_municipalities">
+
+    <h3>Para municipios</h3>
+
+    <ul>
+      <li><strong>Mejora tu eficiencia</strong> Analiza tus presupuestos y conoce como te comparas con municipios similares</li>
+      <li><strong>Mejora la información que ofreces</strong> Añade comentarios e información sobre los proyectos y las inversiones para facilitar la compresión a tus vecinos</li>
+      <li><strong>Completa tu web de forma sencilla</strong> Incluye una versión personalizada en tu propia web</li>
+      <li><strong>Simplifica la elaboración de tu documento de presupuestos</strong> Crea el informe con tus presupuestos, visualizaciones y contextualización de forma automática</li>
+    </ul>
+
+  </div>
+
+</div>
+
+<div class="more_info center">
+  <%= link_to t('.more_information'), gobierto_budgets_about_path, class: 'button' %>
+</div>
+
+<%= render partial: 'gobierto_budgets/pages/ranking_card_template' %>
+
+<% content_for :javascript do %>
+
+  $('[data-widget-type]:first').siblings().hide();
+  $('a.next').click(function(e) {
+    e.preventDefault();
+    var current_widget = $('[data-widget-type]:visible');
+    var next_widget = (current_widget.next().length > 0) ? current_widget.next() : current_widget.siblings().first();
+
+    current_widget.velocity('transition.slideLeftLongOut');
+    next_widget.velocity('transition.slideRightLongIn');
+  })
+
+  $('a.prev').click(function(e) {
+    e.preventDefault();
+    var current_widget = $('[data-widget-type]:visible');
+    var prev_widget = (current_widget.prev().length > 0) ? current_widget.prev() : current_widget.siblings().last();
+
+    current_widget.velocity('transition.slideRightLongOut');
+    prev_widget.velocity('transition.slideLeftLongIn');
+  })
+
+<% end %>
+
+<script type="text/javascript">
+$.ajax('/geocoder');
+</script>

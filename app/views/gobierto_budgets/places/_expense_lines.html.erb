@@ -1,0 +1,13 @@
+<tr>
+  <th>
+    <input type="text" placeholder="<%= t('.search_budget_lines_expense') %>" class="search_items search_categories_budget-expense" data-search-url="<%= gobierto_budgets_search_categories_path(@place.slug,@year, area_name, GobiertoBudgets::BudgetLine::EXPENSE) %>">
+  </th>
+  <th class="right "><%= kind_literal(GobiertoBudgets::BudgetLine::EXPENSE, false) %> <%= t('.total') %></th>
+  <th class="right "><%= kind_literal(GobiertoBudgets::BudgetLine::EXPENSE, false) %> <%= t('.per_inhabitant') %></th>
+  <th class="right ">% <%= t('.percentage_over_total') %></th>
+  <th class="bar_cont"></th>
+</tr>
+<%= render partial: 'gobierto_budgets/places/budget_lines',
+           collection: @expense_lines['hits'],
+           as: 'budget_line',
+           locals: { total_budget: @expense_lines['aggregations']['total_budget']['value'], kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: area_name } %>

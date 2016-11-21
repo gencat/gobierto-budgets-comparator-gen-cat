@@ -1,0 +1,7 @@
+$('#code_<%= params[:parent_code] %>_<%= params[:area] %>_<%= params[:kind] %>').after("<%= j(render partial: 'gobierto_budgets/places/nested_budget_lines') %>")
+
+rebindAll();
+
+<% treemap = params[:kind] == GobiertoBudgets::BudgetLine::INCOME ? 'incomeTreemap' : 'expenseTreemap' %>
+if (window.<%= treemap %> != undefined)
+  window.<%= treemap %>.render('<%= request.url %>&format=json');
