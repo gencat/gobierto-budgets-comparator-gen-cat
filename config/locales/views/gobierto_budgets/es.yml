@@ -1,6 +1,13 @@
 ---
 es:
   gobierto_budgets:
+    featured_budget_lines:
+      show:
+        title: Partidas destacadas
+        question: "¿Cuánto se gasta %{name} en..."
+        per_inhabitant: por habitante
+        percentage_over_total: Porcentaje sobre el total
+        show_me_another: 'Enséñame otra'
     pages:
       ranking:
         rankings: Ránkings

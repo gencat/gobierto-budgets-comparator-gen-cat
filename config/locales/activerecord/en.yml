@@ -3,13 +3,6 @@ en:
   activerecord:
     models:
       user: User
-      site: Site
-      gobierto_participation/idea: Idea
-      gobierto_participation/comment:
-        one: Comment
-        other: Comments
-      gobierto_participation/consultation: Consultation
-      gobierto_cms/page: Page
     attributes:
       user:
         first_name: First name
@@ -20,46 +13,8 @@ en:
         current_password: Current password
         document_type: Document type
         document_number: Document number
-      site:
-        name: Name
-        subdomain: Subdomain
-        config: Configuration
-        location_name: Location name
-        institution_type: Location type
-        name: Site name
-        subdomain: Subdomain
-        institution_url: Main site url
-        institution_email: Institution email
-        institution_address: Institution address
-        institution_document_number: NIF
-      gobierto_participation/idea:
-        title: Title
-        body: Body
-      gobierto_participation/comment:
-        body: Comment
-      gobierto_participation/consultation:
-        title: Title
-        body: Body
-        options: Opciones
-        open_until_date: Date limit
-        open_until_time: Time limit
-      gobierto_participation/consultation_answer:
-        answer: Answer
-        comment: Comment
-      gobierto_cms/page:
-        title: Title
-        body: Body
-        parent_id: Parent page
     errors:
       models:
-        gobierto_participation_consultation:
-          attributes:
-            options:
-              minimum: 'You must create at least two options'
-        gobierto_participation_consultation_answer:
-          attributes:
-            consultation:
-              closed: 'Consultation is already closed'
         user:
           attributes:
             document_number:
