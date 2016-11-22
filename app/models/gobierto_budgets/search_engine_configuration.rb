@@ -12,8 +12,8 @@ module GobiertoBudgets
     end
 
     class BudgetCategories
-      def self.index; 'budget-categories' end
-      def self.type; 'categories' end
+      def self.index; 'tbi-collections' end
+      def self.type; 'c-categorias-presupuestos-municipales' end
     end
 
     class BudgetLine
