@@ -28,7 +28,7 @@
       </div>
       <% if users_enabled? && !logged_in? %>
         <div class="modal_widget" id="in_your_web">
-          <%= link_to %Q{<span>#{t('.in_your_web')}</span> <i class="fa fa-share"></i>}, '', class: 'tool_button' %>
+          <%= link_to %Q{<span>#{t('.in_your_web')}</span> <i class="fa fa-share"></i>}.html_safe, '', class: 'tool_button' %>
           <div class="inner widget_share" >
             <div class="cta_claim">
               <h3><%= t('.municipality_responsible') %></h3>
