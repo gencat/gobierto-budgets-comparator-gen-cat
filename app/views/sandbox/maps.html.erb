@@ -1,14 +1,50 @@
 <header class="place">
-  <h1>Mapa por municipios</h1>
-  <!-- <menu>
+
+  <div class="tools_cont">
+    <div class="tools sticky">
+      <div class="modal_widget" id="compare">
+        <a class="tool_button" href=""><span>Compara</span> <i class="fa fa-compass"></i></a>
+        <div class="inner widget_compare">
+
+          <a class="button js-add_compare" data-place="Barcelona|/places/barcelona/2016|barcelona" data-parent-code="null" href="">Añade <strong>Barcelona</strong> a tu lista y compara</a>
+
+          <div class="sep"></div>
+
+          <p>Tu lista de comparación</p>
+          <ul id='compare_list'>
+          </ul>
+
+          <div id="view_comp_container" class="center">
+            <a id="view_compare" class="button" data-parent-code="null" href="">Ver comparación</a>
+            <span class="soft" id="without_current_note">(sin Barcelona)</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h1 title="Presupuestos Municipales de Barcelona">
+    <div class="switcher year_switcher">
+    <a class="current" href="">2016 <i class='fa fa-angle-down'></i></a>
     <ul>
-      <li><%= link_to 'Presupuesto' %></li>
-      <li><%= link_to 'Ejecución' %></li>
-      <li><%= link_to 'Indicadores' %></li>
-      <li><%= link_to 'Rankings' %></li>
-      <li><%= link_to 'Contexto' %></li>
+        <li><a href="/places/barcelona/2016">2016</a></li>
+        <li><a href="/places/barcelona/2015">2015</a></li>
+        <li><a href="/places/barcelona/2014">2014</a></li>
+        <li><a href="/places/barcelona/2013">2013</a></li>
+        <li><a href="/places/barcelona/2012">2012</a></li>
+        <li><a href="/places/barcelona/2011">2011</a></li>
+        <li><a href="/places/barcelona/2010">2010</a></li>
     </ul>
-  </menu> -->
+</div>
+
+    Mapa por municipios
+  </h1>
+
+  <div class="share_links">
+    <a class="small_button popup" data-rel="Twitter" href="https://twitter.com/home?status=En%20%40gobierto%3A%20Presupuestos%20municipales%20de%20Barcelona%20del%202016%20http%3A%2F%2Flocalhost%3A3000%2Fplaces%2Fbarcelona%2F2016"><i class="fa fa-twitter"></i></a>
+    <a class="small_button popup" data-rel="Facebook" href="http://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A3000%2Fplaces%2Fbarcelona%2F2016"><i class="fa fa-facebook"></i></a>
+  </div>
 </header>
 
 <%= render 'map_metrics' %>
