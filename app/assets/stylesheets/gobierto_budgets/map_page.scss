@@ -2,6 +2,7 @@
   position: absolute;
   // background: rgba(255, 255, 255, 0.8);
   background: #fff;
+  border-radius: 4px;
 }
 .sidebar_wrapper {
   margin: 1em;
@@ -12,7 +13,6 @@
   font-weight: 400;
   margin-top: 0;
   margin-bottom: 0.5em;
-  margin-right: 2em;
   display: inline-block;
 }
 .search_indicator {
