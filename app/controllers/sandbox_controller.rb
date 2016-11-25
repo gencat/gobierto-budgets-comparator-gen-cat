@@ -1,5 +1,6 @@
 class SandboxController < ApplicationController
   before_action :set_working_variables
+  layout 'gobierto_budgets_application'
 
   def index
     @templates = Dir.glob(Rails.root.join('app/views/sandbox/*.html.erb').to_s).map do |filename|
