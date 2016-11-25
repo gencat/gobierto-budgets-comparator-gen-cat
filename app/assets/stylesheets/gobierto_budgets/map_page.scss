@@ -1,0 +1,20 @@
+.map_sidebar {
+  position: absolute;
+  // background: rgba(255, 255, 255, 0.8);
+  background: #fff;
+}
+.sidebar_wrapper {
+  margin: 1em;
+}
+.sidebar_title {
+  font-size: 1.2em;
+  color: #767168;
+  font-weight: 400;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  margin-right: 2em;
+  display: inline-block;
+}
+.search_indicator {
+  height: 0.5em;
+}
