@@ -18,11 +18,19 @@
   margin-bottom: 0.5em;
   display: inline-block;
 }
-.wrap_sidebar:before {
+.icon_sidebar:before {
+  color: #767168;
   vertical-align: sub;
 }
 
 // Sidebar table
+.map_sidebar .year_switcher {
+  width: auto;
+}
+.map_sidebar .year_switcher ul {
+  left: 14px;
+  top: 5px;
+}
 .map_sidebar .items table th {
   border-bottom: none;
 }
