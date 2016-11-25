@@ -1,8 +1,11 @@
+// Sidebar
 .map_sidebar {
+  width: 250px;
   position: absolute;
-  // background: rgba(255, 255, 255, 0.8);
   background: #fff;
-  border-radius: 4px;
+  box-shadow: 5px 5px 5px -5px rgba(0,0,0,0.2);
+  // background: rgba(255, 255, 255, 0.8);
+  // border-radius: 4px;
 }
 .sidebar_wrapper {
   margin: 1em;
@@ -15,6 +18,32 @@
   margin-bottom: 0.5em;
   display: inline-block;
 }
-.search_indicator {
-  height: 0.5em;
+.wrap_sidebar:before {
+  vertical-align: sub;
+}
+
+// Sidebar table
+.map_sidebar .items table th {
+  border-bottom: none;
+}
+.map_sidebar .items table tr.child_group td .child_tb_cont {
+  background: #fff;
+  padding: 0;
+}
+.map_sidebar .items table tr.child_group td tr.child_group td .child_tb_cont {
+  background: #fff;
+  padding: 0 20px;
+}
+.map_sidebar .items table td {
+  padding-top: 0;
+}
+.map_sidebar table tr:hover td {
+  background: #fff;
+}
+.map_sidebar a {
+  text-decoration: none;
+}
+.map_sidebar .items input.search_items {
+  width: 100%;
+  font-weight: 400;
 }
