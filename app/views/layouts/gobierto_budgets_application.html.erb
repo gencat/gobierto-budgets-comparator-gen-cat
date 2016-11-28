@@ -8,6 +8,7 @@
   <%= javascript_include_tag 'gobierto_budgets/application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 
+  <%= yield :header %>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <link rel="apple-touch-icon" sizes="57x57" href="<%= asset_path('favicons/apple-touch-icon-57x57.png') %>">

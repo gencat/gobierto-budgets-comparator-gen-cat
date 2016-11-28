@@ -74,6 +74,7 @@ Rails.application.routes.draw do
     get '/places/:slug/inteligencia' => 'places#intelligence'
     get '/places/:slug/:year/execution' => 'places#execution', as: :place_execution
     get '/places/:slug/:year/debt' => 'places#debt_alive'
+    get '/places/:slug/:year/map' => 'places#map'
     get '/places/:slug/:year' => 'places#show', as: :place
     get '/places/:slug/:year/:kind/:area' => 'places#budget', as: :place_budget
 

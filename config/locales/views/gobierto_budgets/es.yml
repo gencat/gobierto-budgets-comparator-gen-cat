@@ -34,6 +34,9 @@ es:
         some_examples: Algunos ejemplos por partidas
         more_information: Más información
     places:
+      map:
+        title: "Mapa de %{name} en %{year}"
+        meta_description: "Visualiza y explora el mapa de %{name} en %{year}"
       place_header:
         compare: Compara
         add_to_comparing_list_html: "Añade <strong>%{name}</strong> a tu lista y compara"

@@ -34,6 +34,9 @@ en:
         some_examples: Some examples per budget line
         more_information: More information
     places:
+      map:
+        title: "Map from %{name} in %{year}"
+        meta_description: "Check the map from %{name} in %{year}"
       place_header:
         compare: Compare
         add_to_comparing_list_html: "Add <strong>%{name}</strong> to your list and compare"

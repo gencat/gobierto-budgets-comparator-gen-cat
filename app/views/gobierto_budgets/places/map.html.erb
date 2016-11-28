@@ -1,0 +1,263 @@
+<% content_for(:header) do %>
+  <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+  <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+
+  <style>
+    #map {
+      width: 760px;
+      height: 760px;
+    }
+  </style>
+<% end %>
+
+<%
+  @title = t('.title', name: @place.name, year: @year)
+  set_meta_tags title: @title
+  set_meta_tags description: t('.meta_description', name: @place.name, year: @year)
+%>
+
+<%= render partial: 'place_header' %>
+
+<%= render partial: 'map_metrics' %>
+
+<div class="map_sidebar">
+  <div class="sidebar_wrapper">
+    <div class="switcher year_switcher">
+      <h2 class="sidebar_title"><a class="current" href="">Ingresos <i class='fa fa-angle-down'></i></a>
+      <ul>
+          <li><a href="/places/barcelona/2016">Ingresos</a></li>
+          <li><a href="/places/barcelona/2016">Gastos</a></li>
+      </ul>
+    </div>
+    <i class="icon_sidebar fa fa-caret-square-o-up pull-right" aria-hidden="true"></i>
+    <div class="items">
+      <table>
+      <tr>
+        <th>
+          <input type="text" placeholder="Busca partidas" class="search_items">
+        </th>
+      </tr>
+      <tr>
+        <td class="item_name">
+          <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %>
+          <%= link_to 'Impuestos directos', 'municipio_cat_level' %>
+        </td>
+      </tr>
+
+      <!-- second level -->
+        <tr class="child_group" id="level_2">
+          <td colspan="5">
+
+            <div class="child_tb_cont">
+              <table>
+              <tr>
+                <td class="item_name">
+                  <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %>
+                  <%= link_to 'Impuesto sobre la renta' %>
+                </td>
+              </tr>
+              <tr>
+                <td class="item_name">
+                  <div>
+                    <%= link_to '<i class="fa fa-minus-square-o"></i>'.html_safe %>
+                    <%= link_to 'Impuestos sobre el capital' %>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- third level -->
+              <tr class="child_group" id="level_3">
+                <td colspan="5">
+
+                  <div class="child_tb_cont">
+                    <table>
+                    <tr>
+                      <td class="item_name">
+                        <%= link_to 'Impuesto sobre la renta de las personas físicas' %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="item_name">
+                        <%= link_to 'Impuestos sobre sociedades' %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="item_name">
+                        <%= link_to 'Impuestos sobre la renta de no residentes' %>
+                      </td>
+                    </tr>
+                    </table>
+                  </div>
+
+                </td>
+              </tr>
+              <!-- /third level -->
+
+
+              <tr>
+                <td class="item_name">
+                  <div>
+                    <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %>
+                    <%= link_to 'Impuesto sobre las actividades económicas' %>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="item_name">
+                  <div>
+                    <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %>
+                    <%= link_to 'Impuesto sobre la renta' %>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="item_name">
+                  <div>
+                    <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %>
+                    <%= link_to 'Impuestos sobre el capital' %>
+                  </div>
+                </td>
+              </tr>
+              </table>
+            </div>
+
+          </td>
+        </tr>
+      <!-- /second level -->
+      <tr>
+        <td class="item_name">
+          <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %>
+          <%= link_to 'Impuestos indirectos' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="item_name">
+          <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %>
+          <%= link_to 'Tasas y otros ingresos' %>
+        </td>
+      </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div id="map" class="graph">
+</div>
+
+<% content_for(:javascript) do %>
+$(function () {
+CSS['gasto_por_habitante'] = "\
+#indicators_2016 [ gasto_por_habitante <= 10]  { polygon-fill: #d73027; }\
+#indicators_2016 [ gasto_por_habitante > 200]  { polygon-fill: #f79272; }\
+#indicators_2016 [ gasto_por_habitante > 800]  { polygon-fill: #fff2cc; }\
+#indicators_2016 [ gasto_por_habitante > 1500] { polygon-fill: #8cce8a; }\
+#indicators_2016 [ gasto_por_habitante > 3000] { polygon-fill: #1a9850; }\
+";
+
+CSS['gasto_total'] = "\
+#indicators_2016 [ gasto_total <= 100000]  { polygon-fill: #d73027; }\
+#indicators_2016 [ gasto_total > 2000000]  { polygon-fill: #f79272; }\
+#indicators_2016 [ gasto_total > 8000000]  { polygon-fill: #fff2cc; }\
+#indicators_2016 [ gasto_total > 15000000] { polygon-fill: #8cce8a; }\
+#indicators_2016 [ gasto_total > 30000000] { polygon-fill: #1a9850; }\
+";
+
+CSS['planned_vs_executed'] = "\
+#indicators_2016 [ planned_vs_executed <= 100000]  { polygon-fill: #d73027; }\
+#indicators_2016 [ planned_vs_executed > 2000000]  { polygon-fill: #f79272; }\
+#indicators_2016 [ planned_vs_executed > 8000000]  { polygon-fill: #fff2cc; }\
+#indicators_2016 [ planned_vs_executed > 15000000] { polygon-fill: #8cce8a; }\
+#indicators_2016 [ planned_vs_executed > 30000000] { polygon-fill: #1a9850; }\
+";
+
+CSS['population'] = "\
+#indicators_2016 [ population <= 1000]   { polygon-fill: #d73027; }\
+#indicators_2016 [ population > 2000]    { polygon-fill: #f79272; }\
+#indicators_2016 [ population > 10000]   { polygon-fill: #fff2cc; }\
+#indicators_2016 [ population > 100000]  { polygon-fill: #8cce8a; }\
+#indicators_2016 [ population > 1000000] { polygon-fill: #1a9850; }\
+";
+
+CSS['debt'] = "\
+#indicators_2016 [ debt <= 1000]   { polygon-fill: #d73027; }\
+#indicators_2016 [ debt > 2000]    { polygon-fill: #f79272; }\
+#indicators_2016 [ debt > 10000]   { polygon-fill: #fff2cc; }\
+#indicators_2016 [ debt > 100000]  { polygon-fill: #8cce8a; }\
+#indicators_2016 [ debt > 1000000] { polygon-fill: #1a9850; }\
+";
+
+  function updateSubLayer(layer, vis){
+    $('[data-indicator]').click(function(e){
+      var year = $('body').data('year');
+      var indicator = $('.metric.selected').data('indicator');
+
+      console.log(year, indicator);
+
+      // hide AutonomousRegion layer
+      // vis.getLayers()[1].getSubLayer(1).hide();
+      layer.show();
+
+      var query = "select t.cartodb_id, t.place_id, t.nameunit, t.the_geom, t.the_geom_webmercator, i."+indicator+" from ign_spanish_adm3_municipalities_displaced_canary as t full join indicators_"+year+" as i on i.place_id = t.place_id";
+      console.log(query);
+      layer.setSQL(query);
+
+      var css = CSS[indicator];
+      layer.setCartoCSS(css);
+      layer.infowindow.set('template', $('#infowindow_template').html());
+      // $('#legend').html($('#legend_' + indicator).html());
+    });
+  }
+
+  var breakpoint = 770;
+
+  if($(window).width() >= breakpoint) {
+    var home_map_zoom_level = 6;
+    var home_map_center_lat = 39.3;
+    var home_map_center_lon = -5.6;
+  }
+  else {
+    var home_map_zoom_level = 5;
+    var home_map_center_lat = 38.3;
+    var home_map_center_lon = -4.0;
+  }
+
+  console.log(home_map_zoom_level);
+
+  cartodb.createVis('map', 'http://gobierto.carto.com/api/v2/viz/9cf389ac-b159-11e6-bc38-0e3ebc282e83/viz.json', {
+    shareable: false,
+    title: false,
+    description: false,
+    search: false,
+    tiles_loader: true,
+    center_lat: home_map_center_lat,
+    center_lon: home_map_center_lon,
+    zoom: home_map_zoom_level
+  })
+  .done(function(vis, layers) {
+    updateSubLayer(layers[1].getSubLayer(0), vis);
+    $('[data-indicator].selected').click();
+  })
+  .error(function(err) {
+    console.log(err);
+  });
+
+  $('.metric').on('click', function(e){
+    e.preventDefault();
+    $('.metric').removeClass('selected');
+    $(this).addClass('selected');
+  });
+});
+<% end %>
+
+<script type="infowindow/html" id="infowindow_template">
+<div class="cartodb-popup">
+  <a href="#close" class="cartodb-popup-close-button close">x</a>
+
+   <div class="cartodb-popup-content-wrapper">
+     <div class="cartodb-popup-content">
+       <h4>content.data.nameunit</h4>
+     </div>
+   </div>
+   <div class="cartodb-popup-tip-container"></div>
+</div>
+</script>
