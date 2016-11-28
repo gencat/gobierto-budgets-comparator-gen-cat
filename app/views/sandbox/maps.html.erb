@@ -1,0 +1,173 @@
+<header class="place">
+
+  <div class="tools_cont">
+    <div class="tools sticky">
+      <div class="modal_widget" id="compare">
+        <a class="tool_button" href=""><span>Compara</span> <i class="fa fa-compass"></i></a>
+        <div class="inner widget_compare">
+
+          <a class="button js-add_compare" data-place="Barcelona|/places/barcelona/2016|barcelona" data-parent-code="null" href="">Añade <strong>Barcelona</strong> a tu lista y compara</a>
+
+          <div class="sep"></div>
+
+          <p>Tu lista de comparación</p>
+          <ul id='compare_list'>
+          </ul>
+
+          <div id="view_comp_container" class="center">
+            <a id="view_compare" class="button" data-parent-code="null" href="">Ver comparación</a>
+            <span class="soft" id="without_current_note">(sin Barcelona)</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h1 title="Presupuestos Municipales de Barcelona">
+    <div class="switcher year_switcher">
+      <a class="current" href="">2016 <i class='fa fa-angle-down'></i></a>
+      <ul>
+          <li><a href="/places/barcelona/2016">2016</a></li>
+          <li><a href="/places/barcelona/2015">2015</a></li>
+          <li><a href="/places/barcelona/2014">2014</a></li>
+          <li><a href="/places/barcelona/2013">2013</a></li>
+          <li><a href="/places/barcelona/2012">2012</a></li>
+          <li><a href="/places/barcelona/2011">2011</a></li>
+          <li><a href="/places/barcelona/2010">2010</a></li>
+      </ul>
+    </div>
+    Mapa por municipios
+  </h1>
+
+  <div class="share_links">
+    <a class="small_button popup" data-rel="Twitter" href="https://twitter.com/home?status=En%20%40gobierto%3A%20Presupuestos%20municipales%20de%20Barcelona%20del%202016%20http%3A%2F%2Flocalhost%3A3000%2Fplaces%2Fbarcelona%2F2016"><i class="fa fa-twitter"></i></a>
+    <a class="small_button popup" data-rel="Facebook" href="http://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A3000%2Fplaces%2Fbarcelona%2F2016"><i class="fa fa-facebook"></i></a>
+  </div>
+</header>
+
+<%= render 'map_metrics' %>
+
+<div class="map_sidebar">
+  <div class="sidebar_wrapper">
+    <div class="switcher year_switcher">
+      <h2 class="sidebar_title"><a class="current" href="">Ingresos <i class='fa fa-angle-down'></i></a>
+      <ul>
+          <li><a href="/places/barcelona/2016">Ingresos</a></li>
+          <li><a href="/places/barcelona/2016">Gastos</a></li>
+      </ul>
+    </div>
+    <i class="icon_sidebar fa fa-caret-square-o-up pull-right" aria-hidden="true"></i>
+    <div class="items">
+      <table>
+      <tr>
+        <th>
+          <input type="text" placeholder="Busca partidas" class="search_items">
+        </th>
+      </tr>
+      <tr>
+        <td class="item_name">
+          <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %> 
+          <%= link_to 'Impuestos directos', 'municipio_cat_level' %>
+        </td>
+      </tr>
+
+      <!-- second level -->
+        <tr class="child_group" id="level_2">
+          <td colspan="5">
+
+            <div class="child_tb_cont">
+              <table>
+              <tr>
+                <td class="item_name">
+                  <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %> 
+                  <%= link_to 'Impuesto sobre la renta' %>
+                </td>
+              </tr>
+              <tr>
+                <td class="item_name">
+                  <div>
+                    <%= link_to '<i class="fa fa-minus-square-o"></i>'.html_safe %> 
+                    <%= link_to 'Impuestos sobre el capital' %>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- third level -->
+              <tr class="child_group" id="level_3">
+                <td colspan="5">
+
+                  <div class="child_tb_cont">
+                    <table>
+                    <tr>
+                      <td class="item_name">
+                        <%= link_to 'Impuesto sobre la renta de las personas físicas' %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="item_name">
+                        <%= link_to 'Impuestos sobre sociedades' %>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="item_name">
+                        <%= link_to 'Impuestos sobre la renta de no residentes' %>
+                      </td>
+                    </tr>
+                    </table>
+                  </div>
+
+                </td>
+              </tr>
+              <!-- /third level -->
+
+
+              <tr>
+                <td class="item_name">
+                  <div>
+                    <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %> 
+                    <%= link_to 'Impuesto sobre las actividades económicas' %>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="item_name">
+                  <div>
+                    <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %> 
+                    <%= link_to 'Impuesto sobre la renta' %>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="item_name">
+                  <div>
+                    <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %> 
+                    <%= link_to 'Impuestos sobre el capital' %>
+                  </div>
+                </td>
+              </tr>
+              </table>
+            </div>
+
+          </td>
+        </tr>
+      <!-- /second level -->  
+      <tr>
+        <td class="item_name">
+          <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %> 
+          <%= link_to 'Impuestos indirectos' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="item_name">
+          <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %> 
+          <%= link_to 'Tasas y otros ingresos' %>
+        </td>
+      </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<iframe width='100%' height='760' frameborder='0' src='https://marinapresasq.carto.com/viz/8ef95532-95cd-11e5-b26a-0e787de82d45/embed_map' allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
