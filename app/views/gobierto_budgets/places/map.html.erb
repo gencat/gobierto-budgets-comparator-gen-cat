@@ -1,13 +1,6 @@
 <% content_for(:header) do %>
   <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
   <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
-
-  <style>
-    #map {
-      width: 760px;
-      height: 760px;
-    }
-  </style>
 <% end %>
 
 <%
@@ -223,7 +216,7 @@ CSS['debt'] = "\
 
   console.log(home_map_zoom_level);
 
-  cartodb.createVis('map', 'http://gobierto.carto.com/api/v2/viz/9cf389ac-b159-11e6-bc38-0e3ebc282e83/viz.json', {
+  var map = cartodb.createVis('map', 'http://gobierto.carto.com/api/v2/viz/9cf389ac-b159-11e6-bc38-0e3ebc282e83/viz.json', {
     shareable: false,
     title: false,
     description: false,
@@ -231,7 +224,9 @@ CSS['debt'] = "\
     tiles_loader: true,
     center_lat: home_map_center_lat,
     center_lon: home_map_center_lon,
-    zoom: home_map_zoom_level
+    zoom: home_map_zoom_level,
+    zoomControl: true,
+    loaderControl: false
   })
   .done(function(vis, layers) {
     updateSubLayer(layers[1].getSubLayer(0), vis);

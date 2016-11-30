@@ -1,5 +1,19 @@
+// Main map
+#map {
+  margin-top: 1.5em;
+  height: 300px;
+  width: 100%
+}
+
+// Move zoom control buttons
+.cartodb-map-wrapper .cartodb-zoom {
+  float: right;
+  margin: 20px 20px 0 0;
+}
+
 // Sidebar
 .map_sidebar {
+  margin-top: 0.5em;
   width: 250px;
   position: absolute;
   background: #fff;
@@ -54,4 +68,10 @@
 .map_sidebar .items input.search_items {
   width: 100%;
   font-weight: 400;
+}
+
+@media (min-width: 768px) {
+  #map {
+    height: 760px;
+  }
 }
