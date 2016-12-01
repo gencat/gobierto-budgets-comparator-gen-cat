@@ -31,6 +31,42 @@ module GobiertoBudgets
           end
         end
       end
+
+      def place
+        @place = INE::Places::Place.find_by_slug params[:slug]
+        @year = params[:year]
+        @area = params[:area]
+        @kind = params[:kind]
+
+        klass = @area == 'economic' ? GobiertoBudgets::EconomicArea : GobiertoBudgets::FunctionalArea
+        categories = Hash[klass.all_items[@kind].sort_by{ |k,v| k.to_f }]
+
+        terms = [{term: { ine_code: @place.id }}, {term: { year: @year }}, {term: { kind: @kind }}]
+
+        query = {
+          query: {
+            filtered: {
+              filter: {
+                bool: {
+                  must: terms
+                }
+              }
+            }
+          },
+          size: 10_000
+        }
+
+        response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: @area, body: query
+        codes = response['hits']['hits'].map{|h| h['_source']['code'] }
+
+        categories.delete_if{|k,_| !codes.include?(k) }
+
+        respond_to do |format|
+          format.json do
+            render json: categories.to_json
+          end
+        end
+      end
     end
   end
 end

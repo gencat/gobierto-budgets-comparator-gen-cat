@@ -19,9 +19,9 @@
     <div class="switcher year_switcher">
       <h2 class="sidebar_title"></h2>
       <ul>
-        <li><a href="#" data-select-category data-area="<%= GobiertoBudgets::BudgetLine::ECONOMIC %>"   data-kind="<%= GobiertoBudgets::BudgetLine::INCOME %>" data-api-url="<%= gobierto_budgets_api_categories_path(area: GobiertoBudgets::BudgetLine::ECONOMIC, kind: GobiertoBudgets::BudgetLine::INCOME, format: :json) %>">Ingresos</a></li>
-        <li><a href="#" data-select-category data-area="<%= GobiertoBudgets::BudgetLine::FUNCTIONAL %>" data-kind="<%= GobiertoBudgets::BudgetLine::EXPENSE %>" data-selected data-api-url="<%= gobierto_budgets_api_categories_path(area: GobiertoBudgets::BudgetLine::FUNCTIONAL, kind: GobiertoBudgets::BudgetLine::EXPENSE, format: :json) %>">En qué se gasta</a></li>
-        <li><a href="#" data-select-category data-area="<%= GobiertoBudgets::BudgetLine::ECONOMIC %>"   data-kind="<%= GobiertoBudgets::BudgetLine::EXPENSE %>" data-api-url="<%= gobierto_budgets_api_categories_path(area: GobiertoBudgets::BudgetLine::ECONOMIC, kind: GobiertoBudgets::BudgetLine::EXPENSE, format: :json) %>">Para qué se gasta</a></li>
+        <li><a href="#" data-select-category data-area="<%= GobiertoBudgets::BudgetLine::ECONOMIC %>"   data-kind="<%= GobiertoBudgets::BudgetLine::INCOME %>"  data-api-url="<%= gobierto_budgets_api_place_categories_path(slug: @place.slug, year: @year, area: GobiertoBudgets::BudgetLine::ECONOMIC, kind: GobiertoBudgets::BudgetLine::INCOME, format: :json) %>">Ingresos</a></li>
+        <li><a href="#" data-select-category data-area="<%= GobiertoBudgets::BudgetLine::FUNCTIONAL %>" data-kind="<%= GobiertoBudgets::BudgetLine::EXPENSE %>" data-selected data-api-url="<%= gobierto_budgets_api_place_categories_path(slug: @place.slug, year: @year, area: GobiertoBudgets::BudgetLine::FUNCTIONAL, kind: GobiertoBudgets::BudgetLine::EXPENSE, format: :json) %>">En qué se gasta</a></li>
+        <li><a href="#" data-select-category data-area="<%= GobiertoBudgets::BudgetLine::ECONOMIC %>"   data-kind="<%= GobiertoBudgets::BudgetLine::EXPENSE %>" data-api-url="<%= gobierto_budgets_api_place_categories_path(slug: @place.slug, year: @year, area: GobiertoBudgets::BudgetLine::ECONOMIC, kind: GobiertoBudgets::BudgetLine::EXPENSE, format: :json) %>">Para qué se gasta</a></li>
       </ul>
     </div>
 
@@ -100,6 +100,7 @@ CSS['debt'] = "\
       console.log(year, indicator);
 
       layer.show();
+      layer.setInteraction(true);
 
       var query = "select t.cartodb_id, t.place_id, t.nameunit, t.the_geom, t.the_geom_webmercator, i."+indicator+" from ign_spanish_adm3_municipalities_displaced_canary as t full join indicators_"+year+" as i on i.place_id = t.place_id";
       console.log(query);
@@ -119,6 +120,7 @@ CSS['debt'] = "\
       console.log(year, e.kind, e.area, e.code);
 
       layer.show();
+      layer.setInteraction(true);
 
       var query = "select t.cartodb_id, t.place_id, t.nameunit, t.the_geom, t.the_geom_webmercator, i.code, i.kind, i.area, i.amount, i.amount_per_inhabitant from ign_spanish_adm3_municipalities_displaced_canary as t full join planned_budgets_"+year+" as i on i.place_id = t.place_id" +
                   " WHERE code='"+e.code+"' AND kind='" + e.kind + "' AND area='" + e.area[0] + "'";
@@ -158,8 +160,13 @@ CSS['debt'] = "\
     loaderControl: false
   })
   .done(function(vis, layers) {
-    renderMapIndicator(layers[1].getSubLayer(0), vis);
-    renderMapBudgetLine(layers[1].getSubLayer(0), vis);
+    var subLayer = layers[1].getSubLayer(0);
+    subLayer.setInteraction(true);
+    subLayer.on('featureClick', function(event, latlng, pos, data){
+      $('#info').html('You clicked at ' + data.nameunit);
+    });
+    renderMapIndicator(subLayer, vis);
+    renderMapBudgetLine(subLayer, vis);
     $('[data-indicator].selected').click();
   })
   .error(function(err) {
