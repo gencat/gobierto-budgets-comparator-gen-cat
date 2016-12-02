@@ -42,6 +42,8 @@
         this.attr.state.dataUrl = target.data('api-url');
         this.fillPlaceHolder(target);
         target.parents('ul').hide();
+        this.itemsParent.show();
+        $(e.target).removeClass('fa-caret-square-o-down').addClass('fa-caret-square-o-up');
       }.bind(this));
 
       $(document).on('click', '[data-expand-category]', function(e){
@@ -84,6 +86,7 @@
         }
       }.bind(this));
 
+      // Initial state
       $('[data-selected]').click();
     });
 
@@ -91,7 +94,7 @@
       this.titlePlaceholder.html('');
       var category = selectedCategory.clone();
       category.html(category.html() + ' ' + this.attr.dropDownIcon);
-      category.addClass('selected');
+      category.addClass('current');
       this.titlePlaceholder.html(category);
       this.renderCategories();
     };
