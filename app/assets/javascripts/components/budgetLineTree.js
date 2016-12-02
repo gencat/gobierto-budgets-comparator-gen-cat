@@ -9,14 +9,14 @@
       collapseIconClass: "fa-minus-square-o",
       state: {
         kind: null,
-        area: null,
-        dataUrl: null
+        area: null
       }
     });
 
     this.after('initialize', function() {
       this.titlePlaceholder = this.$node.find('h2.sidebar_title');
       this.itemsParent = this.$node.find('div.items');
+      this.attr.dataUrl = this.$node.data('api-url');
 
       this.$node.find('[data-toggle]').on('click', function(e){
         this.itemsParent.toggle();
@@ -28,8 +28,8 @@
         $.event.trigger({
           type: "renderBudgetLineCategory",
           code: $(e.target).data('category-code'),
-          kind: this.attr.state.kind,
-          area: this.attr.state.area
+          kind: $(e.target).data('kind'),
+          area: $(e.target).data('area')
         });
       }.bind(this));
 
@@ -39,7 +39,6 @@
         this.attr.categories = [];
         this.attr.state.kind = target.data('kind');
         this.attr.state.area = target.data('area');
-        this.attr.state.dataUrl = target.data('api-url');
         this.fillPlaceHolder(target);
         target.parents('ul').hide();
         this.itemsParent.show();
@@ -72,13 +71,18 @@
       $(document).on('input propertychange paste', '[data-search-box]', function(e){
         var val = $(e.target).val();
         if(val.length >= 3){
-          var categories = this.attr.categories;
           this.cleanOldCategories();
-          Object.keys(categories).sort().forEach(function(key) {
-            if(categories[key].toLowerCase().indexOf(val.toLowerCase()) !== -1){
-              this.addCategory(key, categories[key], false);
+
+          for (var area in this.attr.categories) {
+            for (var kind in this.attr.categories[area]) {
+              var categories = this.attr.categories[area][kind];
+              Object.keys(categories).sort().forEach(function(key) {
+                if(categories[key].toLowerCase().indexOf(val.toLowerCase()) !== -1){
+                  this.addCategory(key, categories[key], area, kind, false);
+                }
+              }.bind(this));
             }
-          }.bind(this));
+          }
         } else {
           if(val.length === 0){
             $('[data-selected]').click();
@@ -101,7 +105,7 @@
 
     this.renderCategories = function(parentCode) {
       if(this.attr.categories.length === 0){
-        $.getJSON(this.attr.state.dataUrl, function(categories){
+        $.getJSON(this.attr.dataUrl, function(categories){
           this.attr.categories = categories;
           this.categoriesHandler(parentCode);
         }.bind(this));
@@ -111,20 +115,19 @@
     };
 
     this.categoriesHandler = function(parentCode){
-      var categories = this.attr.categories;
+      var categories = this.attr.categories[this.attr.state.area][this.attr.state.kind];
       if(parentCode === undefined)
         this.cleanOldCategories();
       Object.keys(categories).sort().forEach(function(key) {
         if(parentCode === undefined) {
           if(key.length === 1)
-            this.addCategory(key, categories[key], true);
+            this.addCategory(key, categories[key], this.attr.state.area, this.attr.state.kind, true);
         }
         else {
           parentCode = parentCode.toString();
           if(key.length === parentCode.length + 1 && key.substr(0, parentCode.length) === parentCode) {
-            console.log(parentCode, key);
             var target = this.$node.find('table[data-insert-subcategories="'+parentCode+'"] tr:last');
-            this.addSubCategory(target, key, categories[key]);
+            this.addSubCategory(target, key, this.attr.state.area, this.attr.state.kind, categories[key]);
           }
         }
       }.bind(this));
@@ -136,17 +139,17 @@
       });
     };
 
-    this.addCategory = function(categoryCode, categoryName, addExpand){
+    this.addCategory = function(categoryCode, categoryName, area, kind, addExpand){
       var lastTr = this.itemsParent.find('tr:last');
       var html = '<tr><td class="item_name">' +
                  (addExpand ? '<i class="fa '+this.attr.expandIconClass+'" data-expand-category="'+categoryCode+'"></i>' : '') +
-                 '<a href="#" data-category-code="'+categoryCode+'">'+categoryName+'</a></td></tr>';
+                 '<a href="#" data-area="'+area+'" data-kind="'+kind+'" data-category-code="'+categoryCode+'">'+categoryName+'</a></td></tr>';
       $(html).insertAfter(lastTr);
     };
 
-    this.addSubCategory = function(target, categoryCode, categoryName){
+    this.addSubCategory = function(target, categoryCode, area, kind, categoryName){
       var html = '<tr><td class="item_name"><i class="fa '+this.attr.expandIconClass+'" data-expand-category="'+categoryCode+'"></i>' +
-                 '<a href="#" data-category-code="'+categoryCode+'">'+categoryName+'</a></td></tr>';
+                 '<a href="#" data-area="'+area+'" data-kind="'+kind+'" data-category-code="'+categoryCode+'">'+categoryName+'</a></td></tr>';
       $(html).insertAfter(target);
     };
 

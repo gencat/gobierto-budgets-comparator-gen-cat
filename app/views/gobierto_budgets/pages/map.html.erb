@@ -140,15 +140,15 @@
 
 <%= render partial: 'map_metrics' %>
 
-<div class="map_sidebar" data-budget-line-categories-tree>
+<div class="map_sidebar" data-budget-line-categories-tree data-api-url="<%= gobierto_budgets_api_categories_path(format: :json) %>">
   <div class="sidebar_wrapper">
 
     <div class="switcher year_switcher">
       <h2 class="sidebar_title"></h2>
       <ul>
-        <li><a href="#" data-select-category data-area="<%= GobiertoBudgets::BudgetLine::ECONOMIC %>"   data-kind="<%= GobiertoBudgets::BudgetLine::INCOME %>"  data-api-url="<%= gobierto_budgets_api_categories_path(area: GobiertoBudgets::BudgetLine::ECONOMIC, kind: GobiertoBudgets::BudgetLine::INCOME, format: :json) %>">Ingresos</a></li>
-        <li><a href="#" data-select-category data-area="<%= GobiertoBudgets::BudgetLine::FUNCTIONAL %>" data-kind="<%= GobiertoBudgets::BudgetLine::EXPENSE %>" data-selected data-api-url="<%= gobierto_budgets_api_categories_path(area: GobiertoBudgets::BudgetLine::FUNCTIONAL, kind: GobiertoBudgets::BudgetLine::EXPENSE, format: :json) %>">En qué se gasta</a></li>
-        <li><a href="#" data-select-category data-area="<%= GobiertoBudgets::BudgetLine::ECONOMIC %>"   data-kind="<%= GobiertoBudgets::BudgetLine::EXPENSE %>" data-api-url="<%= gobierto_budgets_api_categories_path(area: GobiertoBudgets::BudgetLine::ECONOMIC, kind: GobiertoBudgets::BudgetLine::EXPENSE, format: :json) %>">Para qué se gasta</a></li>
+        <li><a href="#" data-select-category data-area="<%= GobiertoBudgets::BudgetLine::ECONOMIC %>"   data-kind="<%= GobiertoBudgets::BudgetLine::INCOME %>">Ingresos</a></li>
+        <li><a href="#" data-select-category data-area="<%= GobiertoBudgets::BudgetLine::FUNCTIONAL %>" data-kind="<%= GobiertoBudgets::BudgetLine::EXPENSE %>" data-selected>En qué se gasta</a></li>
+        <li><a href="#" data-select-category data-area="<%= GobiertoBudgets::BudgetLine::ECONOMIC %>"   data-kind="<%= GobiertoBudgets::BudgetLine::EXPENSE %>">Para qué se gasta</a></li>
       </ul>
     </div>
 
