@@ -41,9 +41,14 @@ Rails.application.routes.draw do
       get '/data/widget/budget_execution_deviation/:ine_code/:year/:kind' => 'data#budget_execution_deviation', as: :data_budget_execution_deviation
       get '/data/widget/debt/:ine_code/:year' => 'data#debt', as: :data_debt
 
+      get '/data/widget/global_total_budget/:year' => 'global_data#total_budget', as: :global_data_total_budget
+      get '/data/widget/global_total_budget_per_inhabitant/:year' => 'global_data#total_budget_per_inhabitant', as: :global_data_total_budget_per_inhabitant
+      get '/data/widget/global_population/:year' => 'global_data#population', as: :global_data_population
+      get '/data/widget/global_debt/:year' => 'global_data#debt', as: :global_data_debt
+      get '/data/widget/global_total_budget_execution/:year' => 'global_data#total_budget_execution', as: :global_data_total_budget_execution
+
       get '/categories' => 'categories#index'
       get '/categories/:area/:kind' => 'categories#index'
-      get '/categories/place/:slug/:year/:area/:kind' => 'categories#place', as: :place_categories
       get '/places' => 'places#index'
       get '/data/:ine_code/:year/:kind/:area' => 'data#budgets'
       get '/data/debt/:year' => 'data#municipalities_debt'
@@ -68,6 +73,7 @@ Rails.application.routes.draw do
     get 'search' => 'search#index'
     get 'categories/:slug/:year/:area/:kind' => 'search#categories', as: :search_categories
     get 'geocoder' => 'geocoder#index', as: :geocoder
+    get '/mapas/:year' => 'pages#map', as: :map
 
     get '/budget_lines/:slug/:year/:code/:kind/:area' => 'budget_lines#show', as: :budget_line
     get '/budget_lines/:slug/:year/:code/:kind/:area/feedback/:question_id' => 'budget_lines#feedback', as: :budget_line_feedback
@@ -75,7 +81,6 @@ Rails.application.routes.draw do
     get '/places/:slug/inteligencia' => 'places#intelligence'
     get '/places/:slug/:year/execution' => 'places#execution', as: :place_execution
     get '/places/:slug/:year/debt' => 'places#debt_alive'
-    get '/places/:slug/:year/map' => 'places#map'
     get '/places/:slug/:year' => 'places#show', as: :place
     get '/places/:slug/:year/:kind/:area' => 'places#budget', as: :place_budget
 
