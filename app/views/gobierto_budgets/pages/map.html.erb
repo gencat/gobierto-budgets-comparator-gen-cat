@@ -1,6 +1,118 @@
 <% content_for(:header) do %>
   <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
   <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+
+  <style>
+.CDB-Tooltip--isDark.CDB-Tooltip {
+    background: #2E3C43
+}
+
+.CDB-Tooltip--isDark .CDB-Tooltip-listTitle {
+    color: rgba(255, 255, 255, 0.64)
+}
+
+.CDB-Tooltip--isDark .CDB-Tooltip-listText {
+    color: #FFF
+}
+
+.CDB-Tooltip--isLight.CDB-Tooltip {
+    background: #FFF
+}
+
+.CDB-Tooltip--isLight .CDB-Tooltip-listTitle {
+    color: #636D72
+}
+
+.CDB-Tooltip-wrapper {
+    display: none;
+    position: absolute;
+    min-width: 120px;
+    max-width: 180px;
+    border-radius: 4px;
+    overflow: hidden
+}
+
+.CDB-Tooltip-wrapper.CDB-Tooltip-wrapper--topLeft {
+    border-top-left-radius: 0
+}
+
+.CDB-Tooltip-wrapper.CDB-Tooltip-wrapper--topRight {
+    border-top-right-radius: 0
+}
+
+.CDB-Tooltip-wrapper.CDB-Tooltip-wrapper--bottomLeft {
+    border-bottom-left-radius: 0
+}
+
+.CDB-Tooltip-wrapper.CDB-Tooltip-wrapper--bottomRight {
+    border-bottom-right-radius: 0
+}
+
+.CDB-Tooltip-wrapper .cartodb-tooltip-content-wrapper {
+    padding: 20px 24px;
+    background: #FFF;
+    font-family: 'Open Sans';
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.05);
+    z-index: 50
+}
+
+.CDB-Tooltip-wrapper .cartodb-tooltip-content-wrapper.dark {
+    background: #2E3C43;
+    color: #FFF
+}
+
+.CDB-Tooltip-wrapper .cartodb-tooltip-content-wrapper.dark h4 {
+    color: rgba(255, 255, 255, 0.64)
+}
+
+.CDB-Tooltip-wrapper .cartodb-tooltip-content-wrapper h4 {
+    margin-top: 8px;
+    color: #636D72;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 15px;
+    text-transform: uppercase
+}
+
+.CDB-Tooltip-wrapper .cartodb-tooltip-content-wrapper h4:first-child {
+    margin-top: 0
+}
+
+.CDB-Tooltip-wrapper .cartodb-tooltip-content-wrapper p {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 16px
+}
+
+.CDB-Tooltip {
+    padding: 20px 24px;
+    font-family: 'Open Sans';
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.05);
+    z-index: 50
+}
+
+.CDB-Tooltip-listItem {
+    margin-top: 8px
+}
+
+.CDB-Tooltip-listItem:first-child {
+    margin-top: 0
+}
+
+.CDB-Tooltip-listTitle {
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 15px;
+    text-transform: uppercase
+}
+
+.CDB-Tooltip-listText {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 16px
+}
+  </style>
+
 <% end %>
 
 <%
@@ -54,57 +166,56 @@
   </div>
 </div>
 
-<div id="map" class="graph">
-</div>
+<div id="map"></div>
 
 <% content_for(:javascript) do %>
 $(function () {
 CSS['gasto_por_habitante'] = "\
-#indicators_2016 [ gasto_por_habitante <= 10]  { polygon-fill: #d73027; }\
-#indicators_2016 [ gasto_por_habitante > 200]  { polygon-fill: #f79272; }\
-#indicators_2016 [ gasto_por_habitante > 800]  { polygon-fill: #fff2cc; }\
-#indicators_2016 [ gasto_por_habitante > 1500] { polygon-fill: #8cce8a; }\
-#indicators_2016 [ gasto_por_habitante > 3000] { polygon-fill: #1a9850; }\
+#indicators_2016 [ value <= 10]  { polygon-fill: #d73027; }\
+#indicators_2016 [ value > 200]  { polygon-fill: #f79272; }\
+#indicators_2016 [ value > 800]  { polygon-fill: #fff2cc; }\
+#indicators_2016 [ value > 1500] { polygon-fill: #8cce8a; }\
+#indicators_2016 [ value > 3000] { polygon-fill: #1a9850; }\
 ";
 
 CSS['gasto_total'] = "\
-#indicators_2016 [ gasto_total <= 100000]  { polygon-fill: #d73027; }\
-#indicators_2016 [ gasto_total > 2000000]  { polygon-fill: #f79272; }\
-#indicators_2016 [ gasto_total > 8000000]  { polygon-fill: #fff2cc; }\
-#indicators_2016 [ gasto_total > 15000000] { polygon-fill: #8cce8a; }\
-#indicators_2016 [ gasto_total > 30000000] { polygon-fill: #1a9850; }\
+#indicators_2016 [ value <= 100000]  { polygon-fill: #d73027; }\
+#indicators_2016 [ value > 2000000]  { polygon-fill: #f79272; }\
+#indicators_2016 [ value > 8000000]  { polygon-fill: #fff2cc; }\
+#indicators_2016 [ value > 15000000] { polygon-fill: #8cce8a; }\
+#indicators_2016 [ value > 30000000] { polygon-fill: #1a9850; }\
 ";
 
 CSS['budgets'] = "\
-#indicators_2016 [ amount <= 100000]  { polygon-fill: #d73027; }\
-#indicators_2016 [ amount > 2000000]  { polygon-fill: #f79272; }\
-#indicators_2016 [ amount > 8000000]  { polygon-fill: #fff2cc; }\
-#indicators_2016 [ amount > 15000000] { polygon-fill: #8cce8a; }\
-#indicators_2016 [ amount > 30000000] { polygon-fill: #1a9850; }\
+#indicators_2016 [ value <= 100000]  { polygon-fill: #d73027; }\
+#indicators_2016 [ value > 2000000]  { polygon-fill: #f79272; }\
+#indicators_2016 [ value > 8000000]  { polygon-fill: #fff2cc; }\
+#indicators_2016 [ value > 15000000] { polygon-fill: #8cce8a; }\
+#indicators_2016 [ value > 30000000] { polygon-fill: #1a9850; }\
 ";
 
 CSS['planned_vs_executed'] = "\
-#indicators_2016 [ planned_vs_executed <= 100000]  { polygon-fill: #d73027; }\
-#indicators_2016 [ planned_vs_executed > 2000000]  { polygon-fill: #f79272; }\
-#indicators_2016 [ planned_vs_executed > 8000000]  { polygon-fill: #fff2cc; }\
-#indicators_2016 [ planned_vs_executed > 15000000] { polygon-fill: #8cce8a; }\
-#indicators_2016 [ planned_vs_executed > 30000000] { polygon-fill: #1a9850; }\
+#indicators_2016 [ value <= 100000]  { polygon-fill: #d73027; }\
+#indicators_2016 [ value > 2000000]  { polygon-fill: #f79272; }\
+#indicators_2016 [ value > 8000000]  { polygon-fill: #fff2cc; }\
+#indicators_2016 [ value > 15000000] { polygon-fill: #8cce8a; }\
+#indicators_2016 [ value > 30000000] { polygon-fill: #1a9850; }\
 ";
 
 CSS['population'] = "\
-#indicators_2016 [ population <= 1000]   { polygon-fill: #d73027; }\
-#indicators_2016 [ population > 2000]    { polygon-fill: #f79272; }\
-#indicators_2016 [ population > 10000]   { polygon-fill: #fff2cc; }\
-#indicators_2016 [ population > 100000]  { polygon-fill: #8cce8a; }\
-#indicators_2016 [ population > 1000000] { polygon-fill: #1a9850; }\
+#indicators_2016 [ value <= 1000]   { polygon-fill: #d73027; }\
+#indicators_2016 [ value > 2000]    { polygon-fill: #f79272; }\
+#indicators_2016 [ value > 10000]   { polygon-fill: #fff2cc; }\
+#indicators_2016 [ value > 100000]  { polygon-fill: #8cce8a; }\
+#indicators_2016 [ value > 1000000] { polygon-fill: #1a9850; }\
 ";
 
 CSS['debt'] = "\
-#indicators_2016 [ debt <= 1000]   { polygon-fill: #d73027; }\
-#indicators_2016 [ debt > 2000]    { polygon-fill: #f79272; }\
-#indicators_2016 [ debt > 10000]   { polygon-fill: #fff2cc; }\
-#indicators_2016 [ debt > 100000]  { polygon-fill: #8cce8a; }\
-#indicators_2016 [ debt > 1000000] { polygon-fill: #1a9850; }\
+#indicators_2016 [ value <= 1000]   { polygon-fill: #d73027; }\
+#indicators_2016 [ value > 2000]    { polygon-fill: #f79272; }\
+#indicators_2016 [ value > 10000]   { polygon-fill: #fff2cc; }\
+#indicators_2016 [ value > 100000]  { polygon-fill: #8cce8a; }\
+#indicators_2016 [ value > 1000000] { polygon-fill: #1a9850; }\
 ";
 
   function renderMapIndicator(layer, vis){
@@ -115,15 +226,13 @@ CSS['debt'] = "\
       console.log(year, indicator);
 
       layer.show();
-      layer.setInteraction(true);
 
-      var query = "select t.cartodb_id, t.place_id, t.nameunit, t.the_geom, t.the_geom_webmercator, i."+indicator+" from ign_spanish_adm3_municipalities_displaced_canary as t full join indicators_"+year+" as i on i.place_id = t.place_id";
+      var query = "select t.cartodb_id, t.place_id, t.nameunit as name, t.the_geom, t.the_geom_webmercator, i."+indicator+" as value from ign_spanish_adm3_municipalities_displaced_canary as t full join indicators_"+year+" as i on i.place_id = t.place_id";
       console.log(query);
       layer.setSQL(query);
 
       var css = CSS[indicator];
       layer.setCartoCSS(css);
-      layer.infowindow.set('template', $('#infowindow_template').html());
       // $('#legend').html($('#legend_' + indicator).html());
     });
   }
@@ -135,16 +244,14 @@ CSS['debt'] = "\
       console.log(year, e.kind, e.area, e.code);
 
       layer.show();
-      layer.setInteraction(true);
 
-      var query = "select t.cartodb_id, t.place_id, t.nameunit, t.the_geom, t.the_geom_webmercator, i.code, i.kind, i.area, i.amount, i.amount_per_inhabitant from ign_spanish_adm3_municipalities_displaced_canary as t full join planned_budgets_"+year+" as i on i.place_id = t.place_id" +
+      var query = "select t.cartodb_id, t.place_id, t.nameunit as name, t.the_geom, t.the_geom_webmercator, i.code, i.kind, i.area, i.amount, i.amount_per_inhabitant as value from ign_spanish_adm3_municipalities_displaced_canary as t full join planned_budgets_"+year+" as i on i.place_id = t.place_id" +
                   " WHERE code='"+e.code+"' AND kind='" + e.kind + "' AND area='" + e.area[0] + "'";
       console.log(query);
       layer.setSQL(query);
 
       var css = CSS['budgets'];
       layer.setCartoCSS(css);
-      layer.infowindow.set('template', $('#infowindow_template').html());
       // $('#legend').html($('#legend_' + indicator).html());
     });
   }
@@ -162,7 +269,9 @@ CSS['debt'] = "\
     var home_map_center_lon = -4.0;
   }
 
-  cartodb.createVis('map', 'http://gobierto.carto.com/api/v2/viz/9cf389ac-b159-11e6-bc38-0e3ebc282e83/viz.json', {
+  var infowindow_fields = ['name', 'value'];
+
+  cartodb.createVis('map', 'https://gobierto.carto.com/api/v2/viz/205616b2-b893-11e6-b070-0e233c30368f/viz.json', {
     shareable: false,
     title: false,
     description: false,
@@ -175,13 +284,18 @@ CSS['debt'] = "\
     loaderControl: false
   })
   .done(function(vis, layers) {
-    var subLayer = layers[1].getSubLayer(0);
-    subLayer.setInteraction(true);
-    subLayer.on('featureClick', function(event, latlng, pos, data){
-      $('#info').html('You clicked at ' + data.nameunit);
+    var map = vis.getNativeMap();
+    var sublayer = layers[1].getSubLayer(0);
+    vis.addOverlay({
+      type: 'tooltip',
+      layer: sublayer,
+      template: $('#infowindow_template').html(),
+      position: 'bottom|right',
+      fields: [{ name: 'name', value: 'value' }]
     });
-    renderMapIndicator(subLayer, vis);
-    renderMapBudgetLine(subLayer, vis);
+    sublayer.setInteractivity('name, value');
+    renderMapIndicator(sublayer, vis);
+    renderMapBudgetLine(sublayer, vis);
     $('[data-indicator].selected').click();
   })
   .error(function(err) {
@@ -197,14 +311,12 @@ CSS['debt'] = "\
 <% end %>
 
 <script type="infowindow/html" id="infowindow_template">
-<div class="cartodb-popup">
-  <a href="#close" class="cartodb-popup-close-button close">x</a>
-
-   <div class="cartodb-popup-content-wrapper">
-     <div class="cartodb-popup-content">
-       <h4>content.data.nameunit</h4>
-     </div>
-   </div>
-   <div class="cartodb-popup-tip-container"></div>
+<div class="CDB-Tooltip CDB-Tooltip--isLight">
+  <ul class="CDB-Tooltip-list">
+    <li class="CDB-Tooltip-listItem">
+      <h4 class="CDB-Tooltip-listText">{{name}}</h4>
+      <h4 class="CDB-Tooltip-listText">{{value}}</h4>
+    </li>
+  </ul>
 </div>
 </script>
