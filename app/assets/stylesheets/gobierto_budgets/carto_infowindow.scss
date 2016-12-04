@@ -1,0 +1,108 @@
+.CDB-Tooltip--isDark.CDB-Tooltip {
+    background: #2E3C43
+}
+
+.CDB-Tooltip--isDark .CDB-Tooltip-listTitle {
+    color: rgba(255, 255, 255, 0.64)
+}
+
+.CDB-Tooltip--isDark .CDB-Tooltip-listText {
+    color: #FFF
+}
+
+.CDB-Tooltip--isLight.CDB-Tooltip {
+    background: #FFF
+}
+
+.CDB-Tooltip--isLight .CDB-Tooltip-listTitle {
+    color: #636D72
+}
+
+.CDB-Tooltip-wrapper {
+    display: none;
+    position: absolute;
+    min-width: 120px;
+    max-width: 180px;
+    border-radius: 4px;
+    overflow: hidden
+}
+
+.CDB-Tooltip-wrapper.CDB-Tooltip-wrapper--topLeft {
+    border-top-left-radius: 0
+}
+
+.CDB-Tooltip-wrapper.CDB-Tooltip-wrapper--topRight {
+    border-top-right-radius: 0
+}
+
+.CDB-Tooltip-wrapper.CDB-Tooltip-wrapper--bottomLeft {
+    border-bottom-left-radius: 0
+}
+
+.CDB-Tooltip-wrapper.CDB-Tooltip-wrapper--bottomRight {
+    border-bottom-right-radius: 0
+}
+
+.CDB-Tooltip-wrapper .cartodb-tooltip-content-wrapper {
+    padding: 20px 24px;
+    background: #FFF;
+    font-family: 'Open Sans';
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.05);
+    z-index: 50
+}
+
+.CDB-Tooltip-wrapper .cartodb-tooltip-content-wrapper.dark {
+    background: #2E3C43;
+    color: #FFF
+}
+
+.CDB-Tooltip-wrapper .cartodb-tooltip-content-wrapper.dark h4 {
+    color: rgba(255, 255, 255, 0.64)
+}
+
+.CDB-Tooltip-wrapper .cartodb-tooltip-content-wrapper h4 {
+    margin-top: 8px;
+    color: #636D72;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 15px;
+    text-transform: uppercase
+}
+
+.CDB-Tooltip-wrapper .cartodb-tooltip-content-wrapper h4:first-child {
+    margin-top: 0
+}
+
+.CDB-Tooltip-wrapper .cartodb-tooltip-content-wrapper p {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 16px
+}
+
+.CDB-Tooltip {
+    padding: 20px 24px;
+    font-family: 'Open Sans';
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.05);
+    z-index: 50
+}
+
+.CDB-Tooltip-listItem {
+    margin-top: 8px
+}
+
+.CDB-Tooltip-listItem:first-child {
+    margin-top: 0
+}
+
+.CDB-Tooltip-listTitle {
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 15px;
+    text-transform: uppercase
+}
+
+.CDB-Tooltip-listText {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 16px
+}

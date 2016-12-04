@@ -34,4 +34,5 @@
 //= require gobierto_budgets/ranking
 //= require gobierto_budgets/analytics
 //= require gobierto_budgets/vendor/iframeResizer/iframeResizer.contentWindow.min
+//= require gobierto_budgets/maps
 //= require_directory ../components/
