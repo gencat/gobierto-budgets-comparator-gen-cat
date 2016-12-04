@@ -35,9 +35,9 @@
     <div class="switcher year_switcher">
       <h2 class="sidebar_title"></h2>
       <ul>
-        <li><a href="#" data-select-category data-area="<%= GobiertoBudgets::BudgetLine::ECONOMIC %>"   data-kind="<%= GobiertoBudgets::BudgetLine::INCOME %>">Ingresos</a></li>
-        <li><a href="#" data-select-category data-area="<%= GobiertoBudgets::BudgetLine::FUNCTIONAL %>" data-kind="<%= GobiertoBudgets::BudgetLine::EXPENSE %>" data-selected>En qué se gasta</a></li>
-        <li><a href="#" data-select-category data-area="<%= GobiertoBudgets::BudgetLine::ECONOMIC %>"   data-kind="<%= GobiertoBudgets::BudgetLine::EXPENSE %>">Para qué se gasta</a></li>
+        <li><a href="#" data-select-category data-area="<%= GobiertoBudgets::BudgetLine::ECONOMIC %>"   data-kind="<%= GobiertoBudgets::BudgetLine::INCOME %>"><%= t('.incomes') %></a></li>
+        <li><a href="#" data-select-category data-area="<%= GobiertoBudgets::BudgetLine::FUNCTIONAL %>" data-kind="<%= GobiertoBudgets::BudgetLine::EXPENSE %>" data-selected><%= t('.in_what') %></a></li>
+        <li><a href="#" data-select-category data-area="<%= GobiertoBudgets::BudgetLine::ECONOMIC %>"   data-kind="<%= GobiertoBudgets::BudgetLine::EXPENSE %>"><%= t('.for_what') %></a></li>
       </ul>
     </div>
 

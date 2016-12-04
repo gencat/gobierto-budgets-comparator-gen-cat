@@ -14,6 +14,9 @@ ca:
         meta_description: "Visualitza i explora el mapa de pressupuestos en %{year}"
         municipality_maps: Mapes per municipis
         search: Busca partides
+        incomes: Ingressos
+        in_what: En què es gasta
+        for_what: Per a què es gasta
       ranking:
         rankings: Rànquing
         subtitle: Consulta els municipis que més ingressos i despeses, total i per habitant, realitzen per cada partida.

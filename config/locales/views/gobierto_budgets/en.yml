@@ -14,6 +14,9 @@ en:
         meta_description: "Check the maps in %{year}"
         municipality_maps: Municipality maps
         search: Search budget lines
+        incomes: Income
+        in_what: In what is spent
+        for_what: For what is spent
       ranking:
         rankings: Rankings
         subtitle: Check the municipalities with more income or expenses, total or per inhabitant, per budget line.
