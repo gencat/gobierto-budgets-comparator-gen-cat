@@ -8,6 +8,7 @@ $(function () {
 #indicators_2016 [ value = 0]  { polygon-fill: #ffffff; }\
     ";
 
+
     CSS['gasto_total'] = "\
 #indicators_2016 [ value <= 700000] { polygon-fill: #d73027; }\
 #indicators_2016 [ value >  700000] { polygon-fill: #f79272; }\
@@ -55,7 +56,7 @@ $(function () {
 
   function placesScopeCondition(){
     if(window.placesScope.length)
-      return " t.place_id IN (" + window.placesScope + ")";
+      return " i.place_id IN (" + window.placesScope + ")";
     else
       return " 1=1";
   }
@@ -65,10 +66,6 @@ $(function () {
       var year = $('body').data('year');
       var indicator = $('.metric.selected').data('indicator');
       layer.show();
-
-      var query = "select i.cartodb_id, t.place_id, t.nameunit as name, t.the_geom, t.the_geom_webmercator, i."+indicator+" as value from ign_spanish_adm3_municipalities_displaced_canary as t full join indicators_"+year+" as i on i.place_id = t.place_id WHERE" + placesScopeCondition();
-      console.log(query);
-      layer.setSQL(query);
 
       // var css = "#indicators_2016 [ value = 0]  { polygon-fill: #ffffff; } ";
       // $.getJSON("https://gobierto.cartodb.com/api/v2/sql?q=SELECT MAX('"+indicator+"'), MIN('"+indicator+"') FROM indicators_"+year,function(response){
@@ -85,10 +82,42 @@ $(function () {
       //   });
       // });
 
-      // console.log(css);
+      var sql = new cartodb.SQL({ user: 'gobierto' });
+      sql.execute("SELECT * FROM indicators_{{year}} as i WHERE" + placesScopeCondition(), { indicator: indicator, year: year })
+        .done(function(data) {
+          if(indicator == 'debt')
+            colors = colors.reverse();
 
-      var css = CSS[indicator];
-      layer.setCartoCSS(css);
+          // push all the values into an array
+          var values = [];
+          data.rows.forEach(function(row,i) {
+            values.push(row[indicator]);
+          });
+
+          var clusters = ss.ckmeans(values, colors.length);
+          var ranges = clusters.map(function(cluster){
+            return [cluster[0],cluster.pop()];
+          });
+
+           var css = "#indicators_2016 [ value = 0]  { polygon-fill: #ffffff; } ";
+           ranges.forEach(function(range,i){
+             var value = range[0]
+             var color = colors[i];
+             css += "#indicators_2016 [value>"+value + "] {polygon-fill:" + color + "}\n";
+           });
+           console.log(css);
+
+           var query = "select i.cartodb_id, t.place_id, t.nameunit as name, t.the_geom, t.the_geom_webmercator, i."+indicator+" as value from ign_spanish_adm3_municipalities_displaced_canary as t full join indicators_"+year+" as i on i.place_id = t.place_id WHERE" + placesScopeCondition();
+           console.log(query);
+           layer.setSQL(query);
+
+           layer.setCartoCSS(css);
+           layer.show();
+        })
+      .error(function(errors) {
+        // errors contains a list of errors
+        console.log("errors:" + errors);
+      });
       // $('#legend').html($('#legend_' + indicator).html());
     });
   }
@@ -100,18 +129,49 @@ $(function () {
 
       layer.show();
 
-      var query = "select i.cartodb_id, t.place_id, t.nameunit as name, t.the_geom, t.the_geom_webmercator, i.code, i.kind, i.area, i.amount, i.amount_per_inhabitant as value from ign_spanish_adm3_municipalities_displaced_canary as t full join planned_budgets_"+year+" as i on i.place_id = t.place_id" +
-        " WHERE code='"+e.code+"' AND kind='" + e.kind + "' AND area='" + e.area[0] + "' AND" + placesScopeCondition();
-      console.log(query);
-      layer.setSQL(query);
+      var sql = new cartodb.SQL({ user: 'gobierto' });
+      sql.execute("SELECT i.amount_per_inhabitant as value FROM planned_budgets_{{year}} as i WHERE code='"+e.code+"' AND kind='" + e.kind + "' AND area='" + e.area[0] + "' AND" + placesScopeCondition(), { year: year })
+        .done(function(data) {
+          // push all the values into an array
+          var values = [];
+          data.rows.forEach(function(row,i) {
+            values.push(row['value']);
+          });
 
-      var css = CSS['budgets'];
-      layer.setCartoCSS(css);
+          var clusters = ss.ckmeans(values, colors.length);
+          var ranges = clusters.map(function(cluster){
+            return [cluster[0],cluster.pop()];
+          });
+
+           var css = "#indicators_2016 [ value = 0]  { polygon-fill: #ffffff; } ";
+           ranges.forEach(function(range,i){
+             var value = range[0]
+             var color = colors[i];
+             css += "#indicators_2016 [value>"+value + "] {polygon-fill:" + color + "}\n";
+           });
+           console.log(css);
+
+           var query = "select i.cartodb_id, t.place_id, t.nameunit as name, t.the_geom, t.the_geom_webmercator, i.code, i.kind, i.area, i.amount, i.amount_per_inhabitant as value from ign_spanish_adm3_municipalities_displaced_canary as t full join planned_budgets_"+year+" as i on i.place_id = t.place_id" +
+               " WHERE code='"+e.code+"' AND kind='" + e.kind + "' AND area='" + e.area[0] + "' AND" + placesScopeCondition();
+
+           console.log(query);
+           layer.setSQL(query);
+
+           layer.setCartoCSS(css);
+           layer.show();
+        })
+      .error(function(errors) {
+        // errors contains a list of errors
+        console.log("errors:" + errors);
+      });
+
       // $('#legend').html($('#legend_' + indicator).html());
     });
   }
 
   if($('#map').length){
+
+    var colors = [ '#d73027', '#f79272', '#fff2cc', '#8cce8a', '#1a9850'];
 
     cartodb.createVis('map', 'https://gobierto.carto.com/api/v2/viz/205616b2-b893-11e6-b070-0e233c30368f/viz.json', {
         shareable: false,
