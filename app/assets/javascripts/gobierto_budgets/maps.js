@@ -110,28 +110,15 @@ $(function () {
 
   if($('#map').length){
 
-    var breakpoint = 770;
-
-    if($(window).width() >= breakpoint) {
-      var home_map_zoom_level = 6;
-      var home_map_center_lat = 39.3;
-      var home_map_center_lon = -5.6;
-    }
-    else {
-      var home_map_zoom_level = 5;
-      var home_map_center_lat = 38.3;
-      var home_map_center_lon = -4.0;
-    }
-
     cartodb.createVis('map', 'https://gobierto.carto.com/api/v2/viz/205616b2-b893-11e6-b070-0e233c30368f/viz.json', {
         shareable: false,
         title: false,
         description: false,
         search: false,
         tiles_loader: true,
-        center_lat: home_map_center_lat,
-        center_lon: home_map_center_lon,
-        zoom: home_map_zoom_level,
+        center_lat: window.mapSettings.centerLat,
+        center_lon: window.mapSettings.centerLon,
+        zoom: window.mapSettings.zoomLevel,
         zoomControl: true,
         loaderControl: false
         })

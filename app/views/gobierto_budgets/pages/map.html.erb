@@ -74,4 +74,9 @@
   <% else %>
     window.placesScope = ["-1"];
   <% end %>
+  window.mapSettings = {
+    centerLat: <%= Settings.map_center_lat %>,
+    centerLon: <%= Settings.map_center_lon %>,
+    zoomLevel: <%= Settings.map_zoom_level %>
+  };
 <% end %>
