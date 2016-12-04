@@ -54,7 +54,10 @@ $(function () {
     ";
 
   function placesScopeCondition(){
-    return " t.place_id IN (" + window.placesScope + ")";
+    if(window.placesScope.length)
+      return " t.place_id IN (" + window.placesScope + ")";
+    else
+      return " 1=1";
   }
 
   function renderMapIndicator(layer, vis){

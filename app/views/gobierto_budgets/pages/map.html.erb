@@ -72,7 +72,7 @@
   <% if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope? %>
     window.placesScope = [<%= GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope.join(',') %>];
   <% else %>
-    window.placesScope = ["-1"];
+    window.placesScope = [];
   <% end %>
   window.mapSettings = {
     centerLat: <%= Settings.map_center_lat %>,
