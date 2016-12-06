@@ -37,8 +37,6 @@ module GobiertoBudgetsComparator
 
     config.action_mailer.default_url_options = { host: Settings.gobierto_host, protocol: 'https' }
 
-    config.active_job.queue_adapter = :delayed_job
-
     # Autoloading
     config.autoload_paths += [
       "#{config.root}/lib",
