@@ -106,3 +106,14 @@
     font-weight: 600;
     line-height: 16px
 }
+
+
+body div.cartodb-legend-stack {
+  border: none; 
+  webkit-box-shadow: initial;
+  -moz-box-shadow: initial;
+  box-shadow: initial;
+  position: absolute;
+  bottom: 16px;
+  right: 8px;
+}

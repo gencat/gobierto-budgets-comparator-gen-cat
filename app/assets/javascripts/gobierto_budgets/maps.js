@@ -61,38 +61,55 @@ $(function () {
       return " 1=1";
   }
 
+  function filterOutliers(someArray) {
+    // Copy the values, rather than operating on references to existing values
+    var values = someArray.concat();
+
+    // Then sort
+    values.sort( function(a, b) {
+            return a - b;
+         });
+
+    /* Then find a generous IQR. This is generous because if (values.length / 4)
+     * is not an int, then really you should average the two elements on either
+     * side to find q1.
+     */
+    var q1 = values[Math.floor((values.length / 4))];
+    // Likewise for q3.
+    var q3 = values[Math.ceil((values.length * (3 / 4)))];
+    var iqr = q3 - q1;
+
+    // Then find min and max values
+    var maxValue = q3 + iqr*1.5;
+    var minValue = q1 - iqr*1.5;
+
+    // Then filter anything beyond or beneath these values.
+    var filteredValues = values.filter(function(x) {
+        return (x < maxValue) && (x > minValue);
+    });
+
+    // Then return
+    return filteredValues;
+  }
+
   function renderMapIndicator(layer, vis){
     $('[data-indicator]').click(function(e){
       var year = $('body').data('year');
       var indicator = $('.metric.selected').data('indicator');
       layer.show();
 
-      // var css = "#indicators_2016 [ value = 0]  { polygon-fill: #ffffff; } ";
-      // $.getJSON("https://gobierto.cartodb.com/api/v2/sql?q=SELECT MAX('"+indicator+"'), MIN('"+indicator+"') FROM indicators_"+year,function(response){
-      //   var range=max-min;
-      //   var colors = [ '#d73027', '#f79272', '#fff2cc', '#8cce8a', '#1a9850'];
-
-      //   //get the incremental value for each step based on the range
-      //   var step = range/colors.length;
-
-      //   colors.forEach(function(color,i){
-      //     var value = min + (step * i);
-      //     var color = colors[i];
-      //     css += "#indicators_2016 [value<=" + value + "] {polygon-fill:" + color + "}; ";
-      //   });
-      // });
-
       var sql = new cartodb.SQL({ user: 'gobierto' });
-      sql.execute("SELECT * FROM indicators_{{year}} as i WHERE" + placesScopeCondition(), { indicator: indicator, year: year })
+      sql.execute("SELECT {{indicator}} as value FROM indicators_{{year}} as i WHERE" + placesScopeCondition(), { indicator: indicator, year: year })
         .done(function(data) {
-          if(indicator == 'debt')
+          if(indicator === 'debt' || indicator === 'planned_vs_executed')
             colors = colors.reverse();
 
           // push all the values into an array
           var values = [];
           data.rows.forEach(function(row,i) {
-            values.push(row[indicator]);
+            values.push(row['value']);
           });
+          values = filterOutliers(values);
 
           var clusters = ss.ckmeans(values, colors.length);
           var ranges = clusters.map(function(cluster){
@@ -100,8 +117,14 @@ $(function () {
           });
 
            var css = "#indicators_2016 [ value = 0]  { polygon-fill: #ffffff; } ";
+           if(indicator === 'debt'){
+             css = "#indicators_2016 [ value = 0]  { polygon-fill: "+colors[0]+"; } ";
+           }
+           console.log('Ranges: ' + ranges);
            ranges.forEach(function(range,i){
-             var value = range[0]
+             var value = range[0];
+             if(i === 0)
+               value = 0;
              var color = colors[i];
              css += "#indicators_2016 [value>"+value + "] {polygon-fill:" + color + "}\n";
            });
@@ -118,7 +141,7 @@ $(function () {
         // errors contains a list of errors
         console.log("errors:" + errors);
       });
-      // $('#legend').html($('#legend_' + indicator).html());
+      $('#legend').html($('#legend').html());
     });
   }
 
@@ -165,7 +188,7 @@ $(function () {
         console.log("errors:" + errors);
       });
 
-      // $('#legend').html($('#legend_' + indicator).html());
+      $('#legend').html($('#legend').html());
     });
   }
 

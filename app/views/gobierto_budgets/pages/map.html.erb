@@ -1,7 +1,6 @@
 <% content_for(:header) do %>
   <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
   <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
-
 <% end %>
 
 <%
@@ -57,12 +56,33 @@
 
 <div id="map"></div>
 
+
+<div id="legend" class="cartodb-legend-stack" style="display: block;"></div>
+
 <script type="infowindow/html" id="infowindow_template">
 <div class="CDB-Tooltip CDB-Tooltip--isLight">
   <ul class="CDB-Tooltip-list">
     <li class="CDB-Tooltip-listItem">
       <h4 class="CDB-Tooltip-listText">{{name}}</h4>
       <h4 class="CDB-Tooltip-listText">{{value}}</h4>
+    </li>
+  </ul>
+</div>
+</script>
+
+<script type="legend/html" id="legend">
+<div class="cartodb-legend choropleth" style="display: block;">
+  <ul>
+    <li class="min">< 10%</li>
+    <li class="max">> 10%</li>
+    <li class="graph count_315">
+      <div class="colors">
+        <div class="quartile" style="background-color:#d73027"></div>
+        <div class="quartile" style="background-color:#f79272"></div>
+        <div class="quartile" style="background-color:#fff2cc"></div>
+        <div class="quartile" style="background-color:#8cce8a"></div>
+        <div class="quartile" style="background-color:#1a9850"></div>
+      </div>
     </li>
   </ul>
 </div>
