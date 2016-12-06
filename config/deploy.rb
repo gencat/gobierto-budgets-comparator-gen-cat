@@ -1,6 +1,13 @@
 lock '3.5.0'
-set :application, 'gobierto-budgets-comparator'
-set :repo_url, 'git@github.com:PopulateTools/gobierto-budgets-comparator.git'
+
+def deploy_var(key)
+  @deploy_secrets_yml ||= YAML.load_file('config/deploy_secrets.yml')[fetch(:stage).to_s]
+  @deploy_secrets_yml.fetch(key.to_s, 'undefined')
+end
+
+set :rails_env, fetch(:stage)
+set :application, deploy_var(:application)
+set :repo_url, deploy_var(:repo_url)
 set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml', "config/settings/#{fetch(:stage)}.yml")
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/cache')
 set :rbenv_type, :user
