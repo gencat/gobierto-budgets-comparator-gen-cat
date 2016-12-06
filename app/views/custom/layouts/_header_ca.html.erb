@@ -1,0 +1,128 @@
+<!-- Aqu&iacute; comen&#224;Â§a la cap&#224;Â§alera -->
+<div class="contenidor unfixed">
+  <header >
+    <div class="fons_header hidden-xs">
+      <div class="container">
+        <nav class="collapse clearfix navbar-collapse navbar-ex1-collapse ">
+          <div class="row">
+            <div class="col-md-11 col-sm-10 column">
+            <ul class="menu-superior">
+                <li><a href="http://www.transparenciacatalunya.cat/ca/detalls/article/Sobre-el-portal-00013">Sobre el portal</a></li>
+                <li><a href="http://www.transparenciacatalunya.cat/ca/pagines_interes/mapa-web/">Mapa web</a></li>
+                <li><a href="https://ovt.gencat.cat/gsitfc/AppJava/generic/conqxsGeneric.do?webFormId=492&set-locale=ca_ES">Contacte</a></li>
+              </ul></div>
+            <div class="col-md-1 col-sm-2 column hidden-xs hidden-mg">
+
+              <ul class="idioma">
+                <li><a title="Castellano" href="conqxsGeneric.do?webFormId=492&set-locale=es_ES">es</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <!--titol i buscador-->
+    <div class="fons_header titol_buscador hidden-xs" role="navigation">
+      <div class="container">
+
+        <!-- Fi menu cercador-->
+
+        <!-- Inici men? (desplegable) -->
+        <nav class="collapse clearfix navbar-collapse navbar-ex1-collapse ">
+          <div class="row  hidden-xs">
+            <div class="col-md-8 col-sm-8 column">
+            <a class="titol" title="transparència catalunya" href="http://www.transparenciacatalunya.cat">transparència <br><span>catalunya</span></a>
+              <button class="menu_tancar visible-xs">Tancar</button>
+            </div>
+            <div class="col-md-4 col-sm-4 column hidden-xs hidden-mg">
+
+              <!-- Componente: cercador_vermell -->
+              <form class="navbar-form cercador_vermell hidden-xs pull-right" role="search" action="http://www.transparenciacatalunya.cat/ca/pagines_interes/cercador">
+                <div class="form-group">
+                  <label for="cerca4" class="hidden">Cerca</label>
+                  <input id="cerca4" type="search" class="form-control" title="Cerca" name="Cerca" value="Cercador" onfocus="if (this.value=='Cercador') this.value='';" onblur="if (this.value=='') this.value='Cercador'; "/>
+                  <input type="submit" class="btn btn-deafult" value="" />
+                  <!-- <span class="btn btn-default"></span> -->
+                </div>
+              </form>
+              <!-- end Componente: cercador_vermell -->
+
+            </div>
+          </div>
+        </nav>
+        <!-- Fi men? (desplegable) -->
+
+      </div>
+    </div>
+    <!--menu principal-->
+    <div class="fons_header menu_principal navbar navbar-default z-index-menu" role="navigation">
+      <div class="container">
+        <div class="row clearfix menuNav">
+          <div class="col-md-3 col-xs-2 column visible-xs coloca ">
+            <button type="button" onclick="amunt();" title="Menu" class="navbar-toggle pull-left" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+          </div>
+          <div class="col-md-3 col-xs-8 col-offset-2 clearfix column visible-xs"> <a href="http://www.transparenciacatalunya.cat/" class="mvlogo" title=" ">transparència <br><span>catalunya</span></a> </div>
+          <div class="col-md-3 col-xs-2 column visible-xs coloca1">
+            <button onclick="amunt();" type="button" title="Cerca" class="ico_cerca " data-toggle="collapse" data-target=".dos"> </button>
+          </div>
+        </div>
+        <div class="collapse dos">
+          <div class="shadowBox">
+            <form class="navbar-form navbar-left primer" role="search" action="http://www.transparenciacatalunya.cat/ca/pagines_interes/cercador" method="get">
+              <div class="form-group">
+                <input type="search" class="form-control" name="q" title="Cerca" value="Cerca" onfocus="if (this.value=='Cerca') this.value='';" onblur="if (this.value=='') this.value='Cerca';">
+                <button type="button" title="Neteja" class="btn btn-default"></button>
+                <input type="submit" class="ocult" name="Cerca" value="Cerca">
+              </div>
+            </form>
+          </div>
+        </div>
+        <nav class="collapse navbar-collapse clearfix clearfix navbar-ex1-collapse ">
+          <div class="row visible-xs">
+            <div class="col-md-6 col-sm-4 column">
+              <button class="menu_tancar visible-xs collapsed" data-target=".navbar-collapse" data-toggle="collapse" title="Tancar"></button>
+            </div>
+            <div class="col-md-6 col-sm-8 column hidden-xs hidden-mg"> </div>
+          </div>
+          <ul class="nav navbar-nav">
+            <li><a  class="dropdown-toggle" href="http://www.transparenciacatalunya.cat/"  title="Inici">Inici</a></li>
+            <li><a class="dropdown-toggle" href="http://www.transparenciacatalunya.cat/ca/actors/"  title="Actors">Actors</a></li>
+            <li><a  class="dropdown-toggle" href="http://www.transparenciacatalunya.cat/ca/detalls/article/Pla-estrategic-00008"  title="Pla estratègic">Pla estratègic</a></li>
+            <li><a  class="dropdown-toggle" href="http://www.transparenciacatalunya.cat/ca/detalls/article/Avaluacio-00013"  title="Avaluació">Avaluació</a></li>
+            <li><a  class="dropdown-toggle" href="http://www.transparenciacatalunya.cat/ca/detalls/article/Comissio-de-Garantia-del-Dret-dAcces-a-la-Informacio-Publica"  title="Comissió de garantia">Comissió de garantia</a></li>
+          </ul>
+          <ul class="nav navbar-nav visible-xs first-one">
+            <li><a class="dropdown-toggle" href="http://www.transparenciacatalunya.cat/ca/detalls/article/Sobre-el-portal-00013"  title="Sobre el portal">Sobre el portal</a></li>
+            <li><a class="dropdown-toggle" href="http://www.transparenciacatalunya.cat/ca/pagines_interes/mapa-web/"  title="Mapa web">Mapa web</a></li>
+            <li><a class="dropdown-toggle" href="conqxsGeneric.do?webFormId=492&set-locale=ca_ES"  title="Contacte">Contacte</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+</div>
+<!-- Aqu&iacute; acaba la cap&#224;Â§alera -->
+
+<section>
+  <article class=" mar_top_20">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="seccio_titol">
+            <div id="breadCContainer">
+              <div class="migues"> <a title="Inici" href="http://www.transparenciacatalunya.cat/">Inici</a> <span class="separa">|</span>Titulo</div>
+            </div>
+          </div>
+          <div class="seccio_contenidor">
+            <div class="seccio_titol">
+              <div class="titol_seccio">
+                <h1>Titulo</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>
+
