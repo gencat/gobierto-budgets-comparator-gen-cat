@@ -20,9 +20,8 @@
   z-index: 1;
   width: 250px;
   position: absolute;
-  background: #fff;
   box-shadow: 5px 5px 5px -5px rgba(0,0,0,0.2);
-  // background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.95);
   // border-radius: 4px;
 }
 .sidebar_wrapper {
@@ -45,6 +44,7 @@
 // Sidebar table
 .map_sidebar .year_switcher {
   width: auto;
+  background: none;
 }
 .map_sidebar .year_switcher ul {
   left: 14px;
