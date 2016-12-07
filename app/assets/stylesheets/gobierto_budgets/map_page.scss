@@ -50,7 +50,11 @@
 }
 .map_sidebar .year_switcher ul {
   left: 14px;
-  top: 5px;
+  top: 16px;
+  width: 160px;
+}
+.map_sidebar .switcher .sidebar_title a:hover {
+  background: none;
 }
 .map_sidebar .items table th {
   border-bottom: none;
@@ -82,8 +86,9 @@
   text-decoration: underline;
 }
 .map_sidebar .items input.search_items {
-  width: 100%;
   font-weight: 400;
+  border-radius: 0;
+  padding: 2% 4% 2%;
 }
 .item_name i {
   cursor: pointer;

@@ -38,13 +38,16 @@
       $(document).on('click', '[data-select-category]', function(e){
         e.preventDefault();
         var target = $(e.target);
+        var toggle = this.$node.find('[data-toggle]');
         this.attr.categories = [];
         this.attr.state.kind = target.data('kind');
         this.attr.state.area = target.data('area');
         this.fillPlaceHolder(target);
         target.parents('ul').hide();
         this.itemsParent.show();
-        $(e.target).removeClass('fa-caret-square-o-down').addClass('fa-caret-square-o-up');
+        if (toggle.hasClass('fa-caret-square-o-down')) {
+            toggle.removeClass('fa-caret-square-o-down').addClass('fa-caret-square-o-up');            
+        }
       }.bind(this));
 
       $(document).on('click', '[data-expand-category]', function(e){
