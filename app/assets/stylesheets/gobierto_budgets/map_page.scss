@@ -2,7 +2,8 @@
 #map {
   margin-top: 1.5em;
   height: 300px;
-  width: 100%
+  width: 100%;
+  position: relative;
 }
 .cartodb-zoom a {
   transition: none;
