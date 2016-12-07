@@ -4,6 +4,9 @@
   height: 300px;
   width: 100%
 }
+.cartodb-zoom a {
+  transition: none;
+}
 
 // Move zoom control buttons
 .cartodb-map-wrapper .cartodb-zoom {
