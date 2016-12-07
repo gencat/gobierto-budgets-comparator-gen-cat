@@ -141,7 +141,7 @@ $(function () {
         // errors contains a list of errors
         console.log("errors:" + errors);
       });
-      $('#legend').html($('#legend').html());
+      $('#legend-container').html($('#legend').html());
     });
   }
 
@@ -188,7 +188,7 @@ $(function () {
         console.log("errors:" + errors);
       });
 
-      $('#legend').html($('#legend').html());
+      $('#legend-container').html($('#legend').html());
     });
   }
 
