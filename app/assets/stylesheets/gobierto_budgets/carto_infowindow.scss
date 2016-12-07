@@ -2,12 +2,12 @@
   padding: 10px;
   font-family: 'Open Sans';
   z-index: 50;
-  border: 1px solid #999;
   border-radius: 2px;
   min-height: 65px;
   min-width: 250px;
   max-width: 275px;
-  background: #FFF
+  background: #FFF;
+  box-shadow: 2px 2px 2px 1px rgba(0,0,0,0.1);
 }
 .tooltip-name {
   margin-top: 0;
