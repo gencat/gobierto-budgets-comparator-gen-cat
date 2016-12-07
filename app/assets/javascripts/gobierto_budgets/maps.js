@@ -195,7 +195,8 @@ $(function () {
   if($('#map').length){
 
     var colors = [ '#d73027', '#f79272', '#fff2cc', '#8cce8a', '#1a9850'];
-
+    // var colors = ['#d73027','#fc8d59','#fee090','#ffffbf','#e0f3f8','#91bfdb','#4575b4'];
+    
     cartodb.createVis('map', 'https://gobierto.carto.com/api/v2/viz/205616b2-b893-11e6-b070-0e233c30368f/viz.json', {
         shareable: false,
         title: false,

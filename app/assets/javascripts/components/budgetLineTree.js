@@ -17,6 +17,7 @@
       this.titlePlaceholder = this.$node.find('h2.sidebar_title');
       this.itemsParent = this.$node.find('div.items');
       this.attr.dataUrl = this.$node.data('api-url');
+      var toggle = this.$node.find('[data-toggle]');
 
       this.$node.find('[data-toggle]').on('click', function(e){
         this.itemsParent.toggle();
@@ -38,7 +39,6 @@
       $(document).on('click', '[data-select-category]', function(e){
         e.preventDefault();
         var target = $(e.target);
-        var toggle = this.$node.find('[data-toggle]');
         this.attr.categories = [];
         this.attr.state.kind = target.data('kind');
         this.attr.state.area = target.data('area');
@@ -97,6 +97,12 @@
 
       // Initial state
       $('[data-selected]').click();
+      
+      // Collapse sidebar on phones
+      if (window.innerWidth <= 768) {
+        $('.sidebar_wrapper .items').css('display', 'none')
+        toggle.removeClass('fa-caret-square-o-up').addClass('fa-caret-square-o-down');     
+      }
     });
 
     this.fillPlaceHolder = function(selectedCategory) {
