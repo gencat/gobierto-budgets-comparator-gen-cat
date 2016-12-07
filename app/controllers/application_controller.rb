@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :helpers, :users_enabled?
 
+  before_action :set_locale
+
   def render_404
     render file: "public/404", status: 404, layout: false, handlers: [:erb], formats: [:html]
   end
@@ -29,6 +31,13 @@ class ApplicationController < ActionController::Base
     else
       {}
     end
+  end
+
+  def set_locale
+    I18n.locale = session[:locale] || I18n.default_locale
+  rescue I18n::InvalidLocale
+    session[:locale] = nil
+    I18n.locale = I18n.default_locale
   end
 
   protected

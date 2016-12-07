@@ -18,7 +18,7 @@ module GobiertoBudgetsComparator
   class Application < Rails::Application
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :es
-    config.i18n.available_locales = [:es, :en, :ca]
+    config.i18n.available_locales = [:es, :ca]
 
     config.active_record.raise_in_transactional_callbacks = true
 
@@ -36,8 +36,6 @@ module GobiertoBudgetsComparator
     })
 
     config.action_mailer.default_url_options = { host: Settings.gobierto_host, protocol: 'https' }
-
-    config.active_job.queue_adapter = :delayed_job
 
     # Autoloading
     config.autoload_paths += [

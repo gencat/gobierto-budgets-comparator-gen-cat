@@ -15,7 +15,6 @@ gem 'ruby_px'
 gem 'kaminari', git: 'git@github.com:amatsuda/kaminari.git'
 gem 'geocoder'
 gem 'responders'
-gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'config'
 gem 'dalli'
@@ -66,5 +65,4 @@ group :development do
   gem 'capistrano-passenger'
   gem 'capistrano-rails-console'
   gem 'capistrano-rails-log'
-  gem 'capistrano3-delayed-job', '~> 1.0'
 end

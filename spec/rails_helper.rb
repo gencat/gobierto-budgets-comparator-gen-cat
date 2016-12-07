@@ -24,8 +24,6 @@ RSpec.configure do |config|
   Capybara.default_max_wait_time = 5
   Capybara.server_port = 31337
 
-  Delayed::Worker.delay_jobs = false
-
   config.before(:suite) do
     %x[bundle exec rake assets:precompile]
 
