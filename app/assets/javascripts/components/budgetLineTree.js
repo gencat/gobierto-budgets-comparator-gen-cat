@@ -31,6 +31,8 @@
           kind: $(e.target).data('kind'),
           area: $(e.target).data('area')
         });
+        $('[data-category-code]').removeClass('active');
+        $(e.target).addClass('active');
       }.bind(this));
 
       $(document).on('click', '[data-select-category]', function(e){

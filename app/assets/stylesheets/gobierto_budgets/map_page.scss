@@ -34,6 +34,7 @@
   display: inline-block;
 }
 .icon_sidebar:before {
+  cursor: pointer;
   color: #767168;
   vertical-align: sub;
 }
@@ -64,12 +65,20 @@
   background: #fff;
 }
 .map_sidebar a {
+  color: #00909E;
   text-decoration: none;
+}
+.map_sidebar a.active {
+  text-decoration: underline;
 }
 .map_sidebar .items input.search_items {
   width: 100%;
   font-weight: 400;
 }
+.item_name i {
+  cursor: pointer;
+}
+
 
 @media (min-width: 768px) {
   #map {
