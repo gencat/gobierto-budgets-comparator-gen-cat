@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   resource :user, only: [:edit, :update]
   resources :password_resets, only: [:new, :create, :update, :edit]
 
+  get '/locale/:locale' => 'locale#update'
+
   namespace :gobierto_budgets, path: '/', module: 'gobierto_budgets' do
     resources :featured_budget_lines, only: [:show]
 
