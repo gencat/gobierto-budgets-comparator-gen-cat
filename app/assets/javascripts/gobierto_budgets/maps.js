@@ -94,6 +94,24 @@ $(function () {
 
   function renderMapIndicator(layer, vis){
     $('[data-indicator]').click(function(e){
+      var indicators = {
+        gasto_por_habitante: {
+          unit: '€/hab',
+        },
+        gasto_total: {
+          unit: '€',
+        },
+        planned_vs_executed: {
+          unit: '%',
+        },
+        debt: {
+          unit: '€',
+        },
+        population: {
+          unit: 'p.',
+        }
+      };
+
       var year = $('body').data('year');
       var indicator = $('.metric.selected').data('indicator');
       layer.show();
@@ -130,18 +148,26 @@ $(function () {
            });
            console.log(css);
 
-           var query = "select i.cartodb_id, t.place_id, t.nameunit as name, t.the_geom, t.the_geom_webmercator, i."+indicator+" as value from ign_spanish_adm3_municipalities_displaced_canary as t full join indicators_"+year+" as i on i.place_id = t.place_id WHERE" + placesScopeCondition();
+           var query = "select i.cartodb_id, t.place_id, t.nameunit as name, t.the_geom, t.the_geom_webmercator, i."+indicator+" as value, TO_CHAR(i."+indicator+", '999G999G990D00') as valuef from ign_spanish_adm3_municipalities_displaced_canary as t full join indicators_"+year+" as i on i.place_id = t.place_id WHERE" + placesScopeCondition();
            console.log(query);
            layer.setSQL(query);
 
            layer.setCartoCSS(css);
            layer.show();
+
+          var lc = $('#legend-container');
+          lc.html($('#legend').html());
+          lc.find('.min').html('< ' + accounting.formatNumber(ranges[0][1], 0) + ' ' + indicators[indicator].unit);
+          lc.find('.max').html('> ' + accounting.formatNumber(ranges[ranges.length-1][0], 0) + ' ' + indicators[indicator].unit);
+          colors.forEach(function(color){
+            var c = $('<div class="quartile" style="background-color:'+color+'"></div>');
+            lc.find('.colors').append(c);
+          });
         })
       .error(function(errors) {
         // errors contains a list of errors
         console.log("errors:" + errors);
       });
-      $('#legend-container').html($('#legend').html());
     });
   }
 
@@ -182,6 +208,15 @@ $(function () {
 
            layer.setCartoCSS(css);
            layer.show();
+
+          var lc = $('#legend-container');
+          lc.html($('#legend').html());
+          lc.find('.min').html('< ' + accounting.formatNumber(ranges[0][1], 0) + ' €/hab');
+          lc.find('.max').html('> ' + accounting.formatNumber(ranges[ranges.length-1][0], 0) + ' €/hab');
+          colors.forEach(function(color){
+            var c = $('<div class="quartile" style="background-color:'+color+'"></div>');
+            lc.find('.colors').append(c);
+          });
         })
       .error(function(errors) {
         // errors contains a list of errors
@@ -196,7 +231,7 @@ $(function () {
 
     var colors = [ '#d73027', '#f79272', '#fff2cc', '#8cce8a', '#1a9850'];
     // var colors = ['#d73027','#fc8d59','#fee090','#ffffbf','#e0f3f8','#91bfdb','#4575b4'];
-    
+
     cartodb.createVis('map', 'https://gobierto.carto.com/api/v2/viz/205616b2-b893-11e6-b070-0e233c30368f/viz.json', {
         shareable: false,
         title: false,
@@ -216,7 +251,7 @@ $(function () {
         layer: sublayer,
         template: $('#infowindow_template').html(),
         position: 'bottom|right',
-        fields: [{ name: 'name', value: 'value' }]
+        fields: [{ name: 'name', value: 'value', valuef: 'valuef' }]
       });
       sublayer.setInteractivity('name, value');
       renderMapIndicator(sublayer, vis);
