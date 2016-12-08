@@ -233,7 +233,8 @@ module GobiertoBudgets
 
       def budget_values
         return comparison_values if @is_comparison
-        [
+
+        values = [
           {
             "name":"mean_province",
             "values": mean_province
@@ -243,14 +244,16 @@ module GobiertoBudgets
             "values": mean_autonomy
           },
           {
-            "name":"mean_national",
-            "values": mean_national
-          },
-          {
             name: @code ? @category_name : @place.name,
             "values": place_values
           }
         ]
+        values.append({
+          "name":"mean_national",
+          "values": mean_national
+        }) if !GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
+
+        values
       end
 
       def comparison_values
@@ -266,7 +269,7 @@ module GobiertoBudgets
         if @code.nil?
           @what == 'total_budget' ? I18n.t('gobierto_budgets.api.data.total_expense') : I18n.t('gobierto_budgets.api.data.expense_per_inhabitant')
         else
-          @what == 'total_budget' ? @category_name : I18n.t('.category_per_inhabitant', name: @category_name)
+          @what == 'total_budget' ? @category_name : I18n.t('gobierto_budgets.api.data.category_per_inhabitant', category: @category_name)
         end
       end
 
