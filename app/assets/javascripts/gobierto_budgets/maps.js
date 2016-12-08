@@ -8,7 +8,7 @@ $(function () {
 
   function filterOutliers(someArray) {
     // Copy the values, rather than operating on references to existing values
-    var values = someArray.concat();
+    var values = someArray.slice(0);
 
     // Then sort
     values.sort( function(a, b) {
@@ -67,7 +67,6 @@ $(function () {
           if(indicator === 'debt'){
             css = "#indicators_2016 [ value = 0]  { polygon-fill: "+customColors[0]+"; } ";
           }
-          console.log('Ranges: ' + ranges);
           ranges.forEach(function(range,i){
             var value = range[0];
             if(i === 0)
@@ -75,14 +74,12 @@ $(function () {
             var color = customColors[i];
             css += "#indicators_2016 [value>"+value + "] {polygon-fill:" + color + "}\n";
           });
-          console.log(css);
 
           var query = "select i.cartodb_id, t.place_id, t.nameunit as name, t.the_geom, " +
                       "t.the_geom_webmercator, i."+indicator+" as value, TO_CHAR(i."+indicator+", '999G999G990') as valuef, " +
                       "'"+indicators[indicator].name+"' as indicator_name, '"+indicators[indicator].unit+"' as unit" +
                       " from ign_spanish_adm3_municipalities_displaced_canary as t full join indicators_"+year+" as i " +
                       " on i.place_id = t.place_id WHERE" + placesScopeCondition();
-          console.log(query);
           layer.setSQL(query);
 
           layer.setCartoCSS(css);
@@ -119,13 +116,12 @@ $(function () {
           data.rows.forEach(function(row,i) {
             values.push(row['value']);
           });
+          values = filterOutliers(values);
 
           var clusters = ss.ckmeans(values, colors.length);
           var ranges = clusters.map(function(cluster){
             return [cluster[0],cluster.pop()];
           });
-
-          console.log('Ranges: ' + ranges);
 
           var css = "#indicators_2016 [ value = 0]  { polygon-fill: #ffffff; } ";
           ranges.forEach(function(range,i){
@@ -133,7 +129,6 @@ $(function () {
             var color = colors[i];
             css += "#indicators_2016 [value>"+value + "] {polygon-fill:" + color + "}\n";
           });
-          console.log(css);
 
           var query = "select i.cartodb_id, t.place_id, t.nameunit as name, t.the_geom, t.the_geom_webmercator, " +
             " i.code, i.kind, i.area, i.amount, i.amount_per_inhabitant as value," +
@@ -142,7 +137,6 @@ $(function () {
             " from ign_spanish_adm3_municipalities_displaced_canary as t full join planned_budgets_"+year+" as i on i.place_id = t.place_id" +
             " WHERE code='"+e.code+"' AND kind='" + e.kind + "' AND area='" + e.area[0] + "' AND" + placesScopeCondition();
 
-          console.log(query);
           layer.setSQL(query);
 
           layer.setCartoCSS(css);
@@ -150,8 +144,8 @@ $(function () {
 
           var lc = $('#legend-container');
           lc.html($('#legend').html());
-          lc.find('.min').html('< ' + accounting.formatNumber(ranges[0][1], 0) + ' €/hab');
-          lc.find('.max').html('> ' + accounting.formatNumber(ranges[ranges.length-1][0], 0) + ' €/hab');
+          lc.find('.min').html('< ' + accounting.formatNumber(ranges[0][1], 0) + ' ' + indicators['gasto_por_habitante'].unit);
+          lc.find('.max').html('> ' + accounting.formatNumber(ranges[ranges.length-1][0], 0) + ' ' + indicators['gasto_por_habitante'].unit);
           colors.forEach(function(color){
             var c = $('<div class="quartile" style="background-color:'+color+'"></div>');
             lc.find('.colors').append(c);
