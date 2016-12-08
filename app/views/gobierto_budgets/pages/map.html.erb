@@ -1,0 +1,94 @@
+<% content_for(:header) do %>
+  <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+  <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+<% end %>
+
+<%
+  @title = t('.title', year: @year)
+  set_meta_tags title: @title
+  set_meta_tags description: t('.meta_description', year: @year)
+%>
+
+<header class="place">
+  <div class="tools_cont">
+    <div class="tools sticky">
+    </div>
+  </div>
+
+  <h1 title="<%= t('.municipality_maps') %>">
+    <%= render partial: 'gobierto_budgets/places/year_switcher' %>
+    <%= t('.municipality_maps') %>
+  </h1>
+
+  <div class="share_links">
+    <%= link_to '<i class="fa fa-twitter"></i>'.html_safe, "https://twitter.com/home?status=#{u twitter_share(@title || @share_text, request.original_url)}", class: 'small_button popup', data: {rel: 'Twitter'} %>
+    <%= link_to '<i class="fa fa-facebook"></i>'.html_safe, "http://www.facebook.com/sharer/sharer.php?u=#{u request.original_url}", class: 'small_button popup', data: {rel: 'Facebook'} %>
+  </div>
+</header>
+
+<%= render partial: 'map_metrics' %>
+
+<div class="map_sidebar" data-budget-line-categories-tree data-api-url="<%= gobierto_budgets_api_categories_path(format: :json) %>">
+  <div class="sidebar_wrapper">
+
+    <div class="switcher year_switcher">
+      <h2 class="sidebar_title"></h2>
+      <ul>
+        <li><a href="#" data-select-category data-area="<%= GobiertoBudgets::BudgetLine::ECONOMIC %>"   data-kind="<%= GobiertoBudgets::BudgetLine::INCOME %>"><%= t('.incomes') %></a></li>
+        <li><a href="#" data-select-category data-area="<%= GobiertoBudgets::BudgetLine::FUNCTIONAL %>" data-kind="<%= GobiertoBudgets::BudgetLine::EXPENSE %>" data-selected><%= t('.in_what') %></a></li>
+        <li><a href="#" data-select-category data-area="<%= GobiertoBudgets::BudgetLine::ECONOMIC %>"   data-kind="<%= GobiertoBudgets::BudgetLine::EXPENSE %>"><%= t('.for_what') %></a></li>
+      </ul>
+    </div>
+
+    <i class="icon_sidebar fa fa-caret-square-o-up pull-right" aria-hidden="true" data-toggle></i>
+
+    <div class="items">
+      <table>
+        <tr data-search-box>
+          <th>
+            <input type="text" placeholder="<%= t('.search') %>" class="search_items">
+          </th>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div id="map">
+  <div id="legend-container" class="cartodb-legend-stack"></div>
+</div>
+
+
+<script type="infowindow/html" id="infowindow_template">
+<h4 class="tooltip-name">{{name}}</h4>
+<div class="pure-g">
+  <div class="pure-u-1 pure-u-md-3-5"><div class="tooltip-indicator">{{indicator_name}}</div></div>
+  <div class="pure-u-1 pure-u-md-2-5"><div class="tooltip-value">{{valuef}}{{unit}}</div></div>
+</div>
+</script>
+
+<script type="legend/html" id="legend">
+<div class="cartodb-legend choropleth" style="display: block;">
+  <ul>
+    <li class="min"></li>
+    <li class="max"></li>
+    <li class="graph count_315">
+      <div class="colors">
+      </div>
+    </li>
+  </ul>
+</div>
+</script>
+
+<% content_for(:javascript) do %>
+  <% if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope? %>
+    window.placesScope = [<%= GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope.join(',') %>];
+  <% else %>
+    window.placesScope = [];
+  <% end %>
+  window.mapSettings = {
+    centerLat: <%= Settings.map_center_lat %>,
+    centerLon: <%= Settings.map_center_lon %>,
+    zoomLevel: <%= Settings.map_zoom_level %>
+  };
+<% end %>

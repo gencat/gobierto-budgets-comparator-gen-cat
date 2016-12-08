@@ -1,0 +1,40 @@
+#map .cartodb-tooltip {
+  padding: 10px;
+  font-family: 'Open Sans';
+  z-index: 106;
+  border-radius: 2px;
+  min-height: 65px;
+  min-width: 250px;
+  max-width: 275px;
+  background: #FFF;
+  box-shadow: 2px 2px 2px 1px rgba(0,0,0,0.1);
+}
+.tooltip-name {
+  margin-top: 0;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.2;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+.tooltip-indicator {
+  padding-right: 0.2rem;
+  line-height: 1.2;
+  font-size: 0.875rem;
+}
+.tooltip-value {
+  padding-left: 0.2rem;
+  line-height: 1.2;
+  text-align: right;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+body div.cartodb-legend-stack {
+  border: none; 
+  box-shadow: 0 0px 2px 1px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  right: 8px;
+  bottom: 40px;
+}

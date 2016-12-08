@@ -208,9 +208,11 @@ var VisLineasJ = Class.extend({
         .range([this.margin.left, this.width - (this.margin.right)]);
 
       this.yScale
-        // .domain([this.dataDomain[0] * .3, this.dataDomain[1] * 1.2])
         .domain([min, max])
         .range([this.height, this.margin.top]);
+
+      if (this.dataChart.length === 3)
+        this.meanColorRange = this.meanColorRange.slice(1);
 
       this.colorScale
         .range(this.series == 'means' ? this.meanColorRange : this.comparatorColorRange)
@@ -346,8 +348,8 @@ var VisLineasJ = Class.extend({
         'mean_province': 'province',
         'mean_autonomy': 'com',
         'mean_national': 'country'
+      };
 
-      }
       // Set scales
 
       this.yScaleTable.domain(rows).rangeRoundBands([this.height, 0]);
@@ -454,112 +456,6 @@ var VisLineasJ = Class.extend({
     }.bind(this)); // end load data
   }, // end render
 
-  // updateRender: function () {
-  //   // re-define format percent
-  //   this.formatPercent = this.measure == 'percentage' ? d3.format('%') : d3.format(".0f");
-
-  //   // re-map the data
-  //   this.dataChart = this.data.budgets[this.measure];
-  //   this.kind = this.data.kind;
-  //   this.dataYear = this.parseDate(this.data.year);
-
-  //   this.dataDomain = [d3.min(this.dataChart.map(function(d) { return d3.min(d.values.map(function(v) { return v.value; })); })),
-  //             d3.max(this.dataChart.map(function(d) { return d3.max(d.values.map(function(v) { return v.value; })); }))];
-
-  //   // Update the scales
-  //   this.xScale
-  //     .domain(d3.extent(this.dataChart[0].values, function(d) { return d.date; }));
-
-  //   this.yScale
-  //     .domain([this.dataDomain[0] * .3, this.dataDomain[1] * 1.2]);
-
-  //   this.colorScale
-  //     .domain(this.dataChart.map(function(d) { return d.name; }));
-
-  //   // Update the axis
-  //   this.xAxis.scale(this.xScale);
-
-  //   this.yAxis
-  //       .scale(this.yScale)
-  //       .tickValues(this._tickValues(this.yScale))
-  //       .tickFormat(this.formatPercent)
-
-  //   this.svgLines.select(".x.axis")
-  //     .transition()
-  //     .duration(this.duration)
-  //     .delay(this.duration/2)
-  //     .ease("sin-in-out")
-  //     .call(this.xAxis);
-
-  //   this.svgLines.select(".y.axis")
-  //     .transition()
-  //     .duration(this.duration)
-  //     .delay(this.duration/2)
-  //     .ease("sin-in-out")
-  //     .call(this.yAxis);
-
-  //   // Change ticks color
-  //   d3.selectAll('.axis').selectAll('text')
-  //     .attr('fill', this.darkGrey);
-
-  //   d3.selectAll('.axis').selectAll('path')
-  //     .attr('stroke', this.darkGrey);
-
-  //   // Update lines
-  //   this.svgLines.selectAll('.evolution_line')
-  //     .data(this.dataChart)
-  //     .transition()
-  //     .duration(this.duration)
-  //     .attr('d', function(d) { return this.line(d.values); }.bind(this))
-  //     .style('stroke', function(d) { return this.colorScale(d.name); }.bind(this));
-
-  //   // Update the points
-  //   this.svgLines.selectAll(".dots")
-  //       .data(this.dataChart)
-  //     .selectAll(".dot_line")
-  //       .data(function(d) { return d.values; })
-  //       .transition()
-  //       .duration(this.duration)
-  //       .attr('cx', function(d) { return this.xScale(d.date); }.bind(this))
-  //       .attr('cy', function(d) { return this.yScale(d.value); }.bind(this));
-
-  //   // Update table figures
-  //   this.svgTable.selectAll('.legend_value')
-  //       .data(this.dataChart)
-  //       .text(function(d) {
-  //         var dataChartFiltered = d.values.filter(function(v) {
-  //           return v.date.getFullYear() == this.dataYear.getFullYear();
-  //         }.bind(this));
-  //         return this.formatPercent(dataChartFiltered[0].value) + this._units();
-  //       }.bind(this))
-  //       .transition()
-  //         .duration(this.duration/4)
-  //         .style('font-size', '12px')
-  //         .style('font-weight', '600')
-  //       .transition()
-  //         .duration(this.duration/4)
-  //         .style('font-size', '10px')
-  //         .style('font-weight', '300');
-
-
-  //    this.svgTable.selectAll('.legend_dif')
-  //       .data(this.dataChart)
-  //       .text(function(d) {
-  //         var dataChartFiltered = d.values.filter(function(v) {
-  //           return v.date.getFullYear() == this.dataYear.getFullYear();
-  //         }.bind(this));
-  //         return dataChartFiltered[0].dif > 0 ? '+' + this.formatPercent(dataChartFiltered[0].dif) + this._units() : this.formatPercent(dataChartFiltered[0].dif) + this._units();
-  //       }.bind(this))
-  //       .transition()
-  //         .duration(this.duration/4)
-  //         .style('font-size', '12px')
-  //         .style('font-weight', '600')
-  //       .transition()
-  //         .duration(this.duration/4)
-  //         .style('font-size', '10px')
-  //         .style('font-weight', '300');
-  // },
-
   //PRIVATE
   _tickValues:  function (scale) {
     var range = scale.domain()[1] - scale.domain()[0];
@@ -664,13 +560,6 @@ var VisLineasJ = Class.extend({
         selectedData = d3.select(selected).data()[0],
         selectedCx = d3.select(selected).attr('cx'),
         selectedCy = d3.select(selected).attr('cy');
-
-    // this.svgLines.selectAll('.v_line')
-    //     .transition()
-    //     .duration(this.duration / 3)
-    //     .attr('y1', selectedCy)
-    //     .attr('y2', selectedCy)
-    //     .remove();
 
 
     this.svgLines.selectAll('.dot_line')

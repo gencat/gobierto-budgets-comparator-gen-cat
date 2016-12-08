@@ -1,10 +1,35 @@
+// Year switcher
+header .year_switcher ul {
+  z-index: 1000002;
+}
+
+// Main map
+#map {
+  margin-top: 1.5em;
+  height: 300px;
+  width: 100%;
+  position: relative;
+}
+.cartodb-zoom a {
+  transition: none;
+}
+
+// Move zoom control buttons
+.cartodb-map-wrapper .cartodb-zoom {
+  float: right;
+  margin: 20px 20px 0 0;
+}
+
 // Sidebar
 .map_sidebar {
-  width: 250px;
+  margin-top: 0.5em;
+  z-index: 1;
+  //min-width: 250px;
+  width: 225px;
   position: absolute;
-  background: #fff;
   box-shadow: 5px 5px 5px -5px rgba(0,0,0,0.2);
-  // background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.95);
+  z-index: 1000001;
   // border-radius: 4px;
 }
 .sidebar_wrapper {
@@ -19,6 +44,7 @@
   display: inline-block;
 }
 .icon_sidebar:before {
+  cursor: pointer;
   color: #767168;
   vertical-align: sub;
 }
@@ -26,32 +52,60 @@
 // Sidebar table
 .map_sidebar .year_switcher {
   width: auto;
+  background: none;
 }
 .map_sidebar .year_switcher ul {
   left: 14px;
-  top: 5px;
+  top: 16px;
+  width: 160px;
+}
+.map_sidebar .switcher .sidebar_title a:hover {
+  background: none;
 }
 .map_sidebar .items table th {
   border-bottom: none;
 }
 .map_sidebar .items table tr.child_group td .child_tb_cont {
-  background: #fff;
+  background: none;
   padding: 0;
 }
 .map_sidebar .items table tr.child_group td tr.child_group td .child_tb_cont {
-  background: #fff;
-  padding: 0 20px;
+  background: none;
+  padding: 0;
 }
 .map_sidebar .items table td {
   padding-top: 0;
+  padding-bottom: 5px;
+}
+.map_sidebar .items table td[colspan="5"] {
+  padding-bottom: 0;
+  padding-top: 2px;
 }
 .map_sidebar table tr:hover td {
-  background: #fff;
+  background: none;
 }
 .map_sidebar a {
+  color: #00909E;
   text-decoration: none;
 }
+.map_sidebar a.active {
+  text-decoration: underline;
+}
 .map_sidebar .items input.search_items {
-  width: 100%;
   font-weight: 400;
+  border-radius: 0;
+  padding: 2% 4% 2%;
+}
+.item_name i {
+  cursor: pointer;
+}
+
+
+@media (min-width: 768px) {
+  #map {
+    height: 760px;
+  }
+  .map_sidebar {
+    width: 300px;
+  }
 }
