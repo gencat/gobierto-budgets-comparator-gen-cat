@@ -26,6 +26,7 @@
 
       $(document).on('click', '[data-category-code]', function(e){
         e.preventDefault();
+        this.hideInfoWindow();
         $.event.trigger({
           type: "renderBudgetLineCategory",
           code: $(e.target).data('category-code'),
@@ -39,6 +40,7 @@
       $(document).on('click', '[data-select-category]', function(e){
         e.preventDefault();
         var target = $(e.target);
+        this.hideInfoWindow();
         this.attr.categories = [];
         this.attr.state.kind = target.data('kind');
         this.attr.state.area = target.data('area');
@@ -46,13 +48,14 @@
         target.parents('ul').hide();
         this.itemsParent.show();
         if (toggle.hasClass('fa-caret-square-o-down')) {
-            toggle.removeClass('fa-caret-square-o-down').addClass('fa-caret-square-o-up');            
+            toggle.removeClass('fa-caret-square-o-down').addClass('fa-caret-square-o-up');
         }
       }.bind(this));
 
       $(document).on('click', '[data-expand-category]', function(e){
         e.preventDefault();
         var target = $(e.target);
+        this.hideInfoWindow();
         this.addChildrenPlaceHolder(target);
         this.renderCategories(target.data('expand-category'));
         target.addClass(this.attr.collapseIconClass).removeClass(this.attr.expandIconClass);
@@ -65,6 +68,7 @@
       $(document).on('click', '[data-collapse-category]', function(e){
         e.preventDefault();
         var target = $(e.target);
+        this.hideInfoWindow();
         target.addClass(this.attr.expandIconClass).removeClass(this.attr.collapseIconClass);
         target.data('expand-category', target.data('collapse-category'));
         target.attr('data-expand-category', target.data('collapse-category'));
@@ -97,11 +101,11 @@
 
       // Initial state
       $('[data-selected]').click();
-      
+
       // Collapse sidebar on phones
       if (window.innerWidth <= 768) {
         $('.sidebar_wrapper .items').css('display', 'none')
-        toggle.removeClass('fa-caret-square-o-up').addClass('fa-caret-square-o-down');     
+        toggle.removeClass('fa-caret-square-o-up').addClass('fa-caret-square-o-down');
       }
     });
 
@@ -174,8 +178,11 @@
         $(this).remove();
       });
     };
-  });
 
+    this.hideInfoWindow = function(){
+      $('.cartodb-tooltip').hide();
+    };
+  });
 
 
   $(function() {

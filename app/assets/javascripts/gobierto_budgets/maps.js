@@ -39,6 +39,7 @@ $(function () {
 
   function renderMapIndicator(layer, vis){
     $('[data-indicator]').click(function(e){
+      $('.cartodb-tooltip').hide();
       var year = $('body').data('year');
       var indicator = $('.metric.selected').data('indicator');
       layer.show();
@@ -103,6 +104,7 @@ $(function () {
 
   function renderMapBudgetLine(layer, vis){
     $(document).on('renderBudgetLineCategory', function(e){
+      $('.cartodb-tooltip').hide();
       $('.metric').removeClass('selected');
       var year = $('body').data('year');
 
