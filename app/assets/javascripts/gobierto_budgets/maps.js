@@ -47,8 +47,9 @@ $(function () {
       var sql = new cartodb.SQL({ user: 'gobierto' });
       sql.execute("SELECT {{indicator}} as value FROM indicators_{{year}} as i WHERE" + placesScopeCondition(), { indicator: indicator, year: year })
         .done(function(data) {
-          if(indicator === 'debt' || indicator === 'planned_vs_executed')
-            colors = colors.reverse();
+          var customColors = colors.slice(0);
+          if(indicator === 'debt' || indicator === 'planned_vs_executed' || indicator === 'population')
+            customColors = customColors.reverse();
 
           // push all the values into an array
           var values = [];
@@ -57,21 +58,21 @@ $(function () {
           });
           values = filterOutliers(values);
 
-          var clusters = ss.ckmeans(values, colors.length);
+          var clusters = ss.ckmeans(values, customColors.length);
           var ranges = clusters.map(function(cluster){
             return [cluster[0],cluster.pop()];
           });
 
           var css = "#indicators_2016 [ value = 0]  { polygon-fill: #ffffff; } ";
           if(indicator === 'debt'){
-            css = "#indicators_2016 [ value = 0]  { polygon-fill: "+colors[0]+"; } ";
+            css = "#indicators_2016 [ value = 0]  { polygon-fill: "+customColors[0]+"; } ";
           }
           console.log('Ranges: ' + ranges);
           ranges.forEach(function(range,i){
             var value = range[0];
             if(i === 0)
               value = 0;
-            var color = colors[i];
+            var color = customColors[i];
             css += "#indicators_2016 [value>"+value + "] {polygon-fill:" + color + "}\n";
           });
           console.log(css);
@@ -91,7 +92,7 @@ $(function () {
           lc.html($('#legend').html());
           lc.find('.min').html('< ' + accounting.formatNumber(ranges[0][1], 0) + ' ' + indicators[indicator].unit);
           lc.find('.max').html('> ' + accounting.formatNumber(ranges[ranges.length-1][0], 0) + ' ' + indicators[indicator].unit);
-          colors.forEach(function(color){
+          customColors.forEach(function(color){
             var c = $('<div class="quartile" style="background-color:'+color+'"></div>');
             lc.find('.colors').append(c);
           });
@@ -166,6 +167,7 @@ $(function () {
 
   if($('#map').length){
 
+    var colors = [ '#d73027', '#f79272', '#fff2cc', '#8cce8a', '#1a9850'];
     var colors = [ '#d73027', '#f79272', '#fff2cc', '#8cce8a', '#1a9850'];
     var indicators = {
       gasto_por_habitante: {
