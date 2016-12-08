@@ -1,59 +1,4 @@
 $(function () {
-  CSS['gasto_por_habitante'] = "\
-#indicators_2016 [ value <= 700]  { polygon-fill: #d73027; }\
-#indicators_2016 [ value > 700]   { polygon-fill: #f79272; }\
-#indicators_2016 [ value > 1200]  { polygon-fill: #fff2cc; }\
-#indicators_2016 [ value > 1500]  { polygon-fill: #8cce8a; }\
-#indicators_2016 [ value > 3000 ] { polygon-fill: #1a9850; }\
-#indicators_2016 [ value = 0]  { polygon-fill: #ffffff; }\
-    ";
-
-
-    CSS['gasto_total'] = "\
-#indicators_2016 [ value <= 700000] { polygon-fill: #d73027; }\
-#indicators_2016 [ value >  700000] { polygon-fill: #f79272; }\
-#indicators_2016 [ value > 1200000] { polygon-fill: #fff2cc; }\
-#indicators_2016 [ value > 1500000] { polygon-fill: #8cce8a; }\
-#indicators_2016 [ value > 3000000] { polygon-fill: #1a9850; }\
-#indicators_2016 [ value = 0]  { polygon-fill: #ffffff; }\
-    ";
-
-    CSS['budgets'] = "\
-#indicators_2016 [ value = 0]  { polygon-fill: #ffffff; }\
-#indicators_2016 [ value <=  10]  { polygon-fill: #d73027; }\
-#indicators_2016 [ value >   10]  { polygon-fill: #f79272; }\
-#indicators_2016 [ value >  800]  { polygon-fill: #fff2cc; }\
-#indicators_2016 [ value > 1500] { polygon-fill: #8cce8a; }\
-#indicators_2016 [ value > 3000] { polygon-fill: #1a9850; }\
-    ";
-
-    CSS['planned_vs_executed'] = "\
-#indicators_2016 [ value = 0]  { polygon-fill: #ffffff; }\
-#indicators_2016 [ value <= 100000]  { polygon-fill: #d73027; }\
-#indicators_2016 [ value >  100000]  { polygon-fill: #f79272; }\
-#indicators_2016 [ value > 8000000]  { polygon-fill: #fff2cc; }\
-#indicators_2016 [ value > 15000000] { polygon-fill: #8cce8a; }\
-#indicators_2016 [ value > 30000000] { polygon-fill: #1a9850; }\
-    ";
-
-    CSS['population'] = "\
-#indicators_2016 [ value = 0]  { polygon-fill: #ffffff; }\
-#indicators_2016 [ value <= 1000]   { polygon-fill: #d73027; }\
-#indicators_2016 [ value >  1000]    { polygon-fill: #f79272; }\
-#indicators_2016 [ value > 10000]   { polygon-fill: #fff2cc; }\
-#indicators_2016 [ value > 100000]  { polygon-fill: #8cce8a; }\
-#indicators_2016 [ value > 1000000] { polygon-fill: #1a9850; }\
-    ";
-
-    CSS['debt'] = "\
-#indicators_2016 [ value = 0]  { polygon-fill: #ffffff; }\
-#indicators_2016 [ value <= 1000]   { polygon-fill: #d73027; }\
-#indicators_2016 [ value >  1000]    { polygon-fill: #f79272; }\
-#indicators_2016 [ value > 10000]   { polygon-fill: #fff2cc; }\
-#indicators_2016 [ value > 100000]  { polygon-fill: #8cce8a; }\
-#indicators_2016 [ value > 1000000] { polygon-fill: #1a9850; }\
-    ";
-
   function placesScopeCondition(){
     if(window.placesScope.length)
       return " i.place_id IN (" + window.placesScope + ")";
@@ -94,24 +39,6 @@ $(function () {
 
   function renderMapIndicator(layer, vis){
     $('[data-indicator]').click(function(e){
-      var indicators = {
-        gasto_por_habitante: {
-          unit: '€/hab',
-        },
-        gasto_total: {
-          unit: '€',
-        },
-        planned_vs_executed: {
-          unit: '%',
-        },
-        debt: {
-          unit: '€',
-        },
-        population: {
-          unit: 'p.',
-        }
-      };
-
       var year = $('body').data('year');
       var indicator = $('.metric.selected').data('indicator');
       layer.show();
@@ -134,26 +61,30 @@ $(function () {
             return [cluster[0],cluster.pop()];
           });
 
-           var css = "#indicators_2016 [ value = 0]  { polygon-fill: #ffffff; } ";
-           if(indicator === 'debt'){
-             css = "#indicators_2016 [ value = 0]  { polygon-fill: "+colors[0]+"; } ";
-           }
-           console.log('Ranges: ' + ranges);
-           ranges.forEach(function(range,i){
-             var value = range[0];
-             if(i === 0)
-               value = 0;
-             var color = colors[i];
-             css += "#indicators_2016 [value>"+value + "] {polygon-fill:" + color + "}\n";
-           });
-           console.log(css);
+          var css = "#indicators_2016 [ value = 0]  { polygon-fill: #ffffff; } ";
+          if(indicator === 'debt'){
+            css = "#indicators_2016 [ value = 0]  { polygon-fill: "+colors[0]+"; } ";
+          }
+          console.log('Ranges: ' + ranges);
+          ranges.forEach(function(range,i){
+            var value = range[0];
+            if(i === 0)
+              value = 0;
+            var color = colors[i];
+            css += "#indicators_2016 [value>"+value + "] {polygon-fill:" + color + "}\n";
+          });
+          console.log(css);
 
-           var query = "select i.cartodb_id, t.place_id, t.nameunit as name, t.the_geom, t.the_geom_webmercator, i."+indicator+" as value, TO_CHAR(i."+indicator+", '999G999G990D00') as valuef from ign_spanish_adm3_municipalities_displaced_canary as t full join indicators_"+year+" as i on i.place_id = t.place_id WHERE" + placesScopeCondition();
-           console.log(query);
-           layer.setSQL(query);
+          var query = "select i.cartodb_id, t.place_id, t.nameunit as name, t.the_geom, " +
+                      "t.the_geom_webmercator, i."+indicator+" as value, TO_CHAR(i."+indicator+", '999G999G990') as valuef, " +
+                      "'"+indicators[indicator].name+"' as indicator_name, '"+indicators[indicator].unit+"' as unit" +
+                      " from ign_spanish_adm3_municipalities_displaced_canary as t full join indicators_"+year+" as i " +
+                      " on i.place_id = t.place_id WHERE" + placesScopeCondition();
+          console.log(query);
+          layer.setSQL(query);
 
-           layer.setCartoCSS(css);
-           layer.show();
+          layer.setCartoCSS(css);
+          layer.show();
 
           var lc = $('#legend-container');
           lc.html($('#legend').html());
@@ -165,7 +96,6 @@ $(function () {
           });
         })
       .error(function(errors) {
-        // errors contains a list of errors
         console.log("errors:" + errors);
       });
     });
@@ -192,22 +122,28 @@ $(function () {
             return [cluster[0],cluster.pop()];
           });
 
-           var css = "#indicators_2016 [ value = 0]  { polygon-fill: #ffffff; } ";
-           ranges.forEach(function(range,i){
-             var value = range[0]
-             var color = colors[i];
-             css += "#indicators_2016 [value>"+value + "] {polygon-fill:" + color + "}\n";
-           });
-           console.log(css);
+          console.log('Ranges: ' + ranges);
 
-           var query = "select i.cartodb_id, t.place_id, t.nameunit as name, t.the_geom, t.the_geom_webmercator, i.code, i.kind, i.area, i.amount, i.amount_per_inhabitant as value from ign_spanish_adm3_municipalities_displaced_canary as t full join planned_budgets_"+year+" as i on i.place_id = t.place_id" +
-               " WHERE code='"+e.code+"' AND kind='" + e.kind + "' AND area='" + e.area[0] + "' AND" + placesScopeCondition();
+          var css = "#indicators_2016 [ value = 0]  { polygon-fill: #ffffff; } ";
+          ranges.forEach(function(range,i){
+            var value = range[0]
+            var color = colors[i];
+            css += "#indicators_2016 [value>"+value + "] {polygon-fill:" + color + "}\n";
+          });
+          console.log(css);
 
-           console.log(query);
-           layer.setSQL(query);
+          var query = "select i.cartodb_id, t.place_id, t.nameunit as name, t.the_geom, t.the_geom_webmercator, " +
+            " i.code, i.kind, i.area, i.amount, i.amount_per_inhabitant as value," +
+            " TO_CHAR(i.amount_per_inhabitant, '999G999G990') as valuef, " +
+            " '"+indicators['gasto_por_habitante'].name+"' as indicator_name, '"+indicators['gasto_por_habitante'].unit+"' as unit" +
+            " from ign_spanish_adm3_municipalities_displaced_canary as t full join planned_budgets_"+year+" as i on i.place_id = t.place_id" +
+            " WHERE code='"+e.code+"' AND kind='" + e.kind + "' AND area='" + e.area[0] + "' AND" + placesScopeCondition();
 
-           layer.setCartoCSS(css);
-           layer.show();
+          console.log(query);
+          layer.setSQL(query);
+
+          layer.setCartoCSS(css);
+          layer.show();
 
           var lc = $('#legend-container');
           lc.html($('#legend').html());
@@ -218,10 +154,9 @@ $(function () {
             lc.find('.colors').append(c);
           });
         })
-      .error(function(errors) {
-        // errors contains a list of errors
-        console.log("errors:" + errors);
-      });
+        .error(function(errors) {
+          console.log("errors:" + errors);
+        });
 
       $('#legend-container').html($('#legend').html());
     });
@@ -230,7 +165,28 @@ $(function () {
   if($('#map').length){
 
     var colors = [ '#d73027', '#f79272', '#fff2cc', '#8cce8a', '#1a9850'];
-    // var colors = ['#d73027','#fc8d59','#fee090','#ffffbf','#e0f3f8','#91bfdb','#4575b4'];
+    var indicators = {
+      gasto_por_habitante: {
+        name: I18n.t('gobierto_budgets.pages.map.expense_per_inhabitant'),
+        unit: '€/hab',
+      },
+      gasto_total: {
+        name: I18n.t('gobierto_budgets.pages.map.expense'),
+        unit: '€',
+      },
+      planned_vs_executed: {
+        name: I18n.t('gobierto_budgets.pages.map.planned_vs_executed'),
+        unit: '%',
+      },
+      debt: {
+        name: I18n.t('gobierto_budgets.pages.map.debt'),
+        unit: '€',
+      },
+      population: {
+        name: I18n.t('gobierto_budgets.pages.map.population'),
+        unit: ' ' + I18n.t('gobierto_budgets.pages.map.people'),
+      }
+    };
 
     cartodb.createVis('map', 'https://gobierto.carto.com/api/v2/viz/205616b2-b893-11e6-b070-0e233c30368f/viz.json', {
         shareable: false,
@@ -251,9 +207,9 @@ $(function () {
         layer: sublayer,
         template: $('#infowindow_template').html(),
         position: 'bottom|right',
-        fields: [{ name: 'name', value: 'value', valuef: 'valuef' }]
+        fields: [{ name: 'name', value: 'value', valuef: 'valuef', indicator_name: 'indicator_name', unit: 'unit' }]
       });
-      sublayer.setInteractivity('name, value');
+      sublayer.setInteractivity('name, value,valuef,indicator_name,unit');
       renderMapIndicator(sublayer, vis);
       renderMapBudgetLine(sublayer, vis);
       $('[data-indicator].selected').click();

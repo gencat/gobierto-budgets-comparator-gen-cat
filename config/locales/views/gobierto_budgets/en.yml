@@ -17,6 +17,12 @@ en:
         incomes: Income
         in_what: In what is spent
         for_what: For what is spent
+        expense_per_inhabitant: Expenses per person
+        expense: Total expense
+        planned_vs_executed: Planned vs Executed
+        debt: Debt
+        population: Population
+        people: people
       ranking:
         rankings: Rankings
         subtitle: Check the municipalities with more income or expenses, total or per inhabitant, per budget line.

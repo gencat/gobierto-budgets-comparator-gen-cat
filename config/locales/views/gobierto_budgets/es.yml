@@ -17,6 +17,12 @@ es:
         incomes: Ingresos
         in_what: En qué se gasta
         for_what: Para qué se gasta
+        expense_per_inhabitant: Gasto por habitante
+        expense: Gasto total
+        planned_vs_executed: Planeado vs Ejecutado
+        debt: Deuda
+        population: Población
+        people: personas
       ranking:
         rankings: Ránkings
         subtitle: Consulta los municipios que más ingresos y gastos, total y por habitante, realizan para cada partida.
