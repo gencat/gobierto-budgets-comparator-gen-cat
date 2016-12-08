@@ -9,6 +9,20 @@ es:
         percentage_over_total: Porcentaje sobre el total
         show_me_another: 'Enséñame otra'
     pages:
+      map:
+        title: "Mapas de presupuestos en %{year}"
+        meta_description: "Visualiza y explora el mapa de presupuestos en %{year}"
+        municipality_maps: Mapas por municipios
+        search: Busca partidas
+        incomes: Ingresos
+        in_what: En qué se gasta
+        for_what: Para qué se gasta
+        expense_per_inhabitant: Gasto por habitante
+        expense: Gasto total
+        planned_vs_executed: Planeado vs Ejecutado
+        debt: Deuda
+        population: Población
+        people: personas
       ranking:
         rankings: Ránkings
         subtitle: Consulta los municipios que más ingresos y gastos, total y por habitante, realizan para cada partida.
@@ -151,6 +165,35 @@ es:
         budget_percentage_over_total:
           percentage_over_total: "Porcentaje sobre el total"
         deviation: "Desviación de los %{kind} en %{year}"
+      global_data:
+        budgets_execution_header: "Desviación de los %{kind} en %{year}"
+        income_up: "Se ha ingresado un %{percentage}% (%{diff}) más de lo planeado"
+        income_down: "Se ha ingresado un %{percentage}% (%{diff}) menos de lo planeado"
+        expense_up: "Se ha gastado un %{percentage}% (%{diff}) más de lo planeado"
+        expense_down: "Se ha gastado un %{percentage}% (%{diff}) menos de lo planeado"
+        total_expense: Gasto total
+        expense_per_inhabitant: Gasto por habitante
+        category_per_inhabitant: "%{category} por habitante"
+        total_budget:
+          total_expenses: Gasto total
+        population:
+          population: Habitantes
+        total_budget_per_inhabitant:
+          expenses_per_inhabitant: Gasto por habitante
+        budget_execution:
+          expense_planned_vs_executed: Gasto planeado vs ejecutado
+          income_planned_vs_executed: Ingreso planeado vs ejecutado
+        budget_per_inhabitant:
+          expenses_per_inhabitant: Gasto por habitante
+          income_per_inhabitant: Ingreso por habitante
+        total_budget_execution:
+          planned_vs_executed: 'Ejecución vs Presupuesto'
+        debt:
+          debt: Deuda viva
+        budget_percentage_over_total:
+          percentage_over_total: "Porcentaje sobre el total"
+        deviation: "Desviación de los %{kind} en %{year}"
+
     visualizations:
       mean_national: Media nacional
       mean_autonomy: Media autonómica

@@ -60,34 +60,51 @@ namespace :gobierto_budgets do
       kind = 'G'
       id = [place.id,year,kind].join("/")
       result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast, type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: id
-      result['_source']['total_budget_per_inhabitant'].to_f
+      value = result['_source']['total_budget_per_inhabitant'].to_f
+      raise Elasticsearch::Transport::Transport::Errors::NotFound if value == 0.0
+      return value
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
-      nil
+      year = year - 1
+      if year >= GobiertoBudgets::SearchEngineConfiguration::Year.first
+        retry
+      end
     end
 
     def get_total_expense(place, year)
       kind = 'G'
       id = [place.id,year,kind].join("/")
       result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast, type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: id
-      result['_source']['total_budget'].to_f
+      value = result['_source']['total_budget'].to_f
+      raise Elasticsearch::Transport::Transport::Errors::NotFound if value == 0.0
+      value
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
-      nil
+      year = year - 1
+      if year >= GobiertoBudgets::SearchEngineConfiguration::Year.first
+        retry
+      end
     end
 
     def get_total_expense_executed(place, year)
       kind = 'G'
       id = [place.id,year,kind].join("/")
       result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_executed, type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: id
-      result['_source']['total_budget'].to_f
+      value = result['_source']['total_budget'].to_f
+      raise Elasticsearch::Transport::Transport::Errors::NotFound if value == 0.0
+      value
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
-      nil
+      year = year - 1
+      if year >= GobiertoBudgets::SearchEngineConfiguration::Year.first
+        retry
+      end
     end
 
     def get_planned_vs_executed(place, year)
       planned = get_total_expense(place, year)
       executed = get_total_expense_executed(place, year)
-      if planned and executed
+      if planned and executed and executed != 0
         delta_percentage(executed,planned).to_f.round(2)
+      else
+        nil
       end
     end
 

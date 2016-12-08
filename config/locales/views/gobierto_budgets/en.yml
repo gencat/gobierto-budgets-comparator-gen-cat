@@ -9,6 +9,20 @@ en:
         percentage_over_total: Percentage over total
         show_me_another: Show me another
     pages:
+      map:
+        title: "Budgets maps in %{year}"
+        meta_description: "Check the maps in %{year}"
+        municipality_maps: Municipality maps
+        search: Search budget lines
+        incomes: Income
+        in_what: In what is spent
+        for_what: For what is spent
+        expense_per_inhabitant: Expenses per person
+        expense: Total expense
+        planned_vs_executed: Planned vs Executed
+        debt: Debt
+        population: Population
+        people: people
       ranking:
         rankings: Rankings
         subtitle: Check the municipalities with more income or expenses, total or per inhabitant, per budget line.
@@ -151,6 +165,35 @@ en:
         budget_percentage_over_total:
           percentage_over_total: "Percentage over total"
         deviation: "%{kind} deviation in %{year}"
+      global_data:
+        budgets_execution_header: "%{kind} deviation in %{year}"
+        income_up: "It was earnt %{percentage}% (%{diff}) more than planned"
+        income_down: "It was earnt %{percentage}% (%{diff}) less than planned"
+        expense_up: "It was spent %{percentage}% (%{diff}) more than planned"
+        expense_down: "It was spent %{percentage}% (%{diff}) less than planned"
+        total_expense: Total expense
+        expense_per_inhabitant: Expense per inhabitant
+        category_per_inhabitant: "%{category} per inhabitant"
+        total_budget:
+          total_expenses: Total expenses
+        population:
+          population: Population
+        total_budget_per_inhabitant:
+          expenses_per_inhabitant: Expenses per inhabitant
+        budget_execution:
+          expense_planned_vs_executed: Expenses planned vs executed
+          income_planned_vs_executed: Income planned vs executed
+        budget_per_inhabitant:
+          expenses_per_inhabitant: Expenses per inhabitant
+          income_per_inhabitant: Income per inhabitant
+        total_budget_execution:
+          planned_vs_executed: Planned vs executed
+        debt:
+          debt: Debt
+        budget_percentage_over_total:
+          percentage_over_total: "Percentage over total"
+        deviation: "%{kind} deviation in %{year}"
+
     visualizations:
       mean_national: National avg
       mean_autonomy: Autonomic avg
