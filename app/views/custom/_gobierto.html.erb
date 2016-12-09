@@ -82,7 +82,7 @@ h6 {
   width: 450px !important;
 }
 .global {
-  display: none
+  display: none;
 }
 .main_content {
   width: 1140px;
@@ -102,7 +102,7 @@ h2 {
   line-height: 1.4em;
 }
 #doorbell-button {
-  display: none
+  display: none;
 }
 
 /* Home */
@@ -177,7 +177,7 @@ input[type="submit"] {
   background: #F5F5F5;
 }
 .featured_budget_line .show_me_another {
-  background: #F5F5F5
+  background: #F5F5F5;
 }
 .cta_majors {
   background: #EFF5FA;
@@ -210,23 +210,79 @@ header.place .share_links a {
 .button_light {
   background: #EFF5FA;
 }
-.button_light:hover {
+.button_light:hover,
+.button_light:active {
   background: #C9DCEC;
 }
 input[type=submit]:disabled:hover,
-input[type=submit]:hover {
+input[type=submit]:hover,
+input[type=submit]:disabled:active,
+input[type=submit]:active {
   background: #689dcb;
 }
 .autocomplete-selected {
   background: #2A6EBB;
 }
-.ranking_cards_carousel .ranking_card {
-  padding-left: 1.5em !important;
-  padding-right: 1.5em !important;
-}
 .ranking_cards_carousel .nav a:hover {
   text-decoration: none !important;
 }
+.ranking_card {
+  padding-left: 1.5em !important;
+  padding-right: 1.5em !important;
+}
+.ranking_card:hover,
+.ranking_card:active {
+  background: #C9DCEC;
+}
+
+.rankings .filters li {
+  width: 20%;
+}
+.rankings .noUi-connect {
+  background: #2A6EBB;
+}
+nav.pagination .current,
+nav.pagination span a,
+nav.pagination .gap {
+  background: #2A6EBB;
+}
+
+/* Navigation */
+.navigation {
+  margin-bottom: 1rem;
+}
+.navigation-headline {
+  display: inline-block;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1.1rem;
+}
+.navigation-headline a {
+  color: #333;
+}
+.navigation-headline a:hover,
+.navigation-headline a:active {
+  text-decoration: none !important;
+}
+.navigation-list li {
+  font-weight: 600;
+  display: inline-block;
+  margin-left: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.875rem;
+}
+.navigation-list li a {
+  transition: none;
+}
+.navigation-list li a:hover,
+.navigation-list li a:active,
+.navigation-list li a:focus {
+  text-decoration: none !important;
+  border-bottom: 3px solid #C9DCEC;
+}
+
 
 /* Charts */
 table {
@@ -236,7 +292,7 @@ table {
   min-width: 60%;
 }
 .totals tr td {
-      background: #F5F5F5
+  background: #F5F5F5;
 }
 .form_filters li a.buttonSelected {
   background: none;
