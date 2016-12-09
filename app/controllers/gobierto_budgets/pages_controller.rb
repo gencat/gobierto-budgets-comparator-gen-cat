@@ -30,5 +30,9 @@ module GobiertoBudgets
       render layout: false
     end
 
+    def map
+      @year = params[:year]
+    end
+
   end
 end
