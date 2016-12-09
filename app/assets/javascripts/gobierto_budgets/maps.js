@@ -196,7 +196,7 @@ $(function () {
         center_lon: window.mapSettings.centerLon,
         zoom: window.mapSettings.zoomLevel,
         zoomControl: true,
-        loaderControl: false
+        loaderControl: true
         })
     .done(function(vis, layers) {
       var sublayer = layers[1].getSubLayer(0);
