@@ -207,14 +207,25 @@ header.place .share_links a {
 .execution .box h1 {
   color: #2A6EBB;
 }
-.execution .box .vizz line.year_marker {
-  stroke: #2A6EBB;
-}
 .button_light {
   background: #EFF5FA;
 }
 .button_light:hover {
   background: #C9DCEC;
+}
+input[type=submit]:disabled:hover,
+input[type=submit]:hover {
+  background: #689dcb;
+}
+.autocomplete-selected {
+  background: #2A6EBB;
+}
+.ranking_cards_carousel .ranking_card {
+  padding-left: 1.5em !important;
+  padding-right: 1.5em !important;
+}
+.ranking_cards_carousel .nav a:hover {
+  text-decoration: none !important;
 }
 
 /* Charts */
@@ -230,4 +241,7 @@ table {
 .form_filters li a.buttonSelected {
   background: none;
   text-decoration: underline;
+}
+.execution .box .vizz line.year_marker {
+  stroke: #2A6EBB;
 }
