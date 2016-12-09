@@ -219,6 +219,7 @@ $(function () {
     $('.metric').on('click', function(e){
       e.preventDefault();
       $('.metric').removeClass('selected');
+      $('[data-category-code]').removeClass('active');
       $(this).addClass('selected');
     });
   }
