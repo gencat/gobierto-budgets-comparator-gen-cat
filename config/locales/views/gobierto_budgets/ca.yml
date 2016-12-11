@@ -168,6 +168,8 @@ ca:
           debt: Deute viu
         budget_percentage_over_total:
           percentage_over_total: "Percentage sobre el total"
+        budget_percentage_previous_year:
+          percentage_previous_year: "Percentage sobre l'any anterior"
         deviation: "Desviació de %{kind} en %{year}"
       global_data:
         budgets_execution_header: "Desviació de %{kind} en %{year}"
@@ -197,9 +199,8 @@ ca:
         budget_percentage_over_total:
           percentage_over_total: "Percentage sobre el total"
         deviation: "Desviació de %{kind} en %{year}"
-
     visualizations:
       mean_national: Mitjana nacional
       mean_autonomy: Mitjana autonòmica
-      mean_province: Mitjana provincial
+      mean_province: Mitjana nacional
       previous_year_diff: Canvi anyo anterior

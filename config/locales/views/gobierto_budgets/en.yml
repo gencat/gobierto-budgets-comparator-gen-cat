@@ -168,6 +168,8 @@ en:
           debt: Debt
         budget_percentage_over_total:
           percentage_over_total: "Percentage over total"
+        budget_percentage_previous_year:
+          percentage_previous_year: "Percentage over prev. year"
         deviation: "%{kind} deviation in %{year}"
       global_data:
         budgets_execution_header: "%{kind} deviation in %{year}"
