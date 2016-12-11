@@ -8,6 +8,8 @@ es:
     expenses: gastos
     economic: económica
     functional: funcional
+    totals: totales
+    per_inhabitant: por habitante
   actions:
     send: Enviar
     create: Crear

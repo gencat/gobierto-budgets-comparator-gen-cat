@@ -120,6 +120,10 @@ en:
         autonomous_region: Autonomous Region
         disclaimer: The database we use doesn't include data for the 100% of the municipalities, so only those with data will be included.
         why: 'Why there is no data for all the municipalities?'
+      ranking_table:
+        municipality: Municipalities
+        inhabitants: Inhabitants
+        compare: Compare
     budget_lines:
       show:
         title: "%{kind} in %{budget_line} in %{place} at %{year}"

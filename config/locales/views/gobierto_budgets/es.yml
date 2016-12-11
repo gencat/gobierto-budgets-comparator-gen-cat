@@ -120,6 +120,10 @@ es:
         autonomous_region: Comunidad Autónoma
         disclaimer: La base de datos que utilizamos no incluye datos para el 100% de los municipios, por lo que no mostramos los municipios para los que no hay datos.
         why: '¿Por qué no hay datos de todos los municipios?'
+      ranking_table:
+        municipality: Municipio
+        inhabitants: Habitantes
+        compare: Compara
     budget_lines:
       show:
         title: "%{kind} en %{budget_line} en %{place} para %{year}"

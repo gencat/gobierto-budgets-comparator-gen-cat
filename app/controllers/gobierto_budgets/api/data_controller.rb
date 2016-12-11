@@ -456,7 +456,7 @@ module GobiertoBudgets
       def ranking_title(variable, year, kind, code, area_name)
         title = ["Top"]
         title << ((kind == 'G') ? I18n.t('common.expenses') : I18n.t('common.incomes'))
-        title << ((variable == 'total_budget' or variable == 'amount') ? 'totales' : 'por habitante')
+        title << ((variable == 'total_budget' or variable == 'amount') ? I18n.t('common.totals') : I18n.t('common.per_inhabitant'))
         title << "en #{budget_line_denomination(area_name, code, kind)}" if code.present?
         title << "en el #{year}"
         title.join(' ')
