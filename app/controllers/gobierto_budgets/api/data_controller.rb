@@ -501,6 +501,16 @@ module GobiertoBudgets
 
 
       def total_budget_data(year, field, ranking = true)
+        terms = [
+          {term: { year: year }},
+          {term: { kind: GobiertoBudgets::BudgetLine::EXPENSE }}
+        ]
+
+        if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
+          ine_codes = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
+          terms << {terms: { ine_code: ine_codes.compact }} if ine_codes.any?
+        end
+
         query = {
           sort: [
             { field.to_sym => { order: 'desc' } }
@@ -509,10 +519,7 @@ module GobiertoBudgets
             filtered: {
               filter: {
                 bool: {
-                  must: [
-                    {term: { year: year }},
-                    {term: { kind: GobiertoBudgets::BudgetLine::EXPENSE }}
-                  ]
+                  must: terms
                 }
               }
             }
