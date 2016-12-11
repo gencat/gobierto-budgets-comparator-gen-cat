@@ -199,7 +199,6 @@ en:
         budget_percentage_over_total:
           percentage_over_total: "Percentage over total"
         deviation: "%{kind} deviation in %{year}"
-
     visualizations:
       mean_national: National avg
       mean_autonomy: Autonomic avg
