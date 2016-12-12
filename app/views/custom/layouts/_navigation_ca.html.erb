@@ -1,8 +1,7 @@
 <header class="navigation">
-  <div class="navigation-headline"><a href="/">Comparador</a></div>
+  <div class="navigation-headline"><a href="/">Pressupostos Municipals</a></div>
   <div class="navigation-list pull-right">
     <ul>
-      <li class="navigation-el"><%= link_to t('layouts.gobierto_budgets_application.municipalities'), root_path, class: class_if('selected', current_page?(root_path))  %></li>
       <li class="navigation-el"><%= link_to t('layouts.gobierto_budgets_application.compare'), gobierto_budgets_compare_path , class: class_if('selected', current_page?(gobierto_budgets_compare_path) || action_name == 'compare')%></li>
       <li class="navigation-el"><%= link_to t('layouts.gobierto_budgets_application.rankings'), gobierto_budgets_ranking_path , class: class_if('selected', current_page?(gobierto_budgets_ranking_path) || action_name == 'ranking')%></li>
       <li class="navigation-el"><%= link_to t('layouts.gobierto_budgets_application.maps'), gobierto_budgets_map_path(Date.today.year), class: class_if('selected', current_page?(gobierto_budgets_map_path(Date.today.year)))%></li>
