@@ -2,8 +2,6 @@
 
 <%= form_tag '#', id: 'compare_form' do %>
 
-  <%= image_tag('illustrations/integra.jpg') %>
-
   <p class="center"><%= t('.select_municipalities') %></p>
 
   <input type="text" class="search_compare" value="" placeholder="<%= t('.search_municipality', n: 1) %>" name="place1" />
@@ -19,8 +17,8 @@
   <p><%= t('.check_some_examples') %></p>
 
   <ul>
-    <li><%= link_to 'Coruña + Pontevedra + Lugo + Ferrol', "/compare/coruna-a:pontevedra:lugo:ferrol/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/economic", class: 'button' %></li>
-    <li><%= link_to 'Madrid + Barcelona + Valencia + Sevilla', "/compare/madrid:barcelona:valencia:sevilla/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/economic", class: 'button' %></li>
+    <li><%= link_to 'Barcelona + Lleida + Girona + Tarragona', "/compare/barcelona:lleida:girona:tarragona/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/economic", class: 'button' %></li>
+    <li><%= link_to 'Vic + Mataró + Badalona + Reus', "/compare/vic:mataro:badalona:reus/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/economic", class: 'button' %></li>
   </ul>
 
   <p><%= link_to t('.how_it_works'), '', class: 'toggle_div', data: { target: 'how_it_works' } %></strong></p>
