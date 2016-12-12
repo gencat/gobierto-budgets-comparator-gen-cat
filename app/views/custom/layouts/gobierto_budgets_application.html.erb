@@ -40,6 +40,12 @@
     <%= render partial: 'custom/gobierto' %>
   </style>
   <!-- /GEN CAT -->
+  <%= yield(:header) %>
+  <script type="text/javascript">
+    I18n.defaultLocale = "<%= I18n.default_locale %>";
+    I18n.locale = "<%= I18n.locale %>";
+  </script>
+  <%= render 'layouts/analytics_header' %>
 </head>
 
 <body <%= data_attributes %>>
@@ -91,7 +97,7 @@
 
   <div class="main_content clearfix">
     <%= render partial: 'custom/layouts/navigation_ca' %>
-    
+
     <%= yield %>
   </div>
 
@@ -124,9 +130,10 @@
 
 <script type="text/javascript">
   'use strict';
-  var mixpanel = [];
   <%= yield :javascript %>
 </script>
+
+<%= render 'layouts/analytics_footer' %>
 
 </body>
 </html>
