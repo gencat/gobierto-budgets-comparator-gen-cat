@@ -55,7 +55,7 @@ $(function(){
     groupBy: 'category'
   };
 
-  $('.search_auto').autocomplete($.extend({}, AUTOCOMPLETE_DEFAULTS, searchOptions));
+  $('.search_auto').autocomplete($.extend({}, AUTOCOMPLETE_DEFAULTS(), searchOptions));
   $('.global .ham .fa-bars').click(function(e){
     e.preventDefault();
     $('.global .desktop').toggle();
@@ -68,7 +68,7 @@ $(function(){
       window.location.href = suggestion.data.url;
     }
   };
-  $searchBudget.autocomplete($.extend({}, AUTOCOMPLETE_DEFAULTS, searchCategoriesOptions));
+  $searchBudget.autocomplete($.extend({}, AUTOCOMPLETE_DEFAULTS(), searchCategoriesOptions));
 
   $searchBudget = $('.search_categories_budget-income');
   searchCategoriesOptions = {
@@ -77,7 +77,7 @@ $(function(){
       window.location.href = suggestion.data.url;
     }
   };
-  $searchBudget.autocomplete($.extend({}, AUTOCOMPLETE_DEFAULTS, searchCategoriesOptions));
+  $searchBudget.autocomplete($.extend({}, AUTOCOMPLETE_DEFAULTS(), searchCategoriesOptions));
 
   $('.sticky').sticky({topSpacing:0});
 

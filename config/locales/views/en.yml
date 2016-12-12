@@ -45,6 +45,7 @@ en:
     sections: Sections
     search: Search
     news: News
+    autocomplete_no_results: 'Sorry, but there are no results'
   admin:
     registered_users:
       one: 1 registered user

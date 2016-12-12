@@ -100,7 +100,7 @@ ca:
         budget_lines_income_lower: Partides d'ingressos molt inferiors al pressupost
         budget_lines_expense_higher: Partides de despeses molt superiors al pressupost
         budget_lines_expense_lower: Partides de despeses molt inferiors al pressupost
-        no_data: "No hi ha dades disponibles en %{year}, per tant te mostrarem el primer any amb dades"
+        no_data: "No hi ha dades disponibles en %{year}, per tant et mostrarem el primer any amb dades"
       execution_table:
         planned: Plan.
         executed: Execució

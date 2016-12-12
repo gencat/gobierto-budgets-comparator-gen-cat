@@ -16,5 +16,5 @@ var searchCategoriesOptions = {
     window.location.href = suggestion.data.url;
   }
 };
-$searchBudget.autocomplete($.extend({}, AUTOCOMPLETE_DEFAULTS, searchCategoriesOptions));
+$searchBudget.autocomplete($.extend({}, AUTOCOMPLETE_DEFAULTS(), searchCategoriesOptions));
 

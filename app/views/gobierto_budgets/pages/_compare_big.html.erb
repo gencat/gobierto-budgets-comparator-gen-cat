@@ -65,7 +65,7 @@ var searchOptions = {
   groupBy: 'category'
 };
 
-$('.search_compare').autocomplete($.extend({}, AUTOCOMPLETE_DEFAULTS, searchOptions));
+$('.search_compare').autocomplete($.extend({}, AUTOCOMPLETE_DEFAULTS(), searchOptions));
 
 $('#compare_form').on('submit', function(e){
   e.preventDefault();
