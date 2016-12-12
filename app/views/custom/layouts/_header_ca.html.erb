@@ -156,7 +156,7 @@ function CompartirTwitter(){
              ',height=' + height +
              ',top='    + top    +
              ',left='   + left;
-	url +=document.title;
+	url += encodeURIComponent(document.title);
 	url +=' ';
 
 	window.open(url, 'Twitter', opts);
@@ -174,7 +174,7 @@ function CompartirFacebook(){
              ',top='    + top    +
              ',left='   + left;
 	
-	url+=document.URL;
+	url+= encodeURIComponent(document.URL);
 	window.open(url, 'Facebook', opts);
 }
 </script>
