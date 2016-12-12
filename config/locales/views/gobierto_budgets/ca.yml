@@ -62,7 +62,7 @@ ca:
         planned: pressupostats
         search_municipality: Busca municipi...
       no_data:
-        no_data_this_year: "Mmm... No tenim dades sobre este municipi para aquest anyo. Tria un altre..."
+        no_data_this_year: "Mmm... No tenim dades sobre este municipi para aquest any. Tria un altre..."
         why: 'Per què no hi ha dades?'
       show:
         title: "Pressupostos municipales de %{name} del %{year}"
@@ -130,7 +130,7 @@ ca:
         share_text: "%{kind} municipal de %{place} en %{budget_line} per a el %{year}"
         description: "Dades de %{kind} en %{budget_line} en %@place}. Consulta i visualitza la partida de %{budget_line} per a %{place} en els últims anys i compara amb altres municipis"
         total_budget_per_inhabitant: "%{kind} total d'aquesta partida aquest any per habitant"
-        total_budget: "%{kind} total d'aquesta partida aquest anyo"
+        total_budget: "%{kind} total d'aquesta partida aquest any"
         search: "Busca altres partides de %{kind}"
         about: Acerca d'aquesta partida
         description: Descripció
@@ -203,4 +203,4 @@ ca:
       mean_national: Mitjana nacional
       mean_autonomy: Mitjana autonòmica
       mean_province: Mitjana nacional
-      previous_year_diff: Canvi anyo anterior
+      previous_year_diff: Canvi any anterior
