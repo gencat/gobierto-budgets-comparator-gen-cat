@@ -17,7 +17,7 @@ $(function () {
     groupBy: 'category'
   }
 
-  $('#add_place').autocomplete($.extend({}, AUTOCOMPLETE_DEFAULTS, addPlaceOptions));
+  $('#add_place').autocomplete($.extend({}, AUTOCOMPLETE_DEFAULTS(), addPlaceOptions));
 
   function compareUrl(list) {
     var slugs = $.map(list, function(place, i) {

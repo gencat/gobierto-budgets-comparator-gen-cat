@@ -43,6 +43,7 @@ ca:
     configuration: Configuració
     sections: Seccions
     search: Cercar
+    autocomplete_no_results: 'Ho sentim, però no hi ha resultats'
   admin:
     registered_users:
       one: 1 usuari registrat
