@@ -1,0 +1,249 @@
+<!-- 1a fila llista i idiomes -->
+  <div class="fons_header hidden-xs">
+      <div class="container">
+        <nav class="collapse clearfix navbar-collapse navbar-ex1-collapse ">
+          <div class="row">
+            <div class="col-md-4 col-sm-3 column"></div>
+            <div class="col-md-8 col-sm-9 column hidden-xs hidden-mg">
+			<ul class="menu-superior">
+			 <li><a href="/es/pagines_interes/sobre-el-portal/" title="Sobre el portal" >Sobre el portal</a></li>
+				<li><a href="/es/pagines_interes/mapa-web/" title="Mapa web" >Mapa web</a></li>
+				<li><a href="https://ovt.gencat.cat/gsitfc/AppJava/generic/conqxsGeneric.do?webFormId=492&set-locale=es_ES" title="Consultes, propostes i suggeriments" >Contacte</a></li>
+				</ul>
+
+              <ul class="idioma">
+                <li><a title="català" href="/sites/transparenciacat/ca/inici/index.html">CA</a></li><li><a title="english" href="/sites/transparenciacat/en/inici/index.html">EN</a></li><li><a title="oc" href="/sites/transparenciacat/oc/inici/index.html">OC</a></li></ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+  <!-- FI 1a fila -->
+
+  <!-- 2a fila comparteix titol i cercador -->
+
+  <div class="fons_header titol_buscador hidden-xs" role="navigation">
+      <div class="container">
+
+        <!-- Fi menu cercador-->
+
+        <!-- Inici men? (desplegable) -->
+        <nav class="collapse clearfix navbar-collapse navbar-ex1-collapse ">
+          <!-- INCLUDE XARXES SOCIALS -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+		  	<div class="col-md-8 col-sm-8 column">
+
+            </div>
+            <div class="col-md-4 col-sm-4 column  hidden-mg">
+              <ul class="list-group llistat_xarxes_socials header clearfix-md">
+                <span class="comparteix hidden-xs">Compartir en:</span>
+                <li class="list-group-item"><a href="javascript:CompartirTwitter()" title="Comparte a Twitter"><img alt="Comparte a Twitter" src="/web/resources/fwkResponsive/fpca_transparencia_capcalera/img/NG_ico_twitter.png"></a></li>
+                <li class="list-group-item"><a href="javascript:CompartirFacebook()" title="Comparte a Facebook"><img alt="Comparte a Facebook" src="/web/resources/fwkResponsive/fpca_transparencia_capcalera/img/NG_ico_facebook.png"></a></li>
+                <li class="list-group-item" id="e-amic">
+                  <div class="menu_flotant menu_enviar_amic">
+                    <button class="collapsed" type="button" data-toggle="collapse" data-target="#formulari_envia" id="enviarAmicTab"> <img src="/system/modules/cat.transparencia.wcmResponsive.formatters.capcalera/resources/fpca_transparencia_capcalera/img/NG_ico_enviaemail.png" alt="Envia" title="Enviar"> </button>
+                    <div class="collapse" id="formulari_envia">
+                      <div class="panel-group" id="acordio_menu_flotant">
+                        <div id="resultMailAmic" style="display:none">
+                          <div id="msgOK" style="display:none">El mensaje se ha enviado.</div>
+                          <div id="msgKO" style="display:none">No se ha podido realizar el envío. Por favor, intente de nuevo más tarde.</div>
+                          <button class="btn bgRed white margin_top_xs" type="button" id="OKMailAmic" title="Cerrar">Cerrar</button>
+                        </div>
+                        <form class="formAmic1" action="http://formularis.gencat.cat/gencat_forms/AppJava/submitFormulari.do" method="post">
+                          <div class="panel panel-default">
+                            <input type="hidden" value="" name="url" id="urlPage">
+                            <input type="hidden" value="Inicio" name="titol" id="titolpagina">
+                            <div class="panel-heading">
+                              <h3>Transparencia</h3>
+                              <div class="clarification">
+                                <p>Campos obligatorios</p>
+                              </div>
+                              <ul>
+                                <li>
+                                  <label>Nombre<span class="red">*</span></label>
+                                  <input class="form-control" type="text" value="" name="nom" title="Nombre" id="nomF">
+                                  <div class="displaynone red clarification" id="msgNameError">Se debe introducir el nombre</div>
+                                </li>
+                                <li>
+                                  <label>Correo electrónico del destinatario<span class="red">*</span></label>
+                                  <input class="form-control" type="email" value="" name="correu_destinatari" title="Correo electrónico del destinatario" id="mailClientF">
+                                  <div class="displaynone red clarification" id="msgEmailError">El correo no es válido</div>
+                                </li>
+                                <li>
+                                  <label>Mensaje</label>
+                                  <textarea name="text" rows="2" class="form-control" id="misatgeF" title="Mensaje"></textarea>
+                                </li>
+                                <li>
+							   		<input id="codeCaptchaAmic" type="hidden" value="#" name="captchaCode"/>
+									<img id="refreshKaptchaImageAmic" src="http://formularis.gencat.cat/gencat_forms/images/refrescar.png" style="vertical-align: top; cursor:pointer;"/>
+									<div id="myCaptcha">
+										<img id="kaptchaImageAmic" src="#" width="200"/>
+										<label for="captchaAnswerAmic">Introduzca el texto de la imagen<span class="red">*</span></label>
+										<input type="text" id="captchaAnswerAmic" name="captchaAnswer"/>
+										<div class="displaynone red clarification" id="msgCaptchaError">Introduzca el texto de la imagen</div>
+									</div>
+									<script type="text/javascript">$(function(){$("#refreshKaptchaImageAmic").click(function () {var valor=Math.floor(Math.random()*1000000000);$("#codeCaptchaAmic").attr("value",valor);$("#kaptchaImageAmic").hide().attr("src", "http://formularis.gencat.cat/gencat_forms/AppJava/generarKaptcha?kaptchaCode="+valor).fadeIn();$("#captchaAnswerAmic").attr("value","");});});</script>
+							   </li>
+                                <li>
+                                  <button type="submit" class="btn bgRed white margin_top_xs" title="Enviar" id="sendMailAmic">Enviar</button>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                          <input type="hidden" value="es" name="idioma" id="idioma">
+                          <input type="hidden" value="44457" name="idFormulari" id="idFormulari">
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+<div class="row mar_top_20 hidden-xs">
+            <div class="col-md-8 col-sm-8 column"><a class="titol es" title="Portal Transparència" href="/es/inici">Portal Transparència</a>
+              <button class="menu_tancar visible-xs">Tancar</button>
+            </div>
+            <div class="col-md-4 col-sm-4 column hidden-xs hidden-mg">
+
+              <!-- Componente: cercador_vermell -->
+              <form class="navbar-form cercador_vermell hidden-xs pull-right" role="search" action="/es/pagines_interes/cercador">
+                <div class="form-group">
+                  <label for="cerca4" class="hidden">Busca</label>
+                  <input id="cerca4" type="search" class="form-control" title="Busca" name="q" value="Buscador" onfocus="if (this.value=='Buscador') this.value='';" onblur="if (this.value=='') this.value='Buscador'; "/>
+                  <input type="submit" class="btn btn-deafult" value="" />
+                  <!-- <span class="btn btn-default"></span> -->
+                </div>
+              </form>
+              <!-- end Componente: cercador_vermell -->
+
+            </div>
+          </div>
+        </nav>
+        <!-- Fi men? (desplegable) -->
+
+      </div>
+    </div>
+
+  <!-- FI 2a fila comparteix titol i cercador -->
+
+  <!-- 3a fila cercador mobil i menu -->
+
+  <div class="fons_header menu_principal navbar navbar-default z-index-menu" role="navigation">
+      <div class="container">
+        <div class="row clearfix menuNav">
+          <div class="col-md-3 col-xs-2 column visible-xs coloca ">
+            <button type="button" onclick="amunt();" title="Menu" class="navbar-toggle pull-left" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+          </div>
+          <div class="col-md-3 col-xs-8 col-offset-2 clearfix column visible-xs"> <a href="/es/inici" class="mvlogo es" title="Portal Transparència">Portal Transparència</span></a> </div>
+          <div class="col-md-3 col-xs-2 column visible-xs coloca1">
+            <button onclick="amunt();" type="button" title="q" class="ico_cerca " data-toggle="collapse" data-target=".dos"> </button>
+          </div>
+        </div>
+        <div class="collapse dos">
+          <div class="shadowBox">
+            <form class="navbar-form navbar-left primer" role="search" action="/es/pagines_interes/cercador" method="get">
+              <div class="form-group">
+                <input type="search" class="form-control" name="q" title="Busca" value="" onfocus="if (this.value=='') this.value='';" onblur="if (this.value=='') this.value='';">
+                <button type="button" title="Neteja" class="btn btn-default"></button>
+                <input type="submit" class="ocult" name="q" value="q">
+              </div>
+            </form>
+          </div>
+        </div>
+        <nav class="collapse navbar-collapse clearfix clearfix navbar-ex1-collapse ">
+          <div class="row visible-xs">
+            <div class="col-md-6 col-sm-4 column">
+              <button class="menu_tancar visible-xs collapsed" data-target=".navbar-collapse" data-toggle="collapse" title="Tancar"></button>
+            </div>
+            <div class="col-md-6 col-sm-8 column hidden-xs hidden-mg"> </div>
+          </div>
+          <ul class="nav navbar-nav">
+            <!-- MENU -->
+
+			<li class=" active">
+		<a title="Inicio" href="/es/inici/"
+		>
+			Inicio</a>
+
+	</li>
+
+<li class="dropdown ">
+		<a title="Actores" href="/es/actors/"
+		target="_self" class="dropdown-toggle" data-toggle="dropdown">
+			Actores</a>
+
+	<div class="dropdown-menu">
+			<div class="centrat">
+				<div class="container">
+					<div class="col-md-12 col_left">
+						<a title="Cerrar" class="pull_right tancar hidden-xs"><img src="/web/resources/fwkResponsive/fpca_transparencia_capcalera/img/NG_boto_tancar.png" alt="Tancar"></a>
+						<ul class="col_left">
+							<li class="col-md-4 dropdown dropdown-submenu"><a target="_self" class="dropdown-toggle first" href="/es/actors/" title="Actores" >Acceso a&nbsp;Actores</a></li>
+							<li class="col-md-4 dropdown dropdown-submenu"><a target="_self" class="dropdown-toggle" href="/es/actors/generalitat-de-catalunya/" title="">Generalidad de Cataluña </a></li>
+							<li class="col-md-4 dropdown dropdown-submenu"><a target="_self" class="dropdown-toggle" href="/es/actors/administracio-local/" title="">Administración local </a></li>
+							<li class="col-md-4 dropdown dropdown-submenu"><a target="_self" class="dropdown-toggle" href="/es/actors/universitats-publiques/" title="">Universidades públicas </a></li>
+							<li class="col-md-4 dropdown dropdown-submenu"><a target="_self" class="dropdown-toggle" href="/es/actors/corporacions-de-dret-public-/" title="">Administración corporativa  </a></li>
+							<li class="col-md-4 dropdown dropdown-submenu"><a target="_self" class="dropdown-toggle" href="/es/actors/prestadors-privats-de-serveis-/" title="">Prestadores privados de servicios </a></li>
+							<li class="col-md-4 dropdown dropdown-submenu"><a target="_self" class="dropdown-toggle" href="/es/actors/partits-politics/" title="">Partidos políticos </a></li>
+							<li class="col-md-4 dropdown dropdown-submenu"><a target="_self" class="dropdown-toggle" href="/es/actors/organitzacions-empresarials-i-sindicals/" title="">Organizaciones empresariales y sindicales </a></li>
+							<li class="col-md-4 dropdown dropdown-submenu"><a target="_self" class="dropdown-toggle" href="/es/actors/associacions-fundacions-i-altres-entitats-privades/" title="">Asociaciones, fundaciones y otras entidades privadas </a></li>
+							<li class="col-md-4 dropdown dropdown-submenu"><a target="_self" class="dropdown-toggle" href="/es/actors/grups-dinteres-/" title="">Grupos de interés </a></li>
+							</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</li>
+
+<li class="">
+		<a title="Plan estratégico" href="/es/pla-estrategic/"
+		>
+			Plan estratégico</a>
+
+	</li>
+
+<li class="">
+		<a title="Evaluación" href="/es/detalls/article/Avaluacio-00013"
+		>
+			Evaluación</a>
+
+	</li>
+
+<li class="">
+		<a title="Comisión de Garantía" href="http://www.gaip.cat/es/inici/"
+		>
+			Comisión de Garantía</a>
+
+	</li>
+
+</ul>
+
+          <ul class="nav navbar-nav visible-xs first-one">
+            <li><a class="dropdown-toggle" href="/es/pagines_interes/sobre-el-portal/" title="Sobre el portal" >Sobre el portal</a></li>
+				<li><a class="dropdown-toggle" href="/es/pagines_interes/mapa-web/" title="Mapa web" >Mapa web</a></li>
+				<li><a class="dropdown-toggle" href="https://ovt.gencat.cat/gsitfc/AppJava/generic/conqxsGeneric.do?webFormId=492&set-locale=es_ES" title="Consultes, propostes i suggeriments" >Contacte</a></li>
+				</ul>
+        </nav>
+      </div>
+    </div>
+
+    <!-- FI 3a fila cercador mobil i menu -->
+
+
+
