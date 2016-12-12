@@ -452,7 +452,7 @@ module GobiertoBudgets
         up_or_down = sign(total_executed, total_budgeted)
         evolution = deviation_evolution(ine_code, kind)
 
-        heading = I18n.t('gobierto_budgets.api.data.deviation', kind: kind_literal(kind), year: year).capitalize
+        heading = I18n.t("gobierto_budgets.api.data.#{kind}_deviation",  year: year).capitalize
         respond_to do |format|
           format.json do
             render json: {
