@@ -113,7 +113,7 @@
         <li>
           <h4><%= t('.autonomous_region') %></h4>
           <div id="filter_per_aarr">
-            <%= select_tag(:aarr,options_for_select(aarr_for_select), {prompt: 'Todas'}) %>
+            <%= select_tag(:aarr,options_for_select(rankings_select)) %>
           </div>
         </li>
       <% end %>
