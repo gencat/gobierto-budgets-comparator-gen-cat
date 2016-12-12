@@ -170,6 +170,7 @@ module GobiertoBudgets
       attrs << %Q{data-kind="#{@kind || 'expense'}"}
       attrs << %Q{data-area="#{@area_name || 'economic'}"}
       attrs << %Q{data-action="#{action_name}"}
+      attrs << %Q{data-no-turbolink="true"} if action_name == 'map'
       attrs.join(' ').html_safe
     end
 
