@@ -26,7 +26,7 @@ ca:
       ranking:
         rankings: Rànquing
         subtitle: Consulta els municipis que més ingressos i despeses, total i per habitant, realitzen per cada partida.
-        highlights: Algunes xifres destacadas
+        highlights: Algunes xifres destacades
       compare_big:
         compare_municipalities: Compara municipis
         select_municipalities: "Selecciona diversos municipis per a comparar els seus pressupostos:"
@@ -94,8 +94,8 @@ ca:
         description: "Detall sobre l'execució del pressupuest municipal de %{place} del %{year}. Consulta la diferència entre lo pressupostat i lo executat."
         execution_help: L'execució es la quantitat que finalmente s'ha gastat sobre lo planificat inicialment.
         execution_disclaimer: Es normal que hi haja desviacions ja que es impossible preveure totes les despeses amb precisió absoluta.
-        budget_lines_income_higher: Partides de ingressos molt superiors al pressupost
-        budget_lines_income_lower: Partidae de ingressos molt inferiors al pressupost
+        budget_lines_income_higher: Partides d'ingressos molt superiors al pressupost
+        budget_lines_income_lower: Partides d'ingressos molt inferiors al pressupost
         budget_lines_expense_higher: Partides de despeses molt superiors al pressupost
         budget_lines_expense_lower: Partides de despeses molt inferiors al pressupost
       execution_table:
@@ -120,6 +120,10 @@ ca:
         autonomous_region: Comunitat Autònoma
         disclaimer: La base de dades que utilitzem no inclou dades per al 100% dels municipis, per tant no mostrem els municipis que no tenen dades.
         why: 'Per què no hi ha dades de tots els municipis?'
+      ranking_table:
+        municipality: Municipi
+        inhabitants: Habitants
+        compare: Compara
     budget_lines:
       show:
         title: "%{kind} en %{budget_line} en %{place} per al %{year}"
@@ -134,11 +138,11 @@ ca:
         contracts: 'Contractes associats a aquesta partida'
         qa: 'Preguntes i respuestes'
         no_information: Encara no hi ha informació
-        ask_for_it: Demana al teu municipi que incloga aquesta informació
+        ask_for_it: Demana al teu municipi que incloua aquesta informació
         coming_soon: Pròximament
     api:
       data:
-        budgets_execution_header: "Desviació dels %{kind} en %{year}"
+        budgets_execution_header: "Desviació de %{kind} en %{year}"
         income_up: "S'ha ingressat un %{percentage}% (%{diff}) més de lo planejat"
         income_down: "S'ha ingressat un %{percentage}% (%{diff}) menys de lo planejat"
         expense_up: "S'ha gastat un %{percentage}% (%{diff}) més de lo planejat"
@@ -153,7 +157,7 @@ ca:
         total_budget_per_inhabitant:
           expenses_per_inhabitant: Despesa per habitant
         budget_execution:
-          expense_planned_vs_executed: Despesa planeejat vs executada
+          expense_planned_vs_executed: Despesa planejada vs executada
           income_planned_vs_executed: Ingrés planejat vs executada
         budget_per_inhabitant:
           expenses_per_inhabitant: Despesa per habitant
@@ -164,9 +168,11 @@ ca:
           debt: Deute viu
         budget_percentage_over_total:
           percentage_over_total: "Percentage sobre el total"
-        deviation: "Desviació dels %{kind} en %{year}"
+        budget_percentage_previous_year:
+          percentage_previous_year: "Percentage sobre l'any anterior"
+        deviation: "Desviació de %{kind} en %{year}"
       global_data:
-        budgets_execution_header: "Desviació dels %{kind} en %{year}"
+        budgets_execution_header: "Desviació de %{kind} en %{year}"
         income_up: "S'ha ingressat un %{percentage}% (%{diff}) més de lo planejat"
         income_down: "S'ha ingressat un %{percentage}% (%{diff}) menys de lo planejat"
         expense_up: "S'ha gastat un %{percentage}% (%{diff}) més de lo planejat"
@@ -192,10 +198,9 @@ ca:
           debt: Deute viu
         budget_percentage_over_total:
           percentage_over_total: "Percentage sobre el total"
-        deviation: "Desviació dels %{kind} en %{year}"
-
+        deviation: "Desviació de %{kind} en %{year}"
     visualizations:
       mean_national: Mitjana nacional
       mean_autonomy: Mitjana autonòmica
-      mean_province: Mitjana provincial
+      mean_province: Mitjana nacional
       previous_year_diff: Canvi anyo anterior

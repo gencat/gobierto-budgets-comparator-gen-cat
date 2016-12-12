@@ -37,6 +37,7 @@ Rails.application.routes.draw do
       get '/data/widget/budget_execution/:ine_code/:year/:code/:area/:kind' => 'data#budget_execution', as: :data_budget_execution
       get '/data/widget/budget_per_inhabitant/:ine_code/:year/:code/:area/:kind' => 'data#budget_per_inhabitant', as: :data_budget_per_inhabitant
       get '/data/widget/budget_percentage_over_total/:ine_code/:year/:code/:area/:kind' => 'data#budget_percentage_over_total', as: :data_budget_percentage_over_total
+      get '/data/widget/budget_percentage_previous_year/:ine_code/:year/:code/:area/:kind' => 'data#budget_percentage_previous_year', as: :data_budget_percentage_previous_year
       get '/data/widget/population/:ine_code/:year' => 'data#population', as: :data_population
       get '/data/widget/ranking/:year/:kind/:area/:variable(/:code)' => 'data#ranking', as: :data_ranking
       get '/data/widget/total_widget_execution/:ine_code/:year' => 'data#total_budget_execution', as: :data_total_budget_execution

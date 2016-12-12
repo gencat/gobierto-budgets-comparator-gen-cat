@@ -12,4 +12,4 @@ ca:
       not_available: No disponible
     widget_template_deviation:
       planned: pressupostats
-      real: reials
+      real: reals

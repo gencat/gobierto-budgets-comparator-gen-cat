@@ -50,6 +50,11 @@ set_meta_tags description: t('.description', kind: kind_literal(@kind).singulari
     <div class="metric cta">
       <%= link_to 'Levanta la mano <i class="fa fa-hand-paper-o"></i>'.html_safe, 'javascript:void(0);', data: {feedback: true} %>
     </div>
+  <% else %>
+    <div class="metric" data-widget-template="#widget-template-lite"
+                        data-widget-type="budget_percentage_previous_year"
+                        data-widget-data-url="<%= gobierto_budgets_api_data_budget_percentage_previous_year_path(ine_code: @place.id, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
+    </div>
   <% end %>
 </div>
 
