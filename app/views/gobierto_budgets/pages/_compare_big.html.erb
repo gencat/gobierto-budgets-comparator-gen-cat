@@ -20,16 +20,6 @@
     <li><%= link_to 'Barcelona + Lleida + Girona + Tarragona', "/compare/barcelona:lleida:girona:tarragona/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/economic", class: 'button' %></li>
     <li><%= link_to 'Vic + Mataró + Badalona + Reus', "/compare/vic:mataro:badalona:reus/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/economic", class: 'button' %></li>
   </ul>
-
-  <p><%= link_to t('.how_it_works'), '', class: 'toggle_div', data: { target: 'how_it_works' } %></strong></p>
-
-  <div class="how_it_works" style="display: none;">
-
-    <p><%= t('.description') %></p>
-
-    <%= image_tag 'gobierto_compare_demo.gif', width: '100%' %>
-
-  </div>
 </div>
 
 <% content_for(:javascript) do %>
