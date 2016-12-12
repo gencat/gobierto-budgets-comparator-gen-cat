@@ -198,10 +198,12 @@ module GobiertoBudgets
       end
     end
 
-    def aarr_for_select
-      INE::Places::AutonomousRegion.all.sort_by(&:name).map do |ar|
+    def rankings_select
+      array = []
+      array.concat([[t('gobierto_budgets.pages.home.whole_spain'),'']]) if !GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
+      array.concat(INE::Places::AutonomousRegion.all.sort_by(&:name).map do |ar|
         [ar.name, ar.id]
-      end
+      end)
     end
 
     def parent_code(code)
