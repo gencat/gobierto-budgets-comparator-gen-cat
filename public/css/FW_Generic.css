@@ -830,7 +830,7 @@ nav .container, nav, nav .container .row {
 	position: absolute;
 	right: 1.238em;
 	top: 0.4em;
-	background: url(../img/NG_ico_menu_tancar.png) no-repeat;
+	background: url(/img/NG_ico_menu_tancar.png) no-repeat;
 	box-shadow: none;
 	border: none;
 	text-indent: -9999999em;
@@ -848,7 +848,7 @@ nav.navbar-collapse .container .row, nav {
 	background: #6c6c6c;
 }
 .mvlogo {
-	background: url("../img/NG_logo_movil.png") no-repeat scroll 0 0;
+	background: url("/img/NG_logo_movil.png") no-repeat scroll 0 0;
 	height: 1.688em;
 	margin: 1em auto 0;
 	vertical-align: middle;
