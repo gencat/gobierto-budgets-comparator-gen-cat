@@ -115,11 +115,6 @@ module GobiertoBudgets
       return crumbs
     end
 
-    def link_to_place_budget_toggler(slug, area, selectedArea, year)
-      buttonSelected = " buttonSelected" if area == selectedArea
-      link_to area_literal(area), gobierto_budgets_place_budget_path(slug, year, 'expense', {area: area}), class: "toggle #{buttonSelected}"
-    end
-
     def link_to_parent_comparison(places, year, kind, area_name, parent_code)
       options = {}
       options[:parent_code] = parent_code[0..-2] if parent_code.length > 1

@@ -104,6 +104,7 @@ ca:
       second: segon
       year: any
   errors:
+    connection_refused: Connection refused
     format: "%{attribute} %{message}"
     messages:
       accepted: ha de ser acceptat

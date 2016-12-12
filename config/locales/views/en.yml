@@ -8,6 +8,8 @@ en:
     expenses: expenses
     economic: economic
     functional: functional
+    totals: totals
+    per_inhabitant: per inhabitant
   actions:
     send: Send
     create: Create
