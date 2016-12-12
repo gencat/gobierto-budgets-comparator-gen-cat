@@ -219,7 +219,7 @@ module GobiertoBudgets
     def twitter_share(message, url)
       short_url_length = 24
       total_message_length = 140
-      signature = "En @gobierto: "
+      signature = "En #{Settings.twitter_account}: "
       max_message_length = total_message_length - short_url_length - signature.length
 
       to_share = signature

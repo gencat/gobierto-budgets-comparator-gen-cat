@@ -4,3 +4,4 @@ mailchimp_list: ''
 google_analytics_key: ''
 mixpanel_key: ''
 users_enabled: true
+twitter_account: '@gobierto'
