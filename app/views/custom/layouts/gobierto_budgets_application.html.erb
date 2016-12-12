@@ -72,6 +72,24 @@
 <script type="text/javascript">
   'use strict';
   <%= yield :javascript %>
+
+  $(function(){
+    $(document).on('click', function(e){
+      var target = $(e.target);
+      var href = target.attr('href');
+      if(href !== undefined && href.indexOf('locale') !== -1){
+        e.preventDefault();
+        e.stopPropagation();
+
+        if(href.indexOf('es_ES') !== -1){
+          window.location.href = '/locale/es';
+        }
+        if(href.indexOf('ca_CA') !== -1){
+          window.location.href = '/locale/ca';
+        }
+      }
+    });
+  });
 </script>
 
 <%= render 'layouts/analytics_footer' %>
