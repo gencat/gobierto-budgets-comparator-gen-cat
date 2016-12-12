@@ -11,5 +11,6 @@ ca:
     widget_template_execution:
       not_available: No disponible
     widget_template_deviation:
-      planned: pressupostats
+      incomes_planned: Despeses pressupostades
+      expenses_planned: Ingressos pressupostats
       real: reals

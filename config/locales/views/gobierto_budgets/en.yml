@@ -23,6 +23,8 @@ en:
         debt: Debt
         population: Population
         people: people
+      map_metrics:
+        tipsit_planned_vs_executed: The difference between the planned (Budget) and the real expense (Execution). Click to explore all the executions from expenses and incomes.
       ranking:
         rankings: Rankings
         subtitle: Check the municipalities with more income or expenses, total or per inhabitant, per budget line.
@@ -98,6 +100,7 @@ en:
         budget_lines_income_lower: Income budget lines lower than planned
         budget_lines_expense_higher: Expense budget lines higher than planned
         budget_lines_expense_lower: Expense budget lines lower than planned
+        no_data: No data for this year
       execution_table:
         planned: Plann.
         executed: Execution
@@ -170,7 +173,8 @@ en:
           percentage_over_total: "Percentage over total"
         budget_percentage_previous_year:
           percentage_previous_year: "Percentage over prev. year"
-        deviation: "%{kind} deviation in %{year}"
+        I_deviation: "Incomes deviation in %{year}"
+        G_deviation: "Expenses deviation in %{year}"
       global_data:
         budgets_execution_header: "%{kind} deviation in %{year}"
         income_up: "It was earnt %{percentage}% (%{diff}) more than planned"

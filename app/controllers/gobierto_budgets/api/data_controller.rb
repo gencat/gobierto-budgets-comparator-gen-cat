@@ -128,7 +128,7 @@ module GobiertoBudgets
         @kind = params[:kind]
         @code = params[:code]
 
-        @category_name = @kind == 'G' ? t('.expense_planned_vs_executed') : 'Ingreso ejecutado vs presupuestado'
+        @category_name = @kind == 'G' ? t('.expense_planned_vs_executed') : t('.income_planned_vs_executed')
 
         budget_executed = budget_data_executed(@year, 'amount')
         budget_planned = budget_data(@year, 'amount')
@@ -452,7 +452,7 @@ module GobiertoBudgets
         up_or_down = sign(total_executed, total_budgeted)
         evolution = deviation_evolution(ine_code, kind)
 
-        heading = I18n.t('gobierto_budgets.api.data.deviation', kind: kind_literal(kind), year: year).capitalize
+        heading = I18n.t("gobierto_budgets.api.data.#{kind}_deviation",  year: year).capitalize
         respond_to do |format|
           format.json do
             render json: {
