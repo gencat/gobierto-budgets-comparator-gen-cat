@@ -17,3 +17,8 @@ end
 # Scope places
 
 GobiertoBudgets::SearchEngineConfiguration::Scopes.set_places_scope(INE::Places::Place.all)
+
+# Overwrite Catalunya
+
+a = INE::Places::AutonomousRegionsCollection.records.detect{|r| r.name == 'Cataluña' }
+a.name = 'Catalunya'
