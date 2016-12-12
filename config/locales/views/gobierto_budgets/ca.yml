@@ -37,7 +37,7 @@ ca:
         description: "A més d'usar el buscador en la part superior d'esta pàgina, pots afegir un municipi a la teua llista de comparació des de la pàgina del municipi en questió. Utilitza el botó 'Compara' per afegir i accedir a la comparació. Des de la pàgina de comparació també podràs afegir més municipis o eliminar-los."
       home:
         local_budgets: Pressupostos Municipales
-        subtitle: Consulta, analitza i compara els pressupostos municipals de Catalunya
+        subtitle: Consulta, analitza i compara els pressupostos municipals de'Espanya
         search_municipality: Busca municipi...
         for_example: Per exemple
         explore_rankings: Explora els Rànquings
