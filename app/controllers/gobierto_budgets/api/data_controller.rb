@@ -128,7 +128,7 @@ module GobiertoBudgets
         @kind = params[:kind]
         @code = params[:code]
 
-        @category_name = @kind == 'G' ? t('.expense_planned_vs_executed') : 'Ingreso ejecutado vs presupuestado'
+        @category_name = @kind == 'G' ? t('.expense_planned_vs_executed') : t('.income_planned_vs_executed')
 
         budget_executed = budget_data_executed(@year, 'amount')
         budget_planned = budget_data(@year, 'amount')
