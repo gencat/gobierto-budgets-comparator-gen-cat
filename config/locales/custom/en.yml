@@ -1,0 +1,9 @@
+---
+en:
+  custom:
+    layouts:
+      gobierto_budgets:
+        site_title: Local budgets
+    gobierto_budgets:
+      home:
+        subtitle: Check, analyze and compare budgets from Catalonia municipalities
