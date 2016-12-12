@@ -20,6 +20,13 @@ header .year_switcher ul {
   margin: 20px 20px 0 0;
 }
 
+// Tile loader
+#map .cartodb-tiles-loader {
+  float: right;
+  margin: 0 20px 0 0;
+}
+
+
 // Sidebar
 .map_sidebar {
   margin-top: 0.5em;

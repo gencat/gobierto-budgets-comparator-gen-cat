@@ -217,7 +217,11 @@ module GobiertoBudgets
       end
 
       if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
-        ine_codes = ine_codes & GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
+        if ine_codes.any?
+          ine_codes = ine_codes & GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
+        else
+          ine_codes = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
+        end
       end
 
       terms << {terms: { ine_code: ine_codes.compact }} if ine_codes.any?

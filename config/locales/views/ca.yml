@@ -8,6 +8,8 @@ ca:
     expenses: despeses
     economic: econòmica
     functional: funcional
+    totals: totals
+    per_inhabitant: per habitant
   actions:
     send: Enviar
     create: Crear

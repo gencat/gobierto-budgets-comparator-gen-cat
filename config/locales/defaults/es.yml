@@ -97,6 +97,7 @@ es:
       second: Segundos
       year: Año
   errors:
+    connection_refused: Connection refused
     format: "%{attribute} %{message}"
     messages:
       accepted: debe ser aceptado
