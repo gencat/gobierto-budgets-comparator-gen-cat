@@ -18,7 +18,7 @@
     data-widget-data-url="<%= gobierto_budgets_api_global_data_total_budget_path(year: @year, format: :json) %>">
   </div>
 
-  <div class="metric tipsit" title="La diferencia entre los gastos planeados (Presupuesto) y lo que finalmente se ha gastado (Ejecutado). Haz click para ver detalle y también la ejecución de los ingresos"
+  <div class="metric tipsit" title="<%= t('.tipsit_planned_vs_executed') %>"
     data-indicator="planned_vs_executed"
     data-widget-template="#widget-template-execution"
     data-widget-type="total_budget_execution"

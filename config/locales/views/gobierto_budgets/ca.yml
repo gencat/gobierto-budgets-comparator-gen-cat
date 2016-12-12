@@ -23,6 +23,8 @@ ca:
         debt: Deute
         population: Població
         people: persones
+      map_metrics:
+        tipsit_planned_vs_executed: La diferència entre les despeses planejades (Pressupost) i lo que finalment s'ha gastat (Execuctat). Fes click per veure el detalle i l'execució dels ingressos.
       ranking:
         rankings: Rànquing
         subtitle: Consulta els municipis que més ingressos i despeses, total i per habitant, realitzen per cada partida.
@@ -98,6 +100,7 @@ ca:
         budget_lines_income_lower: Partides d'ingressos molt inferiors al pressupost
         budget_lines_expense_higher: Partides de despeses molt superiors al pressupost
         budget_lines_expense_lower: Partides de despeses molt inferiors al pressupost
+        no_data: "No hi ha dades disponibles en %{year}, per tant te mostrarem el primer any amb dades"
       execution_table:
         planned: Plan.
         executed: Execució
@@ -170,7 +173,8 @@ ca:
           percentage_over_total: "Percentage sobre el total"
         budget_percentage_previous_year:
           percentage_previous_year: "Percentage sobre l'any anterior"
-        deviation: "Desviació de %{kind} en %{year}"
+        I_deviation: "Desviació dels ingressos en %{year}"
+        G_deviation: "Desviació de les despesses en %{year}"
       global_data:
         budgets_execution_header: "Desviació de %{kind} en %{year}"
         income_up: "S'ha ingressat un %{percentage}% (%{diff}) més de lo planejat"

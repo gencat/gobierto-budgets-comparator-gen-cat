@@ -27,7 +27,7 @@ module GobiertoBudgets
       @top_possitive_difference_income, @top_negative_difference_income = GobiertoBudgets::BudgetLine.top_differences(ine_code: @place.id, year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, type: 'economic')
 
       if @top_possitive_difference_income.empty?
-        flash[:alert] = "No hay datos disponibles en #{@year} así que te mostramos el primer año con datos"
+        flash[:alert] = t('.no_data', year: @year)
         redirect_to gobierto_budgets_place_execution_path(@place.slug, @year.to_i - 1) and return
       end
 

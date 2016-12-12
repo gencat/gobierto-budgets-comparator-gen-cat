@@ -20,7 +20,7 @@
     data-page-href="<%= gobierto_budgets_place_path(slug: @place.slug, year: @year, anchor: 'total_budget')%>">
   </div>
 
-  <div class="metric tipsit" title="La diferencia entre los gastos planeados (Presupuesto) y lo que finalmente se ha gastado (Ejecutado). Haz click para ver detalle y también la ejecución de los ingresos"
+  <div class="metric tipsit" title="<%= t('gobierto_budgets.pages.map_metrics.tipsit_planned_vs_executed') %>"
     data-widget-template="#widget-template-execution"
     data-widget-type="total_budget_execution"
     data-widget-data-url="<%= gobierto_budgets_api_data_total_budget_execution_path(ine_code: @place.id, year: @year, format: :json) %>"

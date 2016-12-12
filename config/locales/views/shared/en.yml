@@ -11,5 +11,6 @@ en:
     widget_template_execution:
       not_available: Not available
     widget_template_deviation:
-      planned: planned
+      incomes_planned: Incomes planned
+      expenses_planned: Expenses planned
       real: real

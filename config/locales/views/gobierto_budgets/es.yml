@@ -23,6 +23,8 @@ es:
         debt: Deuda
         population: Población
         people: personas
+      map_metrics:
+        tipsit_planned_vs_executed: La diferencia entre los gastos planeados (Presupuesto) y lo que finalmente se ha gastado (Ejecutado). Haz click para ver detalle y también la ejecución de los ingresos
       ranking:
         rankings: Ránkings
         subtitle: Consulta los municipios que más ingresos y gastos, total y por habitante, realizan para cada partida.
@@ -98,6 +100,7 @@ es:
         budget_lines_income_lower: Partidas de ingresos muy inferiores al presupuesto
         budget_lines_expense_higher: Partidas de gastos muy superiores al presupuesto
         budget_lines_expense_lower: Partidas de gastos muy inferiores al presupuesto
+        no_data: "No hay datos disponibles en %{year} así que te mostramos el primer año con datos"
       execution_table:
         planned: Plan.
         executed: Ejecución
@@ -170,7 +173,8 @@ es:
           percentage_over_total: "Porcentaje sobre el total"
         budget_percentage_previous_year:
           percentage_previous_year: "Porcentaje sobre año ant."
-        deviation: "Desviación de los %{kind} en %{year}"
+        I_deviation: "Desviación de los ingresos en %{year}"
+        G_deviation: "Desviación de los gastos en %{year}"
       global_data:
         budgets_execution_header: "Desviación de los %{kind} en %{year}"
         income_up: "Se ha ingresado un %{percentage}% (%{diff}) más de lo planeado"
