@@ -51,49 +51,10 @@
 <body <%= data_attributes %>>
 
 <!-- GEN CAT -->
-<%= render partial: 'custom/layouts/header_ca' %>
+<%= render partial: "custom/layouts/header_#{I18n.locale}" %>
 <!-- /GEN CAT -->
 
 <div class="container">
-
-  <header class="global">
-
-    <div class="logo">
-      <%= link_to_unless_current image_tag('LogoGobiertoPresupuestos.png', width: '158'), root_path %>
-    </div>
-
-    <div class="resp ham">
-      <%= link_to '<i class="fa fa-bars"></i>'.html_safe, '' %>
-    </div>
-
-    <div class="desktop">
-
-      <input type="text" class="places_search search_auto" value="" placeholder="<%= t('.search_municipality') %>" >
-
-      <menu>
-        <ul>
-          <li><%= link_to t('.municipalities'), root_path, class: class_if('selected', current_page?(root_path))  %></li>
-          <li><%= link_to t('.compare'), gobierto_budgets_compare_path , class: class_if('selected', current_page?(gobierto_budgets_compare_path) || action_name == 'compare')%></li>
-          <li><%= link_to t('.rankings'), gobierto_budgets_ranking_path , class: class_if('selected', current_page?(gobierto_budgets_ranking_path) || action_name == 'ranking')%></li>
-          <li><%= link_to t('.services'), gobierto_budgets_about_path(anchor: 'municipalities') , class: class_if('selected', current_page?(gobierto_budgets_about_path))%></li>
-        </ul>
-      </menu>
-
-      <div class="links_list">
-        <h3><%= t('.recent_municipalities') %></h3>
-        <ul id="history">
-        </ul>
-      </div>
-
-      <div class="links_list">
-        <h3><%= t('.recent_comparisons') %></h3>
-        <ul id="comparisons-history">
-        </ul>
-      </div>
-
-    </div>
-
-  </header>
 
   <div class="main_content clearfix">
     <%= render partial: 'custom/layouts/navigation_ca' %>
@@ -103,26 +64,6 @@
 
 </div>
 
-<!--<footer>
-  <div class="gobierto_ref">
-    <%= link_to image_tag('GobiertoFooter@2x.png', size: '401x18'), Settings.gobierto_host, target: 'blank' %>
-  </div>
-
-  <menu>
-    <ul>
-      <li><%= link_to t('.about'), gobierto_budgets_about_path %></li>
-      <li><%= link_to t('.faq'), gobierto_budgets_faq_path %></li>
-      <li><%= link_to t('.methodology_and_sources'), gobierto_budgets_about_path(anchor: 'method') %></li>
-      <li><%= link_to t('.contact'), gobierto_budgets_about_path(anchor: 'contact') %></li>
-    </ul>
-
-    <ul class="legal">
-      <li><%= link_to t('.legal_warning'), gobierto_budgets_legal_legal_path %></li>
-      <li><%= link_to t('.privacy'), gobierto_budgets_legal_privacy_path %></li>
-      <li><%= link_to t('.cookies'), gobierto_budgets_legal_cookies_path %></li>
-    </ul>
-  </menu>
-</footer>-->
 
 <!-- GEN CAT -->
 <%= render partial: "custom/layouts/footer_#{I18n.locale}" %>
@@ -131,6 +72,24 @@
 <script type="text/javascript">
   'use strict';
   <%= yield :javascript %>
+
+  $(function(){
+    $(document).on('click', function(e){
+      var target = $(e.target);
+      var href = target.attr('href');
+      if(href !== undefined && href.indexOf('locale') !== -1){
+        e.preventDefault();
+        e.stopPropagation();
+
+        if(href.indexOf('es_ES') !== -1){
+          window.location.href = '/locale/es';
+        }
+        if(href.indexOf('ca_CA') !== -1){
+          window.location.href = '/locale/ca';
+        }
+      }
+    });
+  });
 </script>
 
 <%= render 'layouts/analytics_footer' %>
