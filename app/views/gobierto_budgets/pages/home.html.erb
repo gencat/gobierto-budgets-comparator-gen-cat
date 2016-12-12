@@ -33,9 +33,9 @@
         </div>
         <%= t('.for_municipalities_of') %>
         <div id="home_aarr_switcher"  class="switcher aarr_switcher">
-          <%= link_to "#{t('.whole_spain')} <i class='fa fa-angle-down'></i>".html_safe, '#', data: {value: ''}, class: 'selected'  %>
+          <%= link_to "#{rankings_select.first.first} <i class='fa fa-angle-down'></i>".html_safe, '#', data: {value: ''}, class: 'selected'  %>
           <ul>
-            <% [[t('.whole_spain'),'']].concat(aarr_for_select).each do |ar| %>
+            <% rankings_select.each do |ar| %>
               <li><%= link_to ar[0], '#', data: { value: ar[1] } %></li>
             <% end %>
           </ul>
