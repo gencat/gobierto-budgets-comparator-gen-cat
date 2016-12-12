@@ -1,0 +1,104 @@
+<%= flush_the_flash %>
+
+<div class="pre_home">
+
+  <h2><%= t('custom.gobierto_budgets.home.subtitle') %></h2>
+
+  <input type="text" class="places_search search_auto" placeholder="<%= t('.search_municipality') %>" autofocus="true">
+
+  <p class="example"><%= t('.for_example') %>:
+
+    <span class="" id="suggested_location"></span>
+
+    <%= link_to 'Barcelona', '/places/barcelona' %>, <%= link_to 'Lleida', '/places/lleida'  %>, <%= link_to 'Reus', '/places/reus'  %>, <%= link_to 'Tarragona', '/places/tarragona'  %>.
+  </p>
+
+  <div class="home_section">
+    <%= render partial: 'gobierto_budgets/pages/compare_big' %>
+  </div>
+
+  <div class="home_section">
+    <h2 class="section_heading"><%= t('.explore_rankings') %></h2>
+
+    <%= form_tag gobierto_budgets_places_ranking_path(GobiertoBudgets::SearchEngineConfiguration::Year.last,'G','functional','amount'), method: 'GET' do %>
+      <%= hidden_field_tag 'f[aarr]' %>
+      <div id="explore_prompt">
+        <%= t('.explore_the_ranking_for') %>
+        <div id="home_kind_switcher" class="switcher kind_switcher">
+          <%= link_to "#{t('common.expenses')} <i class='fa fa-angle-down'></i>".html_safe, '#', data: {value: 'G'}, class: 'selected' %>
+          <ul>
+            <li><%= link_to t('common.expenses'), '#', data: {value: 'G'} %></li>
+            <li><%= link_to t('common.incomes'), '#', data: {value: 'I'} %></li>
+          </ul>
+        </div>
+        <%= t('.for_municipalities_of') %>
+        <div id="home_aarr_switcher"  class="switcher aarr_switcher">
+          <%= link_to "#{rankings_select.first.first} <i class='fa fa-angle-down'></i>".html_safe, '#', data: {value: ''}, class: 'selected'  %>
+          <ul>
+            <% rankings_select.each do |ar| %>
+              <li><%= link_to ar[0], '#', data: { value: ar[1] } %></li>
+            <% end %>
+          </ul>
+        </div>
+        <%= submit_tag t('.explore') %>
+      </div>
+    <% end %>
+
+    <p id="ranking_examples"><%= t('.some_examples') %></p>
+
+    <div class="ranking_cards_carousel">
+      <div class="nav left_side"><a href='#' class='prev'>&lt;</a></div>
+      <div class="the_content">
+        <% [ "/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/I/economic/amount/344.json",
+           "/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/functional/amount_per_inhabitant/336.json",
+           "/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/functional/amount/342.json",
+           "/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/functional/amount_per_inhabitant/165.json",
+           "/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/functional/amount/162.json",
+           "/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/functional/amount_per_inhabitant/44.json",
+           "/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/I/economic/amount/313.json",
+           "/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/functional/amount_per_inhabitant/171.json" ].each_with_index do |data_url,i| %>
+
+            <div class="ranking_card clearfix"
+                data-widget-type="ranking_<%= i %>"
+                data-widget-template="#widget-template"
+                data-widget-data-url="/api/data/widget/ranking<%= data_url %>">
+            </div>
+      <% end %>
+
+      </div>
+      <div class="nav right_side"><a href='#' class='next'>&gt;</a></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<%= render partial: 'gobierto_budgets/pages/ranking_card_template' %>
+
+<% content_for :javascript do %>
+
+  $('[data-widget-type]:first').siblings().hide();
+  $('a.next').click(function(e) {
+    e.preventDefault();
+    var current_widget = $('[data-widget-type]:visible');
+    var next_widget = (current_widget.next().length > 0) ? current_widget.next() : current_widget.siblings().first();
+
+    current_widget.velocity('transition.slideLeftLongOut');
+    next_widget.velocity('transition.slideRightLongIn');
+  })
+
+  $('a.prev').click(function(e) {
+    e.preventDefault();
+    var current_widget = $('[data-widget-type]:visible');
+    var prev_widget = (current_widget.prev().length > 0) ? current_widget.prev() : current_widget.siblings().last();
+
+    current_widget.velocity('transition.slideRightLongOut');
+    prev_widget.velocity('transition.slideLeftLongIn');
+  })
+
+<% end %>
+
+<script type="text/javascript">
+$.ajax('/geocoder');
+</script>
