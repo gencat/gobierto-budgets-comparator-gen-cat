@@ -5,7 +5,7 @@ module GobiertoBudgets
 
       caches_action :total_budget, :total_budget_execution, :population, :total_budget_per_inhabitant, :lines,
                     :budget, :budget_execution, :budget_per_inhabitant, :budget_percentage_over_total, :debt,
-                    :budget_percentage_previous_year
+                    :budget_percentage_previous_year, cache_path: ->(c) { { locale: I18n.locale} }
 
       def total_budget
         year = params[:year].to_i
@@ -488,7 +488,7 @@ module GobiertoBudgets
         title << ((kind == 'G') ? I18n.t('common.expenses') : I18n.t('common.incomes'))
         title << ((variable == 'total_budget' or variable == 'amount') ? I18n.t('common.totals') : I18n.t('common.per_inhabitant'))
         title << "en #{budget_line_denomination(area_name, code, kind)}" if code.present?
-        title << "en el #{year}"
+        title << "en #{year}"
         title.join(' ')
       end
 

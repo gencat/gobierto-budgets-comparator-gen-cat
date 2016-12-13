@@ -10,8 +10,8 @@ ca:
         show_me_another: "Mostra'm un altra"
     pages:
       map:
-        title: "Mapes de pressupostos en %{year}"
-        meta_description: "Visualitza i explora el mapa de pressupuestos en %{year}"
+        title: "Mapes de pressupostos el %{year}"
+        meta_description: "Visualitza i explora el mapa de pressupuestos el %{year}"
         municipality_maps: Mapes per municipis
         search: Busca partides
         incomes: Ingressos
@@ -36,7 +36,7 @@ ca:
         compare: Comparar
         check_some_examples: O prova amb alguns exemples
         how_it_works: 'Còm funciona?'
-        description: "A més d'usar el buscador en la part superior d'esta pàgina, pots afegir un municipi a la teua llista de comparació des de la pàgina del municipi en questió. Utilitza el botó 'Compara' per afegir i accedir a la comparació. Des de la pàgina de comparació també podràs afegir més municipis o eliminar-los."
+        description: "A més d'usar el buscador en la part superior d'esta pàgina, pots afegir un municipi a la teva llista de comparació des de la pàgina del municipi en questió. Utilitza el botó 'Compara' per afegir i accedir a la comparació. Des de la pàgina de comparació també podràs afegir més municipis o eliminar-los."
       home:
         local_budgets: Pressupostos Municipales
         subtitle: Consulta, analitza i compara els pressupostos municipals de Catalunya
@@ -52,11 +52,11 @@ ca:
     places:
       place_header:
         compare: Compara
-        add_to_comparing_list_html: "Afegeix <strong>%{name}</strong> a la teua llista i compara"
-        your_comparison_list: La teua llista de comparació
+        add_to_comparing_list_html: "Afegeix <strong>%{name}</strong> a la teva llista i compara"
+        your_comparison_list: La teva llista de comparació
         view_comparison_html: Veure comparació
         without: "sense %{name}"
-        in_your_web: En la teua web
+        in_your_web: En la teva web
         municipality_responsible: "Eres responsable d'aquest municipi?"
         cta_desc: "Gobierto te permet fer una integració personalitzada d'aquestes visualitzacions en la teva web."
         ask_for_info: 'Solicita información'
@@ -64,7 +64,7 @@ ca:
         planned: pressupostats
         search_municipality: Busca municipi...
       no_data:
-        no_data_this_year: "Mmm... No tenim dades sobre este municipi para aquest any. Tria un altre..."
+        no_data_this_year: "Mmm... No tenim dades sobre este municipi per aquest any. Tria un altre..."
         why: 'Per què no hi ha dades?'
       show:
         title: "Pressupostos municipales de %{name} del %{year}"
@@ -92,7 +92,7 @@ ca:
         totals: Totals
         population: Població
       execution:
-        title: "Execució del pressupost municipal de %{place} del %{year}"
+        title: "Execució del pressupost municipal de %{place} el %{year}"
         description: "Detall sobre l'execució del pressupuest municipal de %{place} del %{year}. Consulta la diferència entre lo pressupostat i lo executat."
         execution_help: L'execució es la quantitat que finalmente s'ha gastat sobre lo planificat inicialment.
         execution_disclaimer: Es normal que hi haja desviacions ja que es impossible preveure totes les despeses amb precisió absoluta.
@@ -100,7 +100,7 @@ ca:
         budget_lines_income_lower: Partides d'ingressos molt inferiors al pressupost
         budget_lines_expense_higher: Partides de despeses molt superiors al pressupost
         budget_lines_expense_lower: Partides de despeses molt inferiors al pressupost
-        no_data: "No hi ha dades disponibles en %{year}, per tant et mostrarem el primer any amb dades"
+        no_data: "No hi ha dades disponibles el %{year}, per tant et mostrarem el primer any amb dades"
       execution_table:
         planned: Plan.
         executed: Execució
@@ -108,11 +108,11 @@ ca:
         view_more: Veure més
         view_less: Veure menys
       ranking:
-        budget_lines_title: "Rànquing de %{kind} en %{year}"
+        budget_lines_title: "Rànquing de %{kind} el %{year}"
         budget_lines_short_title: "Rànquing de %{kind}"
-        budget_line_title: "Rànquing de %{kind} en %{budget_line} en %{year}"
+        budget_line_title: "Rànquing de %{kind} en %{budget_line} el %{year}"
         budget_line_short_title: "Rànquing de %{kind} en %{budget_line}"
-        population_title: "Rànquing d'habitants en %{year}"
+        population_title: "Rànquing d'habitants el %{year}"
         population_short_title: "Rànquing d'habitants"
         population: Població
         per_inhabitant: per habitant
@@ -130,12 +130,12 @@ ca:
     budget_lines:
       show:
         title: "%{kind} en %{budget_line} en %{place} per al %{year}"
-        share_text: "%{kind} municipal de %{place} en %{budget_line} per a el %{year}"
-        description: "Dades de %{kind} en %{budget_line} en %@place}. Consulta i visualitza la partida de %{budget_line} per a %{place} en els últims anys i compara amb altres municipis"
+        share_text: "%{kind} municipal de %{place} en %{budget_line} el %{year}"
+        description: "Dades de %{kind} en %{budget_line} en %{place}. Consulta i visualitza la partida de %{budget_line} per a %{place} en els últims anys i compara amb altres municipis"
         total_budget_per_inhabitant: "%{kind} total d'aquesta partida aquest any per habitant"
         total_budget: "%{kind} total d'aquesta partida aquest any"
         search: "Busca altres partides de %{kind}"
-        about: Acerca d'aquesta partida
+        about: Sobre aquesta partida
         description: Descripció
         council_comment: Comentari del Ajuntament
         contracts: 'Contractes associats a aquesta partida'
@@ -145,11 +145,11 @@ ca:
         coming_soon: Pròximament
     api:
       data:
-        budgets_execution_header: "Desviació de %{kind} en %{year}"
-        income_up: "S'ha ingressat un %{percentage}% (%{diff}) més de lo planejat"
-        income_down: "S'ha ingressat un %{percentage}% (%{diff}) menys de lo planejat"
-        expense_up: "S'ha gastat un %{percentage}% (%{diff}) més de lo planejat"
-        expense_down: "S'ha gastat un %{percentage}% (%{diff}) menys de lo planejat"
+        budgets_execution_header: "Desviació de %{kind} el %{year}"
+        income_up: "S'ha ingressat un %{percentage}% (%{diff}) més del planejat"
+        income_down: "S'ha ingressat un %{percentage}% (%{diff}) menys del planejat"
+        expense_up: "S'ha gastat un %{percentage}% (%{diff}) més del planejat"
+        expense_down: "S'ha gastat un %{percentage}% (%{diff}) menys del planejat"
         total_expense: Despesa total
         expense_per_inhabitant: Despesa per habitant
         category_per_inhabitant: "%{category} per habitant"
@@ -173,14 +173,14 @@ ca:
           percentage_over_total: "Percentage sobre el total"
         budget_percentage_previous_year:
           percentage_previous_year: "Percentage sobre l'any anterior"
-        I_deviation: "Desviació dels ingressos en %{year}"
-        G_deviation: "Desviació de les despesses en %{year}"
+        I_deviation: "Desviació dels ingressos el %{year}"
+        G_deviation: "Desviació de les despesses el %{year}"
       global_data:
-        budgets_execution_header: "Desviació de %{kind} en %{year}"
-        income_up: "S'ha ingressat un %{percentage}% (%{diff}) més de lo planejat"
-        income_down: "S'ha ingressat un %{percentage}% (%{diff}) menys de lo planejat"
-        expense_up: "S'ha gastat un %{percentage}% (%{diff}) més de lo planejat"
-        expense_down: "S'ha gastat un %{percentage}% (%{diff}) menys de lo planejat"
+        budgets_execution_header: "Desviació de %{kind} el %{year}"
+        income_up: "S'ha ingressat un %{percentage}% (%{diff}) més del planejat"
+        income_down: "S'ha ingressat un %{percentage}% (%{diff}) menys del planejat"
+        expense_up: "S'ha gastat un %{percentage}% (%{diff}) més del planejat"
+        expense_down: "S'ha gastat un %{percentage}% (%{diff}) menys del planejat"
         total_expense: Despesa total
         expense_per_inhabitant: Despesa per habitant
         category_per_inhabitant: "%{category} per habitant"
@@ -202,9 +202,9 @@ ca:
           debt: Deute viu
         budget_percentage_over_total:
           percentage_over_total: "Percentage sobre el total"
-        deviation: "Desviació de %{kind} en %{year}"
+        deviation: "Desviació de %{kind} el %{year}"
     visualizations:
       mean_national: Mitjana nacional
-      mean_autonomy: Mitjana autonòmica
-      mean_province: Mitjana nacional
+      mean_autonomy: Mitjana nacional
+      mean_province: Mitjana provincial
       previous_year_diff: Canvi any anterior

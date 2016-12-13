@@ -3,6 +3,8 @@ module GobiertoBudgets
     class GlobalDataController < ApplicationController
       include GobiertoBudgets::ApplicationHelper
 
+      caches_action :total_budget, :total_budget_execution, :population, :total_budget_per_inhabitant, :debt, cache_path: ->(c) { { locale: I18n.locale} }
+
       def total_budget
         year = params[:year].to_i
         total_budget_data = total_budget_data(year, 'total_budget')
@@ -97,7 +99,7 @@ module GobiertoBudgets
               title: t('.population'),
               sign: nil,
               delta_percentage: helpers.number_with_precision(delta_percentage(population_previous_year, population_year), precision: 2),
-              value: helpers.number_to_currency(population_year, precision: 0, strip_insignificant_zeros: true),
+              value: helpers.number_with_delimiter(population_year.to_i, precision: 0, strip_insignificant_zeros: true),
               no_data_this_year: no_data_this_year
             }.to_json
           end
@@ -217,7 +219,7 @@ module GobiertoBudgets
 
         value = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::Data.index, type: GobiertoBudgets::SearchEngineConfiguration::Data.type_population, body: query
         return nil if value['hits']['total'] == 0
-        value['aggregations']['total']['value'].to_f.round(2)
+        value['aggregations']['total']['value']
       end
 
       def total_debt(year)

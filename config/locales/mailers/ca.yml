@@ -7,6 +7,6 @@ ca:
         body:
           p1: Hola,
           p2: Benvingut a la pàgina de %{site_name} de %{location_name}
-          p3: "Per a verificar la teua addresa de email i confirmar el teu compte, fes click al següent enllaç:"
+          p3: "Per a verificar la teva addresa de email i confirmar el teu compte, fes click al següent enllaç:"
           p4: Que passes un bon dia,
           p5: L'equip de %{site_name}
