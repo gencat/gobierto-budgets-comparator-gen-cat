@@ -48,8 +48,6 @@ $(function () {
       sql.execute("SELECT {{indicator}} as value FROM indicators_{{year}} as i WHERE" + placesScopeCondition(), { indicator: indicator, year: year })
         .done(function(data) {
           var customColors = colors.slice(0);
-          if(indicator === 'debt' || indicator === 'planned_vs_executed' || indicator === 'population')
-            customColors = customColors.reverse();
 
           // push all the values into an array
           var values = [];
@@ -161,8 +159,7 @@ $(function () {
 
   if($('#map').length){
 
-    var colors = [ '#d73027', '#f79272', '#fff2cc', '#8cce8a', '#1a9850'];
-    var colors = [ '#d73027', '#f79272', '#fff2cc', '#8cce8a', '#1a9850'];
+    var colors = ['#ffffcc','#c7e9b4','#7fcdbb','#41b6c4','#1d91c0','#225ea8','#0c2c84'];
     var indicators = {
       gasto_por_habitante: {
         name: I18n.t('gobierto_budgets.pages.map.expense_per_inhabitant'),
