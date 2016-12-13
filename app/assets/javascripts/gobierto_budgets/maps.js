@@ -39,6 +39,15 @@ $(function () {
 
   function renderMapIndicator(layer, vis){
     $('[data-indicator]').click(function(e){
+      $('#map .overlay').css({
+        'display': 'block'
+      });
+      
+      $('#map .cartodb-tiles-loader').css({
+        'position': 'relative',
+        'z-index': '-1'
+      });
+      
       $('.cartodb-tooltip').hide();
       var year = $('body').data('year');
       var indicator = $('.metric.selected').data('indicator');
@@ -100,6 +109,15 @@ $(function () {
 
   function renderMapBudgetLine(layer, vis){
     $(document).on('renderBudgetLineCategory', function(e){
+      $('#map .overlay').css({
+        'display': 'block'
+      });
+      
+      $('#map .cartodb-tiles-loader').css({
+        'position': 'relative',
+        'z-index': '-1'
+      });
+      
       $('.cartodb-tooltip').hide();
       $('.metric').removeClass('selected');
       var year = $('body').data('year');
@@ -184,17 +202,17 @@ $(function () {
     };
 
     cartodb.createVis('map', 'https://gobierto.carto.com/api/v2/viz/205616b2-b893-11e6-b070-0e233c30368f/viz.json', {
-        shareable: false,
-        title: false,
-        description: false,
-        search: false,
-        tiles_loader: true,
-        center_lat: window.mapSettings.centerLat,
-        center_lon: window.mapSettings.centerLon,
-        zoom: window.mapSettings.zoomLevel,
-        zoomControl: true,
-        loaderControl: true
-        })
+      shareable: false,
+      title: false,
+      description: false,
+      search: false,
+      tiles_loader: true,
+      center_lat: window.mapSettings.centerLat,
+      center_lon: window.mapSettings.centerLon,
+      zoom: window.mapSettings.zoomLevel,
+      zoomControl: true,
+      loaderControl: true
+    })
     .done(function(vis, layers) {
       var sublayer = layers[1].getSubLayer(0);
       vis.addOverlay({
@@ -208,6 +226,18 @@ $(function () {
       renderMapIndicator(sublayer, vis);
       renderMapBudgetLine(sublayer, vis);
       $('[data-indicator].selected').click();
+      
+      // On load, hide the overlay and reset the tile spinner
+      layers[1].on("load", function() {
+        $('#map .overlay').css({
+          'display': 'none'
+        });
+        
+        $('#map .cartodb-tiles-loader').css({
+          'position': 'initial',
+          'z-index': '0'
+        });
+      });
 
       var year = $('body').data('year');
       sublayer.on('featureClick', function(e, latlng, pos, data, subLayerIndex) {
