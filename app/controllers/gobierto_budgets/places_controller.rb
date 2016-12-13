@@ -103,6 +103,13 @@ module GobiertoBudgets
     def intelligence
     end
 
+    def redirect
+      @place = INE::Places::Place.find params[:ine_code]
+      if @place.present?
+        redirect_to gobierto_budgets_place_path(@place, params[:year])
+      end
+    end
+
     private
 
     def get_params

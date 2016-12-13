@@ -48,8 +48,6 @@ $(function () {
       sql.execute("SELECT {{indicator}} as value FROM indicators_{{year}} as i WHERE" + placesScopeCondition(), { indicator: indicator, year: year })
         .done(function(data) {
           var customColors = colors.slice(0);
-          if(indicator === 'debt' || indicator === 'planned_vs_executed' || indicator === 'population')
-            customColors = customColors.reverse();
 
           // push all the values into an array
           var values = [];
@@ -75,7 +73,7 @@ $(function () {
             css += "#indicators_2016 [value>"+value + "] {polygon-fill:" + color + "}\n";
           });
 
-          var query = "select i.cartodb_id, t.place_id, t.nameunit as name, t.the_geom, " +
+          var query = "select i.cartodb_id, t.place_id as place_id, t.nameunit as name, t.the_geom, " +
                       "t.the_geom_webmercator, i."+indicator+" as value, TO_CHAR(i."+indicator+", '999G999G990') as valuef, " +
                       "'"+indicators[indicator].name+"' as indicator_name, '"+indicators[indicator].unit+"' as unit" +
                       " from ign_spanish_adm3_municipalities_displaced_canary as t full join indicators_"+year+" as i " +
@@ -130,7 +128,7 @@ $(function () {
             css += "#indicators_2016 [value>"+value + "] {polygon-fill:" + color + "}\n";
           });
 
-          var query = "select i.cartodb_id, t.place_id, t.nameunit as name, t.the_geom, t.the_geom_webmercator, " +
+          var query = "select i.cartodb_id, t.place_id as place_id, t.nameunit as name, t.the_geom, t.the_geom_webmercator, " +
             " i.code, i.kind, i.area, i.amount, i.amount_per_inhabitant as value," +
             " TO_CHAR(i.amount_per_inhabitant, '999G999G990') as valuef, " +
             " '"+indicators['gasto_por_habitante'].name+"' as indicator_name, '"+indicators['gasto_por_habitante'].unit+"' as unit" +
@@ -161,8 +159,7 @@ $(function () {
 
   if($('#map').length){
 
-    var colors = [ '#d73027', '#f79272', '#fff2cc', '#8cce8a', '#1a9850'];
-    var colors = [ '#d73027', '#f79272', '#fff2cc', '#8cce8a', '#1a9850'];
+    var colors = ['#ffffcc','#c7e9b4','#7fcdbb','#41b6c4','#1d91c0','#225ea8','#0c2c84'];
     var indicators = {
       gasto_por_habitante: {
         name: I18n.t('gobierto_budgets.pages.map.expense_per_inhabitant'),
@@ -205,12 +202,17 @@ $(function () {
         layer: sublayer,
         template: $('#infowindow_template').html(),
         position: 'bottom|right',
-        fields: [{ name: 'name', value: 'value', valuef: 'valuef', indicator_name: 'indicator_name', unit: 'unit' }]
+        fields: [{ name: 'name', value: 'value', valuef: 'valuef', indicator_name: 'indicator_name', unit: 'unit', place_id: 'place_id' }]
       });
-      sublayer.setInteractivity('name, value,valuef,indicator_name,unit');
+      sublayer.setInteractivity('name, value,valuef,indicator_name,unit,place_id');
       renderMapIndicator(sublayer, vis);
       renderMapBudgetLine(sublayer, vis);
       $('[data-indicator].selected').click();
+
+      var year = $('body').data('year');
+      sublayer.on('featureClick', function(e, latlng, pos, data, subLayerIndex) {
+        window.location.href = "/places/" + data.place_id + "/" + year + "/redirect";
+      });
     })
     .error(function(err) {
       console.log(err);
