@@ -82,7 +82,7 @@ $(function () {
             css += "#indicators_2016 [value>"+value + "] {polygon-fill:" + color + "}\n";
           });
 
-          var query = "select i.cartodb_id, t.place_id, t.nameunit as name, t.the_geom, " +
+          var query = "select i.cartodb_id, t.place_id as place_id, t.nameunit as name, t.the_geom, " +
                       "t.the_geom_webmercator, i."+indicator+" as value, TO_CHAR(i."+indicator+", '999G999G990') as valuef, " +
                       "'"+indicators[indicator].name+"' as indicator_name, '"+indicators[indicator].unit+"' as unit" +
                       " from ign_spanish_adm3_municipalities_displaced_canary as t full join indicators_"+year+" as i " +
@@ -146,7 +146,7 @@ $(function () {
             css += "#indicators_2016 [value>"+value + "] {polygon-fill:" + color + "}\n";
           });
 
-          var query = "select i.cartodb_id, t.place_id, t.nameunit as name, t.the_geom, t.the_geom_webmercator, " +
+          var query = "select i.cartodb_id, t.place_id as place_id, t.nameunit as name, t.the_geom, t.the_geom_webmercator, " +
             " i.code, i.kind, i.area, i.amount, i.amount_per_inhabitant as value," +
             " TO_CHAR(i.amount_per_inhabitant, '999G999G990') as valuef, " +
             " '"+indicators['gasto_por_habitante'].name+"' as indicator_name, '"+indicators['gasto_por_habitante'].unit+"' as unit" +
@@ -220,9 +220,9 @@ $(function () {
         layer: sublayer,
         template: $('#infowindow_template').html(),
         position: 'bottom|right',
-        fields: [{ name: 'name', value: 'value', valuef: 'valuef', indicator_name: 'indicator_name', unit: 'unit' }]
+        fields: [{ name: 'name', value: 'value', valuef: 'valuef', indicator_name: 'indicator_name', unit: 'unit', place_id: 'place_id' }]
       });
-      sublayer.setInteractivity('name, value,valuef,indicator_name,unit');
+      sublayer.setInteractivity('name, value,valuef,indicator_name,unit,place_id');
       renderMapIndicator(sublayer, vis);
       renderMapBudgetLine(sublayer, vis);
       $('[data-indicator].selected').click();
@@ -237,6 +237,11 @@ $(function () {
           'position': 'initial',
           'z-index': '0'
         });
+      });
+
+      var year = $('body').data('year');
+      sublayer.on('featureClick', function(e, latlng, pos, data, subLayerIndex) {
+        window.location.href = "/places/" + data.place_id + "/" + year + "/redirect";
       });
     })
     .error(function(err) {
