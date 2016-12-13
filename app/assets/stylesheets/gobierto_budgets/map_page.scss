@@ -34,17 +34,24 @@ body[data-action="map"] .main_metrics .metric:hover {
   float: right;
   margin: 0 20px 0 0;
 }
-
-// Full screen spinner
-.fullscreen-spinner {
-  position: absolute;
+#map .overlay {
   pointer-events: none;
-  opacity: 0;
-  width: 100%;
+  position: absolute;
   height: 100%;
-  background: rgba(0, 0, 0, 0.15);
-  transition: all 0.5s ease-out 0s;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.25);
+  display: none;
   z-index: 1;
+}
+#map .fa-spin {
+  position: absolute;
+  top: 45%;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  color: #fff;
 }
 
 // Sidebar
