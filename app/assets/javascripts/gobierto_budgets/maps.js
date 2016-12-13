@@ -39,6 +39,10 @@ $(function () {
 
   function renderMapIndicator(layer, vis){
     $('[data-indicator]').click(function(e){
+      $('#map .fullscreen-spinner').css({
+        'opacity': '1'
+      });
+      
       $('.cartodb-tooltip').hide();
       var year = $('body').data('year');
       var indicator = $('.metric.selected').data('indicator');
@@ -91,6 +95,10 @@ $(function () {
             var c = $('<div class="quartile" style="background-color:'+color+'"></div>');
             lc.find('.colors').append(c);
           });
+          
+          $('#map .fullscreen-spinner').css({
+            'opacity': '0'
+          });
         })
       .error(function(errors) {
         console.log("errors:" + errors);
@@ -100,6 +108,10 @@ $(function () {
 
   function renderMapBudgetLine(layer, vis){
     $(document).on('renderBudgetLineCategory', function(e){
+      $('#map .fullscreen-spinner').css({
+        'opacity': '1'
+      });
+      
       $('.cartodb-tooltip').hide();
       $('.metric').removeClass('selected');
       var year = $('body').data('year');
@@ -147,6 +159,10 @@ $(function () {
           colors.forEach(function(color){
             var c = $('<div class="quartile" style="background-color:'+color+'"></div>');
             lc.find('.colors').append(c);
+          });
+          
+          $('#map .fullscreen-spinner').css({
+            'opacity': '0'
           });
         })
         .error(function(errors) {

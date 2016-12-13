@@ -14,6 +14,15 @@ header .year_switcher ul {
   transition: none;
 }
 
+// Metrics
+body[data-action="map"] .main_metrics .metric {
+  transition: all 0.15s ease-out 0s;
+}
+body[data-action="map"] .main_metrics .metric:hover {
+  background: #a5d8dd;
+  cursor: pointer;
+}
+
 // Move zoom control buttons
 .cartodb-map-wrapper .cartodb-zoom {
   float: right;
@@ -26,6 +35,17 @@ header .year_switcher ul {
   margin: 0 20px 0 0;
 }
 
+// Full screen spinner
+.fullscreen-spinner {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.15);
+  transition: all 0.5s ease-out 0s;
+  z-index: 1;
+}
 
 // Sidebar
 .map_sidebar {
