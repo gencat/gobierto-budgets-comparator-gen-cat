@@ -29,15 +29,7 @@
             <li><%= link_to t('common.incomes'), '#', data: {value: 'I'} %></li>
           </ul>
         </div>
-        <%= t('.for_municipalities_of') %>
-        <div id="home_aarr_switcher"  class="switcher aarr_switcher">
-          <%= link_to "#{rankings_select.first.first} <i class='fa fa-angle-down'></i>".html_safe, '#', data: {value: ''}, class: 'selected'  %>
-          <ul>
-            <% rankings_select.each do |ar| %>
-              <li><%= link_to ar[0], '#', data: { value: ar[1] } %></li>
-            <% end %>
-          </ul>
-        </div>
+        <%= t('.for_municipalities_of') %> Catalunya
         <%= submit_tag t('.explore') %>
       </div>
     <% end %>
