@@ -8,9 +8,7 @@
 
   <p class="example"><%= t('.for_example') %>:
 
-    <span class="" id="suggested_location"></span>
-
-    <%= link_to 'Barcelona', '/places/barcelona' %>, <%= link_to 'Lleida', '/places/lleida'  %>, <%= link_to 'Reus', '/places/reus'  %>, <%= link_to 'Tarragona', '/places/tarragona'  %>.
+    <%= link_to 'Barcelona', '/places/barcelona' %>, <%= link_to 'Lleida', '/places/lleida'  %>, <%= link_to 'Girona', '/places/girona'  %>, <%= link_to 'Tarragona', '/places/tarragona'  %>.
   </p>
 
   <div class="home_section">
@@ -98,7 +96,3 @@
   })
 
 <% end %>
-
-<script type="text/javascript">
-$.ajax('/geocoder');
-</script>
