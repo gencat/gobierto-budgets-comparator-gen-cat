@@ -21,101 +21,13 @@
 @import "jquery.bonsai";
 @import "select2.min";
 @import "magnific-popup";
+@import "gobierto_budgets/config";
 @import "gobierto_budgets/treemap";
 @import "gobierto_budgets/vis_lineas_tabla";
 @import "gobierto_budgets/embed";
 @import "gobierto_budgets/map_page";
 @import "gobierto_budgets/carto_infowindow";
-
-/*
- * Site Settings
- *
- */
-
-/*
-PALETTE: Original Greeners
-AUTHOR: @furilo
-
-$background: #FFF;
-$text: #898989;
-
-$color_1: #BCC41A;
-$color_1_dark: #9AA115;
-$color_1_soft: #E5E9A6;
-$color_1_dark_plus: #787D10;
-
-$color_2: #D61D57;
-
-$color_3: #60C8D6;
-$color_3_soft: #E5F2F3;
-*/
-
-
-/*
-PALETTE: Bluer
-AUTHOR: @
-*/
-
-$background: #FFF;
-$text: #554E41;
-$text_soft: #B2AFA9;
-$separator: #F0F0F0;
-
-$color_1: #00909E;
-$color_1_soft: #EFF8F9;
-$color_1_dark: #00909E;
-// $color_1_dark_plus: #172532;
-
-$color_2: #F69C95;
-$color_2_soft: #FBEEEC;
-$color_2_dark: #B87570;
-$color_2_bg: #FFDED4;
-
-$color_3_soft: #F5F4F4;
-
-/* General colors */
-$color_bg_error: #F5D6D2;
-$color_text_error: #9C0000;
-
-/* logo colors */
-$color_logo_yellow: #E9AD00;
-$color_logo_pink: #F39B95;
-$color_logo_blue: #388F9C;
-
-/* visualizations */
-$color_vis_place: #E9AD00;
-$color_vis_province: #A479F4;
-$color_vis_com: #AAC44B;
-$color_vis_country: #008998;
-
-$color_scale_1: #FFD100;
-$color_scale_2: #FE7000;
-$color_scale_3: #ED2F00;
-$color_scale_4: #940099;
-$color_scale_5: #487304;
-$color_scale_6: #4A73B0;
-$color_scale_7: #1B4145;
-$color_scale_8: #444300;
-$color_scale_9: #24190E;
-
-
-/*
- * Fonts
- *
- */
-@import url("https://fonts.googleapis.com/css?family=Work+Sans:200,400,700,600|Source+Sans+Pro:200,400,700,600");
-@import "//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css";
-
-// $font_headings: 'Work Sans';
-$font_headings: 'Source Sans Pro';
-// $font_text: 'Work Sans';
-$font_text: 'Source Sans Pro';
-
-
-/*
- * Modules
- *
- */
+@import "gobierto_budgets/vis_lineas_j";
 
 /*
  * Page elements: header, footer...
