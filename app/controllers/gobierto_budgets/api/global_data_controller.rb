@@ -135,15 +135,19 @@ module GobiertoBudgets
       end
 
       def total_budget_data(year, field)
+        terms = [ {term: { year: year }}, {term: { kind: GobiertoBudgets::BudgetLine::EXPENSE }} ]
+
+        if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
+          ine_codes = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
+          terms << {terms: { ine_code: ine_codes.compact }} if ine_codes.any?
+        end
+
         query = {
           query: {
             filtered: {
               filter: {
                 bool: {
-                  must: [
-                    {term: { year: year }},
-                    {term: { kind: GobiertoBudgets::BudgetLine::EXPENSE }}
-                  ]
+                  must: terms
                 }
               }
             }
@@ -164,15 +168,22 @@ module GobiertoBudgets
       end
 
       def total_budget_data_executed(year, field)
+        terms = [
+          {term: { year: year }},
+          {term: { kind: GobiertoBudgets::BudgetLine::EXPENSE }}
+        ]
+
+        if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
+          ine_codes = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
+          terms << {terms: { ine_code: ine_codes.compact }} if ine_codes.any?
+        end
+
         query = {
           query: {
             filtered: {
               filter: {
                 bool: {
-                  must: [
-                    {term: { year: year }},
-                    {term: { kind: GobiertoBudgets::BudgetLine::EXPENSE }}
-                  ]
+                  must: terms
                 }
               }
             }
@@ -194,14 +205,19 @@ module GobiertoBudgets
 
 
       def total_population(year)
+        terms = [ {term: { year: year }} ]
+
+        if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
+          ine_codes = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
+          terms << {terms: { ine_code: ine_codes.compact }} if ine_codes.any?
+        end
+
         query = {
           query: {
             filtered: {
               filter: {
                 bool: {
-                  must: [
-                    {term: { year: year }},
-                  ]
+                  must: terms
                 }
               }
             }
@@ -223,14 +239,19 @@ module GobiertoBudgets
       end
 
       def total_debt(year)
+        terms = [ {term: { year: year }} ]
+
+        if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
+          ine_codes = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
+          terms << {terms: { ine_code: ine_codes.compact }} if ine_codes.any?
+        end
+
         query = {
           query: {
             filtered: {
               filter: {
                 bool: {
-                  must: [
-                    {term: { year: year }},
-                  ]
+                  must: terms
                 }
               }
             }
