@@ -72,8 +72,6 @@ var VisLineasJ = Class.extend({
     this.opacity = .7;
     this.opacityLow = .4;
     this.duration = 400;
-    this.mainColor = '#F69C95';
-    this.darkColor = '#B87570';
     this.softGrey = '#d6d5d1';
     this.darkGrey = '#554E41';
     this.blue = '#2A8998';
@@ -211,7 +209,7 @@ var VisLineasJ = Class.extend({
         .domain([min, max])
         .range([this.height, this.margin.top]);
 
-      if (this.dataChart.length === 3)
+      if (this.dataChart.length === 3 && this.meanColorRange.length != this.dataChart.length)
         this.meanColorRange = this.meanColorRange.slice(1);
 
       this.colorScale
@@ -439,11 +437,7 @@ var VisLineasJ = Class.extend({
         .append("td")
           .attr('class', function(d) { return d.classed ; })
           .html(function(d, i) {return i != 0 ? d.value : '<i class="' + d.value + '"></i>'; }.bind(this));
-
-
-
           // Replace bullets colors
-
           var bulletsColors = this.colorScale.range();
 
           d3.selectAll('.le').forEach(function(v) {
