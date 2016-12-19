@@ -38,7 +38,7 @@ ca:
         how_it_works: 'Còm funciona?'
         description: "A més d'usar el buscador en la part superior d'esta pàgina, pots afegir un municipi a la teva llista de comparació des de la pàgina del municipi en questió. Utilitza el botó 'Compara' per afegir i accedir a la comparació. Des de la pàgina de comparació també podràs afegir més municipis o eliminar-los."
       home:
-        local_budgets: Pressupostos Municipales
+        local_budgets: Pressupostos Municipals
         subtitle: Consulta, analitza i compara els pressupostos municipals de Catalunya
         search_municipality: Busca municipi...
         for_example: Per exemple
@@ -67,8 +67,8 @@ ca:
         no_data_this_year: "Mmm... No tenim dades sobre este municipi per aquest any. Tria un altre..."
         why: 'Per què no hi ha dades?'
       show:
-        title: "Pressupostos municipales de %{name} del %{year}"
-        meta_description: "Consulta i visualitza els pressupostos municipales de %{name} del %{year}. Consulta despeses e ingressos, indicadors pressupostari, dades d'execució..."
+        title: "Pressupostos municipals de %{name} del %{year}"
+        meta_description: "Consulta i visualitza els pressupostos municipals de %{name} del %{year}. Consulta despeses e ingressos, indicadors pressupostari, dades d'execució..."
         about_the_data: Nota sobre les dades
         about_the_data_desc: 'La base de dades que utilitzem no inclou dades per al 100% dels municipis, per tant les mitjanes estàn calculades només amb les dades que hi existeixen (que sòn la gran majoria). Més informació en les nostres preguntes frequents.'
         explore_income_expenses: 'Explora ingressos i despeses de %{name}'
