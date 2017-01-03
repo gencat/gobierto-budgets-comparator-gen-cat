@@ -19,7 +19,7 @@ module GobiertoBudgets
       if @code.present?
         render pick_template, layout: false
       else
-        render head: :success
+        render nothing: true, status: 404
       end
     end
 

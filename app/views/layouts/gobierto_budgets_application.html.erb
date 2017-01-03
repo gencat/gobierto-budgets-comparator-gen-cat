@@ -72,7 +72,7 @@
           <li><%= link_to t('.compare'), gobierto_budgets_compare_path , class: class_if('selected', current_page?(gobierto_budgets_compare_path) || action_name == 'compare')%></li>
           <li><%= link_to t('.rankings'), gobierto_budgets_ranking_path , class: class_if('selected', current_page?(gobierto_budgets_ranking_path) || action_name == 'ranking')%></li>
           <li><%= link_to t('.services'), gobierto_budgets_about_path(anchor: 'municipalities') , class: class_if('selected', current_page?(gobierto_budgets_about_path))%></li>
-          <li><%= link_to t('.maps'), gobierto_budgets_map_path(year: Date.today.year), class: class_if('selected', current_page?(gobierto_budgets_map_path(Date.today.year))), data: {no_turbolink: true} %></li>
+          <li><%= link_to t('.maps'), gobierto_budgets_map_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), class: class_if('selected', current_page?(gobierto_budgets_map_path(Date.today.year))), data: {no_turbolink: true} %></li>
         </ul>
       </menu>
 
