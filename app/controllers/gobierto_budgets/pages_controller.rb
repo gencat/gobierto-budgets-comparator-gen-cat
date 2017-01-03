@@ -31,7 +31,10 @@ module GobiertoBudgets
     end
 
     def map
-      @year = params[:year]
+      @year = params[:year].to_i
+      unless GobiertoBudgets::SearchEngineConfiguration::Year.all.include?(@year)
+        redirect_to gobierto_budgets_map_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last) and return false
+      end
     end
 
   end
