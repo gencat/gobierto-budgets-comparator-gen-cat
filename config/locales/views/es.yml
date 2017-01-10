@@ -79,5 +79,10 @@ es:
     welcome_message_4: "<strong>Haz seguimiento</strong> de la información que te interesa. En cada página tienes un icono para hacer seguimiento. Cuando esa información se actualice, recibirás automaticamente un email."
   helpers:
     budget_line_description: "Esta partida comprende los %{kind_what} en %{description}. Si quieres saber más sobre esta partida puedes consultar la partida padre: %{link}"
-
-
+  views:
+    pagination:
+      first: "&laquo; Primera"
+      last: "Última &raquo;"
+      previous: "&lsaquo; Ant"
+      next: "Sig &rsaquo;"
+      truncate: "&hellip;"

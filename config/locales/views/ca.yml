@@ -78,5 +78,10 @@ ca:
     welcome_message_4: "<strong>Haz seguimiento</strong> de la información que te interesa. En cada página tienes un icono para hacer seguimiento. Cuando esa información se actualice, recibirás automaticamente un email."
   helpers:
     budget_line_description: "Aquesta partida comprén %{kind_what} en %{description}. Si vols saber més sobre aquesta partida pots consultar la partida pare: %{link}"
-
-
+  views:
+    pagination:
+      first: "&laquo; Primera"
+      last: "Última &raquo;"
+      previous: "&lsaquo; Ant"
+      next: "Seg &rsaquo;"
+      truncate: "&hellip;"
