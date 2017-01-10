@@ -1,0 +1,17 @@
+<% require './lib/i18n_csv_tasks' %>
+
+base_locale: es
+## All available locales are inferred from the data by default. Alternatively, specify them explicitly:
+locales: [es, ca]
+
+# Read and write translations.
+data:
+  read:
+    - config/locales/**/%{locale}.yml
+    - config/locales/**/*/%{locale}.yml
+
+csv:
+  export:
+    - "tmp/i18n-export/main.csv"
+  import:
+    - tmp/i18n-export/main.csv
