@@ -1,9 +1,0 @@
----
-es:
-  views:
-    pagination:
-      first: "&laquo; Primera"
-      last: "Última &raquo;"
-      previous: "&lsaquo; Ant"
-      next: "Sig &rsaquo;"
-      truncate: "&hellip;"
