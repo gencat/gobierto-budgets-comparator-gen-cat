@@ -108,6 +108,7 @@ module GobiertoBudgets
 
       while parent_code.present? do
         p = GobiertoBudgets::BudgetLine.find(ine_code: budget_line['ine_code'], code: parent_code, year: budget_line['year'], kind: budget_line['kind'], type: type)
+        break if p.nil?
         crumbs.unshift(p)
         parent_code = p['parent_code']
       end
