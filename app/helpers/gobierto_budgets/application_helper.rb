@@ -82,7 +82,7 @@ module GobiertoBudgets
       else
         kind_what = kind == 'I' ? t('common.incomes') : t('common.expenses')
 
-        "Esta partida comprende los #{kind_what} en #{description.downcase}. Si quieres saber más sobre esta partida puedes consultar la partida padre: #{link_to(budget_line_denomination(area_name, code[0..-2], kind), gobierto_budgets_budget_line_path(@place.slug, params[:year],code[0..-2], kind, area_name))}".html_safe
+        I18n.t('helpers.budget_line_description', kind_what: kind_what, description: description.downcase, link: link_to(budget_line_denomination(area_name, code[0..-2], kind), gobierto_budgets_budget_line_path(@place.slug, params[:year],code[0..-2], kind, area_name))).html_safe
       end
     end
 

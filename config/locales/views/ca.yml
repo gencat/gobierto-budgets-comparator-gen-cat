@@ -76,4 +76,7 @@ ca:
     welcome_message_2: "<strong>Participa</strong>: en las consultas que te plantea el Ayuntamiento, envía ideas o reportes."
     welcome_message_3: "<strong>Apoya peticiones</strong>: súmate a las peticiones iniciadas por otros vecinos."
     welcome_message_4: "<strong>Haz seguimiento</strong> de la información que te interesa. En cada página tienes un icono para hacer seguimiento. Cuando esa información se actualice, recibirás automaticamente un email."
+  helpers:
+    budget_line_description: "Aquesta partida comprén %{kind_what} en %{description}. Si vols saber més sobre aquesta partida pots consultar la partida pare: %{link}"
+
 
