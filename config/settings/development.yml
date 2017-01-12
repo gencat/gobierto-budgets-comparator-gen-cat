@@ -3,6 +3,7 @@ gobierto_host: gobierto-comparator.dev
 mailchimp_list: ''
 google_analytics_key: ''
 mixpanel_key: ''
+doorbell_key: ''
 users_enabled: false
 map_center_lat: 39.3
 map_center_lon: -5.6
