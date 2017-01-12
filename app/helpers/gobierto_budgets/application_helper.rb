@@ -1,23 +1,5 @@
 module GobiertoBudgets
   module ApplicationHelper
-
-    # def flush_the_flash
-    #   output = ""
-    #   if flash[:alert] || flash[:notice] || flash[:message]
-    #     content_tag(:div, id: 'flash', class: "#{flash[:notice] || flash[:message] ? 'notice' : 'error'}") do
-    #       if flash[:notice] || flash[:alert]
-    #         output += content_tag(:p) do
-    #           (flash[:notice] || flash[:alert]).html_safe
-    #         end
-    #       end
-    #       if flash[:message]
-    #         output += flash[:message].html_safe
-    #       end
-    #       output.html_safe
-    #     end
-    #   end
-    # end
-
     def pending(&block)
       if controller_name == 'sandbox'
         yield
@@ -79,7 +61,7 @@ module GobiertoBudgets
       name = area.all_items[kind][code]
       if description != name
         return description
-      else
+      elsif description.present?
         kind_what = kind == 'I' ? t('common.incomes') : t('common.expenses')
 
         I18n.t('helpers.budget_line_description', kind_what: kind_what, description: description.downcase, link: link_to(budget_line_denomination(area_name, code[0..-2], kind), gobierto_budgets_budget_line_path(@place.slug, params[:year],code[0..-2], kind, area_name))).html_safe
