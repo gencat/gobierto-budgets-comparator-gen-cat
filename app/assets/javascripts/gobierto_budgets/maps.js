@@ -42,12 +42,12 @@ $(function () {
       $('#map .overlay').css({
         'display': 'block'
       });
-      
+
       $('#map .cartodb-tiles-loader').css({
         'position': 'relative',
         'z-index': '-1'
       });
-      
+
       $('.cartodb-tooltip').hide();
       var year = $('body').data('year');
       var indicator = $('.metric.selected').data('indicator');
@@ -112,12 +112,12 @@ $(function () {
       $('#map .overlay').css({
         'display': 'block'
       });
-      
+
       $('#map .cartodb-tiles-loader').css({
         'position': 'relative',
         'z-index': '-1'
       });
-      
+
       $('.cartodb-tooltip').hide();
       $('.metric').removeClass('selected');
       var year = $('body').data('year');
@@ -226,13 +226,13 @@ $(function () {
       renderMapIndicator(sublayer, vis);
       renderMapBudgetLine(sublayer, vis);
       $('[data-indicator].selected').click();
-      
+
       // On load, hide the overlay and reset the tile spinner
       layers[1].on("load", function() {
         $('#map .overlay').css({
           'display': 'none'
         });
-        
+
         $('#map .cartodb-tiles-loader').css({
           'position': 'initial',
           'z-index': '0'
@@ -243,6 +243,12 @@ $(function () {
       sublayer.on('featureClick', function(e, latlng, pos, data, subLayerIndex) {
         window.location.href = "/places/" + data.place_id + "/" + year + "/redirect";
       });
+
+      // If there is a placesScop, remove Spain attribution
+      if(window.placesScope.length > 0 && $('.leaflet-control-attribution').length){
+        var str = $('.leaflet-control-attribution').html().replace(", © IGN España", "");
+        $('.leaflet-control-attribution').html(str);
+      }
     })
     .error(function(err) {
       console.log(err);
