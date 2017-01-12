@@ -2,15 +2,16 @@
 ca:
   shared:
     embed:
-      title_embed: Usa el seguent codi per a embeber esta pàgina i la seva visualització al teu website.
+      title_embed: Useu el codi següent per a incrustar aquesta pàgina i la seva visualització
+        al vostre lloc web.
     widget_template:
       datum: dada
     widget_template_debt:
       datum: dada
       not_available: no disponible
+    widget_template_deviation:
+      expenses_planned: Ingressos pressupostats
+      incomes_planned: Despeses pressupostades
+      real: reals
     widget_template_execution:
       not_available: No disponible
-    widget_template_deviation:
-      incomes_planned: Despeses pressupostades
-      expenses_planned: Ingressos pressupostats
-      real: reals

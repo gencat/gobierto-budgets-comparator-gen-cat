@@ -1,15 +1,15 @@
 ---
 ca:
   controllers:
-    users:
-      update:
-        notice: "¡Bé! Les dades s'han actualitzat correctament"
-        alert: Hi ha hagut un problema
-      create:
-        alert: "Hi ha hagut un problema creant el teu usuari: %{messages}"
-    sessions_management:
-      admin_user:
-        alert: Has de ser administrador
     sessions:
       create:
         alert: Credencials no vàlides
+    sessions_management:
+      admin_user:
+        alert: Heu de ser administrador
+    users:
+      create:
+        alert: 'Hi ha hagut un problema creant el vostre usuari: %{messages}'
+      update:
+        alert: Hi ha hagut un problema
+        notice: "¡Bé! Les dades s'han actualitzat correctament"

@@ -45,6 +45,7 @@ module I18nCsvTasks
         next unless key
 
         i18n.locales.each do |locale|
+          next if !row.has_key?(locale)
           raise "Locale missing for key #{key}! (locales in app: #{locales} / locales in file: #{row.headers.inspect})" unless row.has_key?(locale)
           translations << [[locale, key].join("."), row[locale]]
         end

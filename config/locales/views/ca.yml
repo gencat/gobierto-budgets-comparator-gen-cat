@@ -1,87 +1,102 @@
 ---
 ca:
-  common:
-    and: i
-    income: ingrés
-    incomes: ingressos
-    expense: despesa
-    expenses: despeses
-    economic: econòmica
-    functional: funcional
-    totals: totals
-    per_inhabitant: per habitant
   actions:
-    send: Enviar
+    confirm: Esteu segur?
     create: Crear
-    update: Actualitzar
-    confirm: "Estàs segur?"
-    edit: Editar
     delete: Borrar
-    see_page: Veure la pàgina
-  layout:
-    council_of: "Ajuntament de %{name}"
-    transparency_and_participation: Transparència i Participació
-    login_or_signup: Fes login o registra't
-    your_account: El teu Compte
-    cta_login: Ja tens compte? Fes login
-    your_email: El teu email
-    your_password: La teva contrasenya
-    cta_signup: Eres nou? Registra't
-    login: Login
-    signup: Registrarse
-    gobierto: La plataforma web per fer Transparència, Gobiern Obert y Participació per a Administracions Públiques
-    logout: Desconectar
-    your_notifications: Les teues notificacions
-    your_notifications_temp: En esta secció podràs consultar les teues notificacions personals per a que te resulti sencill realitzar el seguiment de tot el que passa a la web
-    news: Novetats
-    add: Afegir
     edit: Editar
-    remove: Eliminar
-    admin: Administració
-    pages: Pàgines
-    users: Usuaris
-    configuration: Configuració
-    sections: Seccions
-    search: Cercar
-    autocomplete_no_results: 'Ho sentim, però no hi ha resultats'
+    see_page: Veure la pàgina
+    send: Enviar
+    update: Actualitzar
   admin:
     registered_users:
       one: 1 usuari registrat
       other: "%{count} usuaris registrats"
-    user_name: Nom
     user_email: Email
-    user_signed_up_date: Registrat
     user_last_activity: Última activitat
-    users_edit: Editar informació del usuari
-    users_impersonate: Fer login com el usuari
-    users_soft_delete: "Eliminar usuari: no podrà fer login ni publicar contingut; la seva activitat desapareixerà"
-    users_restore: "Restaurar usuario: volverá a poder hacer login y a publicar; su actividad volverá a ser pública"
-  users:
-    your_account: Tu cuenta
-    your_account_description: Gestiona tus datos personales
-    email_tip: Este es tu correo-e verificado. Más adelante podrás cambiarlo si lo necesitas
-    want_to_update_password: '¿Quieres cambiar tu contraseña?'
-    current_password: Contraseña actual
-    password_tip: Sólo si quieres actualizar tu contraseña
-    document_tip: Necesario para verificar tu identidad más adelante. No aparecerá de forma pública
-    complete_signup: Completa tu registro
-    confirm_filling_fields: Confirma tu registro rellenando estos campos
-    accept: Acepto las
-    terms_and_conditions: Condiciones de Uso
-    privacy: Política de Privacidad
-    email_notification_successful: Un pasito más
-    email_notification_message: Te hemos enviado un email con un enlace para que completes el registro.
-    signup_successful: Genial, ya estás registrado.
-    welcome_message_1: Estás listo para participar y usar las distintas herramientas que te proporciona la página de Transparencia y Participación del Ayuntamiento de %{name}
-    welcome_message_2: "<strong>Participa</strong>: en las consultas que te plantea el Ayuntamiento, envía ideas o reportes."
-    welcome_message_3: "<strong>Apoya peticiones</strong>: súmate a las peticiones iniciadas por otros vecinos."
-    welcome_message_4: "<strong>Haz seguimiento</strong> de la información que te interesa. En cada página tienes un icono para hacer seguimiento. Cuando esa información se actualice, recibirás automaticamente un email."
+    user_name: Nom
+    user_signed_up_date: Registrat
+    users_edit: Editar informació de l'usuari
+    users_impersonate: Fer login com l'usuari
+    users_restore: 'Restaurar usuari: tornareu a poder entrar i publicar; la vostra
+      activitat tornarà a ser pública'
+    users_soft_delete: 'Eliminar usuari: no podreu entrar ni publicar contingut; la
+      vostra activitat desapareixerà'
+  common:
+    and: i
+    economic: econòmica
+    expense: despesa
+    expenses: despeses
+    functional: funcional
+    income: ingrés
+    incomes: ingressos
+    per_inhabitant: per habitant
+    totals: totals
   helpers:
-    budget_line_description: "Aquesta partida comprén %{kind_what} en %{description}. Si vols saber més sobre aquesta partida pots consultar la partida pare: %{link}"
+    budget_line_description: 'Aquesta partida comprén %{kind_what} en %{description}.
+      Si voleu saber més sobre aquesta partida podeu consultar la partida pare: %{link}'
+  layout:
+    add: Afegir
+    admin: Administració
+    autocomplete_no_results: Ho sentim, però no hi ha resultats
+    configuration: Configuració
+    council_of: Ajuntament de %{name}
+    cta_login: Ja teniu compte? Entreu
+    cta_signup: Sou nou/va? Registreu-vos
+    edit: Editar
+    gobierto: La plataforma web per fer Transparència, Govern Obert i Participació
+      per a Administracions Públiques
+    login: Entrada
+    login_or_signup: Entreu o registreu-vos
+    logout: Desconnectar
+    news: Novetats
+    pages: Pàgines
+    remove: Eliminar
+    search: Cercar
+    sections: Seccions
+    signup: Registreu-vos
+    transparency_and_participation: Transparència i Participació
+    users: Usuaris
+    your_account: El vostre compte
+    your_email: El vostre email
+    your_notifications: Les vostres notificacions
+    your_notifications_temp: En aquesta secció podreu consultar les vostres notificacions
+      personals perquè us resulti senzill fer el seguiment de tot el que passa al
+      web
+    your_password: La vostra contrasenya
+  users:
+    accept: Accepto les
+    complete_signup: Completeu el vostre registre
+    confirm_filling_fields: Confirmeu el vostre registre emplenant aquests camps
+    current_password: Contrasenya actual
+    document_tip: Necessari per a verificar la vostra identitat més endavant. No apareixerà
+      públicament
+    email_notification_message: Us hem enviat un correu electrònic amb un enllaç perquè
+      completeu el registre.
+    email_notification_successful: Un poc més
+    email_tip: Aquest és el vostre correu electrònic verificat. Més endavant podreu
+      modificar-lo si ho necessiteu
+    password_tip: Només si voleu actualitzar la contrasenya
+    privacy: Política de Privacitat
+    signup_successful: Perfecte, ja esteu registrat.
+    terms_and_conditions: Condicions d'Ús
+    want_to_update_password: Voleu modificar la vostra contrasenya?
+    welcome_message_1: Esteu a punt per a participar i utilitzar les diferents eines
+      que us proporciona el lloc de Transparència i Participació de l'Ajuntament de
+      %{name}
+    welcome_message_2: "<strong>Participeu</strong>: en les consultes que us planteja
+      l'Ajuntament, envieu idees o informes."
+    welcome_message_3: "<strong>Doneu suport a peticions</strong>: sumeu-vos a les
+      peticions iniciades per altres veïns."
+    welcome_message_4: "<strong>Feu el seguiment</strong> de la informació que us
+      interessa. En cada pàgina teniu una icona per a fer-ne seguiment. Quan aquesta
+      informació sigui actualitzada, rebreu automàticament un correu electrònic."
+    your_account: El vostre compte
+    your_account_description: Gestioneu les vostres dades personals
   views:
     pagination:
       first: "&laquo; Primera"
-      last: "Última &raquo;"
+      last: Última &raquo;
+      next: Seg &rsaquo;
       previous: "&lsaquo; Ant"
-      next: "Seg &rsaquo;"
       truncate: "&hellip;"

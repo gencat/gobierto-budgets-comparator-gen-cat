@@ -1,210 +1,230 @@
 ---
 ca:
   gobierto_budgets:
-    featured_budget_lines:
-      show:
-        title: Partides destacades
-        question: "Quant gasta %{name} en..."
-        per_inhabitant: per habitant
-        percentage_over_total: Percentatge sobre el total
-        show_me_another: "Mostra'm un altra"
-    pages:
-      map:
-        title: "Mapes de pressupostos el %{year}"
-        meta_description: "Visualitza i explora el mapa de pressupuestos el %{year}"
-        municipality_maps: Mapes per municipis
-        search: Busca partides
-        incomes: Ingressos
-        in_what: En què es gasta
-        for_what: Per a què es gasta
-        expense_per_inhabitant: Despesa per habitant
-        expense: Despesa total
-        planned_vs_executed: Planejat vs Executat
-        debt: Deute
-        population: Població
-        people: persones
-      map_metrics:
-        tipsit_planned_vs_executed: La diferència entre les despeses planejades (Pressupost) i lo que finalment s'ha gastat (Execuctat). Fes click per veure el detalle i l'execució dels ingressos.
-      ranking:
-        rankings: Rànquing
-        subtitle: Consulta els municipis que més ingressos i despeses, total i per habitant, realitzen per cada partida.
-        highlights: Algunes xifres destacades
-      compare_big:
-        compare_municipalities: Compara municipis
-        select_municipalities: "Selecciona diversos municipis per a comparar els seus pressupostos:"
-        search_municipality: "Busca un municipi %{n}"
-        compare: Comparar
-        check_some_examples: O prova amb alguns exemples
-        how_it_works: 'Còm funciona?'
-        description: "A més d'usar el buscador en la part superior d'esta pàgina, pots afegir un municipi a la teva llista de comparació des de la pàgina del municipi en questió. Utilitza el botó 'Compara' per afegir i accedir a la comparació. Des de la pàgina de comparació també podràs afegir més municipis o eliminar-los."
-      home:
-        local_budgets: Pressupostos Municipals
-        subtitle: Consulta, analitza i compara els pressupostos municipals de Catalunya
-        search_municipality: Busca municipi...
-        for_example: Per exemple
-        explore_rankings: Explora els Rànquings
-        explore_the_ranking_for: Explora el Rànquing de
-        for_municipalities_of: per municipis de
-        whole_spain: Tota Espanya
-        explore: Explorar
-        some_examples: Alguns exemples per partides
-        more_information: més informació
-    places:
-      place_header:
-        compare: Compara
-        add_to_comparing_list_html: "Afegeix <strong>%{name}</strong> a la teva llista i compara"
-        your_comparison_list: La teva llista de comparació
-        view_comparison_html: Veure comparació
-        without: "sense %{name}"
-        in_your_web: En la teva web
-        municipality_responsible: "Eres responsable d'aquest municipi?"
-        cta_desc: "Gobierto te permet fer una integració personalitzada d'aquestes visualitzacions en la teva web."
-        ask_for_info: 'Solicita información'
-        local_budgets_from: "Pressupostos Municipals de %{name}"
-        planned: pressupostats
-        search_municipality: Busca municipi...
-      no_data:
-        no_data_this_year: "Mmm... No tenim dades sobre este municipi per aquest any. Tria un altre..."
-        why: 'Per què no hi ha dades?'
-      show:
-        title: "Pressupostos municipals de %{name} del %{year}"
-        meta_description: "Consulta i visualitza els pressupostos municipals de %{name} del %{year}. Consulta despeses e ingressos, indicadors pressupostari, dades d'execució..."
-        about_the_data: Nota sobre les dades
-        about_the_data_desc: 'La base de dades que utilitzem no inclou dades per al 100% dels municipis, per tant les mitjanes estàn calculades només amb les dades que hi existeixen (que sòn la gran majoria). Més informació en les nostres preguntes frequents.'
-        explore_income_expenses: 'Explora ingressos i despeses de %{name}'
-        total: total
-        per_inhabitant: "per hab."
-        percentage_over_total: "s/ total"
-        search_budget_lines_income: Busca partides d'ingressos
-      expense_lines:
-        total: total
-        per_inhabitant: "per hab."
-        percentage_over_total: "s/ total"
-        search_budget_lines_income: Busca partides d'ingressos
-        search_budget_lines_expense: Busca partides de despeses
-      compare:
-        title: "Compara els pressupostos municipals de %{places}"
-        total: Total
-        per_inhabitant: Per Habitant
-        delete: 'Eliminar de la comparació' 
-        add: 'Afegir altre municipi' 
-        add_another: Afegeix altre municipi
-        totals: Totals
-        population: Població
-      execution:
-        title: "Execució del pressupost municipal de %{place} el %{year}"
-        description: "Detall sobre l'execució del pressupuest municipal de %{place} del %{year}. Consulta la diferència entre lo pressupostat i lo executat."
-        execution_help: L'execució es la quantitat que finalmente s'ha gastat sobre lo planificat inicialment.
-        execution_disclaimer: Es normal que hi haja desviacions ja que es impossible preveure totes les despeses amb precisió absoluta.
-        budget_lines_income_higher: Partides d'ingressos molt superiors al pressupost
-        budget_lines_income_lower: Partides d'ingressos molt inferiors al pressupost
-        budget_lines_expense_higher: Partides de despeses molt superiors al pressupost
-        budget_lines_expense_lower: Partides de despeses molt inferiors al pressupost
-        no_data: "No hi ha dades disponibles el %{year}, per tant et mostrarem el primer any amb dades"
-      execution_table:
-        planned: Plan.
-        executed: Execució
-        deviation: Dif
-        view_more: Veure més
-        view_less: Veure menys
-      ranking:
-        budget_lines_title: "Rànquing de %{kind} el %{year}"
-        budget_lines_short_title: "Rànquing de %{kind}"
-        budget_line_title: "Rànquing de %{kind} en %{budget_line} el %{year}"
-        budget_line_short_title: "Rànquing de %{kind} en %{budget_line}"
-        population_title: "Rànquing d'habitants el %{year}"
-        population_short_title: "Rànquing d'habitants"
-        population: Població
-        per_inhabitant: per habitant
-        total: Total
-        size: Tamany del municipi
-        between: Entre
-        and: i
-        autonomous_region: Comunitat Autònoma
-        disclaimer: La base de dades que utilitzem no inclou dades per al 100% dels municipis, per tant no mostrem els municipis que no tenen dades.
-        why: 'Per què no hi ha dades de tots els municipis?'
-      ranking_table:
-        municipality: Municipi
-        inhabitants: Habitants
-        compare: Compara
-    budget_lines:
-      show:
-        title: "%{kind} en %{budget_line} en %{place} per al %{year}"
-        share_text: "%{kind} municipal de %{place} en %{budget_line} el %{year}"
-        description: "Dades de %{kind} en %{budget_line} en %{place}. Consulta i visualitza la partida de %{budget_line} per a %{place} en els últims anys i compara amb altres municipis"
-        total_budget_per_inhabitant: "%{kind} total d'aquesta partida aquest any per habitant"
-        total_budget: "%{kind} total d'aquesta partida aquest any"
-        search: "Busca altres partides de %{kind}"
-        about: Sobre aquesta partida
-        description: Descripció
-        council_comment: Comentari del Ajuntament
-        contracts: 'Contractes associats a aquesta partida'
-        qa: 'Preguntes i respuestes'
-        no_information: Encara no hi ha informació
-        ask_for_it: Demana al teu municipi que incloua aquesta informació
-        coming_soon: Pròximament
     api:
       data:
-        budgets_execution_header: "Desviació de %{kind} el %{year}"
-        income_up: "S'ha ingressat un %{percentage}% (%{diff}) més del planejat"
-        income_down: "S'ha ingressat un %{percentage}% (%{diff}) menys del planejat"
-        expense_up: "S'ha gastat un %{percentage}% (%{diff}) més del planejat"
-        expense_down: "S'ha gastat un %{percentage}% (%{diff}) menys del planejat"
-        total_expense: Despesa total
-        expense_per_inhabitant: Despesa per habitant
-        category_per_inhabitant: "%{category} per habitant"
-        total_budget:
-          total_expenses: Despesa total
-        population:
-          population: Habitants
-        total_budget_per_inhabitant:
-          expenses_per_inhabitant: Despesa per habitant
+        G_deviation: Desviació de les despeses el %{year}
+        I_deviation: Desviació dels ingressos el %{year}
         budget_execution:
           expense_planned_vs_executed: Despesa planejada vs executada
           income_planned_vs_executed: Ingrés planejat vs executada
         budget_per_inhabitant:
           expenses_per_inhabitant: Despesa per habitant
           income_per_inhabitant: Ingrés per habitant
-        total_budget_execution:
-          planned_vs_executed: 'Execució vs Pressupostat'
+        budget_percentage_over_total:
+          percentage_over_total: Percentage sobre el total
+        budget_percentage_previous_year:
+          percentage_previous_year: Percentage sobre l'any anterior
+        budgets_execution_header: Desviació de %{kind} el %{year}
+        category_per_inhabitant: "%{category} per habitant"
         debt:
           debt: Deute viu
-        budget_percentage_over_total:
-          percentage_over_total: "Percentage sobre el total"
-        budget_percentage_previous_year:
-          percentage_previous_year: "Percentage sobre l'any anterior"
-        I_deviation: "Desviació dels ingressos el %{year}"
-        G_deviation: "Desviació de les despesses el %{year}"
-      global_data:
-        budgets_execution_header: "Desviació de %{kind} el %{year}"
-        income_up: "S'ha ingressat un %{percentage}% (%{diff}) més del planejat"
-        income_down: "S'ha ingressat un %{percentage}% (%{diff}) menys del planejat"
-        expense_up: "S'ha gastat un %{percentage}% (%{diff}) més del planejat"
-        expense_down: "S'ha gastat un %{percentage}% (%{diff}) menys del planejat"
-        total_expense: Despesa total
+        expense_down: S'ha gastat un %{percentage}% (%{diff}) menys del planejat
         expense_per_inhabitant: Despesa per habitant
-        category_per_inhabitant: "%{category} per habitant"
-        total_budget:
-          total_expenses: Despesa total
+        expense_up: S'ha gastat un %{percentage}% (%{diff}) més del planejat
+        income_down: S'ha ingressat un %{percentage}% (%{diff}) menys del planejat
+        income_up: S'ha ingressat un %{percentage}% (%{diff}) més del planejat
         population:
           population: Habitants
+        total_budget:
+          total_expenses: Despesa total
+        total_budget_execution:
+          planned_vs_executed: Execució vs Pressupostat
         total_budget_per_inhabitant:
           expenses_per_inhabitant: Despesa per habitant
+        total_expense: Despesa total
+      global_data:
         budget_execution:
-          expense_planned_vs_executed: Despesa planeejat vs executada
-          income_planned_vs_executed: Ingrés planejat vs executada
+          expense_planned_vs_executed: Despesa planejada vs executada
+          income_planned_vs_executed: Ingrés planejat vs executat
         budget_per_inhabitant:
           expenses_per_inhabitant: Despesa per habitant
           income_per_inhabitant: Ingrés per habitant
-        total_budget_execution:
-          planned_vs_executed: 'Execució vs Pressupostat'
+        budget_percentage_over_total:
+          percentage_over_total: Percentage sobre el total
+        budgets_execution_header: Desviació de %{kind} el %{year}
+        category_per_inhabitant: "%{category} per habitant"
         debt:
           debt: Deute viu
-        budget_percentage_over_total:
-          percentage_over_total: "Percentage sobre el total"
-        deviation: "Desviació de %{kind} el %{year}"
+        deviation: Desviació de %{kind} el %{year}
+        expense_down: S'ha gastat un %{percentage}% (%{diff}) menys del planejat
+        expense_per_inhabitant: Despesa per habitant
+        expense_up: S'ha gastat un %{percentage}% (%{diff}) més del planejat
+        income_down: S'ha ingressat un %{percentage}% (%{diff}) menys del planejat
+        income_up: S'ha ingressat un %{percentage}% (%{diff}) més del planejat
+        population:
+          population: Habitants
+        total_budget:
+          total_expenses: Despesa total
+        total_budget_execution:
+          planned_vs_executed: Execució vs Pressupostat
+        total_budget_per_inhabitant:
+          expenses_per_inhabitant: Despesa per habitant
+        total_expense: Despesa total
+    budget_lines:
+      show:
+        about: Sobre aquesta partida
+        ask_for_it: Demaneu al vostre municipi que inclogui aquesta informació
+        coming_soon: Pròximament
+        contracts: Contractes associats a aquesta partida
+        council_comment: Comentari de l'Ajuntament
+        description: Descripció
+        no_information: Encara no hi ha informació
+        qa: Preguntes i respostes
+        search: Busqueu altres partides de %{kind}
+        share_text: "%{kind} municipal de %{place} en %{budget_line} el %{year}"
+        title: "%{kind} en %{budget_line} en %{place} per al %{year}"
+        total_budget: "%{kind} total d'aquesta partida aquest any"
+        total_budget_per_inhabitant: "%{kind} total d'aquesta partida aquest any per
+          habitant"
+    featured_budget_lines:
+      show:
+        per_inhabitant: per habitant
+        percentage_over_total: Percentatge sobre el total
+        question: Quant gasta %{name} en...
+        show_me_another: Mostreu-me una altra
+        title: Partides destacades
+    pages:
+      compare_big:
+        check_some_examples: O proveu amb alguns exemples
+        compare: Comparar
+        compare_municipalities: Compareu municipis
+        description: A més d'usar el buscador a la part superior d'aquesta pàgina,
+          podeu afegir un municipi a la vostra llista de comparació des de la pàgina
+          del municipi en qüestió. Utilitzeu el botó 'Compareu' per a afegir i accedir
+          a la comparació. Des de la pàgina de comp
+        how_it_works: Com funciona?
+        search_municipality: Busqueu un municipi %{n}
+        select_municipalities: 'Seleccioneu diversos municipis per a comparar-ne els
+          pressupostos:'
+      home:
+        explore: Explorar
+        explore_rankings: Exploreu els rànquings
+        explore_the_ranking_for: Exploreu el rànquing de
+        for_example: Per exemple
+        for_municipalities_of: per municipis de
+        local_budgets: Pressupostos municipals
+        more_information: més informació
+        search_municipality: Busqueu municipi...
+        some_examples: Alguns exemples per partides
+        subtitle: Consulteu, analitzeu i compareu els pressupostos municipals de Catalunya
+        whole_spain: Tot Espanya
+      map:
+        debt: Deute
+        expense: Despesa total
+        expense_per_inhabitant: Despesa per habitant
+        for_what: Per a què es gasta
+        in_what: En què es gasta
+        incomes: Ingressos
+        meta_description: Visualitzeu i exploreu el mapa de pressupostos el %{year}
+        municipality_maps: Mapes per municipis
+        people: persones
+        planned_vs_executed: Planejat vs Executat
+        population: Població
+        search: Busqueu partides
+        title: Mapes de pressupostos el %{year}
+      map_metrics:
+        tipsit_planned_vs_executed: La diferència entre les despeses planejades (Pressupost)
+          i el que finalment s'ha gastat (Executat). Feu clic per a veure el detall
+          i l'execució dels ingressos.
+      ranking:
+        highlights: Algunes xifres destacades
+        rankings: Rànquing
+        subtitle: Consulteu els municipis que més ingressos i despeses, total i per
+          habitant, realitzen per cada partida.
+    places:
+      compare:
+        add: Afegir un altre municipi
+        add_another: Afegiu un altre municipi
+        delete: Eliminar de la comparació
+        per_inhabitant: Per habitant
+        population: Població
+        title: Compareu els pressupostos municipals de %{places}
+        total: Total
+        totals: Totals
+      execution:
+        budget_lines_expense_higher: Partides de despeses molt superiors al pressupost
+        budget_lines_expense_lower: Partides de despeses molt inferiors al pressupost
+        budget_lines_income_higher: Partides d'ingressos molt superiors al pressupost
+        budget_lines_income_lower: Partides d'ingressos molt inferiors al pressupost
+        description: Detall sobre l'execució del pressupuest municipal de %{place}
+          del %{year}. Consulteu la diferència entre allò pressupostat i allò executat.
+        execution_disclaimer: És normal que hi hagi desviacions ja que és impossible
+          preveure totes les despeses amb precisió absoluta.
+        execution_help: L'execució és la quantitat que finalment s'ha gastat sobre
+          allò planificat inicialment.
+        no_data: No hi ha dades disponibles el %{year}, per tant us mostrarem el primer
+          any amb dades
+        title: Execució del pressupost municipal de %{place} el %{year}
+      execution_table:
+        deviation: Dif
+        executed: Execució
+        planned: Plan.
+        view_less: Veure menys
+        view_more: Veure més
+      expense_lines:
+        per_inhabitant: per hab.
+        percentage_over_total: s/ total
+        search_budget_lines_expense: Busqueu partides de despeses
+        search_budget_lines_income: Busqueu partides d'ingressos
+        total: total
+      no_data:
+        no_data_this_year: Mmm... No tenim dades sobre aquest municipi per aquest
+          any. Trieu-ne un altre...
+        why: Per què no hi ha dades?
+      place_header:
+        add_to_comparing_list_html: Afegiu <strong>%{name}</strong> a la vostra llista
+          i compareu
+        ask_for_info: Sol·liciteu informació
+        compare: Compareu
+        cta_desc: Gobierto us permet fer una integració personalitzada d'aquestes
+          visualitzacions en el vostre web.
+        in_your_web: Al vostre web
+        local_budgets_from: Pressupostos municipals de %{name}
+        municipality_responsible: Sou responsable d'aquest municipi?
+        planned: pressupostats
+        search_municipality: Busqueu municipi...
+        view_comparison_html: Veure comparació
+        without: sense %{name}
+        your_comparison_list: La vostra llista de comparació
+      ranking:
+        and: i
+        autonomous_region: Comunitat autònoma
+        between: Entre
+        budget_line_short_title: Rànquing de %{kind} en %{budget_line}
+        budget_line_title: Rànquing de %{kind} en %{budget_line} el %{year}
+        budget_lines_short_title: Rànquing de %{kind}
+        budget_lines_title: Rànquing de %{kind} el %{year}
+        disclaimer: La base de dades que utilitzem no inclou dades per al 100% dels
+          municipis, per tant no mostrem els municipis que no tenen dades.
+        per_inhabitant: per habitant
+        population: Població
+        population_short_title: Rànquing d'habitants
+        population_title: Rànquing d'habitants el %{year}
+        size: Grandària del municipi
+        total: Total
+        why: Per què no hi ha dades de tots els municipis?
+      ranking_table:
+        compare: Compareu
+        inhabitants: Habitants
+        municipality: Municipi
+      show:
+        about_the_data: Nota sobre les dades
+        about_the_data_desc: La base de dades que utilitzem no inclou dades per al
+          100% dels municipis, per tant les mitjanes estan calculades només amb les
+          dades que hi existeixen (que són la gran majoria). Més informació a les
+          nostres preguntes freqüents.
+        explore_income_expenses: Exploreu ingressos i despeses de %{name}
+        meta_description: Consulteu i visualitzeu els pressupostos municipals de %{name}
+          del %{year}. Consulteu despeses i ingressos, indicadors pressupostaris,
+          dades d'execució...
+        per_inhabitant: per hab.
+        percentage_over_total: s/ total
+        search_budget_lines_income: Busqueu partides d'ingressos
+        title: Pressupostos municipals de %{name} del %{year}
+        total: total
     visualizations:
-      mean_national: Mitjana nacional
       mean_autonomy: Mitjana nacional
+      mean_national: Mitjana nacional
       mean_province: Mitjana provincial
       previous_year_diff: Canvi any anterior
