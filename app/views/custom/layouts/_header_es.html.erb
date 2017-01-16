@@ -142,6 +142,9 @@
 
 <script>
 function CompartirTwitter(){
+  var sharerTitle = document.title.substr(-24);
+  var sharerDesc = document.title.slice(0, -26);
+  
 	var width  = 575,
     height = 400,
     left   = ($(window).width()  - width)  / 2,
@@ -152,7 +155,7 @@ function CompartirTwitter(){
              ',height=' + height +
              ',top='    + top    +
              ',left='   + left;
-	url += encodeURIComponent('En @governobertcat ' + document.title);
+  url += encodeURIComponent('En @governobertcat ' + sharerTitle + ': ' + sharerDesc);
 	url +=' ';
 
 	window.open(url, 'Twitter', opts);
