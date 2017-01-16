@@ -28,7 +28,7 @@
           <td class="location"><%= link_to ranking_item.place.name, gobierto_budgets_place_path(ranking_item.place.slug, @year) %> (<%= ranking_item.place.province.name %>)</td>
           <td class="population"><%= number_with_precision ranking_item.population, precision: 0, delimiter: '.' %></td>
           <td class="expense_per"><%= number_to_currency ranking_item.amount_per_inhabitant, strip_insignificant_zeros: true %></td>
-          <td class="expense"><%= number_to_currency ranking_item.amount, strip_insignificant_zeros: true %></td>
+          <td class="expense"><%= number_to_currency ranking_item.amount.to_i, strip_insignificant_zeros: true %></td>
           <% if @variable != 'population' && @code.present? %>
             <td class="percentage"><%= percentage_of_total(ranking_item.amount, ranking_item.total) %></td>
           <% end %>
