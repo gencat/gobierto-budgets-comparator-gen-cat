@@ -297,7 +297,7 @@ module GobiertoBudgets
 
         no_data_this_year = false
         debt_year = get_debt(year, params[:ine_code])
-        if debt_year.nil?
+        if debt_year[:value].nil?
           year -= 1
           debt_year = get_debt(year, params[:ine_code])
           no_data_this_year = year
@@ -310,9 +310,12 @@ module GobiertoBudgets
             render json: {
               title: t('.debt'),
               sign: nil,
-              delta_percentage: helpers.number_with_precision(delta_percentage(debt_previous_year, debt_year), precision: 2),
-              value: helpers.number_to_currency(debt_year, precision: 0, strip_insignificant_zeros: true),
-              no_data_this_year: no_data_this_year
+              delta_percentage: helpers.number_with_precision(delta_percentage(debt_previous_year[:value], debt_year[:value]), precision: 2),
+              value: helpers.number_to_currency(debt_year[:value], precision: 0, strip_insignificant_zeros: true),
+              no_data_this_year: no_data_this_year,
+              ranking_position: debt_year[:position],
+              ranking_total_elements: helpers.number_with_precision(debt_year[:total_elements], precision: 0),
+              ranking_url: nil
             }.to_json
           end
         end
@@ -475,12 +478,41 @@ module GobiertoBudgets
       def get_debt(year, ine_code)
         id = "#{ine_code}/#{year}"
 
+        terms = []
+        terms.push({term: { year: year }})
+
+        query = {
+          query: {
+            filtered: {
+              filter: {
+                bool: {
+                  must: terms
+                }
+              }
+            }
+          },
+          size: 10_000,
+          _source: false
+        }
+
+        value = nil
         begin
-          value = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::Data.index,
-            type: GobiertoBudgets::SearchEngineConfiguration::Data.type_debt, id: id
-          value['_source']['value'] * 1000
+          response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::Data.index, type: GobiertoBudgets::SearchEngineConfiguration::Data.type_debt, body: query
+          debts = response['hits']['hits'].map{|h| h['_id']}
+          position = debts.index(id) + 1 rescue 0
+
+          value = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::Data.index, type: GobiertoBudgets::SearchEngineConfiguration::Data.type_debt, id: id
+          value = value['_source']['value'] * 1000
         rescue Elasticsearch::Transport::Transport::Errors::NotFound
+          debts = []
+          position = nil
         end
+
+        return {
+          value: value,
+          position: position,
+          total_elements: debts.length
+        }
       end
 
       def ranking_title(variable, year, kind, code, area_name)
