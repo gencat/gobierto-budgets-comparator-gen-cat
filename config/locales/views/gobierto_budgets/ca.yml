@@ -83,7 +83,7 @@ ca:
         percentage_over_total: Percentatge sobre el total
         question: Quant gasta %{name} en...
         show_me_another: Mostreu-me una altra
-        title: Partides destacades
+        title: Coneix les partides del pressupost
     pages:
       compare_big:
         check_some_examples: O proveu amb alguns exemples

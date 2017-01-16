@@ -3,7 +3,7 @@ es:
   gobierto_budgets:
     featured_budget_lines:
       show:
-        title: Partidas destacadas
+        title: Conoce las partidas del presupuesto
         question: "¿Cuánto se gasta %{name} en..."
         per_inhabitant: por habitante
         percentage_over_total: Porcentaje sobre el total
