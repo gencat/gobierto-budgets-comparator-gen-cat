@@ -80,6 +80,7 @@ en:
     welcome_message_4: "<strong>Track</strong> the information you are interested on. Each page has an icon to follow any change on that page. You'll receive automatically an email."
   helpers:
     budget_line_description: "This budget line is referred to %{kind_what} in %{description}. If you want to know more, check the parent budget line: %{link}"
+    in: In
   views:
     pagination:
       first: "&laquo; First"
