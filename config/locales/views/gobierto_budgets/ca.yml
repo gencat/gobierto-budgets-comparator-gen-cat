@@ -224,7 +224,7 @@ ca:
         title: Pressupostos municipals de %{name} del %{year}
         total: total
     visualizations:
-      mean_autonomy: Mitjana Catalunya
-      mean_national: Mitjana Catalunya
+      mean_autonomy: Mitjana nacional
+      mean_national: Mitjana nacional
       mean_province: Mitjana provincial
       previous_year_diff: Canvi any anterior
