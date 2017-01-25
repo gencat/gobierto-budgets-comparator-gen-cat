@@ -137,7 +137,7 @@ $(function () {
       Cookies.set('comparison',comparison);
   }
 
-  $('.js-add_compare, .js-add_compare_no_hide').on('click', function(e) {
+  $(document).on('click', '.js-add_compare, .js-add_compare_no_hide', function(e) {
     e.preventDefault();
     updateListAndCompare($(this).data('place'), $(this).data('parent-code'));
   });
