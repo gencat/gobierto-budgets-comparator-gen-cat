@@ -36,9 +36,8 @@
             <div class="col-md-4 col-sm-4 column  hidden-mg">
               <ul class="list-group llistat_xarxes_socials header clearfix-md">
                 <span class="comparteix hidden-xs">Compartir en:</span>
-                <li class="list-group-item"><a href="#" title="Compartir a Twitter"><img alt="Comparteix a Twitter" src="/img/NG_ico_twitter.png"></a></li>
-                <li class="list-group-item"><a href="#" title="Compartir a Facebook"><img alt="Comparteix a Facebook" src="/img/NG_ico_facebook.png"></a></li>
-                <li class="list-group-item"><a href="#" title="Compartir per email"><img alt="Comparteix per email" src="/img/NG_ico_enviaemail.png"></a></li>
+                <li class="list-group-item"><a href="javascript:CompartirTwitter()" title="Compartir en Twitter"><img alt="Compartir en Twitter" src="/img/NG_ico_twitter.png"></a></li>
+                <li class="list-group-item"><a href="javascript:CompartirFacebook()" title="Compartir en Facebook"><img alt="Compartir en Facebook" src="/img/NG_ico_facebook.png"></a></li>
               </ul>
             </div>
           </div>
@@ -140,3 +139,41 @@
     </div>
   </article>
 </section>
+
+<script>
+function CompartirTwitter(){
+  var sharerTitle = document.title.substr(-24);
+  var sharerDesc = document.title.slice(0, -26);
+  
+	var width  = 575,
+    height = 400,
+    left   = ($(window).width()  - width)  / 2,
+    top    = ($(window).height() - height) / 2,
+    url    = 'http://twitter.com/share?text=',
+    opts   = 'status=1' +
+             ',width='  + width  +
+             ',height=' + height +
+             ',top='    + top    +
+             ',left='   + left;
+  url += encodeURIComponent('En @governobertcat ' + sharerTitle + ': ' + sharerDesc);
+	url +=' ';
+
+	window.open(url, 'Twitter', opts);
+}
+
+function CompartirFacebook(){
+	var width  = 575,
+    height = 400,
+    left   = ($(window).width()  - width)  / 2,
+    top    = ($(window).height() - height) / 2,
+    url    = 'https://www.facebook.com/sharer/sharer.php?u=',
+    opts   = 'status=1' +
+             ',width='  + width  +
+             ',height=' + height +
+             ',top='    + top    +
+             ',left='   + left;
+
+	url+= encodeURIComponent(document.URL);
+	window.open(url, 'Facebook', opts);
+}
+</script>

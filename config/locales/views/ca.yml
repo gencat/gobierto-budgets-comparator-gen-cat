@@ -33,8 +33,8 @@ ca:
     per_inhabitant: per habitant
     totals: totals
   helpers:
-    budget_line_description: 'Aquesta partida comprén %{kind_what} en %{description}.
-      Si voleu saber més sobre aquesta partida podeu consultar la partida pare: %{link}'
+    budget_line_description: 'Aquesta partida comprén %{kind_what} en %{description}. Si voleu saber més sobre aquesta partida podeu consultar la partida pare: %{link}'
+    in: A
   layout:
     add: Afegir
     admin: Administració

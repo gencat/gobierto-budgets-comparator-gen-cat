@@ -36,6 +36,9 @@ module GobiertoBudgets
         total_budget_data = total_budget_data / population
         total_budget_data_previous_year = total_budget_data(year - 1, 'total_budget')
         population_previous_year = total_population(year - 1)
+        if population_previous_year.nil?
+          population_previous_year = total_population(year)
+        end
         total_budget_data_previous_year = total_budget_data_previous_year / population_previous_year
         sign = sign(total_budget_data, total_budget_data_previous_year)
 
@@ -130,7 +133,7 @@ module GobiertoBudgets
       private
 
       def delta_percentage(value, old_value)
-        return "" if value.nil? || old_value.nil?
+        return "" if value.nil? || old_value.nil? || old_value == 0
         ((value.to_f - old_value.to_f)/old_value.to_f) * 100
       end
 

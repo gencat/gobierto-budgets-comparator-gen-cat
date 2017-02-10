@@ -73,6 +73,9 @@ Rails.application.routes.draw do
     get 'legal/privacy' => 'pages#legal_privacy'
     get 'en' => 'pages#en'
 
+    get 'sobre-ca' => 'pages#about_ca'
+    get 'sobre-es' => 'pages#about_es'
+
     get 'search' => 'search#index'
     get 'categories/:slug/:year/:area/:kind' => 'search#categories', as: :search_categories
     get 'geocoder' => 'geocoder#index', as: :geocoder
