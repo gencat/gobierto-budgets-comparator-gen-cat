@@ -38,8 +38,8 @@ es:
         how_it_works: '¿Cómo funciona?'
         description: "Además de usar el buscador en la parte superior de esta página, puedes añadir un municipio a tu lista de comparación desde la página del municipio en cuestión. Utiliza el botón 'Compara' para añadir y acceder a la comparación. Desde la página de comparación también podrás añadir otros municipios o eliminar los que necesites de la comparación."
       home:
-        local_budgets: Presupuestos Municipals
-        subtitle: Consulta, analiza y compara los presupuestos municipals de España
+        local_budgets: Presupuestos Municipales
+        subtitle: Consulta, analiza y compara los presupuestos municipales de España
         search_municipality: Busca municipio...
         for_example: Por ejemplo
         explore_rankings: Explora los Rankings
@@ -60,15 +60,15 @@ es:
         municipality_responsible: "¿Eres responsable de este municipio?"
         cta_desc: "Gobierto te permite hacer una integración personalizada de estas visualizaciones en tu web."
         ask_for_info: 'Solicita información'
-        local_budgets_from: "Presupuestos Municipals de %{name}"
+        local_budgets_from: "Presupuestos Municipales de %{name}"
         planned: presupuestados
         search_municipality: Busca municipio...
       no_data:
         no_data_this_year: "Mmm... No tenemos datos sobre este municipio para este año. Prueba con otro año..."
         why: '¿Por qué no hay datos?'
       show:
-        title: "Presupuestos municipals de %{name} del %{year}"
-        meta_description: "Consulta y visualiza los presupuestos municipals de %{name} del %{year}. Consulta gastos e ingresos, indicadores presupuestarios, datos de ejecución..."
+        title: "Presupuestos municipales de %{name} del %{year}"
+        meta_description: "Consulta y visualiza los presupuestos municipales de %{name} del %{year}. Consulta gastos e ingresos, indicadores presupuestarios, datos de ejecución..."
         about_the_data: Nota sobre los datos
         about_the_data_desc: 'La base de datos que utilizamos no incluye datos para el 100% de los municipios, por lo que las medias están calculadas solo con los datos que existen (que son la gran mayoría). Más información en nuestras preguntas frecuentes'
         explore_income_expenses: 'Explora ingresos y gastos de %{name}'
@@ -83,11 +83,11 @@ es:
         search_budget_lines_income: Busca partidas de ingresos
         search_budget_lines_expense: Busca partidas de gastos
       compare:
-        title: "Compara los presupuestos municipals de %{places}"
+        title: "Compara los presupuestos municipales de %{places}"
         total: Total
         per_inhabitant: Por Habitante
-        delete: 'Eliminar de la comparación' 
-        add: 'Añadir otro municipio' 
+        delete: 'Eliminar de la comparación'
+        add: 'Añadir otro municipio'
         add_another: Añade otro municipio
         totals: Totales
         population: Población
