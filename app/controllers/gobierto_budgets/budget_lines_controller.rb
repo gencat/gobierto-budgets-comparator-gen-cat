@@ -19,6 +19,9 @@ module GobiertoBudgets
       @place = INE::Places::Place.find_by_slug params[:slug]
       @year = params[:year]
       @code = params[:code]
+      if @code.include?('-')
+        redirect_to gobierto_budgets_budget_line_path(params[:slug], @year, @code.tr('-0', ''), params[:kind], params[:area]) and return
+      end
       @kind = ( %w{income i}.include?(params[:kind].downcase) ? GobiertoBudgets::BudgetLine::INCOME : GobiertoBudgets::BudgetLine::EXPENSE )
       @area_name = params[:area] || 'economic'
 

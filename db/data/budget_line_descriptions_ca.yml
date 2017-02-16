@@ -910,12 +910,12 @@ functional:
     '152': Dins el grup de programes d'Habitatge es tipifiquen dos programes, relatius
       a la Promoció i gestió d'habitatge de protecció pública i als Conservació i
       rehabilitació de l'edificació.
-    '1521': Promoció i gestió d'habitatge de protecció pública.
-    '1522': Conservació i rehabilitació de l'edificació.
+    '152-01': Promoció i gestió d'habitatge de protecció pública.
+    '152-02': Conservació i rehabilitació de l'edificació.
     '153': Dins el grup de programes de vies públiques es tipifiquen dos programes,
       relatius a l'accés als nuclis de població i a la pavimentació de les vies públiques.
-    '1531': Accés als nuclis de població.
-    '1532': Pavimentació de vies públiques.
+    '153-01': Accés als nuclis de població.
+    '153-02': Pavimentació de vies públiques.
     '154': Foment de l'edificació protegida.
     '155': vies públiques.
     '16': |-
@@ -926,9 +926,9 @@ functional:
     '162': Dins el grup de programes Recollida, gestió i tractament de residus es
       tipifiquen tres programes, relatius a recollida de residus, gestió de residus
       sòlids urbans i tractament de residus.
-    '1621': Recollida de residus.
-    '1622': Gestió de residus sòlids urbans.
-    '1623': Tractament de residus.
+    '162-01': Recollida de residus.
+    '162-02': Gestió de residus sòlids urbans.
+    '162-03': Tractament de residus.
     '163': neteja viària.
     '164': Cementiris i serveis funeraris.
     '165': enllumenat públic.
@@ -942,7 +942,7 @@ functional:
     '170': Administració general del medi ambient.
     '171': Parcs i jardins.
     '172': Protecció i millora del medi ambient.
-    '1721': Protecció contra la contaminació acústica, lumínica i atmosfèrica a les
+    '172-01': Protecció contra la contaminació acústica, lumínica i atmosfèrica a les
       zones urbanes.
     '179': Altres actuacions relacionades amb el medi ambient.
     '21': Pensions graciables, millores de pensions i pensions extraordinàries a càrrec
@@ -997,8 +997,8 @@ functional:
        S'inclouen les despeses de creació, conservació i funcionament dels edificis destinats a biblioteques, museus, arxius, cases de la cultura, activitats culturals, d'esplai i temps lliure com llars del jubilat o cases de la joventut; sales d'exposicions, palaus de congressos, parcs zoològics, bandes de música i agrupacions musicals, festes locals de caràcter popular, activitats recreatives en platges, actuacions amb vista a la conservació, promoció i gestió del patrimoni històric-artístic i altres despeses recreatius i culturals ; comunicació, autorització, inspecció i sanció dels espectacles públics; així com les transferències a entitats o famílies que col·laborin en el foment d'aquestes activitats.
     '330': Administració general de Cultura.
     '332': Biblioteques i Arxius.
-    '3321': Biblioteques Públiques.
-    '3322': Arxius.
+    '332-01': Biblioteques Públiques.
+    '332-02': Arxius.
     '333': Museus i Arts Plàstiques.
     '334': promoció cultural.
     '335': Arts escèniques.
@@ -1042,9 +1042,9 @@ functional:
        Finalment, s'inclouran en aquesta política de despesa els destinats al desenvolupament de les petites i mitjanes empreses.
     '430': Administració General de Comerç, turisme i petites i mitjanes empreses
     '431': Comerç
-    '4311': Fires
-    '4312': Mercats, Proveïments i Llotges
-    '4313': Comerç Ambulant
+    '431-01': Fires
+    '431-02': Mercats, Proveïments i Llotges
+    '431-03': Comerç Ambulant
     '432': Ordenació i promoció turística
     '433': desenvolupament empresarial
     '439': Altres actuacions sectorials
@@ -1054,8 +1054,8 @@ functional:
        S'han d'aplicar a aquesta política de despeses totes les d'inversió destinats a l'adquisició de mitjans de transport; i a la creació, millora i manteniment d'infraestructures, com estacions d'autobusos, ports, aeroports i altres de naturalesa anàloga.
     '440': Administració general del transport
     '441': Promoció, manteniment i desenvolupament del transport
-    '4411': Transport col·lectiu urbà de viatgers
-    '4412': Un altre transport de viatgers
+    '441-01': Transport col·lectiu urbà de viatgers
+    '441-02': Un altre transport de viatgers
     '442': Infraestructures del transport
     '443': Transport de mercaderies
     '45': |-
@@ -1096,7 +1096,7 @@ functional:
     '920': Administració general.
     '922': Coordinació i organització institucional de les entitats locals.
     '923': Informació bàsica i estadística.
-    '9231': En compliment del que disposa l'article 31 de la Llei Orgànica 2/2012,
+    '923-01': En compliment del que disposa l'article 31 de la Llei Orgànica 2/2012,
       de 27 d'abril, d'Estabilitat Pressupostària i Sostenibilitat Financera, les
       entitats locals incloses en l'àmbit subjectiu dels articles 111 i 135 del text
       refós de la Llei reguladora de les hisendes locals, aprovat per Reial Decret
