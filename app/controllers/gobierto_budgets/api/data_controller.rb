@@ -481,6 +481,11 @@ module GobiertoBudgets
         terms = []
         terms.push({term: { year: year }})
 
+        if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
+          ine_codes = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
+          terms << {terms: { ine_code: ine_codes.compact }} if ine_codes.any?
+        end
+
         query = {
           query: {
             filtered: {
