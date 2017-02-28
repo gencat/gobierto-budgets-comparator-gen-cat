@@ -26,7 +26,6 @@
 
       $(document).on('click', '[data-category-code]', function(e){
         e.preventDefault();
-        this.hideInfoWindow();
         $.event.trigger({
           type: "renderBudgetLineCategory",
           code: $(e.target).data('category-code'),
@@ -40,7 +39,6 @@
       $(document).on('click', '[data-select-category]', function(e){
         e.preventDefault();
         var target = $(e.target);
-        this.hideInfoWindow();
         this.attr.categories = [];
         this.attr.state.kind = target.data('kind');
         this.attr.state.area = target.data('area');
@@ -55,7 +53,6 @@
       $(document).on('click', '[data-expand-category]', function(e){
         e.preventDefault();
         var target = $(e.target);
-        this.hideInfoWindow();
         this.addChildrenPlaceHolder(target);
         this.renderCategories(target.data('expand-category'));
         target.addClass(this.attr.collapseIconClass).removeClass(this.attr.expandIconClass);
@@ -68,7 +65,6 @@
       $(document).on('click', '[data-collapse-category]', function(e){
         e.preventDefault();
         var target = $(e.target);
-        this.hideInfoWindow();
         target.addClass(this.attr.expandIconClass).removeClass(this.attr.collapseIconClass);
         target.data('expand-category', target.data('collapse-category'));
         target.attr('data-expand-category', target.data('collapse-category'));
@@ -101,6 +97,7 @@
 
       // Initial state
       $('[data-selected]').click();
+      if(!$('[data-selected]').length) this.renderCategories();
 
       // Collapse sidebar on phones
       if (window.innerWidth <= 768) {
@@ -130,6 +127,9 @@
     };
 
     this.categoriesHandler = function(parentCode){
+      if(this.attr.state.kind === null)
+        return;
+
       var categories = this.attr.categories[this.attr.state.area][this.attr.state.kind];
       if(parentCode === undefined)
         this.cleanOldCategories();
@@ -177,10 +177,6 @@
       target.parent('td').find('tr').each(function(){
         $(this).remove();
       });
-    };
-
-    this.hideInfoWindow = function(){
-      $('.cartodb-tooltip').hide();
     };
   });
 

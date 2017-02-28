@@ -109,6 +109,7 @@ $(function () {
 
   function renderMapBudgetLine(layer, vis){
     $(document).on('renderBudgetLineCategory', function(e){
+      $('.cartodb-tooltip').hide();
       $('#map .overlay').css({
         'display': 'block'
       });
