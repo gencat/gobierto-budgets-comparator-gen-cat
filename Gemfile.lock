@@ -254,6 +254,11 @@ GEM
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
+    soda-ruby (0.2.22)
+      activesupport (~> 4.2.5)
+      hashie (~> 3.4.2)
+      multipart-post (~> 2.0.0)
+      sys-uname (~> 1.0.2)
     spring (1.7.1)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
@@ -267,6 +272,8 @@ GEM
     sshkit (1.11.1)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    sys-uname (1.0.3)
+      ffi (>= 1.0.0)
     therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
       ref
@@ -340,6 +347,7 @@ DEPENDENCIES
   ruby_px
   sass-rails (~> 5.0.0)
   selenium-webdriver
+  soda-ruby
   spring
   spring-commands-rspec
   therubyracer
@@ -349,4 +357,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.13.3
+   1.13.7

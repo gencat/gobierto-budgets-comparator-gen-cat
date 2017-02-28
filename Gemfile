@@ -37,6 +37,9 @@ gem 'elasticsearch-extensions'
 gem 'oj'
 gem 'hashie'
 
+# Socrata integration
+gem 'soda-ruby', :require => 'soda'
+
 group :development, :test do
   gem 'spring'
   gem 'spring-commands-rspec'
