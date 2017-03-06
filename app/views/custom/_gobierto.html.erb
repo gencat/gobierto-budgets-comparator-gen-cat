@@ -280,6 +280,14 @@ body[data-action="ranking"] header.place h1 .switcher {
 .main_metrics .metric.selected::after {
   border-top-color: #C9DCEC;
 }
+.main_metrics .metric .main {
+  font-size: 1rem;
+}
+.main_metrics .metric .percentage_change {
+  position: relative;
+  top: 0.25rem;
+  right: 0em;
+}
 .tools a.tool_button {
   background: #F5F5F5;
 }
@@ -421,8 +429,22 @@ nav.pagination .gap:active {
 .place header.sub .sep {
   font-weight: 400;
 }
+#map {
+  height: 450px;
+}
 
 @media (min-width: 768px) {
+  #map {
+    height: 300px;
+  }
+  .main_metrics .metric .percentage_change {
+    position: absolute;
+    top: 1.4em;
+    right: 1em;
+  }
+  .main_metrics .metric .main {
+    font-size: 1.3rem;
+  }
   .ranking_cards_carousel {
     position: relative;
   }
