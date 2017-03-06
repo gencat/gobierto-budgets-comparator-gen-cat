@@ -141,6 +141,7 @@ h2 {
 }
 .pre_home .places_search {
   margin: 1em 0 0 0;
+  font-size: 1.25em;
 }
 .places_search {
   line-height: 1.6em;
@@ -148,7 +149,11 @@ h2 {
   padding: 1.5%;
   border: 1px solid #ddd;
 }
-.search_compare {
+.big_compare form input,
+.big_compare form input.search_compare,
+.home_section form input,
+.home_section form input.search_compare {
+  font-size: 1.25rem;
   border-radius: 0;
   border: 1px solid #ddd;
 }
@@ -165,7 +170,18 @@ input[type="submit"] {
   background: #EFF5FA;
 }
 .ranking_card h2 {
-  max-height: 4.6em;
+  line-height: 1.4;
+  font-size: 1rem;
+  max-height: 5.6em;
+}
+.ranking_card .winner {
+  font-size: 1rem;
+}
+.ranking_card .runner_ups {
+  font-size: .75rem;
+}
+.ranking_card .runner_ups ol li {
+  white-space: normal;
 }
 .ranking_cards_carousel .the_content {
   min-height: 300px;
@@ -182,6 +198,9 @@ input[type="submit"] {
 .home_section #explore_prompt {
   color: #333;
 }
+.home_section #explore_prompt input[type="submit"] {
+  margin-top: 15px;
+}
 .home_section h2.section_heading {
      color: #333; 
 }
@@ -190,6 +209,35 @@ input[type="submit"] {
 }
 .home_section .examples p a[data-target="how_it_works"] {
   display: none;
+}
+
+@media (min-width: 768px) {
+  .ranking_card h2 {
+    line-height: 1.4;
+    font-size: 1.3em;
+    max-height: none;
+  }
+  .ranking_card .winner {
+    font-size: 1.3em;
+  }
+  .ranking_card .runner_ups {
+    font-size: .9em;
+  }
+  .ranking_card .runner_ups ol li {
+    white-space: nowrap;
+  }
+  .pre_home .places_search {
+    font-size: 1.6em;
+  }
+  .big_compare form input,
+  .big_compare form input.search_compare,
+  .home_section form input,
+  .home_section form input.search_compare {
+    font-size: 1.4em;
+  }
+  .home_section #explore_prompt input[type="submit"] {
+    margin-top: 0;
+  }
 }
 
 /* App */
@@ -297,6 +345,19 @@ input[type=submit]:active {
 .autocomplete-selected {
   background: #2A6EBB;
 }
+.ranking_cards_carousel {
+  position: relative;
+}
+.ranking_cards_carousel .left_side {
+  position: absolute;
+  left: -15px;
+  z-index: 1;
+}
+.ranking_cards_carousel .right_side {
+  position: absolute;
+  right: -15px;
+  z-index: 1;
+}
 .ranking_cards_carousel .nav a:hover {
   text-decoration: none !important;
 }
@@ -308,6 +369,12 @@ input[type=submit]:active {
 .ranking_card:hover,
 .ranking_card:active {
   background: #C9DCEC;
+}
+.ranking_cards_carousel .the_content {
+  min-width: 100%;
+}
+.ranking_cards_carousel .ranking_card {
+  min-width: auto;
 }
 
 .rankings .filters {
@@ -356,6 +423,12 @@ nav.pagination .gap:active {
 }
 
 @media (min-width: 768px) {
+  .ranking_cards_carousel {
+    position: relative;
+  }
+  .ranking_cards_carousel .the_content {
+    min-width: inherit;
+  }
   .ranking_card {
     height: 290px;
     width: 47%;
@@ -404,10 +477,10 @@ nav.pagination .gap:active {
 .navigation-list li {
   font-weight: 600;
   display: inline-block;
-  margin-right: 1.5rem;
+  margin-right: 0.5rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
 }
 .navigation-list li a {
   transition: none;
@@ -437,6 +510,10 @@ header.sticky_top .places_search {
   .navigation-headline {
     margin-top: 0;
     display: inline-block;
+  }
+  .navigation-list li {
+    font-size: 0.875rem;
+    margin-right: 1.5rem;
   }
 }
 
