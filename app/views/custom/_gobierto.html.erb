@@ -251,6 +251,9 @@ body[data-action="ranking"] header.place h1 .switcher {
 }
 .year_switcher {
   width: 106px;
+  margin-left: 0;
+  display: block;
+  margin-bottom: 0.5rem;
 }
 .year_switcher a {
   padding-left: 0;
@@ -325,7 +328,12 @@ body[data-action="ranking"] header.place h1 .switcher {
   background: #EFF5FA;
 }
 header.place h1 {
+  line-height: 1.3;
+  margin-top: 0;
+  margin-bottom: 0;
+  text-align: left;
   font-weight: 400;
+  margin-right: 0.5rem;
 }
 header.place .share_links {
   margin: 0.5em 0;
@@ -373,6 +381,9 @@ input[type=submit]:active {
   width: 100%;
   padding-left: 1.5em !important;
   padding-right: 1.5em !important;
+}
+.ranking_list .ranking_card:nth-child(2n) {
+  float: none;
 }
 .ranking_card:hover,
 .ranking_card:active {
@@ -434,6 +445,13 @@ nav.pagination .gap:active {
 }
 
 @media (min-width: 768px) {
+  .year_switcher {
+    margin-bottom: 0.5rem;
+    display: inline-block;
+  }
+  .ranking_list .ranking_card:nth-child(2n) {
+    float: right;
+  }
   #map {
     height: 300px;
   }
@@ -465,9 +483,6 @@ nav.pagination .gap:active {
   body[data-action="ranking"] header.place h1 .switcher {
     margin-left: -9px;
     display: inline-block;
-  }
-  header.place .share_links {
-    margin: 0 1em;
   }
 }
 
