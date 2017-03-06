@@ -440,6 +440,51 @@ header.sticky_top .places_search {
   }
 }
 
+/* Open data */
+.opendata {
+  height: 300px;
+  color: #333;
+  background: #f2f2f2;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  background-image: url(<%= asset_path 'custom/open-data.png' %>);
+  background-repeat: no-repeat;
+  background-position-x: 100%;
+  background-size: 100%;
+}
+.opendata:hover,
+.opendata:focus,
+.opendata:active {
+  text-decoration: none !important;
+  color: #333;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.opendata:hover h1,
+.opendata:hover p {
+  text-decoration: none;
+}
+.opendata h1 {
+  text-align: left;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+}
+.opendata p {
+  color: rgb(141, 140, 140);
+}
+@media (min-width: 768px) {
+  .opendata {
+    background-size: inherit;
+  }
+  .opendata h1 {
+    font-size: 2.188em;
+  }
+}
 
 /* Charts */
 table {
