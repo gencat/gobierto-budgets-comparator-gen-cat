@@ -22,16 +22,6 @@
     <li><%= link_to 'Coruña + Pontevedra + Lugo + Ferrol', "/compare/coruna-a:pontevedra:lugo:ferrol/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/economic", class: 'button' %></li>
     <li><%= link_to 'Madrid + Barcelona + Valencia + Sevilla', "/compare/madrid:barcelona:valencia:sevilla/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/economic", class: 'button' %></li>
   </ul>
-
-  <p><%= link_to t('.how_it_works'), '', class: 'toggle_div', data: { target: 'how_it_works' } %></strong></p>
-
-  <div class="how_it_works" style="display: none;">
-
-    <p><%= t('.description') %></p>
-
-    <%= image_tag 'gobierto_compare_demo.gif', width: '100%' %>
-
-  </div>
 </div>
 
 <% content_for(:javascript) do %>
