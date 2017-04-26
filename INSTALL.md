@@ -104,18 +104,7 @@ production:
 
 5 - Deploy the site
 
-Back to your development environment, we are going to deploy the site, following these steps:
-
-5.1 - Create the file `config/deploy/production.rb` based on `config/deploy/production.rb.example`,
-updating the host
-
-5.2 - Check the server configuration: `$ bundle exec cap production deploy:check`
-
-5.3 - Deploy! `$ bundle exec cap production deploy`
-
-5.4 - In the remote server, check that `/var/www/gobierto/current/` has been created as a symlink
-
-Notice that you can change the way to deploy the application. We prefer [Capistrano](http://capistranorb.com) and that's the configured option, but if you want to deploy in a different way just update the code in the fork of your project and that's all.
+Notice that there's no configured way to deploy the application. We recommend [Capistrano](http://capistranorb.com).
 
 6 - Load the data
 

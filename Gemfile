@@ -61,11 +61,4 @@ group :development do
   gem 'puma'
   gem 'web-console', '~> 2.0'
   gem 'quiet_assets'
-  gem 'capistrano'
-  gem 'capistrano-rbenv'
-  gem 'capistrano-bundler'
-  gem 'capistrano-rails'
-  gem 'capistrano-passenger'
-  gem 'capistrano-rails-console'
-  gem 'capistrano-rails-log'
 end
