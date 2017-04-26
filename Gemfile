@@ -20,8 +20,6 @@ gem 'config'
 gem 'dalli'
 gem 'aws-ses'
 gem 'cocoon'
-gem 'json', github: 'flori/json', branch: 'v1.8'
-
 
 # Frontend
 gem 'jquery-rails'

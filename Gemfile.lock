@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/flori/json.git
-  revision: 7f4cfd853f2c919d854fb95548a19980feff17e8
-  branch: v1.8
-  specs:
-    json (1.8.6)
-
-GIT
   remote: git@github.com:amatsuda/kaminari.git
   revision: 83f9c59a072bc5b9c3e1bc21f3f2b94022413d88
   specs:
@@ -165,6 +158,7 @@ GEM
     jquery-turbolinks (2.1.0)
       railties (>= 3.1.0)
       turbolinks
+    json (1.8.3)
     launchy (2.4.3)
       addressable (~> 2.3)
     libv8 (3.16.14.15)
@@ -336,7 +330,6 @@ DEPENDENCIES
   ine-places
   jquery-rails
   jquery-turbolinks
-  json!
   kaminari!
   launchy
   meta-tags
@@ -364,4 +357,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.14.6
+   1.13.7
