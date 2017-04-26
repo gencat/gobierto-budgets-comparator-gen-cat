@@ -59,7 +59,6 @@ Una vez tengas PostgreSQL corriendo y hayas clonado este repo, haz lo siguiente 
 $ cd gobierto
 $ cp config/database.yml.example config/database.yml
 $ cp config/secrets.yml.example config/secrets.yml
-$ cp config/deploy_secrets.yml.example config/deploy_secrets.yml
 $ bundle install
 $ rake db:setup
 ```
