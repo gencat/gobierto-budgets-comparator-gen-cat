@@ -3,6 +3,8 @@
 
 This README is available [in English](README_EN.md)
 
+Estás viendo un fork del proyecto [Gobierto comparador de presupuestos](https://github.com/PopulateTools/gobierto-comparador-presupuestos) para la Generalitat de Catalunya. El site está funcionando en http://pressupostosmunicipals.transparenciacatalunya.cat.
+
 # Gobierto comparador de presupuestos
 
 Gobierto es una aplicación Rails que proporciona una serie de herramientas a las administraciones públicas para facilitar la transparencia y la participación ciudadana, para que se comuniquen mejor con los ciudadanos y para facilitar la explotación de los datos públicos.
