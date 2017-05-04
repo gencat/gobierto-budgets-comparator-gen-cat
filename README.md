@@ -1,30 +1,18 @@
 
-![Gobierto](https://gobierto.es/assets/logo_gobierto.png)
+<a href="https://github.com/PopulateTools/gobierto"><img src="https://gobierto.es/assets/logo_gobierto.png" width="250" height="auto"></a>
 
-This README is available [in English](README_EN.md)
+Estás viendo un fork del proyecto [Gobierto · Comparador de presupuestos](https://github.com/PopulateTools/gobierto-comparador-presupuestos) para la Generalitat de Catalunya. El site está funcionando en http://pressupostosmunicipals.transparenciacatalunya.cat.
 
-Estás viendo un fork del proyecto [Gobierto comparador de presupuestos](https://github.com/PopulateTools/gobierto-comparador-presupuestos) para la Generalitat de Catalunya. El site está funcionando en http://pressupostosmunicipals.transparenciacatalunya.cat.
+# Gobierto · Comparador de presupuestos
 
-# Gobierto comparador de presupuestos
-
-Gobierto es una aplicación Rails que proporciona una serie de herramientas a las administraciones públicas para facilitar la transparencia y la participación ciudadana, para que se comuniquen mejor con los ciudadanos y para facilitar la explotación de los datos públicos.
-
-**Gobierto comparador de presupuestos** es una herramienta de exploración, comparación y visualización de los presupuestos municipales. Utilizamos datos abiertos del Ministerio de Hacienda (tenemos un [repositorio](https://github.com/PopulateTools/gobierto-budgets-data) donde publicamos los datos ya limpios y procesados) y del [INE](http://ine.es).
+El comparador de presupuestos de Gobierto es una herramienta de exploración, comparación y visualización de presupuestos municipales (u otros niveles administrativos). Utilizamos datos abiertos del Ministerio de Hacienda (tenemos un [repositorio](https://github.com/PopulateTools/gobierto-budgets-data) donde publicamos los datos ya limpios y procesados) y del [INE](http://ine.es).
 
 Puedes ver una instancia de este proyecto funcionando en [https://presupuestos.gobierto.es](https://presupuestos.gobierto.es).
 
-Gobierto es un proyecto abierto de [Populate](http://populate.tools), un estudio que diseña desde Madrid productos digitales alrededor de la Participación Ciudadana. Además de trabajar en Gobierto, también ofrecemos servicios en torno a datos abiertos, periodismo de datos, sostenibilidad, etc.
-
-* #todo Por qué Gobierto y nuestra filosofía de Diseño
-
-Más información: 
+Además del Comparador de Presupuestos, Gobierto es una plataforma de gobierno abierto de código abierto. Tienes más informacin en su Github: http://github.com/populatetools/gobierto/
 
 * Website de Gobierto: [gobierto.es](http://gobierto.es)
 * Blog: [gobierto.es/blog](http://gobierto.es/blog)
-
-## Sugerencias de Mejora
-
-Crea un [issue](https://github.com/PopulateTools/gobierto-comparador-presupuestos/issues).
 
 ## Arquitectura de la aplicación
 
