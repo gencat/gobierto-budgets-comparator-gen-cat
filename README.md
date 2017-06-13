@@ -5,9 +5,7 @@ Estás viendo un fork del proyecto [Gobierto · Comparador de presupuestos](http
 
 # Gobierto · Comparador de presupuestos
 
-El comparador de presupuestos de Gobierto es una herramienta de exploración, comparación y visualización de presupuestos municipales (u otros niveles administrativos). Utilizamos datos abiertos del Ministerio de Hacienda (tenemos un [repositorio](https://github.com/PopulateTools/gobierto-budgets-data) donde publicamos los datos ya limpios y procesados) y del [INE](http://ine.es).
-
-Puedes ver una instancia de este proyecto funcionando en [https://presupuestos.gobierto.es](https://presupuestos.gobierto.es).
+El comparador de presupuestos de Gobierto es una herramienta de exploración, comparación y visualización de presupuestos municipales (u otros niveles administrativos). Utilizamos datos abiertos del Consorci d'Administració Oberta de Catalunya (AOC) (ver datos del [presupuesto](https://analisi.transparenciacatalunya.cat/d/4g9s-gzp6) y de la [ejecución](https://analisi.transparenciacatalunya.cat/d/e7ah-kha8)) y del [INE](http://ine.es).
 
 Además del Comparador de Presupuestos, Gobierto es una plataforma de gobierno abierto de código abierto. Tienes más informacin en su Github: http://github.com/populatetools/gobierto/
 

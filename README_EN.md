@@ -5,11 +5,10 @@ Este README está disponible [en Español](README.md)
 
 This is a fork of [Gobierto budgets comparator](https://github.com/PopulateTools/gobierto-comparador-presupuestos) for Generalitat de Catalunya. Check the live site at: http://pressupostosmunicipals.transparenciacatalunya.cat.
 
-# Gobierto
+# Gobierto budgets comparator
 
-Gobierto is a Rails app that provides a set of tools to power efforts from public administrations towards transparency and citizen engagement, to enable them to communicate better with their constituents and put public open data to work. We are getting started and many things will change. The first working module is for budget visualization. Things you can currently do with Gobierto:
 
-**Gobierto budgets comparator** is a budgets comparison tool to enable citizens to explore, visualize, compare and contextualize the budgets of multiple municipalities/public bodies at the same time (such as those of a given Province, Autonomous Region or Country). You can check a live instance at [presupuestos.gobierto.es](http://presupuestos.gobierto.es) (it contains municipal budget data for almost 8.000 spanish municipalities).
+**Gobierto budgets comparator** is a budgets comparison tool to enable citizens to explore, visualize, compare and contextualize the budgets of multiple municipalities/public bodies at the same time (such as those of a given Province, Autonomous Region or Country). We use data from the Consorci d'Administració Oberta de Catalunya (AOC) (view [budgeting data](https://analisi.transparenciacatalunya.cat/d/4g9s-gzp6) and [execution data](https://analisi.transparenciacatalunya.cat/d/e7ah-kha8)) and from the [INE](http://ine.es).
 
 Gobierto is being built in the open by [Populate](http://populate.tools), a product design studio around civic engagement based in Madrid, Spain. We provide commercial services around data journalism, news products, open data... and Gobierto, of course ;) 
 
