@@ -7,3 +7,35 @@
     mixpanel.init('<%= Settings.mixpanel_key %>');
   <% end %>
 </script>
+
+<script src="http://www.transparenciacatalunya.cat/web/resources/fwk/analytics/js/webtrends2.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+  var _tag = new WebTrends();
+  _tag.dcsid="dcs222269825hqx2yrxfhnzdz_2b1o";
+  _tag.dcsGetId();
+</script>
+
+<script type="text/javascript">
+  _tag.DCSext.wt_departament="Exteriors";
+  _tag.DCSext.wt_web1="Transparencia Catalunya";
+  _tag.DCSext.wt_web2="Pressupostos Municipals";
+  _tag.DCSext.wt_web3="";
+  _tag.status="0";
+  _tag.WT.cg_n="";
+  _tag.WT.cg_s="";
+  _tag.DCSext.subcontent1="";
+  _tag.DCSext.subcontent2="";
+  _tag.DCSext.subcontent3="";
+  _tag.DCSext.subcontent4="";
+  _tag.DCSext.site_plus="transparenciacatalunya";
+  try {
+    $('document').ready(function (){
+      _tag.dcsCollect();
+    });
+  } catch(e){
+    _tag.dcsCollect();
+  }
+
+</script>
+<noscript><img alt="" id="DCSIMG" width="1" height="1" src="http://statse.webtrendslive.com/dcs222269825hqx2yrxfhnzdz_2b1o/njs.gif?dcsuri=/ca/inici/&amp;WT.js=No&amp;WT.tv=8.0.2"/></noscript>
