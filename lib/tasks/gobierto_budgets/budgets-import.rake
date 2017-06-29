@@ -23,6 +23,7 @@ namespace :gobierto_budgets do
             code:                  { type: 'string', index: 'not_analyzed'  },
             parent_code:           { type: 'string', index: 'not_analyzed'  },
             functional_code:       { type: 'string', index: 'not_analyzed'  },
+            custom_code:           { type: 'string', index: 'not_analyzed'  },
             level:                 { type: 'integer', index: 'not_analyzed' },
             kind:                  { type: 'string', index: 'not_analyzed'  }, # income I / expense G
             province_id:           { type: 'integer', index: 'not_analyzed' },
