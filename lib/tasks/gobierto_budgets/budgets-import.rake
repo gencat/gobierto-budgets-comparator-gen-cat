@@ -1,14 +1,14 @@
 namespace :gobierto_budgets do
   namespace :budgets do
     BUDGETS_INDEXES = [GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed]
-    BUDGETS_TYPES = ['economic', 'functional']
+    BUDGETS_TYPES = ['economic', 'functional', 'custom']
 
     def create_budgets_mapping(index, type)
       m = GobiertoBudgets::SearchEngine.client.indices.get_mapping index: index, type: type
       return unless m.empty?
 
       # BUDGETS_INDEX: budgets-forecast // budgets-execution
-      # BUDGETS_TYPE: economic // functional
+      # BUDGETS_TYPE: economic // functional // custom
       #
       # Document identifier: <ine_code>/<year>/<code>/<kind>
       #
@@ -23,6 +23,7 @@ namespace :gobierto_budgets do
             code:                  { type: 'string', index: 'not_analyzed'  },
             parent_code:           { type: 'string', index: 'not_analyzed'  },
             functional_code:       { type: 'string', index: 'not_analyzed'  },
+            custom_code:           { type: 'string', index: 'not_analyzed'  },
             level:                 { type: 'integer', index: 'not_analyzed' },
             kind:                  { type: 'string', index: 'not_analyzed'  }, # income I / expense G
             province_id:           { type: 'integer', index: 'not_analyzed' },

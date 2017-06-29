@@ -14,6 +14,8 @@ module GobiertoBudgets
         options = [
           {term: { ine_code: @place.id }},
           {term: { kind: @kind }},
+          {missing: { field: 'functional_code'}},
+          {missing: { field: 'custom_code'}},
           {term: { year: @year }}
         ]
 
