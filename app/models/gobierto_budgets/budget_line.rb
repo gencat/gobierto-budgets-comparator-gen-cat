@@ -19,6 +19,7 @@ module GobiertoBudgets
         {term: { year: @conditions[:year] }},
         {term: { code: @conditions[:code] }},
         {missing: { field: 'functional_code'}},
+        {missing: { field: 'custom_code'}},
         {term: { ine_code: @conditions[:place].id }}
       ]
 
@@ -110,6 +111,7 @@ module GobiertoBudgets
         end
       else
         terms.push({missing: { field: 'functional_code'}})
+        terms.push({missing: { field: 'custom_code'}})
       end
 
       query = {
@@ -152,7 +154,9 @@ module GobiertoBudgets
     def self.search(options)
 
       terms = [{term: { kind: options[:kind] }},
-              {term: { year: options[:year] }}]
+               {missing: { field: 'functional_code'}},
+               {missing: { field: 'custom_code'}},
+               {term: { year: options[:year] }}]
 
       terms << {term: { ine_code: options[:ine_code] }} if options[:ine_code].present?
       terms << {term: { parent_code: options[:parent_code] }} if options[:parent_code].present?
