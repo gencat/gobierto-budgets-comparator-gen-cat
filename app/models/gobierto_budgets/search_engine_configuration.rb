@@ -1,7 +1,7 @@
 module GobiertoBudgets
   class SearchEngineConfiguration
     class Year
-      def self.last; 2016 end
+      def self.last; 2017 end
       def self.first; 2010 end
       def self.all
         @all ||= (first..last).to_a.reverse
@@ -25,6 +25,7 @@ module GobiertoBudgets
     class BudgetLine
       def self.index_forecast; 'budgets-forecast-v3' end
       def self.index_executed; 'budgets-execution-v3' end
+      def self.index_executed_series; 'gobierto-budgets-execution-series-v1' end
       # TODO: add the types economic and functional
     end
 
