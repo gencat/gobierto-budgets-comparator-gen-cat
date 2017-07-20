@@ -7,13 +7,17 @@ rescue
   nil
 end
 
+EXCLUDED_PLACES = [8077, 8121]
+
 def process_response(response_item)
   return unless response_item.nom_complert.downcase.starts_with?('ajun')
   entity = response_item.codi_ens
   place = INE::Places::Place.find(entity[0..-6])
   return if place.nil?
+  return if EXCLUDED_PLACES.include?(place.id.to_i)¬
   return if response_item.import.nil?
 
+  year = Time.parse(response_item.any_exercici).year
   kind = response_item.tipus_partida == 'I' ? 'I' : 'G'
   area = response_item.tipus_classif == 'E' ? 'economic' : 'functional'
   area_klass = area == 'economic' ? GobiertoBudgets::EconomicArea : GobiertoBudgets::FunctionalArea
@@ -22,6 +26,7 @@ def process_response(response_item)
   amount = response_item.import.to_f
   parent_code = code[0..-2]
   return if amount == 0
+  return if year != 2017 && year != 2016
 
   index = GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
 
@@ -46,7 +51,6 @@ def process_response(response_item)
     raise response_item.to_s
   end
 
-  year = Time.parse(response_item.any_exercici).year
   id = [place.id, year, code, kind].join('/')
   begin
     response = GobiertoBudgets::SearchEngine.client.get index: index, type: area, id: id
