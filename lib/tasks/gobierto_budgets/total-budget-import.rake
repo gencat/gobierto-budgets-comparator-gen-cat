@@ -40,7 +40,9 @@ namespace :gobierto_budgets do
                   {term: { ine_code: place.id }},
                   {term: { level: 1 }},
                   {term: { kind: kind }},
-                  {term: { year: year }}
+                  {term: { year: year }},
+                  {missing: { field: 'functional_code'}},
+                  {missing: { field: 'custom_code'}}
                 ]
               }
             }
@@ -120,8 +122,8 @@ namespace :gobierto_budgets do
       end
     end
 
-    desc "Import total budgets. Example rake total_budget:import['budgets-execution',2014]"
-    task :import, [:index,:year,:ine_code] => :environment do |t, args|
+    desc "Import total budgets. Example rake total_budget:import['budgets-execution',2014] place_id=28079 province_id=3 autonomous_region_id=5"
+    task :import, [:index,:year] => :environment do |t, args|
       index = args[:index] if TOTAL_BUDGET_INDEXES.include?(args[:index])
       raise "Invalid index #{args[:index]}" if index.blank?
 
