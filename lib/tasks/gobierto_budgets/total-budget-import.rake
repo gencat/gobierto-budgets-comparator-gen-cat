@@ -26,7 +26,7 @@ namespace :gobierto_budgets do
       }
     end
 
-    def get_data(index,place,year,kind)
+    def get_data(index,place,year,kind,type=nil)
       # total budget in a place
       query = {
         query: {
@@ -55,7 +55,7 @@ namespace :gobierto_budgets do
         size: 0
       }
 
-      type = (kind == 'G') ? 'functional' : 'economic'
+      type ||= (kind == 'G') ? 'functional' : 'economic'
 
       result = GobiertoBudgets::SearchEngine.client.search index: index, type: type, body: query
       return result['aggregations']['total_budget']['value'].round(2), result['aggregations']['total_budget_per_inhabitant']['value'].round(2)
@@ -78,6 +78,9 @@ namespace :gobierto_budgets do
         end
 
         total_budget, total_budget_per_inhabitant = get_data(index, place, year, kind)
+        if total_budget == 0.0 && kind == 'G'
+          total_budget, total_budget_per_inhabitant = get_data(index, place, year, kind, 'economic')
+        end
 
         data = {
           ine_code: place.id.to_i, province_id: place.province.id.to_i,
