@@ -1,11 +1,12 @@
 namespace :gobierto_budgets do
   namespace :total_budget do
-    TOTAL_BUDGET_INDEXES = [GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast, GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_executed]
+    TOTAL_BUDGET_INDEXES = [GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast, GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_executed, GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast_updated]
 
     def create_total_budget_mapping(index, type)
       m = GobiertoBudgets::SearchEngine.client.indices.get_mapping index: index, type: type
       return unless m.empty?
 
+      puts "  - Creating #{index} > #{GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type}"
       # Document identifier: <ine_code>/<year>/<kind>
       #
       # Example: 28079/2015/I
@@ -120,7 +121,6 @@ namespace :gobierto_budgets do
           }
         end
 
-        puts "- Creating #{index} > #{GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type}"
         create_total_budget_mapping(index, GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type)
       end
     end
