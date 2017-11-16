@@ -1,12 +1,14 @@
 namespace :gobierto_budgets do
   namespace :budgets do
-    BUDGETS_INDEXES = [GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed_series]
+    BUDGETS_INDEXES = [GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed,
+                       GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed_series, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated]
     BUDGETS_TYPES = ['economic', 'functional', 'custom']
 
     def create_budgets_mapping(index, type)
       m = GobiertoBudgets::SearchEngine.client.indices.get_mapping index: index, type: type
       return unless m.empty?
 
+      puts "  - Creating #{index} #{type}"
       # BUDGETS_INDEX: budgets-forecast // budgets-execution
       # BUDGETS_TYPE: economic // functional // custom
       #
@@ -38,6 +40,7 @@ namespace :gobierto_budgets do
       m = GobiertoBudgets::SearchEngine.client.indices.get_mapping index: index, type: type
       return unless m.empty?
 
+      puts "  - Creating #{index} #{type}"
       # BUDGETS_INDEX: gobierto-budgets-execution-series
       # BUDGETS_TYPE: economic // functional // custom
       #
@@ -259,7 +262,6 @@ SQL
         end
 
         BUDGETS_TYPES.each do |type|
-          puts "- Creating #{index} #{type}"
           if index == GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed_series
             create_budgets_execution_series_mapping(index, type)
           else
