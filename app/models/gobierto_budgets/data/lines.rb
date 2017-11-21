@@ -76,11 +76,13 @@ module GobiertoBudgets
 
         result = []
         data.sort_by{|k,_| k }.each do |year, v|
-          result.push({
-            date: year.to_s,
-            value: v,
-            dif: data[year-1] ? delta_percentage(v, data[year-1]) : 0
-          })
+          if year <= Date.today.year
+            result.push({
+              date: year.to_s,
+              value: v,
+              dif: data[year-1] ? delta_percentage(v, data[year-1]) : 0
+            })
+          end
         end
 
         result.reverse
@@ -130,11 +132,13 @@ module GobiertoBudgets
 
         result = []
         data.sort_by{|k,_| k }.each do |year, v|
-          result.push({
-            date: year.to_s,
-            value: v,
-            dif: data[year-1] ? delta_percentage(v, data[year-1]) : 0
-          })
+          if year <= Date.today.year
+            result.push({
+              date: year.to_s,
+              value: v,
+              dif: data[year-1] ? delta_percentage(v, data[year-1]) : 0
+            })
+          end
         end
 
         result.reverse
@@ -183,11 +187,13 @@ module GobiertoBudgets
 
         result = []
         data.sort_by{|k,_| k }.each do |year, v|
-          result.push({
-            date: year.to_s,
-            value: v,
-            dif: data[year-1] ? delta_percentage(v, data[year-1]) : 0
-          })
+          if year <= Date.today.year
+            result.push({
+              date: year.to_s,
+              value: v,
+              dif: data[year-1] ? delta_percentage(v, data[year-1]) : 0
+            })
+          end
         end
 
         result.reverse
@@ -226,7 +232,9 @@ module GobiertoBudgets
           if old_value = values[k -1]
             dif = delta_percentage(v, old_value)
           end
-          result.push({date: k.to_s, value: v, dif: dif})
+          if k <= Date.today.year
+            result.push({date: k.to_s, value: v, dif: dif})
+          end
         end
         result
       end
