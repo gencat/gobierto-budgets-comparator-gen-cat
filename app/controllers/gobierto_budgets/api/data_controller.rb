@@ -626,6 +626,7 @@ module GobiertoBudgets
         begin
           value = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_executed, type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: id
           value = value['_source'][field]
+          value = nil if value == 0
         rescue Elasticsearch::Transport::Transport::Errors::NotFound
           value = nil
         end
