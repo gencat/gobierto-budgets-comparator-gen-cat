@@ -185,7 +185,7 @@
   });
 
 
-  $(function() {
+  $(document).on('turbolinks:load', function() {
     window.budgetLineTree.attachTo('[data-budget-line-categories-tree]');
   });
 

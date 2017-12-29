@@ -1,4 +1,4 @@
-$(function () {
+$(document).on('turbolinks:load', function() {
   function placesScopeCondition(){
     if(window.placesScope.length)
       return " i.place_id IN (" + window.placesScope + ")";
