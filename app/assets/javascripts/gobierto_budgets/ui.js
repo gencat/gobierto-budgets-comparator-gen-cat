@@ -14,9 +14,9 @@ function responsive() {
   }
 }
 
-$(function(){
+$(document).on('turbolinks:load', function() {
   // $('.spinner').hide();
-  Turbolinks.enableProgressBar();
+  // Turbolinks.enableProgressBar();
 
   // Modals
   $('.open_modal').magnificPopup({

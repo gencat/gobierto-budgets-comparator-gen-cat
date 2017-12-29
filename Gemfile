@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.6'
+gem "rails", "~> 5.1.1"
 gem 'pg'
 gem 'sass-rails', '~> 5.0.0'
 gem 'uglifier', '>= 1.3.0'
@@ -12,7 +12,7 @@ gem 'ine-places'
 gem 'actionpack-action_caching'
 gem 'progressbar'
 gem 'ruby_px'
-gem 'kaminari', git: 'git@github.com:amatsuda/kaminari.git'
+gem "kaminari", "~> 1.0"
 gem 'geocoder'
 gem 'responders'
 gem 'daemons'
@@ -20,6 +20,7 @@ gem 'config'
 gem 'dalli'
 gem 'aws-ses'
 gem 'cocoon'
+gem 'nokogiri', '~> 1.8', '>= 1.8.1'
 
 # Frontend
 gem 'jquery-rails'
@@ -38,12 +39,12 @@ gem 'oj'
 gem 'hashie'
 
 # Socrata integration
-gem 'soda-ruby', :require => 'soda'
+gem 'soda-ruby', '~> 0.2.24', require: 'soda'
 
 group :development, :test do
-  gem 'spring'
-  gem 'spring-commands-rspec'
-  gem 'byebug'
+  gem "byebug", platform: :mri
+  gem "spring"
+  gem "spring-watcher-listen", "~> 2.0.0"
 end
 
 group :test do
@@ -59,6 +60,5 @@ end
 
 group :development do
   gem 'puma'
-  gem 'web-console', '~> 2.0'
-  gem 'quiet_assets'
+  gem "rubocop"
 end
