@@ -1,4 +1,4 @@
-require File.expand_path('../boot', __FILE__)
+require_relative "boot"
 
 require "rails"
 require "active_model/railtie"
@@ -20,8 +20,6 @@ module GobiertoBudgetsComparator
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', 'custom', '**', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :es
     config.i18n.available_locales = [:es, :ca]
-
-    config.active_record.raise_in_transactional_callbacks = true
 
     config.generators do |g|
       g.orm             :active_record
@@ -46,6 +44,8 @@ module GobiertoBudgetsComparator
 
     # Load custom views from app/views/custom
     config.paths['app/views'].unshift(Rails.root.join('app', 'views', 'custom'))
+
+    config.action_controller.permit_all_parameters = true
   end
 end
 
