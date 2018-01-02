@@ -6,8 +6,6 @@ class LocaleController < ApplicationController
         session[:locale] = new_locale
       end
     end
-    redirect_to :back
-  rescue ActionController::RedirectBackError
-    redirect_to root_path
+    redirect_back(fallback_location: root_path)
   end
 end
