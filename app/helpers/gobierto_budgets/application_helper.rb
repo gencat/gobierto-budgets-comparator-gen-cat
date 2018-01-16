@@ -22,6 +22,7 @@ module GobiertoBudgets
 
     def format_currency(n, absolute_value = false)
       return nil if n.blank?
+      n = n.to_f
       n = n.abs if absolute_value
 
       if n.abs > 1_000_000
