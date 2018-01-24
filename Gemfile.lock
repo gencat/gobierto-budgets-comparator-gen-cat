@@ -198,7 +198,6 @@ GEM
     patron (0.10.0)
     pg (0.21.0)
     powerpack (0.1.1)
-    progressbar (1.9.0)
     public_suffix (3.0.1)
     puma (3.11.0)
     rack (2.0.3)
@@ -355,7 +354,6 @@ DEPENDENCIES
   nokogiri (~> 1.8, >= 1.8.1)
   oj
   pg
-  progressbar
   puma
   rack-test
   rails (~> 5.1.1)

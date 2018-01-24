@@ -10,7 +10,6 @@ gem 'rollbar'
 gem 'meta-tags'
 gem 'ine-places'
 gem 'actionpack-action_caching'
-gem 'progressbar'
 gem 'ruby_px'
 gem "kaminari", "~> 1.0"
 gem 'geocoder'

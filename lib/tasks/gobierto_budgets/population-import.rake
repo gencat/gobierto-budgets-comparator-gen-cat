@@ -25,8 +25,6 @@ namespace :gobierto_budgets do
     end
 
     def import_population(file_path, year)
-      pbar = ProgressBar.new("popul-#{year}", INE::Places::Place.all.length)
-
       dataset = RubyPx::Dataset.new file_path
       population_data = dataset.data('edad (año a año)' => 'Total', 'sexo' => 'Ambos sexos')
       places_codes = dataset.dimension('municipios').map{|k| k.split('-').first.to_i }
@@ -34,7 +32,6 @@ namespace :gobierto_budgets do
       missing_data = []
 
       INE::Places::Place.all.each do |place|
-        pbar.inc
         pop = population_data[place.id.to_i]
         if pop.nil?
           missing_data << place.name
@@ -52,7 +49,6 @@ namespace :gobierto_budgets do
         GobiertoBudgets::SearchEngine.client.index index: POPULATION_INDEXES.first, type: POPULATION_TYPES.first, id: id, body: data
       end
 
-      pbar.finish
       if missing_data.any?
         puts "Couldn't find population data of #{year} for #{missing_data.join(', ')}"
       end

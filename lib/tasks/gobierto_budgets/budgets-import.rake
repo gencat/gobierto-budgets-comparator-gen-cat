@@ -78,11 +78,7 @@ namespace :gobierto_budgets do
     def import_functional_budgets(db_name, index, year)
       db = create_db_connection(db_name)
 
-      pbar = ProgressBar.new("funct-#{year}", INE::Places::Place.all.length)
-
       INE::Places::Place.all.each do |place|
-        pbar.inc
-
         if ENV['place_id'].present?
           next if place.id.to_i != ENV['place_id'].to_i
         end
@@ -163,18 +159,12 @@ SQL
 
         GobiertoBudgets::SearchEngine.client.bulk index: index, type: 'economic', body: index_request_body
       end
-
-      pbar.finish
     end
 
     def import_economic_budgets(db_name, index, year)
       db = create_db_connection(db_name)
 
-      pbar = ProgressBar.new("economic-#{year}", INE::Places::Place.all.length)
-
       INE::Places::Place.all.each do |place|
-        pbar.inc
-
         if ENV['place_id'].present?
           next if place.id.to_i != ENV['place_id'].to_i
         end
@@ -234,8 +224,6 @@ SQL
 
         GobiertoBudgets::SearchEngine.client.bulk index: index, type: 'economic', body: index_request_body
       end
-
-      pbar.finish
     end
 
     desc 'Reset ElasticSearch'
