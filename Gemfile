@@ -24,7 +24,7 @@ gem 'nokogiri', '~> 1.8', '>= 1.8.1'
 # Frontend
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
-gem 'bourbon'
+gem "bourbon", "~> 4.3.4"
 gem 'turbolinks'
 gem 'therubyracer'
 gem 'cookies_eu'
