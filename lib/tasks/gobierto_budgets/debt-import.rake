@@ -25,12 +25,8 @@ namespace :gobierto_budgets do
     end
 
     def import_debt(file_path, year)
-      pbar = ProgressBar.new("debt-#{year}", INE::Places::Place.all.length)
-
       problems = []
       CSV.foreach(file_path) do |row|
-        pbar.inc
-
         id = row[1] + format('%.3i', row[2].to_i)
         next if id.nil?
         value = row[4].tr('.','').to_f
@@ -51,7 +47,6 @@ namespace :gobierto_budgets do
         GobiertoBudgets::SearchEngine.client.index index: DEBT_INDEX, type: DEBT_TYPE, id: id, body: data
       end
 
-      pbar.finish
       puts "Problems importing debt with: " if problems.any?
       problems.each do |row|
         puts "  #{row.join(',')}"

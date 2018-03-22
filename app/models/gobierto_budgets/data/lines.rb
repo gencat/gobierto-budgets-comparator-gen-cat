@@ -76,7 +76,7 @@ module GobiertoBudgets
 
         result = []
         data.sort_by{|k,_| k }.each do |year, v|
-          if year <= Date.today.year
+          if year <= GobiertoBudgets::SearchEngineConfiguration::Year.last
             result.push({
               date: year.to_s,
               value: v,
@@ -132,7 +132,7 @@ module GobiertoBudgets
 
         result = []
         data.sort_by{|k,_| k }.each do |year, v|
-          if year <= Date.today.year
+          if year <= GobiertoBudgets::SearchEngineConfiguration::Year.last
             result.push({
               date: year.to_s,
               value: v,
@@ -187,7 +187,7 @@ module GobiertoBudgets
 
         result = []
         data.sort_by{|k,_| k }.each do |year, v|
-          if year <= Date.today.year
+          if year <= GobiertoBudgets::SearchEngineConfiguration::Year.last
             result.push({
               date: year.to_s,
               value: v,
@@ -232,7 +232,7 @@ module GobiertoBudgets
           if old_value = values[k -1]
             dif = delta_percentage(v, old_value)
           end
-          if k <= Date.today.year
+          if k <= GobiertoBudgets::SearchEngineConfiguration::Year.last
             result.push({date: k.to_s, value: v, dif: dif})
           end
         end

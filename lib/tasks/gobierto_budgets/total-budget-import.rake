@@ -63,11 +63,7 @@ namespace :gobierto_budgets do
     end
 
     def import_total_budget(year, index, kind)
-      pbar = ProgressBar.new("total-#{year}", INE::Places::Place.all.length)
-
       INE::Places::Place.all.each do |place|
-        pbar.inc
-
         if ENV['place_id'].present?
           next if place.id.to_i != ENV['place_id'].to_i
         end
@@ -94,8 +90,6 @@ namespace :gobierto_budgets do
         id = [place.id,year,kind].join("/")
         GobiertoBudgets::SearchEngine.client.index index: index, type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: id, body: data
       end
-
-      pbar.finish
     end
 
     desc 'Reset ElasticSearch'

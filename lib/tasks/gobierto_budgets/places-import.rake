@@ -25,10 +25,7 @@ namespace :gobierto_budgets do
     end
 
     def import_places
-      pbar = ProgressBar.new("places", INE::Places::Place.all.length)
-
       INE::Places::Place.all.each do |place|
-        pbar.inc
         place_name = if place.name.include?(',')
                        place.name.split(',').map{|i| i.strip}.reverse.join(' ')
                      else
@@ -44,8 +41,6 @@ namespace :gobierto_budgets do
 
         GobiertoBudgets::SearchEngine.client.index index: PLACES_INDEXES.first, type: PLACES_TYPES.first, id: id, body: data
       end
-
-      pbar.finish
     end
 
     desc 'Reset ElasticSearch'

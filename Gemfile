@@ -10,7 +10,6 @@ gem 'rollbar'
 gem 'meta-tags'
 gem 'ine-places'
 gem 'actionpack-action_caching'
-gem 'progressbar'
 gem 'ruby_px'
 gem "kaminari", "~> 1.0"
 gem 'geocoder'
@@ -25,7 +24,7 @@ gem 'nokogiri', '~> 1.8', '>= 1.8.1'
 # Frontend
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
-gem 'bourbon'
+gem "bourbon", "~> 4.3.4"
 gem 'turbolinks'
 gem 'therubyracer'
 gem 'cookies_eu'
