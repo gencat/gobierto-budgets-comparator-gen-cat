@@ -25,7 +25,7 @@ gem 'nokogiri', '~> 1.8', '>= 1.8.1'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem "bourbon", "~> 4.3.4"
-gem 'turbolinks'
+gem 'turbolinks', '5.0.1'
 gem 'therubyracer'
 gem 'cookies_eu'
 gem 'flight-for-rails'
