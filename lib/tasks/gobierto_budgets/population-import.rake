@@ -15,6 +15,7 @@ namespace :gobierto_budgets do
         type.to_sym => {
           properties: {
             ine_code:              { type: 'integer', index: 'not_analyzed' },
+            organization_id:       { type: 'string',  index: 'not_analyzed' },
             province_id:           { type: 'integer', index: 'not_analyzed' },
             autonomy_id:           { type: 'integer', index: 'not_analyzed' },
             year:                  { type: 'integer', index: 'not_analyzed' },
@@ -39,7 +40,7 @@ namespace :gobierto_budgets do
         end
 
         data = {
-          ine_code: place.id.to_i, province_id: place.province.id.to_i,
+          ine_code: place.id.to_i, province_id: place.province.id.to_i, organization_id: place.id.to_s,
           autonomy_id: place.province.autonomous_region.id.to_i, year: year,
           value: pop.to_i
         }

@@ -20,6 +20,7 @@ namespace :gobierto_budgets do
         type.to_sym => {
           properties: {
             ine_code:              { type: 'integer', index: 'not_analyzed' },
+            organization_id:       { type: 'string',  index: 'not_analyzed' },
             year:                  { type: 'integer', index: 'not_analyzed' },
             amount:                { type: 'double', index: 'not_analyzed'  },
             code:                  { type: 'string', index: 'not_analyzed'  },
@@ -50,6 +51,7 @@ namespace :gobierto_budgets do
         type.to_sym => {
           properties: {
             ine_code:       { type: 'integer', index: 'not_analyzed' },
+            organization_id:       { type: 'string',  index: 'not_analyzed' },
             kind:           { type: 'string',  index: 'not_analyzed' },  # income I / expense G
             code:           { type: 'string',  index: 'not_analyzed' },
             values: {
@@ -97,7 +99,7 @@ namespace :gobierto_budgets do
         end
 
         base_data = {
-          ine_code: place.id.to_i, province_id: place.province.id.to_i,
+          ine_code: place.id.to_i, province_id: place.province.id.to_i, organization_id: place.id.to_s,
           autonomy_id: place.province.autonomous_region.id.to_i, year: destination_year,
           population: pop
         }
@@ -183,7 +185,7 @@ SQL
         end
 
         base_data = {
-          ine_code: place.id.to_i, province_id: place.province.id.to_i,
+          ine_code: place.id.to_i, province_id: place.province.id.to_i, organization_id: place.id.to_s,
           autonomy_id: place.province.autonomous_region.id.to_i, year: destination_year,
           population: pop
         }
