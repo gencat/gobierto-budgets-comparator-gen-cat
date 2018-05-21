@@ -34,6 +34,10 @@ module GobiertoBudgets
       def self.index_executed; 'budgets-execution-v3' end
       def self.index_forecast_updated; 'budgets-forecast-updated-v1' end
       def self.type; 'total-budget' end
+
+      def self.all_indices
+        [index_forecast, index_executed, index_forecast_updated]
+      end
     end
 
     class Data
