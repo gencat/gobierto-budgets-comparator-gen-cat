@@ -76,7 +76,8 @@ en:
         total: total
         per_inhabitant: "per inhab."
         percentage_over_total: "o/ total"
-        related_entities: Related entitites
+        related_entities: Related entities
+        related_entities_budget_table_title: Check the budget of the related entities of %{name}
         search_budget_lines_income: Search budget lines for income
       expense_lines:
         total: total

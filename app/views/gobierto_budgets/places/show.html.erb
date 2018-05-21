@@ -28,7 +28,7 @@
   </div>
   <div>
     <span class="tag warning"><%= t('.new') %></span>
-    <a href="#"><%= t('.related_entities') %></a>
+    <a href="#related-entities-budget-table"><%= t('.related_entities') %></a>
   </div>
 </div>
 
@@ -93,7 +93,11 @@
   </div>
 </div>
 
-<div class="featured_budget_line" data-featured-budget-line="<%= gobierto_budgets_featured_budget_line_path(@place.slug, year: @year) %>">
+<div class="featured_budget_line" data-featured-budget-line="<%= gobierto_budgets_featured_budget_line_path(@place.slug, year: @year) %>"></div>
+
+<div id="related-entities-budget-table">
+  <p><%= t('.related_entities_budget_table_title', name: @place.name) %></p>
+  <%= render partial: 'gobierto_budgets/places/related_entities_budget' %>
 </div>
 
 <% if users_enabled? && !logged_in? %>
