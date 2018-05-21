@@ -1,4 +1,4 @@
-class AddProAndTosFieldsToUsers < ActiveRecord::Migration
+class AddProAndTosFieldsToUsers < ActiveRecord::Migration[4.2]
   def up
     add_column :users, :pro, :boolean, default: false
     add_column :users, :terms_of_service, :boolean, default: false
