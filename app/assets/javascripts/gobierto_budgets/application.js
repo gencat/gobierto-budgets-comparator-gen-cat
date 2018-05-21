@@ -17,6 +17,7 @@
 //= require flight-for-rails
 //= require d3.min
 //= require d3-legend.min
+//= require d3-jetpack
 //= require gobierto_budgets/vendor/select2.min
 //= require underscore-min
 //= require simple-statistics.min

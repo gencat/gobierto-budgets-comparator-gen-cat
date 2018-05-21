@@ -215,6 +215,10 @@ es:
           los datos que existen (que son la gran mayoría). Más información en nuestras
           preguntas frecuentes
         explore_income_expenses: Explora ingresos y gastos de %{name}
+        main_budget_levels_legend_down: Han bajado
+        main_budget_levels_legend_one: Cambio entre este año
+        main_budget_levels_legend_two: y el pasado
+        main_budget_levels_legend_up: Han subido
         meta_description: Consulta y visualiza los presupuestos municipales de %{name}
           del %{year}. Consulta gastos e ingresos, indicadores presupuestarios, datos
           de ejecución...

@@ -215,6 +215,10 @@ ca:
           dades que hi existeixen (que són la gran majoria). Més informació a les
           nostres preguntes freqüents.
         explore_income_expenses: Exploreu ingressos i despeses de %{name}
+        main_budget_levels_legend_down: Han baixat
+        main_budget_levels_legend_one: Canvi entre aquest any
+        main_budget_levels_legend_two: i el passat
+        main_budget_levels_legend_up: Han pujat
         meta_description: Consulteu i visualitzeu els pressupostos municipals de %{name}
           del %{year}. Consulteu despeses i ingressos, indicadors pressupostaris,
           dades d'execució...
