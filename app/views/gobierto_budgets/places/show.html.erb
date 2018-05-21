@@ -20,10 +20,16 @@
   </div>
 </div>
 
-<div class="section_separator" name="separator">
-  <div class="sep"></div>
-  <%= t('.explore_income_expenses', name: @place.name) %>
-  <div class="sep"></div>
+<div class="flex space-between">
+  <div class="section_separator" name="separator">
+    <div class="sep"></div>
+    <%= t('.explore_income_expenses', name: @place.name) %>
+    <div class="sep"></div>
+  </div>
+  <div class="">
+    <span class="tag warning"><%= t('.new') %></span>
+    <a href="#">Entidades dependientes</a>
+  </div>
 </div>
 
 <div class="ie_intro clearfix">

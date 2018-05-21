@@ -218,6 +218,7 @@ ca:
         meta_description: Consulteu i visualitzeu els pressupostos municipals de %{name}
           del %{year}. Consulteu despeses i ingressos, indicadors pressupostaris,
           dades d'execució...
+        new: Nou
         per_inhabitant: per hab.
         percentage_over_total: s/ total
         search_budget_lines_income: Busqueu partides d'ingressos

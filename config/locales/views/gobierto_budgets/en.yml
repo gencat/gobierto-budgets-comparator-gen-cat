@@ -72,6 +72,7 @@ en:
         about_the_data: About the data
         about_the_data_desc: 'The database we are using does not include information of the 100% of the municipalities, so the averages are calculated only for those which exist (which is the majority). More information in our FAQ page'
         explore_income_expenses: 'Explore incomes and expenses in %{name}'
+        new: New
         total: total
         per_inhabitant: "per inhab."
         percentage_over_total: "o/ total"
@@ -208,4 +209,3 @@ en:
       mean_autonomy: Autonomic avg
       mean_province: Provinces avg
       previous_year_diff: Previous year diff
-

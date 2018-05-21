@@ -72,6 +72,7 @@ es:
         about_the_data: Nota sobre los datos
         about_the_data_desc: 'La base de datos que utilizamos no incluye datos para el 100% de los municipios, por lo que las medias están calculadas solo con los datos que existen (que son la gran mayoría). Más información en nuestras preguntas frecuentes'
         explore_income_expenses: 'Explora ingresos y gastos de %{name}'
+        new: Nuevo
         total: total
         per_inhabitant: "por hab."
         percentage_over_total: "s/ total"
