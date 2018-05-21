@@ -25,6 +25,10 @@
 //= require jquery.magnific-popup.min
 //= require gobierto_budgets/budgetCategoriesDictionary
 //= require gobierto_budgets/vendor/nouislider
+//= require gobierto_budgets/getBudgetLevelData
+//= require gobierto_budgets/visBubbleLegend
+//= require gobierto_budgets/visSlider
+//= require gobierto_budgets/vis_bubbles
 //= require gobierto_budgets/vis_treemap
 //= require gobierto_budgets/vis_lineas_tabla
 //= require gobierto_budgets/vis_evo_line

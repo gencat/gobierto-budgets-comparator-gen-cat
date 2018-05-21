@@ -141,6 +141,8 @@ module GobiertoBudgets
     def data_attributes
       attrs = []
       if @place
+        # TODO:
+        attrs << %Q{data-bubbles-data="https://gobierto-populate-staging.s3.eu-west-1.amazonaws.com/gobierto_budgets/8121/data/bubbles.json"}
         attrs << %Q{data-track-url="#{gobierto_budgets_place_path(@place.slug, @year || GobiertoBudgets::SearchEngineConfiguration::Year.last)}"}
         attrs << %Q{data-place-slug="#{@place.slug}"}
         attrs << %Q{data-place-name="#{@place.name}"}
