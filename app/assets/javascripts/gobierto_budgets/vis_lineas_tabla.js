@@ -30,15 +30,15 @@ var VisLineasJ = Class.extend({
     this.series = series;
 
     // Scales
-    this.xScale = d3.time.scale();
-    this.yScale = d3.scale.linear();
-    this.colorScale = d3.scale.ordinal();
-    this.yScaleTable = d3.scale.ordinal();
-    this.xScaleTable = d3.scale.linear();
+    this.xScale = d3.scaleTime();
+    this.yScale = d3.scaleLinear();
+    this.colorScale = d3.scaleOrdinal();
+    this.yScaleTable = d3.scaleBand();
+    this.xScaleTable = d3.scaleLinear();
 
     // Axis
-    this.xAxis = d3.svg.axis();
-    this.yAxis = d3.svg.axis();
+    this.xAxis = d3.axisBottom();
+    this.yAxis = d3.axisRight();
 
     // Data
     this.data = null;
@@ -51,13 +51,13 @@ var VisLineasJ = Class.extend({
     this.maxYear = (new Date()).getFullYear();
 
     // Legend
-    this.legendEvolution = d3.legend.color();
+    this.legendEvolution = d3.legendColor();
 
     // Objects
     this.tooltip = null;
     this.formatPercent = this.measure == 'percentage' ? d3.format('%') : d3.format(".0f");
-    this.parseDate = d3.time.format("%Y").parse;
-    this.line = d3.svg.line();
+    this.parseDate = d3.timeParse("%Y");
+    this.line = d3.line();
 
     // Chart objects
     this.svgLines = null;
@@ -224,20 +224,18 @@ var VisLineasJ = Class.extend({
       // Define the axis
       this.xAxis
           .tickValues(this._xTickValues(years))
-          .scale(this.xScale)
-          .orient("bottom");
+          .scale(this.xScale);
 
       this.yAxis
           .scale(this.yScale)
           .tickValues(this._tickValues(this.yScale))
           .tickFormat(function(d) { return accounting.formatMoney(d, "€", 0, ".", ","); })
-          .tickSize(-(this.width - (this.margin.right + this.margin.left - 20)))
-          .orient("right");
+          .tickSize(-(this.width - (this.margin.right + this.margin.left - 20)));
 
 
       // Define the line
       this.line
-        .interpolate("cardinal")
+        .curve(d3.curveCardinal)
         .x(function(d) { return this.xScale(d.date); }.bind(this))
         .y(function(d) { return this.yScale(d.value); }.bind(this));
 
@@ -355,7 +353,7 @@ var VisLineasJ = Class.extend({
 
       // Set scales
 
-      this.yScaleTable.domain(rows).rangeRoundBands([this.height, 0]);
+      this.yScaleTable.domain(rows).rangeRound([this.height, 0]);
       this.xScaleTable.domain([0,1]).range([0, this.tableWidth]);
 
       var table = d3.select(this.tableContainer).append('table'),
@@ -445,11 +443,21 @@ var VisLineasJ = Class.extend({
           // Replace bullets colors
           var bulletsColors = this.colorScale.range();
 
-          d3.selectAll('.le').forEach(function(v) {
-            v.forEach(function(d,i) {
-              d3.select(v[i])
-                .style('background', this.series == 'means' ? bulletsColors[(bulletsColors.length - 1) - i] : bulletsColors[i])
-            }.bind(this));
+          // d3.selectAll('.le').forEach(function(v) {
+          //   v.forEach(function(d,i) {
+          //     d3.select(v[i])
+          //       .style('background', this.series == 'means' ? bulletsColors[(bulletsColors.length - 1) - i] : bulletsColors[i])
+          //   }.bind(this));
+          // }.bind(this));
+
+          $(this.container + '_wrapper .le').each(function(i, v){
+            var color = bulletsColors[i];
+            $(v).css('background', color);
+
+            var $parent = $(v).parent();
+            var cssClass = $parent.attr('class');
+            $(this.container + '_wrapper path.' + cssClass).css('stroke', color);
+            $(this.container + '_wrapper circle.' + cssClass).css('fill', color);
           }.bind(this));
 
     }.bind(this)); // end load data
@@ -637,11 +645,3 @@ var VisLineasJ = Class.extend({
   })()
 
 }); // End object
-
-
-
-
-
-
-
-

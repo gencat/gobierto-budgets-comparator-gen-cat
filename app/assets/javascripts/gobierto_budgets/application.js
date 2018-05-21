@@ -15,7 +15,7 @@
 //= require gobierto_budgets/vendor/js.cookie
 //= require mustache.min
 //= require flight-for-rails
-//= require d3.v3.min
+//= require d3.min
 //= require d3-legend.min
 //= require gobierto_budgets/vendor/select2.min
 //= require underscore-min
