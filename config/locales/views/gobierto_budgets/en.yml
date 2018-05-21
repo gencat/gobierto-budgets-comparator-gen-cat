@@ -79,6 +79,9 @@ en:
         related_entities: Related entities
         related_entities_budget_table_title: Check the budget of the related entities of %{name}
         search_budget_lines_income: Search budget lines for income
+        related_entities_budget:
+          see_all: See all related entities (%{number})
+          see_less: See less
       expense_lines:
         total: total
         per_inhabitant: "per inhab."

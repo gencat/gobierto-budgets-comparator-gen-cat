@@ -222,7 +222,11 @@ ca:
         per_inhabitant: per hab.
         percentage_over_total: s/ total
         related_entities: Entitats relacionades
-        related_entities_budget_table_title: Consulta el pressupost de les entitats depenents de %{name}
+        related_entities_budget:
+          see_all: Veure totes les entitats depenents (%{number})
+          see_less: Veure menys
+        related_entities_budget_table_title: Consulta el pressupost de les entitats
+          depenents de %{name}
         search_budget_lines_income: Busqueu partides d'ingressos
         title: Pressupostos municipals de %{name} del %{year}
         total: total

@@ -1,4 +1,4 @@
-<table class="">
+<table class="top-10">
   <thead>
     <th>Entidad</th>
     <th>Ingreso</th>
@@ -6,7 +6,7 @@
     <th></th>
   </thead>
   <tbody>
-    <% 5.times do %>
+    <% 15.times do %>
     <tr>
       <td>Institut Municipal de Mercats</td>
       <td>123.456.789 €</td>
@@ -17,4 +17,11 @@
     </tr>
     <% end %>
   </tbody>
+  <tfoot>
+    <tr>
+      <td>
+        <a class="js-table-rows-toggle"><%= t('gobierto_budgets.places.show.related_entities_budget.see_all', number: 123) %></a>
+      </td>
+    </tr>
+  </tfoot>
 </table>

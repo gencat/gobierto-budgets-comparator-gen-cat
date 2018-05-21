@@ -1,89 +1,103 @@
 ---
 es:
-  common:
-    and: y
-    income: ingreso
-    incomes: ingresos
-    expense: gasto
-    expenses: gastos
-    economic: económica
-    functional: funcional
-    totals: totales
-    per_inhabitant: por habitante
   actions:
-    send: Enviar
-    create: Crear
-    update: Actualizar
     confirm: "¿Estás seguro?"
-    edit: Editar
+    create: Crear
     delete: Borrar
-    see_page: Ver página
-  layout:
-    council_of: "Ayuntamiento de %{name}"
-    transparency_and_participation: Transparencia y Participación
-    login_or_signup: Haz login o regístrate
-    your_account: Tu Cuenta
-    cta_login: ¿Ya tienes cuenta? Haz login
-    your_email: Tu correo-e
-    your_password: Tu password
-    cta_signup: ¿Eres nuevo? Regístrate
-    login: Login
-    signup: Regístrate
-    gobierto: La plataforma web para Transparencia, Gobierno Abierto y Participación para Administraciones Públicas
-    logout: Desconectar
-    your_notifications: Tus notificaciones
-    your_notifications_temp: En esta sección podrás consultar tus notificaciones personales para que te resulte sencillo realizar seguimiento de todo lo que ocurre en esta web
-    news: Novedades
-    add: Añadir
     edit: Editar
-    remove: Eliminar
-    admin: Administración
-    pages: Páginas
-    users: Usuarios
-    configuration: Configuración
-    sections: Secciones
-    search: Buscar
-    news: Novedades
-    autocomplete_no_results: 'Lo sentimos, pero no hay resultados.'
+    see_page: Ver página
+    send: Enviar
+    update: Actualizar
   admin:
     registered_users:
       one: 1 usuario registrado
       other: "%{count} usuarios registrados"
-    user_name: Nombre
     user_email: Correo-e
-    user_signed_up_date: Registrado
     user_last_activity: Última actividad
+    user_name: Nombre
+    user_signed_up_date: Registrado
     users_edit: Editar información del usuario
     users_impersonate: Loguearse como el usuario
-    users_soft_delete: "Eliminar usuario: no podrá hacer login ni publicar contenido; su actividad desaparecerá (seguirá visible para administradores)"
-    users_restore: "Restaurar usuario: volverá a poder hacer login y a publicar; su actividad volverá a ser pública"
+    users_restore: 'Restaurar usuario: volverá a poder hacer login y a publicar; su
+      actividad volverá a ser pública'
+    users_soft_delete: 'Eliminar usuario: no podrá hacer login ni publicar contenido;
+      su actividad desaparecerá (seguirá visible para administradores)'
+  common:
+    and: y
+    economic: económica
+    expense: gasto
+    expenses: gastos
+    functional: funcional
+    income: ingreso
+    incomes: ingresos
+    per_inhabitant: por habitante
+    totals: totales
+  helpers:
+    budget_line_description: 'Esta partida comprende los %{kind_what} en %{description}.
+      Si quieres saber más sobre esta partida puedes consultar la partida padre: %{link}'
+    in: En
+  layout:
+    add: Añadir
+    admin: Administración
+    autocomplete_no_results: Lo sentimos, pero no hay resultados.
+    configuration: Configuración
+    council_of: Ayuntamiento de %{name}
+    cta_login: "¿Ya tienes cuenta? Haz login"
+    cta_signup: "¿Eres nuevo? Regístrate"
+    edit: Editar
+    gobierto: La plataforma web para Transparencia, Gobierno Abierto y Participación
+      para Administraciones Públicas
+    login: Login
+    login_or_signup: Haz login o regístrate
+    logout: Desconectar
+    news: Novedades
+    pages: Páginas
+    remove: Eliminar
+    search: Buscar
+    sections: Secciones
+    signup: Regístrate
+    transparency_and_participation: Transparencia y Participación
+    users: Usuarios
+    your_account: Tu Cuenta
+    your_email: Tu correo-e
+    your_notifications: Tus notificaciones
+    your_notifications_temp: En esta sección podrás consultar tus notificaciones personales
+      para que te resulte sencillo realizar seguimiento de todo lo que ocurre en esta
+      web
+    your_password: Tu password
   users:
-    your_account: Tu cuenta
-    your_account_description: Gestiona tus datos personales
-    email_tip: Este es tu correo-e verificado. Más adelante podrás cambiarlo si lo necesitas
-    want_to_update_password: '¿Quieres cambiar tu contraseña?'
-    current_password: Contraseña actual
-    password_tip: Sólo si quieres actualizar tu contraseña
-    document_tip: Necesario para verificar tu identidad más adelante. No aparecerá de forma pública
+    accept: Acepto las
     complete_signup: Completa tu registro
     confirm_filling_fields: Confirma tu registro rellenando estos campos
-    accept: Acepto las
-    terms_and_conditions: Condiciones de Uso
-    privacy: Política de Privacidad
+    current_password: Contraseña actual
+    document_tip: Necesario para verificar tu identidad más adelante. No aparecerá
+      de forma pública
+    email_notification_message: Te hemos enviado un email con un enlace para que completes
+      el registro.
     email_notification_successful: Un pasito más
-    email_notification_message: Te hemos enviado un email con un enlace para que completes el registro.
+    email_tip: Este es tu correo-e verificado. Más adelante podrás cambiarlo si lo
+      necesitas
+    password_tip: Sólo si quieres actualizar tu contraseña
+    privacy: Política de Privacidad
     signup_successful: Genial, ya estás registrado.
-    welcome_message_1: Estás listo para participar y usar las distintas herramientas que te proporciona la página de Transparencia y Participación del Ayuntamiento de %{name}
-    welcome_message_2: "<strong>Participa</strong>: en las consultas que te plantea el Ayuntamiento, envía ideas o reportes."
-    welcome_message_3: "<strong>Apoya peticiones</strong>: súmate a las peticiones iniciadas por otros vecinos."
-    welcome_message_4: "<strong>Haz seguimiento</strong> de la información que te interesa. En cada página tienes un icono para hacer seguimiento. Cuando esa información se actualice, recibirás automaticamente un email."
-  helpers:
-    budget_line_description: "Esta partida comprende los %{kind_what} en %{description}. Si quieres saber más sobre esta partida puedes consultar la partida padre: %{link}"
-    in: En
+    terms_and_conditions: Condiciones de Uso
+    want_to_update_password: "¿Quieres cambiar tu contraseña?"
+    welcome_message_1: Estás listo para participar y usar las distintas herramientas
+      que te proporciona la página de Transparencia y Participación del Ayuntamiento
+      de %{name}
+    welcome_message_2: "<strong>Participa</strong>: en las consultas que te plantea
+      el Ayuntamiento, envía ideas o reportes."
+    welcome_message_3: "<strong>Apoya peticiones</strong>: súmate a las peticiones
+      iniciadas por otros vecinos."
+    welcome_message_4: "<strong>Haz seguimiento</strong> de la información que te
+      interesa. En cada página tienes un icono para hacer seguimiento. Cuando esa
+      información se actualice, recibirás automaticamente un email."
+    your_account: Tu cuenta
+    your_account_description: Gestiona tus datos personales
   views:
     pagination:
       first: "&laquo; Primera"
-      last: "Última &raquo;"
+      last: Última &raquo;
+      next: Sig &rsaquo;
       previous: "&lsaquo; Ant"
-      next: "Sig &rsaquo;"
       truncate: "&hellip;"

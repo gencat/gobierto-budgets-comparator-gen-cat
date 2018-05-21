@@ -1,15 +1,15 @@
 ---
 es:
   controllers:
-    users:
-      update:
-        notice: '¡Bien! Los datos se han actualizado correctamente'
-        alert: Ha habido un problema actualizando tus datos
-      create:
-        alert: "Ha habido un problema creando tu usuario: %{messages}"
-    sessions_management:
-      admin_user:
-        alert: Hace falta ser administrador para visitar esta página
     sessions:
       create:
         alert: Credenciales inválidos
+    sessions_management:
+      admin_user:
+        alert: Hace falta ser administrador para visitar esta página
+    users:
+      create:
+        alert: 'Ha habido un problema creando tu usuario: %{messages}'
+      update:
+        alert: Ha habido un problema actualizando tus datos
+        notice: "¡Bien! Los datos se han actualizado correctamente"

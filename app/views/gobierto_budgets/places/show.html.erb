@@ -95,7 +95,7 @@
 
 <div class="featured_budget_line" data-featured-budget-line="<%= gobierto_budgets_featured_budget_line_path(@place.slug, year: @year) %>"></div>
 
-<div id="related-entities-budget-table">
+<div id="related-entities-budget-table" class="common-table">
   <p><%= t('.related_entities_budget_table_title', name: @place.name) %></p>
   <%= render partial: 'gobierto_budgets/places/related_entities_budget' %>
 </div>
