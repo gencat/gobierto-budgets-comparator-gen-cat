@@ -221,6 +221,7 @@ ca:
         new: Nou
         per_inhabitant: per hab.
         percentage_over_total: s/ total
+        related_entities: Entitats relacionades
         search_budget_lines_income: Busqueu partides d'ingressos
         title: Pressupostos municipals de %{name} del %{year}
         total: total

@@ -76,6 +76,7 @@ es:
         total: total
         per_inhabitant: "por hab."
         percentage_over_total: "s/ total"
+        related_entities: Entidades relacionadas
         search_budget_lines_income: Busca partidas de ingresos
       expense_lines:
         total: total
