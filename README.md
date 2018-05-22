@@ -15,7 +15,7 @@ Gobierto es un proyecto abierto de [Populate](http://populate.tools), un estudio
 
 * #todo Por qué Gobierto y nuestra filosofía de Diseño
 
-Más información: 
+Más información:
 
 * Website de Gobierto: [gobierto.es](http://gobierto.es)
 * Blog: [gobierto.es/blog](http://gobierto.es/blog)
@@ -80,10 +80,10 @@ Después, configura el servidor así:
 
 ```
 cd ~/.pow
-ln -s DIRECTORIO/gobierto gobierto
+ln -s DIRECTORIO/gobierto-comparador-presupuestos gobierto-comparador-presupuestos
 ```
 
-Y simplemente navega a http://presupuestos.gobierto.dev/ para cargar la aplicación.
+Y simplemente navega a http://gobierto-comparador-presupuestos.test/ para cargar la aplicación.
 
 ### Montando el site para una sóla entidad pública
 
