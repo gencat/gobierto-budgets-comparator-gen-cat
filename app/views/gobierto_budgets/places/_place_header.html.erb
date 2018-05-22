@@ -48,6 +48,10 @@
   <h1 title="<%= t('.local_budgets_from', name: @place.name) %>">
     <%= render partial: 'gobierto_budgets/places/year_switcher' %>
     <%= link_to_unless_current @place.name, gobierto_budgets_place_path(@place.slug, @year) %>
+
+    <%# TODO: Distinguir entidad/municipio %>
+    <span class="sep">/</span> <%= 'Nombre_de_la_entidad' %>
+
     <% if params[:area] %>
       » <%= kind_literal(@kind).humanize %> <%= t('.planned') %>
     <% end %>
