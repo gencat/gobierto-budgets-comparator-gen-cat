@@ -55,8 +55,6 @@ var TreemapVis = Class.extend({
         this.colorScale
           .domain(root.children.map(function(d) { return d.name; }));
 
-        // var node = this.container.datum(root).selectAll(".treemap_node")
-        //   .data(this.treemap.nodes)
         this.container.selectAll(".treemap_node")
           .data(this.treemap(root).leaves())
           .enter().append("div")
@@ -68,25 +66,25 @@ var TreemapVis = Class.extend({
             }
           }.bind(this))
         .attr("title", function(d){
-          return "<strong>" + d.name + "</strong><br>" + accounting.formatMoney(d.budget, "€", 0, '.') + "<br>" + accounting.formatMoney(d.budget_per_inhabitant, "€", 0, ',') + " /hab";
+          return "<strong>" + d.data.name + "</strong><br>" + accounting.formatMoney(d.data.budget, "€", 0, '.') + "<br>" + accounting.formatMoney(d.data.budget_per_inhabitant, "€", 0, ',') + " /hab";
         }.bind(this))
         .attr("data-url", function(d){
           if(this.clickable){
-            return d.children ? null : urlData.split('?')[0] + "?parent_code=" + d.code;
+            return d.data.children ? null : urlData.split('?')[0] + "?parent_code=" + d.data.code;
           }
         }.bind(this))
-        .style("left", function(d) { return d.x + "px"; })
-        .style("top", function(d) { return d.y + "px"; })
-        .style("width", function(d) { return Math.max(0, d.dx) + "px"; })
-        .style("height", function(d) { return Math.max(0, d.dy) + "px"; })
-        .style("background", function(d) { return this.colorScale(d.name); }.bind(this))
+        .style("left", function(d) { return d.x0 + "px"; })
+        .style("top", function(d) { return d.y0 + "px"; })
+        .style("width", function(d) { return (d.x1 - d.x0) + "px"; })
+        .style("height", function(d) { return (d.y1 - d.y0) + "px"; })
+        .style("background", function(d) { return this.colorScale(d.data.name); }.bind(this))
         .html(function(d) {
           if(d.children) {
             return null;
           } else {
             // If the square is small, don't add the text
-            if(d.dx > 70 && d.dy > 90) {
-              return "<p><strong>" + d.name + "</strong></p><p>" + accounting.formatMoney(d.budget_per_inhabitant, "€", 0) + "/hab</p>";
+            if((d.x1 - d.x0) > 70 && (d.y1 - d.y0) > 90) {
+              return "<p><strong>" + d.data.name + "</strong></p><p>" + accounting.formatMoney(d.data.budget_per_inhabitant, "€", 0) + "/hab</p>";
             }
           }
         })
