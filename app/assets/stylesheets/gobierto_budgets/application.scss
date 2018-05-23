@@ -1686,6 +1686,10 @@ a.list_view_more {
     text-transform: uppercase;
     text-decoration: none;
     cursor: pointer;
+
+    &.name{
+      text-transform: none;
+    }
   }
 }
 
