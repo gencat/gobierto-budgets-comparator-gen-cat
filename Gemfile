@@ -20,6 +20,7 @@ gem 'dalli'
 gem 'aws-ses'
 gem 'cocoon'
 gem 'nokogiri', '~> 1.8', '>= 1.8.1'
+gem 'json', '~> 2.1'
 
 # Frontend
 gem 'jquery-rails'

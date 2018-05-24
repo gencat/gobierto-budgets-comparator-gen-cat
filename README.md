@@ -33,7 +33,7 @@ La aplicación está escrita en Ruby y usa el framework Ruby on Rails. Para la B
 ### Requerimientos de Software
 
 - Git
-- Ruby 2.3.1
+- Ruby 2.5.1
 - Rubygems
 - PostgreSQL
 - Elastic Search
