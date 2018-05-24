@@ -9,18 +9,18 @@ Gobierto is a Rails app that provides a set of tools to power efforts from publi
 
 **Gobierto budgets comparator** is a budgets comparison tool to enable citizens to explore, visualize, compare and contextualize the budgets of multiple municipalities/public bodies at the same time (such as those of a given Province, Autonomous Region or Country). You can check a live instance at [presupuestos.gobierto.es](http://presupuestos.gobierto.es) (it contains municipal budget data for almost 8.000 spanish municipalities).
 
-Gobierto is being built in the open by [Populate](http://populate.tools), a product design studio around civic engagement based in Madrid, Spain. We provide commercial services around data journalism, news products, open data... and Gobierto, of course ;) 
+Gobierto is being built in the open by [Populate](http://populate.tools), a product design studio around civic engagement based in Madrid, Spain. We provide commercial services around data journalism, news products, open data... and Gobierto, of course ;)
 
 * #todo Why we build Gobierto and our design philosophy
 
-More info: 
+More info:
 
 * Main site (spanish): [gobierto.es](http://gobierto.es)
 * Blog (spanish): [gobierto.es/blog](http://gobierto.es/blog)
 
 ## Feature requests
 
-File an [issue](https://github.com/PopulateTools/gobierto-comparador-presupuestos/issues). 
+File an [issue](https://github.com/PopulateTools/gobierto-comparador-presupuestos/issues).
 
 ## Application architecture
 
@@ -31,7 +31,7 @@ The application is written in the Ruby programming language and uses the Ruby on
 ### Software Requirements
 
 - Git
-- Ruby 2.3.1
+- Ruby 2.5.1
 - Rubygems
 - PostgreSQL
 - Elastic Search
