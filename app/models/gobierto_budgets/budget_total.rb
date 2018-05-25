@@ -1,32 +1,34 @@
+# frozen_string_literal: true
+
 module GobiertoBudgets
   class BudgetTotal
     TOTAL_FILTER_MIN = 0
-    TOTAL_FILTER_MAX = 5000000000
+    TOTAL_FILTER_MAX = 5_000_000_000
     PER_INHABITANT_FILTER_MIN = 0
-    PER_INHABITANT_FILTER_MAX = 20000
-    BUDGETED = 'B'
-    EXECUTED = 'E'
+    PER_INHABITANT_FILTER_MAX = 20_000
+    BUDGETED = "B"
+    EXECUTED = "E"
 
     def self.budgeted_for(organization_id, year, kind = BudgetLine::EXPENSE)
-      return BudgetTotal.for(organization_id, year, BudgetTotal::BUDGETED, kind)
+      BudgetTotal.for(organization_id, year, BudgetTotal::BUDGETED, kind)
     end
 
     def self.execution_for(organization_id, year, kind = BudgetLine::EXPENSE)
-      return BudgetTotal.for(organization_id, year, BudgetTotal::EXECUTED, kind)
+      BudgetTotal.for(organization_id, year, BudgetTotal::EXECUTED, kind)
     end
 
     def self.for(organization_id, year, b_or_e = BudgetTotal::BUDGETED, kind = BudgetLine::EXPENSE)
       return for_places(organization_id, year) if organization_id.is_a?(Array)
 
       index = (b_or_e == BudgetTotal::EXECUTED) ? SearchEngineConfiguration::TotalBudget.index_executed : SearchEngineConfiguration::TotalBudget.index_forecast
+      type = SearchEngineConfiguration::TotalBudget.type
+      id = [organization_id, year, kind].join("/")
+      result = SearchEngine.client.get(index: index, type: type, id: id)
 
-      result = SearchEngine.client.get(
-        index: index,
-        type: SearchEngineConfiguration::TotalBudget.type,
-        id: [organization_id, year, kind].join('/')
-      )
-
-      result['_source']['total_budget'].to_f
+      result["_source"]["total_budget"].to_f
+    rescue Elasticsearch::Transport::Transport::Errors::NotFound => e
+      Rollbar.error(e, "#{self.class}\#for has no indexed doc for #{index}, #{type}, #{id}")
+      nil
     end
 
     def self.budget_evolution_for(ine_code, b_or_e = BudgetTotal::BUDGETED, kind = BudgetLine::EXPENSE)
