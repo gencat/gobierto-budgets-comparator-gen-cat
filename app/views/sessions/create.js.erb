@@ -6,7 +6,7 @@
   }
   <% if @place %>
   if($('#follow').length > 0){
-    $('#follow').html('<%= j(render partial: 'gobierto_budgets/places/follow_place', locals: { organization: @place }) %>');
+    $('#follow').html('<%= j(render "gobierto_budgets/places/follow_place", organization: @place) %>');
     rebindAll();
   }
   <% end %>

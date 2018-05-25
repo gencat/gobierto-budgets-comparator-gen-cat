@@ -1,4 +1,4 @@
-$('#follow').html('<%= j(render partial: 'gobierto_budgets/places/follow_place', locals: { organization: @place }) %>');
+$('#follow').html('<%= j(render "gobierto_budgets/places/follow_place", organization: @place) %>');
 
 $('.tipsit').each(function(){
   $(this).tipsy('hide');

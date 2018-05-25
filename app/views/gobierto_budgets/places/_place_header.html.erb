@@ -4,7 +4,7 @@
     <div class="tools sticky">
       <% if users_enabled? && ['places','budget_lines'].include?(controller_name) %>
         <div class="modal_widget" id="follow">
-          <%= render 'gobierto_budgets/places/follow_place', locals: { organization: current_organization } %>
+          <%= render "gobierto_budgets/places/follow_place", organization: current_organization %>
         </div>
       <% end %>
       <div class="modal_widget" id="compare">
