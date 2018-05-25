@@ -132,5 +132,5 @@ set_meta_tags description: t('.description', kind: kind_literal(@kind).singulari
 </div>
 
 <% if users_enabled? %>
-  <%= render partial: 'gobierto_budgets/places/cta_block' %>
+  <%= render "gobierto_budgets/places/cta_block", organization: current_organization %>
 <% end %>

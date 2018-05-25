@@ -124,5 +124,5 @@
 <% end %>
 
 <% if users_enabled? && !logged_in? %>
-  <%= render partial: 'gobierto_budgets/places/cta_block' %>
+  <%= render "gobierto_budgets/places/cta_block", organization: current_organization %>
 <% end %>
