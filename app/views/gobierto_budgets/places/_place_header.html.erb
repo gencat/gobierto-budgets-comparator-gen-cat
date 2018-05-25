@@ -11,7 +11,7 @@
         <%= link_to %Q{<span>#{t('.compare')}</span> <i class="fa fa-compass"></i>}.html_safe, '', class: 'tool_button' %>
         <div class="inner widget_compare">
 
-          <%= link_to t('.add_to_comparing_list_html', name: @place.name), '', class: 'button js-add_compare', data: {place: compare_slug(@place, @year), "parent-code" => parent_code(params[:code])} %>
+          <%= link_to t('.add_to_comparing_list_html', name: current_organization.name), '', class: 'button js-add_compare', data: {place: compare_slug(current_organization, @year), "parent-code" => parent_code(params[:code])} %>
 
           <div class="sep"></div>
 
@@ -21,7 +21,7 @@
 
           <div id="view_comp_container" class="center">
             <%= link_to t('.view_comparison_html'), '', id: 'view_compare', class: 'button', data: {"parent-code" => parent_code(params[:code]) } %>
-            <span class="soft" id="without_current_note">(<%= t('.without', name: @place.name) %>)</span>
+            <span class="soft" id="without_current_note">(<%= t('.without', name: current_organization.name) %>)</span>
           </div>
 
         </div>
@@ -33,7 +33,7 @@
             <div class="cta_claim">
               <h3><%= t('.municipality_responsible') %></h3>
               <p><%= t('.cta_desc') %></p>
-              <%= link_to t('.ask_for_info'), new_user_path(place_id: @place.id, pro: true), class: 'button' %>
+              <%= link_to t('.ask_for_info'), new_user_path(place_id: current_organization.id, pro: true), class: 'button' %>
             </div>
           </div>
         </div>
@@ -42,15 +42,19 @@
   </div>
 
   <div class="breadcrumb geo">
-    <%= @place.province.autonomous_region.name %> » <%= @place.province.name %>
+    <%= current_organization.autonomous_region_name %> » <%= current_organization.province_name %>
   </div>
 
-  <h1 title="<%= t('.local_budgets_from', name: @place.name) %>">
-    <%= render partial: 'gobierto_budgets/places/year_switcher' %>
-    <%= link_to_unless_current @place.name, gobierto_budgets_place_path(@place.slug, @year) %>
+  <h1 title="<%= t('.local_budgets_from', name: current_organization.name) %>">
 
-    <%# TODO: Distinguir entidad/municipio %>
-    <span class="sep">/</span> <%= 'Nombre_de_la_entidad' %>
+    <%= render partial: 'gobierto_budgets/places/year_switcher' %>
+
+    <% if current_organization.city_council? %>
+      <%= link_to_unless_current current_organization.name, gobierto_budgets_place_path(current_organization.slug, @year) %>
+    <% else %>
+      <%= link_to current_organization.parent_place_name, gobierto_budgets_place_path(current_organization.parent_place_slug, @year) %>
+      <span class="sep">/</span> <%= current_organization.name %>
+    <% end %>
 
     <% if params[:area] %>
       » <%= kind_literal(@kind).humanize %> <%= t('.planned') %>
@@ -65,11 +69,11 @@
 
 <header class="sticky_top">
   <%= link_to image_tag('Gobierto-Avatar@2x.png', size: '30x30'), root_path %>
-  <input type="text" class="places_search search_auto" value="<%= @place.name %>" placeholder="<%= t('.search_municipality') %>" >
+  <input type="text" class="places_search search_auto" value="<%= current_organization.name %>" placeholder="<%= t('.search_municipality') %>" >
 
   <% if params['controller'] == 'budget_lines' %>
   <div class="breadcrumb">
-    <span class="sep"><%= link_to kind_literal(@kind).capitalize, gobierto_budgets_place_budget_path(@place.slug, @year, @kind, @area_name) %> »</span>
+    <span class="sep"><%= link_to kind_literal(@kind).capitalize, gobierto_budgets_place_budget_path(current_organization.slug, @year, @kind, @area_name) %> »</span>
     <%= render partial: 'breadcrumb',
               collection: budget_line_crumbs(@parent_line, @area_name),
               as: 'budget_line',

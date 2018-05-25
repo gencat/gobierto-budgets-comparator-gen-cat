@@ -1,18 +1,29 @@
 module GobiertoBudgets
   class PlacesController < GobiertoBudgets::ApplicationController
     layout :choose_layout
-    before_action :get_params
+    before_action :set_current_organization, :get_params
     before_action :solve_income_area_mismatch, except: [:show]
     before_action :admin_user, only: [:intelligence]
 
+    attr_reader :current_organization
+
+    helper_method :current_organization
+
     def show
-      render_404 and return if @place.nil?
+      render_404 and return if current_organization.nil?
       if @year.nil?
-        redirect_to gobierto_budgets_place_path(@place, GobiertoBudgets::SearchEngineConfiguration::Year.last) and return
+        redirect_to gobierto_budgets_place_path(current_organization.slug, SearchEngineConfiguration::Year.last) and return
       end
 
-      @income_lines = GobiertoBudgets::BudgetLine.search(ine_code: @place.id, level: 1, year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, type: 'economic')
-      @expense_lines = GobiertoBudgets::BudgetLine.search(ine_code: @place.id, level: 1, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, type: @area_name)
+      @income_lines = BudgetLine.search(
+        organization_id: current_organization.id,
+        level: 1,
+        year: @year,
+        kind: BudgetLine::INCOME,
+        type: 'economic'
+      )
+
+      @expense_lines = BudgetLine.search(organization_id: current_organization.id, level: 1, year: @year, kind: BudgetLine::EXPENSE, type: @area_name)
       @no_data = @income_lines['hits'].empty?
 
       respond_to do |format|
@@ -22,17 +33,22 @@ module GobiertoBudgets
     end
 
     def execution
-      render_404 and return if @place.nil?
+      render_404 and return if current_organization.nil?
 
-      @top_possitive_difference_income, @top_negative_difference_income = GobiertoBudgets::BudgetLine.top_differences(ine_code: @place.id, year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, type: 'economic')
+      @top_possitive_difference_income, @top_negative_difference_income = BudgetLine.top_differences(
+        organization_id: current_organization.id,
+        year: @year,
+        kind: GobiertoBudgets::BudgetLine::INCOME,
+        type: 'economic'
+      )
 
       if @top_possitive_difference_income.empty?
         flash[:alert] = t('.no_data', year: @year)
-        redirect_to gobierto_budgets_place_execution_path(@place.slug, @year.to_i - 1) and return
+        redirect_to gobierto_budgets_place_execution_path(current_organization.slug, @year.to_i - 1) and return
       end
 
-      @top_possitive_difference_expending_economic, @top_negative_difference_expending_economic = GobiertoBudgets::BudgetLine.top_differences(ine_code: @place.id, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, type: 'economic')
-      @top_possitive_difference_expending_functional, @top_negative_difference_expending_functional = GobiertoBudgets::BudgetLine.top_differences(ine_code: @place.id, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, type: 'functional')
+      @top_possitive_difference_expending_economic, @top_negative_difference_expending_economic = GobiertoBudgets::BudgetLine.top_differences(organization_id: current_organization.id, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, type: 'economic')
+      @top_possitive_difference_expending_functional, @top_negative_difference_expending_functional = GobiertoBudgets::BudgetLine.top_differences(organization_id: current_organization.id, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, type: 'functional')
     end
 
     def debt_alive
@@ -41,14 +57,21 @@ module GobiertoBudgets
     def budget
       @level = (params[:parent_code].present? ? params[:parent_code].length + 1 : 1)
 
-      options = { ine_code: @place.id, level: @level, year: @year, kind: @kind, type: @area_name }
+      options = {
+        organization_id: current_organization.id,
+        level: @level,
+        year: @year,
+        kind: @kind,
+        type: @area_name
+      }
+
       options[:parent_code] = params[:parent_code] if params[:parent_code].present?
 
       @budget_lines = GobiertoBudgets::BudgetLine.search(options)
 
       respond_to do |format|
         format.json do
-          data_line = GobiertoBudgets::Data::Treemap.new place: @place, year: @year, kind: @kind, type: @area_name, parent_code: params[:parent_code]
+          data_line = GobiertoBudgets::Data::Treemap.new place: current_organization, year: @year, kind: @kind, type: @area_name, parent_code: params[:parent_code]
           render json: data_line.generate_json
         end
         format.js
@@ -80,8 +103,8 @@ module GobiertoBudgets
 
     def ranking
       @filters = params[:f]
-      if @place && params[:page].nil?
-        place_position = GobiertoBudgets::Ranking.place_position(year: @year, ine_code: @place.id, code: @code, kind: @kind, area_name: @area_name, variable: @variable, filters: @filters)
+      if current_organization && params[:page].nil?
+        place_position = GobiertoBudgets::Ranking.place_position(year: @year, ine_code: current_organization.id, code: @code, kind: @kind, area_name: @area_name, variable: @variable, filters: @filters)
 
         page = GobiertoBudgets::Ranking.page_from_position(place_position)
         redirect_to url_for(params.merge(page: page)) and return
@@ -104,17 +127,15 @@ module GobiertoBudgets
     end
 
     def redirect
-      @place = INE::Places::Place.find params[:ine_code]
-      if @place.present?
-        redirect_to gobierto_budgets_place_path(@place, params[:year])
+      current_organization = INE::Places::Place.find(params[:ine_code])
+      if current_organization.present?
+        redirect_to gobierto_budgets_place_path(current_organization.slug, params[:year])
       end
     end
 
     private
 
     def get_params
-      @place = INE::Places::Place.find_by_slug params[:slug] if params[:slug].present?
-      @place = INE::Places::Place.find params[:ine_code] if params[:ine_code].present?
       @kind = ( %w{income i}.include?(params[:kind].downcase) ? GobiertoBudgets::BudgetLine::INCOME : GobiertoBudgets::BudgetLine::EXPENSE ) if action_name != 'show' && params[:kind]
       @kind ||= GobiertoBudgets::BudgetLine::EXPENSE if action_name == 'ranking'
       @area_name = params[:area] || 'functional'
@@ -140,6 +161,14 @@ module GobiertoBudgets
 
     def valid_variables
       ['amount','amount_per_inhabitant','population']
+    end
+
+    def set_current_organization
+      @current_organization = if params[:slug].present?
+                                Organization.new(slug: params[:slug])
+                              elsif params[:organization_id].present?
+                                Organization.new(id: params[:organization_id])
+                              end
     end
 
   end

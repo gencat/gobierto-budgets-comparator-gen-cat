@@ -31,18 +31,18 @@ Rails.application.routes.draw do
       get '/data/compare/:ine_codes/:year/:what' => 'data#compare', as: :data_compare
       get '/data/lines/budget_line/:ine_code/:year/:what/:kind/:code/:area' => 'data#lines', as: :data_lines_budget_line
       get '/data/compare/budget_line/:ine_codes/:year/:what/:kind/:code/:area' => 'data#compare', as: :data_compare_budget_lines
-      get '/data/widget/total_budget/:ine_code/:year' => 'data#total_budget', as: :data_total_budget
-      get '/data/widget/total_budget_per_inhabitant/:ine_code/:year' => 'data#total_budget_per_inhabitant', as: :data_total_budget_per_inhabitant
-      get '/data/widget/budget/:ine_code/:year/:code/:area/:kind' => 'data#budget', as: :data_budget
-      get '/data/widget/budget_execution/:ine_code/:year/:code/:area/:kind' => 'data#budget_execution', as: :data_budget_execution
-      get '/data/widget/budget_per_inhabitant/:ine_code/:year/:code/:area/:kind' => 'data#budget_per_inhabitant', as: :data_budget_per_inhabitant
-      get '/data/widget/budget_percentage_over_total/:ine_code/:year/:code/:area/:kind' => 'data#budget_percentage_over_total', as: :data_budget_percentage_over_total
-      get '/data/widget/budget_percentage_previous_year/:ine_code/:year/:code/:area/:kind' => 'data#budget_percentage_previous_year', as: :data_budget_percentage_previous_year
+      get '/data/widget/total_budget/:organization_id/:year' => 'data#total_budget', as: :data_total_budget
+      get '/data/widget/total_budget_per_inhabitant/:organization_id/:year' => 'data#total_budget_per_inhabitant', as: :data_total_budget_per_inhabitant
+      get '/data/widget/budget/:organization_id/:year/:code/:area/:kind' => 'data#budget', as: :data_budget
+      get '/data/widget/budget_execution/:organization_id/:year/:code/:area/:kind' => 'data#budget_execution', as: :data_budget_execution
+      get '/data/widget/budget_per_inhabitant/:organization_id/:year/:code/:area/:kind' => 'data#budget_per_inhabitant', as: :data_budget_per_inhabitant
+      get '/data/widget/budget_percentage_over_total/:organization_id/:year/:code/:area/:kind' => 'data#budget_percentage_over_total', as: :data_budget_percentage_over_total
+      get '/data/widget/budget_percentage_previous_year/:organization_id/:year/:code/:area/:kind' => 'data#budget_percentage_previous_year', as: :data_budget_percentage_previous_year
       get '/data/widget/population/:ine_code/:year' => 'data#population', as: :data_population
       get '/data/widget/ranking/:year/:kind/:area/:variable(/:code)' => 'data#ranking', as: :data_ranking
-      get '/data/widget/total_widget_execution/:ine_code/:year' => 'data#total_budget_execution', as: :data_total_budget_execution
+      get '/data/widget/total_widget_execution/:organization_id/:year' => 'data#total_budget_execution', as: :data_total_budget_execution
       get '/data/widget/budget_execution_deviation/:ine_code/:year/:kind' => 'data#budget_execution_deviation', as: :data_budget_execution_deviation
-      get '/data/widget/debt/:ine_code/:year' => 'data#debt', as: :data_debt
+      get '/data/widget/debt/:organization_id/:year' => 'data#debt', as: :data_debt
 
       get '/data/widget/global_total_budget/:year' => 'global_data#total_budget', as: :global_data_total_budget
       get '/data/widget/global_total_budget_per_inhabitant/:year' => 'global_data#total_budget_per_inhabitant', as: :global_data_total_budget_per_inhabitant
@@ -53,12 +53,12 @@ Rails.application.routes.draw do
       get '/categories' => 'categories#index'
       get '/categories/:area/:kind' => 'categories#index'
       get '/places' => 'places#index'
-      get '/data/:ine_code/:year/:kind/:area' => 'data#budgets'
+      get '/data/:organization_id/:year/:kind/:area' => 'data#budgets'
       get '/data/debt/:year' => 'data#municipalities_debt'
       get '/data/population/:year' => 'data#municipalities_population'
 
-      get '/intelligence/budget_lines/:ine_code/:years' => 'intelligence#budget_lines', as: :intelligence_budget_lines
-      get '/intelligence/budget_lines_means/:ine_code/:year' => 'intelligence#budget_lines_means', as: :intelligence_budget_lines_means
+      get '/intelligence/budget_lines/:organization_id/:years' => 'intelligence#budget_lines', as: :intelligence_budget_lines
+      get '/intelligence/budget_lines_means/:organization_id/:year' => 'intelligence#budget_lines_means', as: :intelligence_budget_lines_means
     end
 
     # statics

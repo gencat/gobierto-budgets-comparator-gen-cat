@@ -208,6 +208,8 @@ es:
         compare: Compara
         inhabitants: Habitantes
         municipality: Municipio
+      related_entities_budget:
+        table_title: Consulta el presupuesto de las entidades dependientes de %{name}
       show:
         about_the_data: Nota sobre los datos
         about_the_data_desc: La base de datos que utilizamos no incluye datos para
@@ -237,8 +239,6 @@ es:
         related_entities_budget:
           see_all: Ver todas las entidades relacionadas (%{number})
           see_less: Ver menos
-        related_entities_budget_table_title: Consulta el presupuesto de las entidades
-          dependientes de %{name}
         search_budget_lines_income: Busca partidas de ingresos
         title: Presupuestos municipales de %{name} del %{year}
         total: total

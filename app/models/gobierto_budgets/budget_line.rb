@@ -158,10 +158,12 @@ module GobiertoBudgets
                {missing: { field: 'custom_code'}},
                {term: { year: options[:year] }}]
 
+      terms << {term: { organization_id: options[:organization_id] }} if options[:organization_id].present?
       terms << {term: { ine_code: options[:ine_code] }} if options[:ine_code].present?
       terms << {term: { parent_code: options[:parent_code] }} if options[:parent_code].present?
       terms << {term: { level: options[:level] }} if options[:level].present?
       terms << {term: { code: options[:code] }} if options[:code].present?
+
       if options[:range_hash].present?
         options[:range_hash].each_key do |range_key|
           terms << {range: { range_key => options[:range_hash][range_key] }}

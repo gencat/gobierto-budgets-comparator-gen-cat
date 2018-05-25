@@ -3,9 +3,20 @@ module GobiertoBudgets
     class DataController < ApplicationController
       include GobiertoBudgets::ApplicationHelper
 
-      caches_action :total_budget, :total_budget_execution, :population, :total_budget_per_inhabitant, :lines,
-                    :budget, :budget_execution, :budget_per_inhabitant, :budget_percentage_over_total, :debt,
-                    :budget_percentage_previous_year, cache_path: ->(c) { { locale: I18n.locale} }
+      caches_action(
+        :total_budget,
+        :total_budget_execution,
+        :population,
+        :total_budget_per_inhabitant,
+        :lines,
+        :budget,
+        :budget_execution,
+        :budget_per_inhabitant,
+        :budget_percentage_over_total,
+        :debt,
+        :budget_percentage_previous_year,
+        cache_path: ->(c) { { locale: I18n.locale} }
+      ) if Rails.env.production?
 
       def total_budget
         year = params[:year].to_i
@@ -296,13 +307,13 @@ module GobiertoBudgets
         year = params[:year].to_i
 
         no_data_this_year = false
-        debt_year = get_debt(year, params[:ine_code])
+        debt_year = get_debt(year, params[:organization_id])
         if debt_year[:value].nil?
           year -= 1
-          debt_year = get_debt(year, params[:ine_code])
+          debt_year = get_debt(year, params[:organization_id])
           no_data_this_year = year
         end
-        debt_previous_year = get_debt(year - 1, params[:ine_code])
+        debt_previous_year = get_debt(year - 1, params[:organization_id])
         sign = sign(debt_year, debt_previous_year)
 
         respond_to do |format|
@@ -475,15 +486,15 @@ module GobiertoBudgets
 
       private
 
-      def get_debt(year, ine_code)
-        id = "#{ine_code}/#{year}"
+      def get_debt(year, organization_id)
+        id = "#{organization_id}/#{year}"
 
         terms = []
-        terms.push({term: { year: year }})
+        terms.push({ term: { year: year } })
 
         if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
-          ine_codes = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
-          terms << {terms: { ine_code: ine_codes.compact }} if ine_codes.any?
+          organizations_ids = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
+          terms << {terms: { organization_id: organizations_ids.compact }} if organizations_ids.any?
         end
 
         query = {
@@ -569,16 +580,16 @@ module GobiertoBudgets
 
       def total_budget_data(year, field, ranking = true)
         terms = [
-          {term: { year: year }},
-          {term: { kind: GobiertoBudgets::BudgetLine::EXPENSE }}
+          { term: { year: year } },
+          { term: { kind: GobiertoBudgets::BudgetLine::EXPENSE } }
         ]
 
         if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
-          ine_codes = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
-          terms << {terms: { ine_code: ine_codes.compact }} if ine_codes.any?
+          organizations_ids = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
+          terms << { terms: { organization_id: organizations_ids.compact } } if organizations_ids.any?
         end
 
-        query = {
+        body = {
           sort: [
             { field.to_sym => { order: 'desc' } }
           ],
@@ -595,10 +606,14 @@ module GobiertoBudgets
           _source: false
         }
 
-        id = "#{params[:ine_code]}/#{year}/#{BudgetLine::EXPENSE}"
+        id = "#{params[:organization_id]}/#{year}/#{BudgetLine::EXPENSE}"
 
         if ranking
-          response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast, type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, body: query
+          response = GobiertoBudgets::SearchEngine.client.search(
+            index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast,
+            type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type,
+            body: body
+          )
           buckets = response['hits']['hits'].map{|h| h['_id']}
           position = buckets.index(id) + 1 rescue 0
         else
@@ -607,7 +622,11 @@ module GobiertoBudgets
         end
 
         begin
-          value = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast, type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: id
+          value = GobiertoBudgets::SearchEngine.client.get(
+            index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast,
+            type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type,
+            id: id
+          )
           value = value['_source'][field]
         rescue Elasticsearch::Transport::Transport::Errors::NotFound
           value = 0

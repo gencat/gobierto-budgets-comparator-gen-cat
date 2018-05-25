@@ -39,7 +39,6 @@ CSV.open("multas.csv", "wb") do |csv|
 
     csv << ([place.id, place.name] + population + planned)
   end
-  debugger
+
   pbar.finish
 end
-

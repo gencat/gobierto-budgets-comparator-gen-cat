@@ -1,7 +1,7 @@
 <%
-set_meta_tags title: t('.title', kind: kind_literal(@kind).capitalize, budget_line: budget_line_denomination(@area_name, @code, @kind), place: @place.name, year: @year)
-@share_text = t('.share_text', kind: kind_literal(@kind, false).capitalize, place: @place.name, budget_line: budget_line_denomination(@area_name, @code, @kind), year: @year)
-set_meta_tags description: t('.description', kind: kind_literal(@kind).singularize, budget_line: budget_line_denomination(@area_name, @code, @kind), place: @place.name)
+set_meta_tags title: t('.title', kind: kind_literal(@kind).capitalize, budget_line: budget_line_denomination(@area_name, @code, @kind), place: current_organization.name, year: @year)
+@share_text = t('.share_text', kind: kind_literal(@kind, false).capitalize, place: current_organization.name, budget_line: budget_line_denomination(@area_name, @code, @kind), year: @year)
+set_meta_tags description: t('.description', kind: kind_literal(@kind).singularize, budget_line: budget_line_denomination(@area_name, @code, @kind), place: current_organization.name)
 %>
 
 <%= render partial: 'gobierto_budgets/places/place_header' %>
@@ -20,30 +20,30 @@ set_meta_tags description: t('.description', kind: kind_literal(@kind).singulari
                                       title="<%= t('.total_budget_per_inhabitant', kind: kind_literal(@kind, false).humanize) %>"
                                       data-widget-type="per_person"
                                       data-line-widget-series="means"
-                                      data-line-widget-url="<%= gobierto_budgets_api_data_lines_budget_line_path(@place.id, @year, "per_person", @kind, @code.parameterize, @area_name, format: :json ) %>"
+                                      data-line-widget-url="<%= gobierto_budgets_api_data_lines_budget_line_path(current_organization.id, @year, "per_person", @kind, @code.parameterize, @area_name, format: :json ) %>"
                                       data-line-widget-type="per_person"
-                                      data-widget-data-url="<%= gobierto_budgets_api_data_budget_per_inhabitant_path(ine_code: @place.id, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
+                                      data-widget-data-url="<%= gobierto_budgets_api_data_budget_per_inhabitant_path(organization_id: current_organization.id, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
   </div>
 
   <div class="metric tipsit" data-widget-template="#widget-template"
                              title="<%= t('.total_budget', kind: kind_literal(@kind, false).humanize) %>"
                              data-widget-type="budget"
                              data-line-widget-series="means"
-                             data-line-widget-url="<%= gobierto_budgets_api_data_lines_budget_line_path(@place.id, @year, "total_budget", @kind, @code.parameterize, @area_name, format: :json ) %>"
+                             data-line-widget-url="<%= gobierto_budgets_api_data_lines_budget_line_path(current_organization.id, @year, "total_budget", @kind, @code.parameterize, @area_name, format: :json ) %>"
                              data-line-widget-type="total_budget"
-                             data-widget-data-url="<%= gobierto_budgets_api_data_budget_path(ine_code: @place.id, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
+                             data-widget-data-url="<%= gobierto_budgets_api_data_budget_path(organization_id: current_organization.id, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
   </div>
 
   <div class="metric"
     data-widget-template="#widget-template-execution"
     data-widget-type="total_budget_execution"
-    data-page-href="<%= gobierto_budgets_place_execution_path(slug: @place.slug, year: @year, anchor: 'total_budget_execution')%>"
-    data-widget-data-url="<%= gobierto_budgets_api_data_budget_execution_path(ine_code: @place.id, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
+    data-page-href="<%= gobierto_budgets_place_execution_path(slug: current_organization.slug, year: @year, anchor: 'total_budget_execution')%>"
+    data-widget-data-url="<%= gobierto_budgets_api_data_budget_execution_path(organization_id: current_organization.id, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
   </div>
 
   <div class="metric" data-widget-template="#widget-template-lite"
                       data-widget-type="budget_percentage_over_total"
-                      data-widget-data-url="<%= gobierto_budgets_api_data_budget_percentage_over_total_path(ine_code: @place.id, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
+                      data-widget-data-url="<%= gobierto_budgets_api_data_budget_percentage_over_total_path(organization_id: current_organization.id, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
   </div>
 
   <% if users_enabled? %>
@@ -53,7 +53,7 @@ set_meta_tags description: t('.description', kind: kind_literal(@kind).singulari
   <% else %>
     <div class="metric" data-widget-template="#widget-template-lite"
                         data-widget-type="budget_percentage_previous_year"
-                        data-widget-data-url="<%= gobierto_budgets_api_data_budget_percentage_previous_year_path(ine_code: @place.id, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
+                        data-widget-data-url="<%= gobierto_budgets_api_data_budget_percentage_previous_year_path(organization_id: current_organization.id, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
     </div>
   <% end %>
 </div>
@@ -77,7 +77,7 @@ set_meta_tags description: t('.description', kind: kind_literal(@kind).singulari
   <table>
     <tr>
       <th>
-        <input type="text" placeholder="<%= t('.search', kind: kind_literal(@kind, true)) %>" class="search_items" id="search_categories_budget" data-search-url="<%= gobierto_budgets_search_categories_path(@place.slug,@year,@area_name, @kind) %>">
+        <input type="text" placeholder="<%= t('.search', kind: kind_literal(@kind, true)) %>" class="search_items" id="search_categories_budget" data-search-url="<%= gobierto_budgets_search_categories_path(current_organization.slug,@year,@area_name, @kind) %>">
       </th>
       <th class="right "><%= kind_literal(@kind, false) %> <%= t('gobierto_budgets.places.show.total') %></th>
       <th class="right "><%= kind_literal(@kind, false) %> <%= t('gobierto_budgets.places.show.per_inhabitant') %></th>

@@ -208,6 +208,8 @@ ca:
         compare: Compareu
         inhabitants: Habitants
         municipality: Municipi
+      related_entities_budget:
+        table_title: Consulta el pressupost de les entitats depenents de %{name}
       show:
         about_the_data: Nota sobre les dades
         about_the_data_desc: La base de dades que utilitzem no inclou dades per al
@@ -237,8 +239,6 @@ ca:
         related_entities_budget:
           see_all: Veure totes les entitats depenents (%{number})
           see_less: Veure menys
-        related_entities_budget_table_title: Consulta el pressupost de les entitats
-          depenents de %{name}
         search_budget_lines_income: Busqueu partides d'ingressos
         title: Pressupostos municipals de %{name} del %{year}
         total: total

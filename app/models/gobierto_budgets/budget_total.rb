@@ -7,19 +7,25 @@ module GobiertoBudgets
     BUDGETED = 'B'
     EXECUTED = 'E'
 
-    def self.budgeted_for(ine_code, year, kind = BudgetLine::EXPENSE)
-      return BudgetTotal.for(ine_code, year, BudgetTotal::BUDGETED, kind)
+    def self.budgeted_for(organization_id, year, kind = BudgetLine::EXPENSE)
+      return BudgetTotal.for(organization_id, year, BudgetTotal::BUDGETED, kind)
     end
 
-    def self.execution_for(ine_code, year, kind = BudgetLine::EXPENSE)
-      return BudgetTotal.for(ine_code, year, BudgetTotal::EXECUTED, kind)
+    def self.execution_for(organization_id, year, kind = BudgetLine::EXPENSE)
+      return BudgetTotal.for(organization_id, year, BudgetTotal::EXECUTED, kind)
     end
 
-    def self.for(ine_code, year, b_or_e = BudgetTotal::BUDGETED, kind = BudgetLine::EXPENSE)
-      return for_places(ine_code, year) if ine_code.is_a?(Array)
+    def self.for(organization_id, year, b_or_e = BudgetTotal::BUDGETED, kind = BudgetLine::EXPENSE)
+      return for_places(organization_id, year) if organization_id.is_a?(Array)
+
       index = (b_or_e == BudgetTotal::EXECUTED) ? SearchEngineConfiguration::TotalBudget.index_executed : SearchEngineConfiguration::TotalBudget.index_forecast
 
-      result = SearchEngine.client.get index: index, type: SearchEngineConfiguration::TotalBudget.type, id: [ine_code, year, kind].join('/')
+      result = SearchEngine.client.get(
+        index: index,
+        type: SearchEngineConfiguration::TotalBudget.type,
+        id: [organization_id, year, kind].join('/')
+      )
+
       result['_source']['total_budget'].to_f
     end
 
@@ -49,9 +55,11 @@ module GobiertoBudgets
       response['hits']['hits'].map{ |h| h['_source'] }
     end
 
-    def self.for_places(ine_codes, year)
-      terms = [{terms: {ine_code: ine_codes}},
-               {term: {year: year}}]
+    def self.for_places(organizations_ids, year)
+      terms = [
+        { term: { organization_id: organizations_ids } },
+        { term: { year: year } }
+      ]
 
       query = {
         query: {

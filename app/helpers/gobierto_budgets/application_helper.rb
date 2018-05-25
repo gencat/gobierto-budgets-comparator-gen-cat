@@ -140,14 +140,16 @@ module GobiertoBudgets
 
     def data_attributes
       attrs = []
-      if @place
+
+      target = @place || try(:current_organization)
+      if target
         # TODO: Hacer dinamico
         attrs << %Q{data-bubbles-data="https://gobierto-populate-staging.s3.eu-west-1.amazonaws.com/gobierto_budgets/8121/data/bubbles.json"}
         attrs << %Q{data-max-year="#{GobiertoBudgets::SearchEngineConfiguration::Year.last}"}
         # TODO: End TODO
-        attrs << %Q{data-track-url="#{gobierto_budgets_place_path(@place.slug, @year || GobiertoBudgets::SearchEngineConfiguration::Year.last)}"}
-        attrs << %Q{data-place-slug="#{@place.slug}"}
-        attrs << %Q{data-place-name="#{@place.name}"}
+        attrs << %Q{data-track-url="#{gobierto_budgets_place_path(target.slug, @year || GobiertoBudgets::SearchEngineConfiguration::Year.last)}"}
+        attrs << %Q{data-place-slug="#{target.slug}"}
+        attrs << %Q{data-place-name="#{target.name}"}
       end
       if action_name == 'compare' and controller_name == 'places'
         attrs << %Q{data-comparison-name="#{@places.map{|p| p.name }.join(' + ')}"}
@@ -219,7 +221,7 @@ module GobiertoBudgets
     def gobierto_budgets_answers_path_with_params(question_id, answer_text)
       gobierto_budgets_answers_path(answer: {
         question_id: question_id, answer_text: answer_text,
-        place_id: @place.id, year: @year, kind: @kind, area_name: @area_name, code: @code
+        place_id: current_organization.place_id, year: @year, kind: @kind, area_name: @area_name, code: @code
       })
     end
 
