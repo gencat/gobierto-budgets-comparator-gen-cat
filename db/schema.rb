@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180524100237) do
+ActiveRecord::Schema.define(version: 20180525144947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,8 +77,10 @@ ActiveRecord::Schema.define(version: 20180524100237) do
     t.string "entity_id", null: false
     t.string "name", null: false
     t.integer "ine_code", null: false
+    t.string "slug", null: false
     t.index ["entity_id", "ine_code"], name: "index_associated_entities_on_entity_id_and_ine_code", unique: true
     t.index ["name", "ine_code"], name: "index_associated_entities_on_name_and_ine_code", unique: true
+    t.index ["slug", "ine_code"], name: "index_associated_entities_on_slug_and_ine_code", unique: true
   end
 
   create_table "gobierto_cms_attachments", id: :serial, force: :cascade do |t|
