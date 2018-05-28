@@ -2,7 +2,7 @@
   <% if subscription = current_user.get_subscriptions_on(organization) %>
     <%= link_to %Q{<span>#{GobiertoBudgets::Subscription.for_place(subscription.place)}</span> <i class="fa fa-star"></i>}.html_safe, gobierto_budgets_subscription_path(subscription), method: :delete, remote: true, id: 'follow_link', class: 'tool_button tipsit following', title: "Estás suscrito a las actualizaciones en #{organization.name}. Haz click para dejar de seguirlas" %>
   <% else %>
-    <%= link_to %Q{<span>#{GobiertoBudgets::Subscription.for_place(organization)}</span> <i class="fa fa-star-o"></i>}.html_safe, gobierto_budgets_subscriptions_path(place_id: organization.id), method: :post, remote: true, id: 'follow_link', class: 'tool_button tipsit ', title: "Suscríbete a las actualizaciones en #{organization.name}" %>
+    <%= link_to %Q{<span>#{GobiertoBudgets::Subscription.for_place(organization)}</span> <i class="fa fa-star-o"></i>}.html_safe, gobierto_budgets_subscriptions_path(place_id: organization.slug), method: :post, remote: true, id: 'follow_link', class: 'tool_button tipsit ', title: "Suscríbete a las actualizaciones en #{organization.name}" %>
   <% end %>
 <% else %>
 

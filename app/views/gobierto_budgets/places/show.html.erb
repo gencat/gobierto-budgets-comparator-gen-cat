@@ -98,7 +98,10 @@
       <table>
       <tr>
         <th>
-          <input type="text" placeholder="<%= t('.search_budget_lines_income') %>" class="search_items search_categories_budget-income" data-search-url="<%= gobierto_budgets_search_categories_path(current_organization.slug,@year, 'economic', GobiertoBudgets::BudgetLine::INCOME) %>">
+          <input type="text"
+                 placeholder="<%= t('.search_budget_lines_income') %>"
+                 class="search_items search_categories_budget-income"
+                 data-search-url="<%= gobierto_budgets_search_categories_path(current_organization.slug, @year, 'economic', GobiertoBudgets::BudgetLine::INCOME) %>">
         </th>
         <th class="right "><%= kind_literal(GobiertoBudgets::BudgetLine::INCOME, false) %> <%= t('.total') %></th>
         <th class="right "><%= kind_literal(GobiertoBudgets::BudgetLine::INCOME, false) %> <%= t('.per_inhabitant') %></th>

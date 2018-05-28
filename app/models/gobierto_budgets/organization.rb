@@ -4,13 +4,13 @@ module GobiertoBudgets
     attr_accessor(:id, :place)
 
     def initialize(attributes)
-      if attributes[:slug]
-        @place = ::INE::Places::Place.find_by_slug(attributes[:slug])
+      if slug_param = attributes[:slug]
+        @place = ::INE::Places::Place.find_by_slug(slug_param)
         if place
           @id = place.id
         else
-          @id = attributes[:slug]
-          @associated_entity = AssociatedEntity.find_by(entity_id: id)
+          @associated_entity = AssociatedEntity.find_by(slug: slug_param)
+          @id = @associated_entity.id
         end
       elsif attributes[:organization_id]
         @id = attributes[:organization_id]
@@ -24,7 +24,7 @@ module GobiertoBudgets
     end
 
     def slug
-      city_council? ? @place.slug : id
+      city_council? ? @place.slug : @associated_entity.slug
     end
 
     def associated_entities

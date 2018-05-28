@@ -23,10 +23,10 @@ module GobiertoBudgets
       index = (b_or_e == BudgetTotal::EXECUTED) ? SearchEngineConfiguration::TotalBudget.index_executed : SearchEngineConfiguration::TotalBudget.index_forecast
       type = SearchEngineConfiguration::TotalBudget.type
       id = [organization_id, year, kind].join("/")
-      result = SearchEngine.client.get(index: index, type: type, id: id)
 
+      result = SearchEngine.client.get(index: index, type: type, id: id)
       result["_source"]["total_budget"].to_f
-    rescue Elasticsearch::Transport::Transport::Errors::NotFound => e
+    rescue ::Elasticsearch::Transport::Transport::Errors::NotFound => e
       Rollbar.error(e, "#{self.class}\#for has no indexed doc for #{index}, #{type}, #{id}")
       nil
     end
@@ -48,7 +48,7 @@ module GobiertoBudgets
             }
           }
         },
-        size: 10000
+        size: 10_000
       }
 
       index = index = (b_or_e == BudgetTotal::EXECUTED) ? SearchEngineConfiguration::TotalBudget.index_executed : SearchEngineConfiguration::TotalBudget.index_forecast
