@@ -109,7 +109,7 @@ set_meta_tags description: t('.description', kind: kind_literal(@kind).singulari
   </div>
 
   <div class="tab_content" data-tab="description">
-    <% if desc = budget_line_description(@area_name, @code, @kind).try(:html_safe) %>
+    <% if desc = budget_line_description(@area_name, @code, @kind, current_organization.slug).try(:html_safe) %>
       <p class=""><strong><%= budget_line_denomination(@area_name, @code, @kind) %></strong><br/>
       <%= desc %></p>
     <% else %>

@@ -56,7 +56,7 @@ module GobiertoBudgets
       res
     end
 
-    def budget_line_description(area_name, code, kind)
+    def budget_line_description(area_name, code, kind, current_organization_slug)
       area = area_class area_name, kind
       description = area.all_descriptions[I18n.locale][area_name][kind][code.to_s]
       name = area.all_items[kind][code]
@@ -65,7 +65,15 @@ module GobiertoBudgets
       elsif description.present?
         kind_what = kind == 'I' ? t('common.incomes') : t('common.expenses')
 
-        I18n.t('helpers.budget_line_description', kind_what: kind_what, description: description.downcase, link: link_to(budget_line_denomination(area_name, code[0..-2], kind), gobierto_budgets_budget_line_path(@place.slug, params[:year],code[0..-2], kind, area_name))).html_safe
+        I18n.t(
+          "helpers.budget_line_description",
+          kind_what: kind_what,
+          description: description.downcase,
+          link: link_to(
+            budget_line_denomination(area_name, code[0..-2], kind),
+            gobierto_budgets_budget_line_path(current_organization_slug, params[:year], code[0..-2], kind, area_name)
+          )
+        ).html_safe
       end
     end
 
