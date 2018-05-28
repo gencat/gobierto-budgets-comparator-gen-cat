@@ -4,7 +4,7 @@ module GobiertoBudgets
     self.table_name = "gobierto_budgets_associated_entities"
 
     validates :name, presence: true, uniqueness: { scope: :ine_code }
-    validates :slug, presence: true, uniqueness: { scope: :ine_code }
+    validates :slug, presence: true, uniqueness: true # Can't scope on ine_code, URLs just pass one parameter
     validates :entity_id, presence: true, uniqueness: { scope: :ine_code }
     validates :ine_code, presence: true
 
