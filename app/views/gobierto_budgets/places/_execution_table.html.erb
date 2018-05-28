@@ -10,7 +10,9 @@
   <tbody>
     <% data.each do |code, values| %>
       <tr>
-        <td class="title" title="<%= code %>"><%= link_to(budget_line_denomination(area, code, kind), gobierto_budgets_budget_line_path(@place.slug, @year, code.parameterize, kind, area)) %></td>
+        <td class="title" title="<%= code %>">
+          <%= link_to(budget_line_denomination(area, code, kind), gobierto_budgets_budget_line_path(current_organization.slug, @year, code.parameterize, kind, area)) %>
+        </td>
         <td><%= format_currency(values[1]) %></td>
         <td><%= format_currency(values[0]) %></td>
         <td><%= delta_percentage(values[1], values[0]) %></td>

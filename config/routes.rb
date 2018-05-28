@@ -41,7 +41,7 @@ Rails.application.routes.draw do
       get '/data/widget/population/:ine_code/:year' => 'data#population', as: :data_population
       get '/data/widget/ranking/:year/:kind/:area/:variable(/:code)' => 'data#ranking', as: :data_ranking
       get '/data/widget/total_widget_execution/:organization_slug/:year' => 'data#total_budget_execution', as: :data_total_budget_execution
-      get '/data/widget/budget_execution_deviation/:ine_code/:year/:kind' => 'data#budget_execution_deviation', as: :data_budget_execution_deviation
+      get '/data/widget/budget_execution_deviation/:organization_slug/:year/:kind' => 'data#budget_execution_deviation', as: :data_budget_execution_deviation
       get '/data/widget/debt/:organization_slug/:year' => 'data#debt', as: :data_debt
 
       get '/data/widget/global_total_budget/:year' => 'global_data#total_budget', as: :global_data_total_budget

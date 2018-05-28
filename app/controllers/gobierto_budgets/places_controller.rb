@@ -47,8 +47,18 @@ module GobiertoBudgets
         redirect_to gobierto_budgets_place_execution_path(current_organization.slug, @year.to_i - 1) and return
       end
 
-      @top_possitive_difference_expending_economic, @top_negative_difference_expending_economic = GobiertoBudgets::BudgetLine.top_differences(organization_id: current_organization.id, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, type: 'economic')
-      @top_possitive_difference_expending_functional, @top_negative_difference_expending_functional = GobiertoBudgets::BudgetLine.top_differences(organization_id: current_organization.id, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, type: 'functional')
+      @top_possitive_difference_expending_economic, @top_negative_difference_expending_economic = GobiertoBudgets::BudgetLine.top_differences(
+        organization_id: current_organization.id,
+        year: @year,
+        kind: GobiertoBudgets::BudgetLine::EXPENSE,
+        type: 'economic'
+      )
+      @top_possitive_difference_expending_functional, @top_negative_difference_expending_functional = GobiertoBudgets::BudgetLine.top_differences(
+        organization_id: current_organization.id,
+        year: @year,
+        kind: GobiertoBudgets::BudgetLine::EXPENSE,
+        type: 'functional'
+      )
     end
 
     def debt_alive

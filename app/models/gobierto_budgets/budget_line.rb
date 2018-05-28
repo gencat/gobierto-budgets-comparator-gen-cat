@@ -200,15 +200,15 @@ module GobiertoBudgets
 
     def self.budget_line_query(options)
       terms = [
-        {term: { year: options[:year] }},
-        {term: { kind: options[:kind] }},
-        {term: { code: options[:code] }}
+        { term: { year: options[:year] } },
+        { term: { kind: options[:kind] } },
+        { term: { code: options[:code] } }
       ]
 
       ine_codes = []
 
       if options[:filters].present?
-        population_filter =  options[:filters][:population]
+        population_filter = options[:filters][:population]
         total_filter = options[:filters][:total]
         per_inhabitant_filter = options[:filters][:per_inhabitant]
         aarr_filter = options[:filters][:aarr] if options[:filters][:aarr] != 'undefined'
@@ -217,7 +217,7 @@ module GobiertoBudgets
       if (population_filter && (population_filter[:from].to_i > GobiertoBudgets::Population::FILTER_MIN || population_filter[:to].to_i < GobiertoBudgets::Population::FILTER_MAX))
         reduced_filter = {population: population_filter}
         reduced_filter.merge!(aarr: aarr_filter) if aarr_filter
-        results,total_elements = GobiertoBudgets::Population.for_ranking(options[:year], 0, nil, reduced_filter)
+        results, total_elements = GobiertoBudgets::Population.for_ranking(options[:year], 0, nil, reduced_filter)
         results_ine_codes = results.map{|p| p['ine_code']}
         ine_codes.concat(results_ine_codes) if results_ine_codes.any?
       end
@@ -230,7 +230,7 @@ module GobiertoBudgets
         end
       end
 
-      terms << {terms: { ine_code: ine_codes.compact }} if ine_codes.any?
+      terms << { terms: { ine_code: ine_codes.compact } } if ine_codes.any?
 
       if (total_filter && (total_filter[:from].to_i > GobiertoBudgets::BudgetTotal::TOTAL_FILTER_MIN || total_filter[:to].to_i < GobiertoBudgets::BudgetTotal::TOTAL_FILTER_MAX))
         terms << {range: { amount: { gte: total_filter[:from].to_i, lte: total_filter[:to].to_i} }}
@@ -363,6 +363,7 @@ module GobiertoBudgets
 
     def self.top_differences(options)
       terms = [{term: { kind: options[:kind] }}, {term: { year: options[:year] }}, {term: { level: 3 }}]
+      terms << {term: { organization_id: options[:organization_id] }} if options[:organization_id].present?
       terms << {term: { ine_code: options[:ine_code] }} if options[:ine_code].present?
       terms << {term: { code: options[:code] }} if options[:code].present?
 

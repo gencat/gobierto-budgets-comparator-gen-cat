@@ -10,7 +10,7 @@ module GobiertoBudgets
           @id = place.id
         else
           @associated_entity = AssociatedEntity.find_by(slug: slug_param)
-          @id = @associated_entity.id
+          @id = @associated_entity.entity_id
         end
       elsif attributes[:organization_id]
         @id = attributes[:organization_id]
