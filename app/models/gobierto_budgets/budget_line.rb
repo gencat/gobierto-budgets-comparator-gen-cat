@@ -153,10 +153,12 @@ module GobiertoBudgets
 
     def self.search(options)
 
-      terms = [{term: { kind: options[:kind] }},
-               {missing: { field: 'functional_code'}},
-               {missing: { field: 'custom_code'}},
-               {term: { year: options[:year] }}]
+      terms = [
+        { term: { kind: options[:kind] } },
+        { missing: { field: 'functional_code' } },
+        { missing: { field: 'custom_code' } },
+        { term: { year: options[:year] } }
+      ]
 
       terms << {term: { organization_id: options[:organization_id] }} if options[:organization_id].present?
       terms << {term: { ine_code: options[:ine_code] }} if options[:ine_code].present?
@@ -190,7 +192,11 @@ module GobiertoBudgets
         size: 10_000
       }
 
-      response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: (options[:type] || 'economic'), body: query
+      response = GobiertoBudgets::SearchEngine.client.search(
+        index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
+        type: (options[:type] || 'economic'),
+        body: query
+      )
 
       return {
         'hits' => response['hits']['hits'].map{ |h| h['_source'] },
@@ -215,7 +221,7 @@ module GobiertoBudgets
       end
 
       if (population_filter && (population_filter[:from].to_i > GobiertoBudgets::Population::FILTER_MIN || population_filter[:to].to_i < GobiertoBudgets::Population::FILTER_MAX))
-        reduced_filter = {population: population_filter}
+        reduced_filter = { population: population_filter }
         reduced_filter.merge!(aarr: aarr_filter) if aarr_filter
         results, total_elements = GobiertoBudgets::Population.for_ranking(options[:year], 0, nil, reduced_filter)
         results_ine_codes = results.map{|p| p['ine_code']}
@@ -232,12 +238,26 @@ module GobiertoBudgets
 
       terms << { terms: { ine_code: ine_codes.compact } } if ine_codes.any?
 
-      if (total_filter && (total_filter[:from].to_i > GobiertoBudgets::BudgetTotal::TOTAL_FILTER_MIN || total_filter[:to].to_i < GobiertoBudgets::BudgetTotal::TOTAL_FILTER_MAX))
-        terms << {range: { amount: { gte: total_filter[:from].to_i, lte: total_filter[:to].to_i} }}
+      if total_filter && (
+        total_filter[:from].to_i > GobiertoBudgets::BudgetTotal::TOTAL_FILTER_MIN ||
+        total_filter[:to].to_i < GobiertoBudgets::BudgetTotal::TOTAL_FILTER_MAX
+      )
+        terms << {
+          range: {
+            amount: { gte: total_filter[:from].to_i, lte: total_filter[:to].to_i }
+          }
+        }
       end
 
-      if (per_inhabitant_filter && (per_inhabitant_filter[:from].to_i > GobiertoBudgets::BudgetTotal::PER_INHABITANT_FILTER_MIN || per_inhabitant_filter[:to].to_i < GobiertoBudgets::BudgetTotal::PER_INHABITANT_FILTER_MAX))
-        terms << {range: { amount_per_inhabitant: { gte: per_inhabitant_filter[:from].to_i, lte: per_inhabitant_filter[:to].to_i} }}
+      if per_inhabitant_filter && (
+        per_inhabitant_filter[:from].to_i > GobiertoBudgets::BudgetTotal::PER_INHABITANT_FILTER_MIN ||
+        per_inhabitant_filter[:to].to_i < GobiertoBudgets::BudgetTotal::PER_INHABITANT_FILTER_MAX
+      )
+        terms << {
+          range: {
+            amount_per_inhabitant: { gte: per_inhabitant_filter[:from].to_i, lte: per_inhabitant_filter[:to].to_i }
+          }
+        }
       end
 
       terms << {term: { autonomy_id: aarr_filter }}  unless aarr_filter.blank?

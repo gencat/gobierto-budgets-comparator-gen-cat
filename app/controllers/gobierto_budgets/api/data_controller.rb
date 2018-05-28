@@ -269,10 +269,21 @@ module GobiertoBudgets
         @code = params[:code]
 
         begin
+          # HACK: drop and re-run the import so IDs for budget lines belonging to associated
+          # entities follow the format <ine_code>-gencat-<entity_id> instead of <ine_code>-<entity_id>
+          # After the import is re-run, this if can be substituted by:
+          # id = [current_organization.id, @year, @code, @kind].join('/')
+          id = if current_organization.city_council?
+                 [current_organization.id, @year, @code, @kind].join('/')
+               else
+                 [current_organization.id.gsub("gencat-", ""), @year, @code, @kind].join('/')
+               end
+          # ./ end
+
           result = GobiertoBudgets::SearchEngine.client.get(
             index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
             type: @area,
-            id: [current_organization.id, @year, @code, @kind].join('/')
+            id: id
           )
 
           amount = result['_source']['amount'].to_f
@@ -602,19 +613,19 @@ module GobiertoBudgets
       end
 
       def budget_data(year, field, ranking = true)
-        ine_code = current_organization.ine_code.to_i
-
         opts = { year: year, code: @code, kind: @kind, area_name: @area, variable: field }
+
         results, total_elements = BudgetLine.for_ranking(opts)
 
         if ranking
-          position = BudgetLine.place_position_in_ranking(opts.merge(ine_code: ine_code))
+          opts[:organization_id] = current_organization.id
+          position = BudgetLine.place_position_in_ranking(opts)
         else
           total_elements = 0
           position = 0
         end
 
-        value = results.select {|r| r['ine_code'] == ine_code }.first.try(:[],field)
+        value = results.select { |r| r['organization_id'] == current_organization.id }.first.try(:[], field)
 
         return {
           value: value,
