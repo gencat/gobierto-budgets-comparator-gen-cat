@@ -27,9 +27,9 @@ Rails.application.routes.draw do
     resources :featured_budget_lines, only: [:show]
 
     namespace :api do
-      get '/data/lines/:ine_code/:year/:what' => 'data#lines', as: :data_lines
+      get '/data/lines/:organization_slug/:year/:what' => 'data#lines', as: :data_lines
       get '/data/compare/:ine_codes/:year/:what' => 'data#compare', as: :data_compare
-      get '/data/lines/budget_line/:ine_code/:year/:what/:kind/:code/:area' => 'data#lines', as: :data_lines_budget_line
+      get '/data/lines/budget_line/:organization_slug/:year/:what/:kind/:code/:area' => 'data#lines', as: :data_lines_budget_line
       get '/data/compare/budget_line/:ine_codes/:year/:what/:kind/:code/:area' => 'data#compare', as: :data_compare_budget_lines
       get '/data/widget/total_budget/:organization_slug/:year' => 'data#total_budget', as: :data_total_budget
       get '/data/widget/total_budget_per_inhabitant/:organization_slug/:year' => 'data#total_budget_per_inhabitant', as: :data_total_budget_per_inhabitant

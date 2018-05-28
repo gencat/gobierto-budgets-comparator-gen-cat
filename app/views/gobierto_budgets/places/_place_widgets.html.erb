@@ -4,7 +4,7 @@
     data-widget-template="#widget-template"
     data-widget-type="per_person"
     data-line-widget-series="means"
-    data-line-widget-url="<%= gobierto_budgets_api_data_lines_path(ine_code: current_organization.place_id, year: @year, what: 'per_person', format: :json) %>"
+    data-line-widget-url="<%= gobierto_budgets_api_data_lines_path(organization_slug: current_organization.slug, year: @year, what: 'per_person', format: :json) %>"
     data-line-widget-type="per_person"
     data-widget-data-url="<%= gobierto_budgets_api_data_total_budget_per_inhabitant_path(organization_slug: current_organization.slug, year: @year, format: :json) %>"
     data-page-href="<%= gobierto_budgets_place_path(slug: current_organization.slug, year: @year, anchor: 'per_person')%>">
@@ -14,7 +14,7 @@
     data-widget-template="#widget-template"
     data-widget-type="total_budget"
     data-line-widget-series="means"
-    data-line-widget-url="<%= gobierto_budgets_api_data_lines_path(ine_code: current_organization.place_id, year: @year, what: 'total_budget', format: :json) %>"
+    data-line-widget-url="<%= gobierto_budgets_api_data_lines_path(organization_slug: current_organization.slug, year: @year, what: 'total_budget', format: :json) %>"
     data-line-widget-type="total_budget"
     data-widget-data-url="<%= gobierto_budgets_api_data_total_budget_path(organization_slug: current_organization.slug, year: @year, format: :json) %>"
     data-page-href="<%= gobierto_budgets_place_path(slug: current_organization.slug, year: @year, anchor: 'total_budget')%>">

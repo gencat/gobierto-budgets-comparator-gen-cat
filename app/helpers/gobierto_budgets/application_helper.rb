@@ -115,8 +115,16 @@ module GobiertoBudgets
 
     def lines_chart_api_path(what, compared_level, places, year, kind, parent_code = nil, area_name = 'economic')
       place_ids = places.map(&:id).join(':')
+
       path = if compared_level > 1
-        gobierto_budgets_api_data_compare_budget_lines_path(place_ids, year, what, kind, parent_code, area_name, format: :json )
+        gobierto_budgets_api_data_compare_budget_lines_path(
+          place_ids,
+          year, what,
+          kind,
+          parent_code,
+          area_name,
+          format: :json
+        )
       else
         gobierto_budgets_api_data_compare_path(place_ids, year, what, kind: kind, format: :json)
       end

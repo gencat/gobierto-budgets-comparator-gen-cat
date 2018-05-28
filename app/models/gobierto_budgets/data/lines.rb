@@ -5,8 +5,8 @@ module GobiertoBudgets
         @what = options[:what]
         @variable = @what == 'total_budget' ? 'total_budget' : 'total_budget_per_inhabitant'
         @year = options[:year]
-        @place = options[:place]
-        @is_comparison = @place.is_a?(Array)
+        @organization = options[:organization]
+        @is_comparison = @organization.is_a?(Array)
         @kind = options[:kind]
         @code = options[:code]
         @area = options[:area]
@@ -33,7 +33,7 @@ module GobiertoBudgets
       private
 
       def mean_province
-        filters = [ {term: { province_id: @place.province_id }} ]
+        filters = [ {term: { province_id: @organization.province_id }} ]
 
         if @code
           filters.push({term: { code: @code }})
@@ -89,7 +89,7 @@ module GobiertoBudgets
       end
 
       def mean_autonomy
-        filters = [ {term: { autonomy_id: @place.province.autonomous_region.id }} ]
+        filters = [ {term: { autonomy_id: @organization.autonomous_region_id }} ]
 
         if @code
           filters.push({term: { code: @code }})
@@ -199,9 +199,9 @@ module GobiertoBudgets
         result.reverse
       end
 
-      def place_values(place = nil)
-        place = @place unless place.present?
-        filters = [ {term: { ine_code: place.id }} ]
+      def organizations_values(organization = nil)
+        organization = @organization unless organization.present?
+        filters = [{ term: { ine_code: organization.id } }]
 
         if @code
           filters.push({term: { code: @code }})
@@ -221,7 +221,7 @@ module GobiertoBudgets
               }
             }
           },
-          size: 10_000,
+          size: 10_000
         }
 
         result = []
@@ -252,8 +252,8 @@ module GobiertoBudgets
             "values": mean_autonomy
           },
           {
-            name: @place.name,
-            "values": place_values
+            name: @organization.name,
+            "values": organizations_values
           }
         ]
         values.append({
@@ -265,10 +265,10 @@ module GobiertoBudgets
       end
 
       def comparison_values
-        @place.map do |place|
+        @organization.map do |organization|
           {
-            "name": place.name,
-            "values": place_values(place)
+            "name": organization.name,
+            "values": organizations_values(organization)
           }
         end
       end

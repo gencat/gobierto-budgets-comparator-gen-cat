@@ -31,11 +31,27 @@ module GobiertoBudgets
       city_council? ? AssociatedEntity.by_place(place) : []
     end
 
+    def autonomous_region_id
+      if city_council?
+        place.province.autonomous_region.id
+      else
+        associated_entity_place.province.autonomous_region.id
+      end
+    end
+
     def autonomous_region_name
       if city_council?
         place.province.autonomous_region.name
       else
         associated_entity_place.province.autonomous_region.name
+      end
+    end
+
+    def province_id
+      if city_council?
+        place.province.id
+      else
+        associated_entity_place.province.id
       end
     end
 
