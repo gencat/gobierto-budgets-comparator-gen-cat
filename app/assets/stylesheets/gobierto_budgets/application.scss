@@ -1653,7 +1653,7 @@ a.list_view_more {
     }
 
     &.top-10 {
-      tbody tr:nth-child(n + 10) {
+      tbody tr:nth-child(n + 11) {
         display: none;
       }
     }

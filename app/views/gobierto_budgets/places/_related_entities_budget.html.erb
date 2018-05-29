@@ -24,15 +24,17 @@
       <% end %>
     </tbody>
 
-    <tfoot>
-      <tr>
-        <td>
-          <a class="js-table-rows-toggle">
-            <%= t("gobierto_budgets.places.show.related_entities_budget.see_all", number: entities.size) %>
-          </a>
-        </td>
-      </tr>
-    </tfoot>
+    <% if entities.size > 10 %>
+      <tfoot>
+        <tr>
+          <td>
+            <a class="js-table-rows-toggle">
+              <%= t("gobierto_budgets.places.show.related_entities_budget.see_all", number: entities.size) %>
+            </a>
+          </td>
+        </tr>
+      </tfoot>
+    <% end %>
 
   </table>
 
