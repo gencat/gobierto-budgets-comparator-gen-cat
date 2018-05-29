@@ -327,18 +327,25 @@ module GobiertoBudgets
         @var = params[:variable]
         @code = params[:code]
 
+        only_municipalities = (params[:only_municipalities] == "true")
+
         offset = 0
         max_results = 5
 
         if @code.present?
           @variable = (@var == 'amount') ? 'amount' : 'amount_per_inhabitant'
-          results, _total_elements = GobiertoBudgets::BudgetLine.for_ranking({year: @year,
-                                                            area_name: @area,
-                                                            kind: @kind,
-                                                            code: @code,
-                                                            variable: @variable,
-                                                            offset: 0,
-                                                            per_page: 5})
+
+          opts = {
+            year: @year,
+            area_name: @area,
+            kind: @kind,
+            code: @code,
+            variable: @variable,
+            offset: 0,
+            per_page: 5
+          }
+
+          results, _total_elements = GobiertoBudgets::BudgetLine.for_ranking(opts, only_municipalities)
         else
           @variable = (@var == 'amount') ? 'total_budget' : 'total_budget_per_inhabitant'
           results, _total_elements = GobiertoBudgets::BudgetTotal.for_ranking(@year, @variable, @kind, offset, max_results)

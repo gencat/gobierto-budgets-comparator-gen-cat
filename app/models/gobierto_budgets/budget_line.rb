@@ -204,7 +204,7 @@ module GobiertoBudgets
       }
     end
 
-    def self.budget_line_query_for_ranking(options)
+    def self.budget_line_query(options, only_municipalities=false)
       terms = [
         { term: { year: options[:year] } },
         { term: { kind: options[:kind] } },
@@ -262,7 +262,7 @@ module GobiertoBudgets
 
       terms << {term: { autonomy_id: aarr_filter }}  unless aarr_filter.blank?
 
-      terms << { exists: { field: "ine_code" } }  # Ensure only city councils appear
+      terms << { exists: { field: "ine_code" } } if only_municipalities
 
       query = {
         sort: [ { options[:variable].to_sym => { order: 'desc' } } ],
@@ -294,18 +294,18 @@ module GobiertoBudgets
       return self.search(options)['hits'].detect{|h| h['code'] == options[:code] }
     end
 
-    def self.for_ranking(options)
-      response = budget_line_query_for_ranking(options)
+    def self.for_ranking(options, only_municipalities=false)
+      response = budget_line_query(options, only_municipalities)
       results = response['hits']['hits'].map{|h| h['_source']}
       total_elements = response['hits']['total']
 
       return results, total_elements
     end
 
-    def self.place_position_in_ranking(options)
+    def self.place_position_in_ranking(options, only_municipalities=false)
       id = %w{ine_code year code kind}.map {|f| options[f.to_sym]}.join('/')
 
-      response = budget_line_query_for_ranking(options.merge(to_rank: true))
+      response = budget_line_query(options.merge(to_rank: true), only_municipalities)
       buckets = response['hits']['hits'].map{|h| h['_id']}
       position = buckets.index(id) ? buckets.index(id) + 1 : 0;
       return position
