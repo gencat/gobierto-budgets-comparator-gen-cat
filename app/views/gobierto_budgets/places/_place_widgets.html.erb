@@ -27,13 +27,13 @@
     data-page-href="<%= gobierto_budgets_place_execution_path(slug: current_organization.slug, year: @year, anchor: 'total_budget_execution')%>">
   </div>
 
-  <% if current_organization.city_council? %>
-    <div class="metric"
-      data-widget-template="#widget-template"
-      data-widget-type="population"
-      data-widget-data-url="<%= gobierto_budgets_api_data_population_path(ine_code: current_organization.ine_code, year: @year, format: :json) %>">
-    </div>
+  <div class="metric"
+    data-widget-template="#widget-template"
+    data-widget-type="population"
+    data-widget-data-url="<%= gobierto_budgets_api_data_population_path(ine_code: current_organization.place_id, year: @year, format: :json) %>">
+  </div>
 
+  <% if current_organization.city_council? %>
     <div class="metric"
       data-widget-template="#widget-template"
       data-widget-type="debt"
