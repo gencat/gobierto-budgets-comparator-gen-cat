@@ -209,6 +209,7 @@ ca:
         inhabitants: Habitants
         municipality: Municipi
       related_entities_budget:
+        explore: Explora
         table_title: Consulta el pressupost de les entitats depenents de %{name}
       show:
         about_the_data: Nota sobre les dades

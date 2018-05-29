@@ -209,6 +209,7 @@ es:
         inhabitants: Habitantes
         municipality: Municipio
       related_entities_budget:
+        explore: Explora
         table_title: Consulta el presupuesto de las entidades dependientes de %{name}
       show:
         about_the_data: Nota sobre los datos

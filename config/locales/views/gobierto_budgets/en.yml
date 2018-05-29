@@ -51,6 +51,7 @@ en:
         more_information: More information
     places:
       related_entities_budget:
+        explore: Explore
         table_title: Check the budget of the related entities of %{name}
       place_header:
         compare: Compare
