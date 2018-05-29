@@ -122,7 +122,20 @@
 <% if current_organization.associated_entities.any? %>
   <%= render(
         partial: "gobierto_budgets/places/related_entities_budget",
-        locals: { entities: current_organization.associated_entities, place_name: current_organization.name, year: @year }
+        locals: {
+          entities: current_organization.associated_entities,
+          place_name: current_organization.name,
+          year: @year
+        }
+      ) %>
+<% elsif !current_organization.city_council? %>
+  <%= render(
+        partial: "gobierto_budgets/places/related_entities_budget",
+        locals: {
+          entities: current_organization.parent_place_associated_entities,
+          place_name: current_organization.parent_place_name,
+          year: @year
+        }
       ) %>
 <% end %>
 
