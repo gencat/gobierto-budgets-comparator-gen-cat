@@ -44,3 +44,15 @@
 //= require gobierto_budgets/maps
 //= require gobierto_budgets/table
 //= require_directory ../components/
+
+$(document).on('turbolinks:load', function() {
+  addScrollToLinksBehavior();
+});
+
+function addScrollToLinksBehavior() {
+  $('.js-scrollto').click(function(e) {
+    e.preventDefault();
+    var targetId = '#' + this.href.split('#')[1]
+    $(targetId).velocity('scroll', { duration: 500, offset: 0 });
+  });
+}
