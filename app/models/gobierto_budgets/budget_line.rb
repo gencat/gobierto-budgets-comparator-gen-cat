@@ -204,7 +204,7 @@ module GobiertoBudgets
       }
     end
 
-    def self.budget_line_query(options)
+    def self.budget_line_query_for_ranking(options)
       terms = [
         { term: { year: options[:year] } },
         { term: { kind: options[:kind] } },
@@ -262,6 +262,8 @@ module GobiertoBudgets
 
       terms << {term: { autonomy_id: aarr_filter }}  unless aarr_filter.blank?
 
+      terms << { exists: { field: "ine_code" } }  # Ensure only city councils appear
+
       query = {
         sort: [ { options[:variable].to_sym => { order: 'desc' } } ],
         query: {
@@ -293,7 +295,7 @@ module GobiertoBudgets
     end
 
     def self.for_ranking(options)
-      response = budget_line_query(options)
+      response = budget_line_query_for_ranking(options)
       results = response['hits']['hits'].map{|h| h['_source']}
       total_elements = response['hits']['total']
 
@@ -303,7 +305,7 @@ module GobiertoBudgets
     def self.place_position_in_ranking(options)
       id = %w{ine_code year code kind}.map {|f| options[f.to_sym]}.join('/')
 
-      response = budget_line_query(options.merge(to_rank: true))
+      response = budget_line_query_for_ranking(options.merge(to_rank: true))
       buckets = response['hits']['hits'].map{|h| h['_id']}
       position = buckets.index(id) ? buckets.index(id) + 1 : 0;
       return position

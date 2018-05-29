@@ -324,7 +324,7 @@ module GobiertoBudgets
 
         if @code.present?
           @variable = (@var == 'amount') ? 'amount' : 'amount_per_inhabitant'
-          results, total_elements = GobiertoBudgets::BudgetLine.for_ranking({year: @year,
+          results, _total_elements = GobiertoBudgets::BudgetLine.for_ranking({year: @year,
                                                             area_name: @area,
                                                             kind: @kind,
                                                             code: @code,
@@ -333,7 +333,7 @@ module GobiertoBudgets
                                                             per_page: 5})
         else
           @variable = (@var == 'amount') ? 'total_budget' : 'total_budget_per_inhabitant'
-          results, total_elements = GobiertoBudgets::BudgetTotal.for_ranking(@year, @variable, @kind, offset, max_results)
+          results, _total_elements = GobiertoBudgets::BudgetTotal.for_ranking(@year, @variable, @kind, offset, max_results)
         end
 
         top = results.first
@@ -347,7 +347,7 @@ module GobiertoBudgets
               ranking_path: gobierto_budgets_places_ranking_path(@year, @kind, @area, @var, @code),
               ranking_url: gobierto_budgets_places_ranking_url(@year, @kind, @area, @var, @code),
               twitter_share: ERB::Util.url_encode(twitter_share(title, gobierto_budgets_places_ranking_url(@year, @kind, @area, @var, @code))),
-              top_5: results.map {|r| { place_name: place_name(r['ine_code'])}}
+              top_5: results.map { |r| { place_name: place_name(r['ine_code']) } }
             }.to_json
           end
         end
