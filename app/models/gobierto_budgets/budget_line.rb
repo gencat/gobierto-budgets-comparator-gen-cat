@@ -212,6 +212,7 @@ module GobiertoBudgets
       ]
 
       ine_codes = []
+      permitted_organizations = []
 
       if options[:filters].present?
         population_filter = options[:filters][:population]
@@ -229,14 +230,12 @@ module GobiertoBudgets
       end
 
       if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
-        if ine_codes.any?
-          ine_codes = ine_codes & GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
-        else
-          ine_codes = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
-        end
+        permitted_municipalities = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
+        (permitted_municipalities &= ine_codes) if ine_codes.any?
+        permitted_organizations = permitted_municipalities + AssociatedEntity.where(ine_code: permitted_municipalities).pluck(:entity_id)
       end
 
-      terms << { terms: { ine_code: ine_codes.compact } } if ine_codes.any?
+      terms << { terms: { organization_id: permitted_organizations.compact } } if permitted_organizations.any?
 
       if total_filter && (
         total_filter[:from].to_i > GobiertoBudgets::BudgetTotal::TOTAL_FILTER_MIN ||
