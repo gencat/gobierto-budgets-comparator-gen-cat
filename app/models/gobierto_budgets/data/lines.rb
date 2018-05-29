@@ -242,25 +242,16 @@ module GobiertoBudgets
       def budget_values
         return comparison_values if @is_comparison
 
-        values = [
-          {
-            "name": "mean_province",
-            "values": mean_province
-          },
-          {
-            "name": "mean_autonomy",
-            "values": mean_autonomy
-          },
-          {
-            name: @organization.name,
-            "values": organizations_values
-          }
-        ]
+        values = [{ name: @organization.name, values: organizations_values }]
 
-        values.append(
-          "name": "mean_national",
-          "values": mean_national
-        ) if !GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
+        if @organization.city_council?
+          values += [
+            { name: "mean_province", values: mean_province },
+            { name: "mean_autonomy", values: mean_autonomy }
+          ]
+
+          values << { name: "mean_national", values: mean_national } unless GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
+        end
 
         values
       end

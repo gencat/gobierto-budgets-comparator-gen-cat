@@ -16,6 +16,7 @@ var VisLineasJ = Class.extend({
   init: function(divId, tableID, measure, series) {
     this.container = divId;
     this.tableContainer = tableID;
+    this.showLegend = false;
 
     // Chart dimensions
     this.containerWidth = null;
@@ -92,35 +93,41 @@ var VisLineasJ = Class.extend({
     // Chart dimensions
     this.containerWidth = parseInt(d3.select(this.container).style('width'), 10);
     this.tableWidth = parseInt(d3.select(this.tableContainer).style('width'), 10);
-    this.margin.right = this.measure == 'per_person' ? this.containerWidth * .07 : this.containerWidth * .15;
-
-    this.width = this.containerWidth - this.margin.left - this.margin.right;
-    this.height = (this.containerWidth / 2.6) - this.margin.top - this.margin.bottom;
-
-    if (this.height < 230) {
-      this.height = 230;
-    }
-
-    // Append svg
-    this.svgLines = d3.select(this.container).append('svg')
-        .attr('width', this.width + this.margin.left + this.margin.right)
-        .attr('height', this.height + this.margin.top + this.margin.bottom + 10)
-        .attr('class', 'svg_lines')
-      .append('g')
-        .attr('transform', 'translate(' + 0 + ',' + this.margin.top + ')');
-
-    // Set nice category
-    this.niceCategory = {
-      "mean_national": I18n.t("gobierto_budgets.visualizations.mean_national"),
-      "mean_autonomy": I18n.t("gobierto_budgets.visualizations.mean_autonomy"),
-      "mean_province": I18n.t("gobierto_budgets.visualizations.mean_province"),
-    }
 
     // Load the data
     d3.json(urlData, function(error, jsonData){
       if (error) throw error;
 
       this.data = jsonData;
+      this.showLegend = (this.data.budgets.per_person.length > 1);
+
+      if (!this.showLegend) {
+        this.containerWidth += this.tableWidth;
+      }
+
+      this.margin.right = this.measure == 'per_person' ? this.containerWidth * .07 : this.containerWidth * .15;
+
+      this.width = this.containerWidth - this.margin.left - this.margin.right;
+      this.height = (this.containerWidth / 2.6) - this.margin.top - this.margin.bottom;
+
+      if (this.height < 230) {
+        this.height = 230;
+      }
+
+      // Append svg
+      this.svgLines = d3.select(this.container).append('svg')
+          .attr('width', this.width + this.margin.left + this.margin.right)
+          .attr('height', this.height + this.margin.top + this.margin.bottom + 10)
+          .attr('class', 'svg_lines')
+        .append('g')
+          .attr('transform', 'translate(' + 0 + ',' + this.margin.top + ')');
+
+      // Set nice category
+      this.niceCategory = {
+        "mean_national": I18n.t("gobierto_budgets.visualizations.mean_national"),
+        "mean_autonomy": I18n.t("gobierto_budgets.visualizations.mean_autonomy"),
+        "mean_province": I18n.t("gobierto_budgets.visualizations.mean_province"),
+      }
 
       this.data.budgets[this.measure].forEach(function(d) {
         d.values.forEach(function(v) {
@@ -146,8 +153,6 @@ var VisLineasJ = Class.extend({
         this.lastYear = this.maxYear;
       }
       this.dataTitle = this.data.title;
-
-
 
       ////// Complete the dataTable.
       // Get all the years
@@ -356,111 +361,112 @@ var VisLineasJ = Class.extend({
       this.yScaleTable.domain(rows).rangeRound([this.height, 0]);
       this.xScaleTable.domain([0,1]).range([0, this.tableWidth]);
 
-      var table = d3.select(this.tableContainer).append('table'),
-        thead = table.append('thead'),
-        tbody = table.append('tbody');
+      if (this.showLegend) {
+        var table = d3.select(this.tableContainer).append('table'),
+            thead = table.append('thead'),
+            tbody = table.append('tbody');
 
-
-      // append the header row
-      thead.append("tr")
-          .selectAll("th")
-          .data(columns)
-          .enter()
-        .append("th")
-          .attr('title', function(column) { return column; })
-          .attr('class', function(column) {
-            if (column == 'dif') {
-              return 'right per_change'
-            } else if (column == 'value') {
-              return 'right year_header'
-            }
-          }.bind(this))
-          .text(function(column) {
-            if (column == 'dif') {
-              return I18n.t("gobierto_budgets.visualizations.previous_year_diff");
-            } else if (column == 'value') {
-              return this.dataYear.getFullYear();
-            } else {
-              return '';
-            }
-          }.bind(this));
-
-      thead.select('.year_header')
-          .style('font-size', '14px')
-
-
-      // create a row for each object in the data
-      var rows = tbody.selectAll("tr")
-          .data(this.series == 'means' ? this.dataChart.reverse() : this.dataChart)
-          // .data(this.dataChart)
-          .enter()
-        .append("tr")
-          .attr('class', function(d) { return this._normalize(d.name); }.bind(this))
-        .on('mouseover', this._mouseoverTable.bind(this))
-        .on('mouseout', this._mouseoutTable.bind(this));
-
-      // create a cell in each row for each column
-      var cells = rows.selectAll("td")
-          .data(function(row) {
-
-            var dataChartFiltered = row.values.filter(function(v) {
-                    return v.date.getFullYear() == this.dataYear.getFullYear();
-                  }.bind(this))
-
-            dataChartFiltered.map(function(d) { return colors[d.name] != undefined ? d['color']= 'le le-' + colors[d.name] : d['color'] = 'le le-place'; });
-
-            return columns.map(function(column) {
-                if (column == 'name') {
-                  var value = this.niceCategory[dataChartFiltered[0][column]] != undefined ? this.niceCategory[dataChartFiltered[0][column]] : dataChartFiltered[0][column];
-                  var classed = this._normalize(dataChartFiltered[0].name)
-
-                } else if (column == 'value') {
-                  var value = dataChartFiltered[0][column] != null ? accounting.formatMoney(dataChartFiltered[0][column]) : '-- €'
-                  var classed = 'value right ' + this._normalize(dataChartFiltered[0].name)
-                } else if (column == 'dif') {
-                  if (dataChartFiltered[0][column] != null) {
-                    var value = dataChartFiltered[0][column] > 0 ? '+' +dataChartFiltered[0][column] + '%' : dataChartFiltered[0][column] + '%'
-                  } else {
-                    var value = '--%'
-                  }
-                  var classed = 'dif right ' + this._normalize(dataChartFiltered[0].name)
-                } else {
-                  var value = dataChartFiltered[0][column]
-                  var classed = this._normalize(dataChartFiltered[0].name)
-                }
-                return {column: column,
-                        value: value,
-                        name: dataChartFiltered[0].name,
-                        classed: classed
-                      };
+        // append the header row
+        thead.append("tr")
+            .selectAll("th")
+            .data(columns)
+            .enter()
+          .append("th")
+            .attr('title', function(column) { return column; })
+            .attr('class', function(column) {
+              if (column == 'dif') {
+                return 'right per_change'
+              } else if (column == 'value') {
+                return 'right year_header'
+              }
+            }.bind(this))
+            .text(function(column) {
+              if (column == 'dif') {
+                return I18n.t("gobierto_budgets.visualizations.previous_year_diff");
+              } else if (column == 'value') {
+                return this.dataYear.getFullYear();
+              } else {
+                return '';
+              }
             }.bind(this));
 
-          }.bind(this))
-          .enter()
-        .append("td")
-          .attr('class', function(d) { return d.classed ; })
-          .html(function(d, i) {return i != 0 ? d.value : '<i class="' + d.value + '"></i>'; }.bind(this));
-          // Replace bullets colors
-          var bulletsColors = this.colorScale.range();
+        thead.select('.year_header')
+            .style('font-size', '14px')
 
-          // d3.selectAll('.le').forEach(function(v) {
-          //   v.forEach(function(d,i) {
-          //     d3.select(v[i])
-          //       .style('background', this.series == 'means' ? bulletsColors[(bulletsColors.length - 1) - i] : bulletsColors[i])
-          //   }.bind(this));
-          // }.bind(this));
 
-          $(this.container + '_wrapper .le').each(function(i, v){
-            var color = bulletsColors[i];
-            $(v).css('background', color);
+        // create a row for each object in the data
+        var rows = tbody.selectAll("tr")
+            .data(this.series == 'means' ? this.dataChart.reverse() : this.dataChart)
+            // .data(this.dataChart)
+            .enter()
+          .append("tr")
+            .attr('class', function(d) { return this._normalize(d.name); }.bind(this))
+          .on('mouseover', this._mouseoverTable.bind(this))
+          .on('mouseout', this._mouseoutTable.bind(this));
 
-            var $parent = $(v).parent();
-            var cssClass = $parent.attr('class');
-            $(this.container + '_wrapper path.' + cssClass).css('stroke', color);
-            $(this.container + '_wrapper circle.' + cssClass).css('fill', color);
-          }.bind(this));
+        // create a cell in each row for each column
+        var cells = rows.selectAll("td")
+            .data(function(row) {
 
-    }.bind(this)); // end load data
+              var dataChartFiltered = row.values.filter(function(v) {
+                      return v.date.getFullYear() == this.dataYear.getFullYear();
+                    }.bind(this))
+
+              dataChartFiltered.map(function(d) { return colors[d.name] != undefined ? d['color']= 'le le-' + colors[d.name] : d['color'] = 'le le-place'; });
+
+              return columns.map(function(column) {
+                  if (column == 'name') {
+                    var value = this.niceCategory[dataChartFiltered[0][column]] != undefined ? this.niceCategory[dataChartFiltered[0][column]] : dataChartFiltered[0][column];
+                    var classed = this._normalize(dataChartFiltered[0].name)
+
+                  } else if (column == 'value') {
+                    var value = dataChartFiltered[0][column] != null ? accounting.formatMoney(dataChartFiltered[0][column]) : '-- €'
+                    var classed = 'value right ' + this._normalize(dataChartFiltered[0].name)
+                  } else if (column == 'dif') {
+                    if (dataChartFiltered[0][column] != null) {
+                      var value = dataChartFiltered[0][column] > 0 ? '+' +dataChartFiltered[0][column] + '%' : dataChartFiltered[0][column] + '%'
+                    } else {
+                      var value = '--%'
+                    }
+                    var classed = 'dif right ' + this._normalize(dataChartFiltered[0].name)
+                  } else {
+                    var value = dataChartFiltered[0][column]
+                    var classed = this._normalize(dataChartFiltered[0].name)
+                  }
+                  return {column: column,
+                          value: value,
+                          name: dataChartFiltered[0].name,
+                          classed: classed
+                        };
+              }.bind(this));
+
+            }.bind(this))
+            .enter()
+          .append("td")
+            .attr('class', function(d) { return d.classed ; })
+            .html(function(d, i) {return i != 0 ? d.value : '<i class="' + d.value + '"></i>'; }.bind(this));
+            // Replace bullets colors
+            var bulletsColors = this.colorScale.range();
+
+            // d3.selectAll('.le').forEach(function(v) {
+            //   v.forEach(function(d,i) {
+            //     d3.select(v[i])
+            //       .style('background', this.series == 'means' ? bulletsColors[(bulletsColors.length - 1) - i] : bulletsColors[i])
+            //   }.bind(this));
+            // }.bind(this));
+
+            $(this.container + '_wrapper .le').each(function(i, v){
+              var color = bulletsColors[i];
+              $(v).css('background', color);
+
+              var $parent = $(v).parent();
+              var cssClass = $parent.attr('class');
+              $(this.container + '_wrapper path.' + cssClass).css('stroke', color);
+              $(this.container + '_wrapper circle.' + cssClass).css('fill', color);
+            }.bind(this));
+
+        }
+        }.bind(this)); // end load data
   }, // end render
 
   //PRIVATE
