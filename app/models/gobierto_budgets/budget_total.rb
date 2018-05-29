@@ -59,7 +59,7 @@ module GobiertoBudgets
 
     def self.for_places(organizations_ids, year)
       terms = [
-        { term: { organization_id: organizations_ids } },
+        { terms: { organization_id: organizations_ids } },
         { term: { year: year } }
       ]
 
@@ -76,7 +76,12 @@ module GobiertoBudgets
         size: 10000
       }
 
-      response = SearchEngine.client.search index: SearchEngineConfiguration::TotalBudget.index_forecast, type: SearchEngineConfiguration::TotalBudget.type, body: query
+      response = SearchEngine.client.search(
+        index: SearchEngineConfiguration::TotalBudget.index_forecast,
+        type: SearchEngineConfiguration::TotalBudget.type,
+        body: query
+      )
+
       return response['hits']['hits'].map{ |h| h['_source'] }
     end
 
