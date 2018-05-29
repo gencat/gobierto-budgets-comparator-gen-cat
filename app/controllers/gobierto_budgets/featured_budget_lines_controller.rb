@@ -9,8 +9,8 @@ module GobiertoBudgets
     def show
       @year = params[:year].to_i
       @area_name = "functional"
-
       @kind = GobiertoBudgets::BudgetLine::EXPENSE
+
       results = BudgetLine.search(
         kind: @kind,
         year: @year,
@@ -24,18 +24,12 @@ module GobiertoBudgets
 
       @code = results.sample["code"] if results.any?
 
-      if @code.present?
-        render pick_template, layout: false
-      else
-        head :not_found
+      respond_to do |format|
+        format.js { @code.present? ? render(:show) : head(:not_found) }
       end
     end
 
     private
-
-    def pick_template
-      params[:template] || "show"
-    end
 
     def set_current_organization
       @current_organization = Organization.new(slug: params[:id])

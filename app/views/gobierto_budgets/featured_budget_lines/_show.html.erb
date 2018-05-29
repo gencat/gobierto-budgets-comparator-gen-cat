@@ -2,9 +2,13 @@
 
 <div class="cont clearfix">
   <div class="main">
+
     <header>
       <%= t('.question', name: current_organization.name) %>
-      <h2><%= link_to budget_line_denomination(@area_name, @code, @kind), gobierto_budgets_budget_line_path(current_organization.slug, @year, @code.parameterize, @kind, @area_name) %>?</h2>
+      <h2><%= link_to(
+                budget_line_denomination(@area_name, @code, @kind),
+                gobierto_budgets_budget_line_path(current_organization.slug, @year, @code.parameterize, @kind, @area_name)
+              ) %>?</h2>
     </header>
 
     <div class="main_metrics clearfix">
@@ -40,7 +44,12 @@
   <% end %>
 </div>
 
-<%= link_to t('.show_me_another'), '#', class: 'show_me_another', data: { 'featured-budget-line-load-more' => true } %>
+<%= link_to(
+      t('.show_me_another'),
+      gobierto_budgets_featured_budget_line_path(current_organization.slug, year: @year),
+      class: 'show_me_another',
+      data: { remote: true }
+    ) %>
 
 <%= render partial: 'gobierto_budgets/budget_lines/feedback' %>
 
