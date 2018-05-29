@@ -81,14 +81,14 @@ module GobiertoBudgets
     end
 
     def self.for_ranking(year, variable, kind, offset, per_page, filters = {})
-      response = budget_total_query(year: year, variable: variable, kind: kind, filters: filters, offset: offset, per_page: per_page)
+      response = budget_total_ranking_query(year: year, variable: variable, kind: kind, filters: filters, offset: offset, per_page: per_page)
       results = response['hits']['hits'].map{|h| h['_source']}
       total_elements = response['hits']['total']
       return results, total_elements
     end
 
     def self.place_position_in_ranking(year, variable, ine_code, kind, filters)
-      response = budget_total_query(year: year, variable: variable, kind: kind, filters: filters, to_rank: true)
+      response = budget_total_ranking_query(year: year, variable: variable, kind: kind, filters: filters, to_rank: true)
 
       buckets = response['hits']['hits'].map{|h| h['_id']}
       id = [ine_code, year, kind].join('/')
@@ -96,9 +96,10 @@ module GobiertoBudgets
       return position
     end
 
-    def self.budget_total_query(options)
+    def self.budget_total_ranking_query(options)
       terms =  [{term: { year: options[:year]}}]
       terms << {term: { kind: options[:kind]}} if options[:kind].present?
+      terms << { exists: { field: "ine_code" } }  # Ensure only city councils appear
 
       ine_codes = []
 
