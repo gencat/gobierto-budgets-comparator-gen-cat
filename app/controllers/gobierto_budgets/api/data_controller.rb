@@ -122,8 +122,16 @@ module GobiertoBudgets
       end
 
       def compare
-        @places = get_places params[:ine_codes]
-        data_line = GobiertoBudgets::Data::Lines.new place: @places, year: params[:year], what: params[:what], kind: params[:kind], code: params[:code], area: params[:area]
+        @organizations = get_places params[:ine_codes]
+
+        data_line = GobiertoBudgets::Data::Lines.new(
+          organization: @organizations,
+          year: params[:year],
+          what: params[:what],
+          kind: params[:kind],
+          code: params[:code],
+          area: params[:area]
+        )
 
         respond_lines_to_json data_line
       end
@@ -761,7 +769,7 @@ module GobiertoBudgets
       end
 
       def get_places(ine_codes)
-        ine_codes.split(':').map {|code| INE::Places::Place.find code}
+        ine_codes.split(":").map { |code| Organization.new(organization_id: code) }
       end
 
       def respond_lines_to_json(data_line)

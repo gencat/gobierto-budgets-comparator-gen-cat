@@ -204,8 +204,8 @@ module GobiertoBudgets
         filters = [{ term: { ine_code: organization.place_id } }] # Comparison uses underlying municipality
 
         if @code
-          filters.push({term: { code: @code }})
-          filters.push({term: { kind: @kind }})
+          filters.push(term: { code: @code })
+          filters.push(term: { kind: @kind })
         end
 
         query = {
@@ -244,11 +244,11 @@ module GobiertoBudgets
 
         values = [
           {
-            "name":"mean_province",
+            "name": "mean_province",
             "values": mean_province
           },
           {
-            "name":"mean_autonomy",
+            "name": "mean_autonomy",
             "values": mean_autonomy
           },
           {
@@ -256,10 +256,11 @@ module GobiertoBudgets
             "values": organizations_values
           }
         ]
-        values.append({
-          "name":"mean_national",
+
+        values.append(
+          "name": "mean_national",
           "values": mean_national
-        }) if !GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
+        ) if !GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
 
         values
       end
