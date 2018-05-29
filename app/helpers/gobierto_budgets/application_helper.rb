@@ -160,7 +160,7 @@ module GobiertoBudgets
       target = @place || try(:current_organization)
       if target
         # TODO: Hacer dinamico
-        attrs << %Q{data-bubbles-data="https://gobierto-populate-staging.s3.eu-west-1.amazonaws.com/gobierto_budgets/8121/data/bubbles.json"}
+        attrs << %Q{data-bubbles-data="https://gobierto-populate-#{Rails.env.development? ? 'dev' : Rails.env }.s3.eu-west-1.amazonaws.com/gobierto_budgets/#{current_organization.id}/data/bubbles.json"}
         attrs << %Q{data-max-year="#{GobiertoBudgets::SearchEngineConfiguration::Year.last}"}
         # TODO: End TODO
         attrs << %Q{data-track-url="#{gobierto_budgets_place_path(target.slug, @year || GobiertoBudgets::SearchEngineConfiguration::Year.last)}"}
