@@ -53,7 +53,8 @@
       <%= link_to_unless_current current_organization.name, gobierto_budgets_place_path(current_organization.slug, @year) %>
     <% else %>
       <%= link_to current_organization.parent_place_name, gobierto_budgets_place_path(current_organization.parent_place_slug, @year) %>
-      <span class="sep">/</span> <%= current_organization.name %>
+      <span class="sep">/</span>
+      <%= link_to_unless_current current_organization.name, gobierto_budgets_place_path(current_organization.slug, @year) %>
     <% end %>
 
     <% if params[:area] %>
