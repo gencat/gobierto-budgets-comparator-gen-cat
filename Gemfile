@@ -21,7 +21,7 @@ gem 'aws-ses'
 gem 'cocoon'
 gem 'nokogiri', '~> 1.8', '>= 1.8.1'
 gem 'json', '~> 2.1'
-gem "gobierto_data"
+gem "gobierto_data", git: "https://github.com/PopulateTools/gobierto_data.git"
 
 # Frontend
 gem 'jquery-rails'

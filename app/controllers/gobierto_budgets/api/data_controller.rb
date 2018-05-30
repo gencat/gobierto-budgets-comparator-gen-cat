@@ -277,21 +277,10 @@ module GobiertoBudgets
         @code = params[:code]
 
         begin
-          # HACK: drop and re-run the import so IDs for budget lines belonging to associated
-          # entities follow the format <ine_code>-gencat-<entity_id> instead of <ine_code>-<entity_id>
-          # After the import is re-run, this if can be substituted by:
-          # id = [current_organization.id, @year, @code, @kind].join('/')
-          id = if current_organization.city_council?
-                 [current_organization.id, @year, @code, @kind].join('/')
-               else
-                 [current_organization.id.gsub("gencat-", ""), @year, @code, @kind].join('/')
-               end
-          # ./ end
-
           result = GobiertoBudgets::SearchEngine.client.get(
             index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
             type: @area,
-            id: id
+            id: [current_organization.id, @year, @code, @kind].join("/")
           )
 
           amount = result['_source']['amount'].to_f

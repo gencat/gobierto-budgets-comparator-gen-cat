@@ -1,5 +1,6 @@
-PATH
-  remote: /Users/amiedes/dev
+GIT
+  remote: https://github.com/PopulateTools/gobierto_data.git
+  revision: 8620d9a2832d04b177d924914fff635690ad3342
   specs:
     gobierto_data (0.0.1)
       actionpack (>= 5.0.0.1)
