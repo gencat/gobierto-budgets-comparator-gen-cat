@@ -21,6 +21,7 @@ gem 'aws-ses'
 gem 'cocoon'
 gem 'nokogiri', '~> 1.8', '>= 1.8.1'
 gem 'json', '~> 2.1'
+gem "gobierto_data"
 
 # Frontend
 gem 'jquery-rails'
