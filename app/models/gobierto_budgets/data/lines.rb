@@ -201,7 +201,7 @@ module GobiertoBudgets
 
       def organizations_values(organization = nil)
         organization = @organization unless organization.present?
-        filters = [{ term: { ine_code: organization.place_id } }] # Comparison uses underlying municipality
+        filters = [{ term: { organization_id: organization.id } }]
 
         if @code
           filters.push(term: { code: @code })
