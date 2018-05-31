@@ -302,7 +302,7 @@ module GobiertoBudgets
     end
 
     def self.place_position_in_ranking(options, only_municipalities=false)
-      id = %w{ine_code year code kind}.map {|f| options[f.to_sym]}.join('/')
+      id = %w{organization_id year code kind}.map {|f| options[f.to_sym]}.join('/')
 
       response = budget_line_query(options.merge(to_rank: true), only_municipalities)
       buckets = response['hits']['hits'].map{|h| h['_id']}
