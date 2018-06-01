@@ -1,5 +1,5 @@
 YEAR_REGEX = /\d\d\d\d/
-KIND_REGEX = /G|I/
+KIND_REGEX = /G|I|income|expense/
 AREA_REGEX = /functional|economic/
 
 YEAR_CONTRAINTS = { year: YEAR_REGEX }
