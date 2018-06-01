@@ -20,30 +20,30 @@ set_meta_tags description: t('.description', kind: kind_literal(@kind).singulari
                                       title="<%= t('.total_budget_per_inhabitant', kind: kind_literal(@kind, false).humanize) %>"
                                       data-widget-type="per_person"
                                       data-line-widget-series="means"
-                                      data-line-widget-url="<%= gobierto_budgets_api_data_lines_budget_line_path(current_organization.slug, @year, "per_person", @kind, @code.parameterize, @area_name, format: :json ) %>"
+                                      data-line-widget-url="<%= gobierto_budgets_api_data_lines_budget_line_path(current_organization.combined_slug, @year, "per_person", @kind, @code.parameterize, @area_name, format: :json ) %>"
                                       data-line-widget-type="per_person"
-                                      data-widget-data-url="<%= gobierto_budgets_api_data_budget_per_inhabitant_path(organization_slug: current_organization.slug, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
+                                      data-widget-data-url="<%= gobierto_budgets_api_data_budget_per_inhabitant_path(organization_slug: current_organization.combined_slug, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
   </div>
 
   <div class="metric tipsit" data-widget-template="#widget-template"
                              title="<%= t('.total_budget', kind: kind_literal(@kind, false).humanize) %>"
                              data-widget-type="budget"
                              data-line-widget-series="means"
-                             data-line-widget-url="<%= gobierto_budgets_api_data_lines_budget_line_path(current_organization.slug, @year, "total_budget", @kind, @code.parameterize, @area_name, format: :json ) %>"
+                             data-line-widget-url="<%= gobierto_budgets_api_data_lines_budget_line_path(current_organization.combined_slug, @year, "total_budget", @kind, @code.parameterize, @area_name, format: :json ) %>"
                              data-line-widget-type="total_budget"
-                             data-widget-data-url="<%= gobierto_budgets_api_data_budget_path(organization_slug: current_organization.slug, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
+                             data-widget-data-url="<%= gobierto_budgets_api_data_budget_path(organization_slug: current_organization.combined_slug, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
   </div>
 
   <div class="metric"
     data-widget-template="#widget-template-execution"
     data-widget-type="total_budget_execution"
-    data-page-href="<%= gobierto_budgets_place_execution_path(slug: current_organization.slug, year: @year, anchor: 'total_budget_execution')%>"
-    data-widget-data-url="<%= gobierto_budgets_api_data_budget_execution_path(organization_slug: current_organization.slug, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
+    data-page-href="<%= gobierto_budgets_place_execution_path(slug: current_organization.combined_slug, year: @year, anchor: 'total_budget_execution')%>"
+    data-widget-data-url="<%= gobierto_budgets_api_data_budget_execution_path(organization_slug: current_organization.combined_slug, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
   </div>
 
   <div class="metric" data-widget-template="#widget-template-lite"
                       data-widget-type="budget_percentage_over_total"
-                      data-widget-data-url="<%= gobierto_budgets_api_data_budget_percentage_over_total_path(organization_slug: current_organization.slug, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
+                      data-widget-data-url="<%= gobierto_budgets_api_data_budget_percentage_over_total_path(organization_slug: current_organization.combined_slug, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
   </div>
 
   <% if users_enabled? %>
@@ -53,7 +53,7 @@ set_meta_tags description: t('.description', kind: kind_literal(@kind).singulari
   <% else %>
     <div class="metric" data-widget-template="#widget-template-lite"
                         data-widget-type="budget_percentage_previous_year"
-                        data-widget-data-url="<%= gobierto_budgets_api_data_budget_percentage_previous_year_path(organization_slug: current_organization.slug, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
+                        data-widget-data-url="<%= gobierto_budgets_api_data_budget_percentage_previous_year_path(organization_slug: current_organization.combined_slug, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>">
     </div>
   <% end %>
 </div>
@@ -77,7 +77,7 @@ set_meta_tags description: t('.description', kind: kind_literal(@kind).singulari
   <table>
     <tr>
       <th>
-        <input type="text" placeholder="<%= t('.search', kind: kind_literal(@kind, true)) %>" class="search_items" id="search_categories_budget" data-search-url="<%= gobierto_budgets_search_categories_path(current_organization.slug,@year,@area_name, @kind) %>">
+        <input type="text" placeholder="<%= t('.search', kind: kind_literal(@kind, true)) %>" class="search_items" id="search_categories_budget" data-search-url="<%= gobierto_budgets_search_categories_path(current_organization.combined_slug,@year,@area_name, @kind) %>">
       </th>
       <th class="right "><%= kind_literal(@kind, false) %> <%= t('gobierto_budgets.places.show.total') %></th>
       <th class="right "><%= kind_literal(@kind, false) %> <%= t('gobierto_budgets.places.show.per_inhabitant') %></th>
@@ -109,7 +109,7 @@ set_meta_tags description: t('.description', kind: kind_literal(@kind).singulari
   </div>
 
   <div class="tab_content" data-tab="description">
-    <% if desc = budget_line_description(@area_name, @code, @kind, current_organization.slug).try(:html_safe) %>
+    <% if desc = budget_line_description(@area_name, @code, @kind, current_organization.combined_slug).try(:html_safe) %>
       <p class=""><strong><%= budget_line_denomination(@area_name, @code, @kind) %></strong><br/>
       <%= desc %></p>
     <% else %>

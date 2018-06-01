@@ -777,7 +777,13 @@ module GobiertoBudgets
       end
 
       def set_current_organization
-        @current_organization = Organization.new(slug: params[:organization_slug])
+        return unless params[:ine_code] || params[:organization_slug]
+
+        @current_organization = if params[:ine_code]
+                                  Organization.new(organization_id: params[:ine_code])
+                                else
+                                  Organization.new(slug: params[:organization_slug])
+                                end
       end
 
     end

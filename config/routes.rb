@@ -1,3 +1,10 @@
+YEAR_REGEX = /2\d\d\d/
+KIND_REGEX = /G|I/
+AREA_REGEX = /functional|economic/
+
+YEAR_CONTRAINTS = { year: YEAR_REGEX }
+BUDGET_LINE_CONSTRAINTS = { year: YEAR_REGEX, kind: KIND_REGEX, area: AREA_REGEX }
+
 Rails.application.routes.draw do
   root 'gobierto_budgets/pages#home'
 
@@ -78,15 +85,17 @@ Rails.application.routes.draw do
     get 'geocoder' => 'geocoder#index', as: :geocoder
     get '/mapas/:year' => 'pages#map', as: :map
 
-    get '/budget_lines/:slug/:year/:code/:kind/:area' => 'budget_lines#show', as: :budget_line
-    get '/budget_lines/:slug/:year/:code/:kind/:area/feedback/:question_id' => 'budget_lines#feedback', as: :budget_line_feedback
-    get '/places/:slug' => 'places#show'
-    get '/places/:ine_code/:year/redirect' => 'places#redirect'
-    get '/places/:slug/inteligencia' => 'places#intelligence'
-    get '/places/:slug/:year/execution' => 'places#execution', as: :place_execution
-    get '/places/:slug/:year/debt' => 'places#debt_alive'
-    get '/places/:slug/:year' => 'places#show', as: :place
-    get '/places/:slug/:year/:kind/:area' => 'places#budget', as: :place_budget
+    get '/budget_lines/*slug/:year/:code/:kind/:area' => 'budget_lines#show', as: :budget_line, constraints: BUDGET_LINE_CONSTRAINTS
+    get '/budget_lines/*slug/:year/:code/:kind/:area/feedback/:question_id' => 'budget_lines#feedback', as: :budget_line_feedback, constraints: BUDGET_LINE_CONSTRAINTS
+
+    get '/places/*slug/inteligencia' => 'places#intelligence'
+    get '/places/*slug/:year/execution' => 'places#execution', as: :place_execution, constraints: YEAR_CONTRAINTS
+    get '/places/*slug/:year/debt' => 'places#debt_alive', constraints: YEAR_CONTRAINTS
+    get '/places/:ine_code/:year/redirect' => 'places#redirect', constraints: YEAR_CONTRAINTS
+
+    get '/places/*slug/:year/:kind/:area' => 'places#budget', as: :place_budget, constraints: BUDGET_LINE_CONSTRAINTS
+    get '/places/*slug/:year' => 'places#show', as: :place, constraints: YEAR_CONTRAINTS
+    get '/places/*slug' => 'places#show'
 
     # compare
     get 'compare' => 'pages#compare', as: :compare

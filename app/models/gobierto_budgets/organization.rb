@@ -4,7 +4,9 @@ module GobiertoBudgets
     attr_accessor(:id, :place)
 
     def initialize(attributes)
-      if slug_param = attributes[:slug]
+      if (slug_param = attributes[:slug])
+        (slug_param = slug_param.split("/").last) if slug_param.include?("/")
+
         @place = ::INE::Places::Place.find_by_slug(slug_param)
         if place
           @id = place.id
@@ -87,6 +89,10 @@ module GobiertoBudgets
     # Meant to return the underlying ine_code
     def place_id
       city_council? ? place.id : associated_entity_place.id
+    end
+
+    def combined_slug
+      city_council? ? slug : "#{parent_place_slug}/#{slug}"
     end
 
     private

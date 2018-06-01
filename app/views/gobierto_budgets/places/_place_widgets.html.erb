@@ -4,27 +4,27 @@
     data-widget-template="#widget-template"
     data-widget-type="per_person"
     data-line-widget-series="means"
-    data-line-widget-url="<%= gobierto_budgets_api_data_lines_path(organization_slug: current_organization.slug, year: @year, what: 'per_person', format: :json) %>"
+    data-line-widget-url="<%= gobierto_budgets_api_data_lines_path(organization_slug: current_organization.combined_slug, year: @year, what: 'per_person', format: :json) %>"
     data-line-widget-type="per_person"
-    data-widget-data-url="<%= gobierto_budgets_api_data_total_budget_per_inhabitant_path(organization_slug: current_organization.slug, year: @year, format: :json) %>"
-    data-page-href="<%= gobierto_budgets_place_path(slug: current_organization.slug, year: @year, anchor: 'per_person')%>">
+    data-widget-data-url="<%= gobierto_budgets_api_data_total_budget_per_inhabitant_path(organization_slug: current_organization.combined_slug, year: @year, format: :json) %>"
+    data-page-href="<%= gobierto_budgets_place_path(slug: current_organization.combined_slug, year: @year, anchor: 'per_person')%>">
   </div>
 
   <div class="metric"
     data-widget-template="#widget-template"
     data-widget-type="total_budget"
     data-line-widget-series="means"
-    data-line-widget-url="<%= gobierto_budgets_api_data_lines_path(organization_slug: current_organization.slug, year: @year, what: 'total_budget', format: :json) %>"
+    data-line-widget-url="<%= gobierto_budgets_api_data_lines_path(organization_slug: current_organization.combined_slug, year: @year, what: 'total_budget', format: :json) %>"
     data-line-widget-type="total_budget"
-    data-widget-data-url="<%= gobierto_budgets_api_data_total_budget_path(organization_slug: current_organization.slug, year: @year, format: :json) %>"
-    data-page-href="<%= gobierto_budgets_place_path(slug: current_organization.slug, year: @year, anchor: 'total_budget')%>">
+    data-widget-data-url="<%= gobierto_budgets_api_data_total_budget_path(organization_slug: current_organization.combined_slug, year: @year, format: :json) %>"
+    data-page-href="<%= gobierto_budgets_place_path(slug: current_organization.combined_slug, year: @year, anchor: 'total_budget')%>">
   </div>
 
   <div class="metric tipsit" title="<%= t('gobierto_budgets.pages.map_metrics.tipsit_planned_vs_executed') %>"
     data-widget-template="#widget-template-execution"
     data-widget-type="total_budget_execution"
-    data-widget-data-url="<%= gobierto_budgets_api_data_total_budget_execution_path(organization_slug: current_organization.slug, year: @year, format: :json) %>"
-    data-page-href="<%= gobierto_budgets_place_execution_path(slug: current_organization.slug, year: @year, anchor: 'total_budget_execution')%>">
+    data-widget-data-url="<%= gobierto_budgets_api_data_total_budget_execution_path(organization_slug: current_organization.combined_slug, year: @year, format: :json) %>"
+    data-page-href="<%= gobierto_budgets_place_execution_path(slug: current_organization.combined_slug, year: @year, anchor: 'total_budget_execution')%>">
   </div>
 
   <div class="metric"
@@ -37,7 +37,7 @@
     <div class="metric"
       data-widget-template="#widget-template"
       data-widget-type="debt"
-      data-widget-data-url="<%= gobierto_budgets_api_data_debt_path(organization_slug: current_organization.slug, year: @year, format: :json) %>">
+      data-widget-data-url="<%= gobierto_budgets_api_data_debt_path(organization_slug: current_organization.combined_slug, year: @year, format: :json) %>">
     </div>
   <% end %>
 </div>

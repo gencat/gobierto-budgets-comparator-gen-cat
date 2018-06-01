@@ -20,7 +20,15 @@ module GobiertoBudgets
       BudgetTotal.budgeted_for(entity_id, year, BudgetLine::INCOME)
     end
 
+    def combined_slug
+      "#{associated_municipality.slug}/#{slug}"
+    end
+
     private
+
+    def associated_municipality
+      INE::Places::Place.find(ine_code)
+    end
 
     def set_slug
       return if slug.present?

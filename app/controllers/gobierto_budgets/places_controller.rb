@@ -12,7 +12,7 @@ module GobiertoBudgets
     def show
       render_404 and return if current_organization.nil?
       if @year.nil?
-        redirect_to gobierto_budgets_place_path(current_organization.slug, SearchEngineConfiguration::Year.last) and return
+        redirect_to gobierto_budgets_place_path(current_organization.combined_slug, SearchEngineConfiguration::Year.last) and return
       end
 
       @income_lines = BudgetLine.search(
@@ -44,7 +44,7 @@ module GobiertoBudgets
 
       if @top_possitive_difference_income.empty?
         flash[:alert] = t('.no_data', year: @year)
-        redirect_to gobierto_budgets_place_execution_path(current_organization.slug, @year.to_i - 1) and return
+        redirect_to gobierto_budgets_place_execution_path(current_organization.combined_slug, @year.to_i - 1) and return
       end
 
       @top_possitive_difference_expending_economic, @top_negative_difference_expending_economic = GobiertoBudgets::BudgetLine.top_differences(
@@ -139,7 +139,7 @@ module GobiertoBudgets
     def redirect
       current_organization = INE::Places::Place.find(params[:ine_code])
       if current_organization.present?
-        redirect_to gobierto_budgets_place_path(current_organization.slug, params[:year])
+        redirect_to gobierto_budgets_place_path(current_organization.combined_slug, params[:year])
       end
     end
 
@@ -174,9 +174,9 @@ module GobiertoBudgets
     end
 
     def set_current_organization
-      @current_organization = if params[:slug].present?
+      @current_organization = if params[:slug]
                                 Organization.new(slug: params[:slug])
-                              elsif params[:organization_id].present?
+                              elsif params[:organization_id]
                                 Organization.new(id: params[:organization_id])
                               end
     end

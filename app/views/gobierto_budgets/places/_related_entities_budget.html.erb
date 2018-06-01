@@ -14,11 +14,11 @@
     <tbody>
       <% entities.each do |entity| %>
         <tr>
-          <td><%= link_to entity.name, gobierto_budgets_place_path(entity.slug, year) %></td>
+          <td><%= link_to entity.name, gobierto_budgets_place_path(entity.combined_slug, year) %></td>
           <td><%= number_to_currency entity.total_income(year) %></td>
           <td><%= number_to_currency entity.total_expenses(year) %></td>
           <td>
-            <%= link_to t(".explore"), gobierto_budgets_place_path(entity.slug, year) %>
+            <%= link_to t(".explore"), gobierto_budgets_place_path(entity.combined_slug, year) %>
           </td>
         </tr>
       <% end %>
