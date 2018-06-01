@@ -1,4 +1,4 @@
-YEAR_REGEX = /2\d\d\d/
+YEAR_REGEX = /\d\d\d\d/
 KIND_REGEX = /G|I/
 AREA_REGEX = /functional|economic/
 
