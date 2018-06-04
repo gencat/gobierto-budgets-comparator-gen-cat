@@ -47,6 +47,7 @@ Una vez tengas PostgreSQL corriendo y hayas clonado este repo, haz lo siguiente 
 $ cd gobierto
 $ cp config/database.yml.example config/database.yml
 $ cp config/secrets.yml.example config/secrets.yml
+$ cp .env.example .env # or copy to .rbenv-vars if you use Rbenv
 $ bundle install
 $ rake db:setup
 ```
