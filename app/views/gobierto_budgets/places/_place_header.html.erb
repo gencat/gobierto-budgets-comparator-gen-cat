@@ -7,25 +7,29 @@
           <%= render "gobierto_budgets/places/follow_place", organization: current_organization %>
         </div>
       <% end %>
-      <div class="modal_widget" id="compare">
-        <%= link_to %Q{<span>#{t('.compare')}</span> <i class="fa fa-compass"></i>}.html_safe, '', class: 'tool_button' %>
-        <div class="inner widget_compare">
 
-          <%= link_to t('.add_to_comparing_list_html', name: current_organization.name), '', class: 'button js-add_compare', data: {place: compare_slug(current_organization, @year), "parent-code" => parent_code(params[:code])} %>
+      <% if current_organization.city_council? %>
+        <div class="modal_widget" id="compare">
+          <%= link_to %Q{<span>#{t('.compare')}</span> <i class="fa fa-compass"></i>}.html_safe, '', class: 'tool_button' %>
+          <div class="inner widget_compare">
 
-          <div class="sep"></div>
+            <%= link_to t('.add_to_comparing_list_html', name: current_organization.name), '', class: 'button js-add_compare', data: {place: compare_slug(current_organization, @year), "parent-code" => parent_code(params[:code])} %>
 
-          <p><%= t('.your_comparison_list') %></p>
-          <ul id='compare_list'>
-          </ul>
+            <div class="sep"></div>
 
-          <div id="view_comp_container" class="center">
-            <%= link_to t('.view_comparison_html'), '', id: 'view_compare', class: 'button', data: {"parent-code" => parent_code(params[:code]) } %>
-            <span class="soft" id="without_current_note">(<%= t('.without', name: current_organization.name) %>)</span>
+            <p><%= t('.your_comparison_list') %></p>
+            <ul id='compare_list'>
+            </ul>
+
+            <div id="view_comp_container" class="center">
+              <%= link_to t('.view_comparison_html'), '', id: 'view_compare', class: 'button', data: {"parent-code" => parent_code(params[:code]) } %>
+              <span class="soft" id="without_current_note">(<%= t('.without', name: current_organization.name) %>)</span>
+            </div>
+
           </div>
-
         </div>
-      </div>
+      <% end %>
+
       <% if users_enabled? && !logged_in? %>
         <div class="modal_widget" id="in_your_web">
           <%= link_to %Q{<span>#{t('.in_your_web')}</span> <i class="fa fa-share"></i>}.html_safe, '', class: 'tool_button' %>
