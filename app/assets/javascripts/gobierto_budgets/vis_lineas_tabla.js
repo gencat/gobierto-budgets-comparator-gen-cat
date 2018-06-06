@@ -101,14 +101,17 @@ var VisLineasJ = Class.extend({
       this.data = jsonData;
       this.showLegend = (this.data.budgets.per_person.length > 1);
 
-      if (!this.showLegend) {
+      if (this.showLegend) {
+        this.margin.right = this.measure == 'per_person' ? this.containerWidth * .07 : this.containerWidth * .15;
+      } else {
         this.containerWidth += this.tableWidth;
+        this.margin.right = 20;
       }
 
-      this.margin.right = this.measure == 'per_person' ? this.containerWidth * .07 : this.containerWidth * .15;
+      var aspectRatioDivider = this.showLegend ? 2.6 : 4;
 
       this.width = this.containerWidth - this.margin.left - this.margin.right;
-      this.height = (this.containerWidth / 2.6) - this.margin.top - this.margin.bottom;
+      this.height = (this.containerWidth / aspectRatioDivider) - this.margin.top - this.margin.bottom;
 
       if (this.height < 230) {
         this.height = 230;
