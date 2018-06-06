@@ -73,7 +73,8 @@ module GobiertoBudgets
       total_results = BudgetTotal.for_places(places_ids, options[:year])
 
       return results.map do |h|
-        id = h['ine_code']
+        id = h['ine_code'].to_i
+
         Item.new({
           place: INE::Places::Place.find(id),
           population: h['population'],
