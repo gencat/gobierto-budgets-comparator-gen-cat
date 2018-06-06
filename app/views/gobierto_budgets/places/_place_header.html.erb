@@ -59,21 +59,6 @@
   </div>
 </header>
 
-<header>
-  <%= link_to image_tag('Gobierto-Avatar@2x.png', size: '30x30'), root_path %>
-  <input type="text" class="places_search search_auto" value="<%= @place.name %>" placeholder="<%= t('.search_municipality') %>" >
-
-  <% if params['controller'] == 'budget_lines' %>
-  <div class="breadcrumb">
-    <span class="sep"><%= link_to kind_literal(@kind).capitalize, gobierto_budgets_place_budget_path(@place.slug, @year, @kind, @area_name) %> »</span>
-    <%= render partial: 'breadcrumb',
-              collection: budget_line_crumbs(@parent_line, @area_name),
-              as: 'budget_line',
-              spacer_template: 'breadcrumb_spacer' %>
-    </div>
-  <% end %>
-</header>
-
 <% if @no_data %>
   <%= render 'gobierto_budgets/places/no_data' %>
 <% end %>
