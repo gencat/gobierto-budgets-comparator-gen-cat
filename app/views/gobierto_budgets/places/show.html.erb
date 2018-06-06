@@ -42,15 +42,20 @@
 </div>
 
 <div class="flex space-between">
+
   <div class="section_separator" name="separator">
     <div class="sep"></div>
     <%= t('.explore_income_expenses', name: current_organization.name) %>
     <div class="sep"></div>
   </div>
-  <div>
-    <span class="tag warning"><%= t('.new') %></span>
-    <%= link_to t(".related_entities"), "#related-entities-budget-table", class: "js-scrollto" %>
-  </div>
+
+  <% if current_organization.associated_entities.any? %>
+    <div>
+      <span class="tag warning"><%= t('.new') %></span>
+      <%= link_to t(".related_entities"), "#related-entities-budget-table", class: "js-scrollto" %>
+    </div>
+  <% end %>
+
 </div>
 
 <div class="ie_intro clearfix">
