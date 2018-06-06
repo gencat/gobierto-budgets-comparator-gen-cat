@@ -32,3 +32,8 @@ config/deploy/production.rb
 
 # Settings
 config/settings/production.yml
+
+# Environment
+.env
+.rbenv-vars
+
