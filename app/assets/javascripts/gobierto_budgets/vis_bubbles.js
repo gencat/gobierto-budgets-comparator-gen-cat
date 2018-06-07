@@ -145,7 +145,10 @@ var VisBubbles = Class.extend({
 
     var bubblesG = this.bubbles.append('a')
       .attr('xlink:href', function(d) {
-        return this.budget_category === 'income' ? '/presupuestos/partidas/' + d.id + '/' + d.year + '/economic/I' : '/presupuestos/partidas/' + d.id + '/' + d.year + '/functional/G';
+        var currentPath = window.location.pathname;
+        var pathSegment = currentPath.match(/places.*\/\d{4}/)[0];
+        var placeSlug = pathSegment.replace("places/", "").replace(/\/\d{4}/, "");
+        return this.budget_category === 'income' ? '/budget_lines/' + placeSlug + '/' + d.year + '/' + d.id  + '/I/economic' : '/budget_lines/' + placeSlug  + '/' + d.year + '/' + d.id + '/G/functional';
       }.bind(this))
       .attr('target', '_top')
       .append('circle')
