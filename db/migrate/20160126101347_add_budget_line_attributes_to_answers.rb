@@ -1,4 +1,4 @@
-class AddBudgetLineAttributesToAnswers < ActiveRecord::Migration
+class AddBudgetLineAttributesToAnswers < ActiveRecord::Migration[4.2]
   def change
     add_column :answers, :place_id, :integer, index: true
     add_column :answers, :kind, :string, index: true

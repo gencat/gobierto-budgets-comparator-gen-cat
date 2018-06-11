@@ -50,6 +50,9 @@ en:
         some_examples: Some examples per budget line
         more_information: More information
     places:
+      related_entities_budget:
+        explore: Explore
+        table_title: Check the budget of the related entities of %{name}
       place_header:
         compare: Compare
         add_to_comparing_list_html: "Add <strong>%{name}</strong> to your list and compare"
@@ -72,10 +75,27 @@ en:
         about_the_data: About the data
         about_the_data_desc: 'The database we are using does not include information of the 100% of the municipalities, so the averages are calculated only for those which exist (which is the majority). More information in our FAQ page'
         explore_income_expenses: 'Explore incomes and expenses in %{name}'
+        main_budget_levels_legend_down: Has decreased
+        main_budget_levels_legend_one: Change since last year
+        main_budget_levels_legend_two: ''
+        main_budget_levels_legend_up: Has increased
+        main_budget_levels_per_inhabitant: per inhabitant
+        main_budget_levels_timeline: Compare income and expenses year by year
+        main_budget_levels_tooltip_article: since
+        main_budget_levels_tooltip_down: Has gone down
+        main_budget_levels_tooltip_up: Has risen
+        main_budget_lines: Main income and expenses %{from_your_organization_name}
+        main_budget_lines_expense: Expense
+        main_budget_lines_income: Income
+        new: New
         total: total
         per_inhabitant: "per inhab."
         percentage_over_total: "o/ total"
+        related_entities: Related entities
         search_budget_lines_income: Search budget lines for income
+        related_entities_budget:
+          see_all: See all related entities (%{number})
+          see_less: See less
       expense_lines:
         total: total
         per_inhabitant: "per inhab."
@@ -208,4 +228,3 @@ en:
       mean_autonomy: Autonomic avg
       mean_province: Provinces avg
       previous_year_diff: Previous year diff
-

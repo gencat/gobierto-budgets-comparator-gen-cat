@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-gem "rails", "~> 5.1.1"
-gem 'pg'
+gem "rails", "~> 5.2.0"
+gem "pg", "~> 0.19"
 gem 'sass-rails', '~> 5.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'redcarpet', require: true
@@ -20,6 +20,9 @@ gem 'dalli'
 gem 'aws-ses'
 gem 'cocoon'
 gem 'nokogiri', '~> 1.8', '>= 1.8.1'
+gem 'json', '~> 2.1'
+gem "gobierto_data", git: "https://github.com/PopulateTools/gobierto_data.git"
+gem "bootsnap"
 
 # Frontend
 gem 'jquery-rails'

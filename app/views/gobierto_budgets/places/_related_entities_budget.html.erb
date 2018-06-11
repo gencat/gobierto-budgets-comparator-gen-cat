@@ -1,0 +1,41 @@
+<div id="related-entities-budget-table" class="common-table">
+
+  <p><%= t(".table_title", name: place_name) %></p>
+
+  <table class="top-10">
+
+    <thead>
+      <th>Entidad</th>
+      <th>Ingreso</th>
+      <th>Gasto</th>
+      <th></th>
+    </thead>
+
+    <tbody>
+      <% entities.each do |entity| %>
+        <tr>
+          <td><%= link_to entity.name, gobierto_budgets_place_path(entity.combined_slug, year), class: 'name' %></td>
+          <td><%= number_to_currency entity.total_income(year) %></td>
+          <td><%= number_to_currency entity.total_expenses(year) %></td>
+          <td>
+            <%= link_to t(".explore"), gobierto_budgets_place_path(entity.combined_slug, year) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+
+    <% if entities.size > 10 %>
+      <tfoot>
+        <tr>
+          <td>
+            <a class="js-table-rows-toggle">
+              <%= t("gobierto_budgets.places.show.related_entities_budget.see_all", number: entities.size) %>
+            </a>
+          </td>
+        </tr>
+      </tfoot>
+    <% end %>
+
+  </table>
+
+</div>

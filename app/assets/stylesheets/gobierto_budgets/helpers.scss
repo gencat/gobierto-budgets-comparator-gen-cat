@@ -1,0 +1,30 @@
+// Common helpers
+.flex {
+  display: flex;
+  align-items: center;
+
+  &.center {
+    justify-content: center;
+  }
+  &.space-between {
+    justify-content: space-between;
+  }
+}
+
+.tag {
+  font-size: .8rem;
+  padding: 0 .25rem;
+  @include border-radius(3px);
+
+  &:last-child {
+    margin-left: .5rem;
+  }
+
+  &:not(:last-child) {
+    margin-right: .5rem;
+  }
+
+  &.warning {
+    background-color: $color_scale_1;
+  }
+}

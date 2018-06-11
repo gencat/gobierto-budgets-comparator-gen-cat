@@ -7,7 +7,7 @@ module GobiertoBudgets
         @all ||= (first..last).to_a.reverse
       end
       def self.fallback_year?(year)
-        year == self.last
+        self.last < Date.today.year ? year == self.last + 1 : year == self.last
       end
     end
 
@@ -34,6 +34,10 @@ module GobiertoBudgets
       def self.index_executed; 'budgets-execution-v3' end
       def self.index_forecast_updated; 'budgets-forecast-updated-v1' end
       def self.type; 'total-budget' end
+
+      def self.all_indices
+        [index_forecast, index_executed, index_forecast_updated]
+      end
     end
 
     class Data

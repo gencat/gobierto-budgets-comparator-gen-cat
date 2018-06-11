@@ -5,8 +5,8 @@ module GobiertoBudgets
         @what = options[:what]
         @variable = @what == 'total_budget' ? 'total_budget' : 'total_budget_per_inhabitant'
         @year = options[:year]
-        @place = options[:place]
-        @is_comparison = @place.is_a?(Array)
+        @organization = options[:organization]
+        @is_comparison = @organization.is_a?(Array)
         @kind = options[:kind]
         @code = options[:code]
         @area = options[:area]
@@ -33,7 +33,7 @@ module GobiertoBudgets
       private
 
       def mean_province
-        filters = [ {term: { province_id: @place.province_id }} ]
+        filters = [ {term: { province_id: @organization.province_id }} ]
 
         if @code
           filters.push({term: { code: @code }})
@@ -89,7 +89,7 @@ module GobiertoBudgets
       end
 
       def mean_autonomy
-        filters = [ {term: { autonomy_id: @place.province.autonomous_region.id }} ]
+        filters = [ {term: { autonomy_id: @organization.autonomous_region_id }} ]
 
         if @code
           filters.push({term: { code: @code }})
@@ -199,13 +199,13 @@ module GobiertoBudgets
         result.reverse
       end
 
-      def place_values(place = nil)
-        place = @place unless place.present?
-        filters = [ {term: { ine_code: place.id }} ]
+      def organizations_values(organization = nil)
+        organization = @organization unless organization.present?
+        filters = [{ term: { organization_id: organization.id } }]
 
         if @code
-          filters.push({term: { code: @code }})
-          filters.push({term: { kind: @kind }})
+          filters.push(term: { code: @code })
+          filters.push(term: { kind: @kind })
         end
 
         query = {
@@ -221,7 +221,7 @@ module GobiertoBudgets
               }
             }
           },
-          size: 10_000,
+          size: 10_000
         }
 
         result = []
@@ -242,33 +242,25 @@ module GobiertoBudgets
       def budget_values
         return comparison_values if @is_comparison
 
-        values = [
-          {
-            "name":"mean_province",
-            "values": mean_province
-          },
-          {
-            "name":"mean_autonomy",
-            "values": mean_autonomy
-          },
-          {
-            name: @place.name,
-            "values": place_values
-          }
-        ]
-        values.append({
-          "name":"mean_national",
-          "values": mean_national
-        }) if !GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
+        values = [{ name: @organization.name, values: organizations_values }]
+
+        if @organization.city_council?
+          values += [
+            { name: "mean_province", values: mean_province },
+            { name: "mean_autonomy", values: mean_autonomy }
+          ]
+
+          values << { name: "mean_national", values: mean_national } unless GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
+        end
 
         values
       end
 
       def comparison_values
-        @place.map do |place|
+        @organization.map do |organization|
           {
-            "name": place.name,
-            "values": place_values(place)
+            "name": organization.name,
+            "values": organizations_values(organization)
           }
         end
       end

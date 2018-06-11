@@ -2,15 +2,16 @@
 es:
   shared:
     embed:
-      title_embed: Usa el siguiente código para embeber esta página y su visualización en tu website. El ancho y el alto se adaptarán automáticamente.
+      title_embed: Usa el siguiente código para embeber esta página y su visualización
+        en tu website. El ancho y el alto se adaptarán automáticamente.
     widget_template:
       datum: dato
     widget_template_debt:
       datum: dato
       not_available: no disponible
+    widget_template_deviation:
+      expenses_planned: Gastos presupuestados
+      incomes_planned: Ingresos presupuestados
+      real: reales
     widget_template_execution:
       not_available: No disponible
-    widget_template_deviation:
-      incomes_planned: Ingresos presupuestados
-      expenses_planned: Gastos presupuestados
-      real: reales

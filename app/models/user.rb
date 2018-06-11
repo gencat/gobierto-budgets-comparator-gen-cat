@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   scope :admin, -> { where(admin: true) }
   scope :regular, -> { where(admin: false) }
 
-  has_many :subscriptions, dependent: :destroy, class_name: GobiertoBudgets::Subscription
+  has_many :subscriptions, dependent: :destroy, class_name: "GobiertoBudgets::Subscription"
 
   def full_name
     @full_name ||= [first_name, last_name].compact.join(' ')

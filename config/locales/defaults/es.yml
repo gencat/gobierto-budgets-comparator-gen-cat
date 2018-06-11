@@ -79,16 +79,16 @@ es:
         other: hace más de %{count} años
       x_days:
         one: hace 1 día
-        other: "hace %{count} días"
+        other: hace %{count} días
       x_minutes:
         one: hace 1 minuto
-        other: "hace %{count} minutos"
+        other: hace %{count} minutos
       x_months:
         one: hace 1 mes
-        other: "hace %{count} meses"
+        other: hace %{count} meses
       x_seconds:
         one: hace 1 segundo
-        other: "hace %{count} segundos"
+        other: hace %{count} segundos
     prompts:
       day: Día
       hour: Hora
@@ -102,7 +102,6 @@ es:
     messages:
       accepted: debe ser aceptado
       blank: no puede estar en blanco
-      present: debe estar en blanco
       confirmation: no coincide
       empty: no puede estar vacío
       equal_to: debe ser igual a %{count}
@@ -117,15 +116,16 @@ es:
       not_a_number: no es un número
       not_an_integer: debe ser un entero
       odd: debe ser impar
+      other_than: debe ser distinto de %{count}
+      present: debe estar en blanco
       record_invalid: 'La validación falló: %{errors}'
       restrict_dependent_destroy:
-        one: No se puede eliminar el registro porque existe un %{record} dependiente
         many: No se puede eliminar el registro porque existen %{record} dependientes
+        one: No se puede eliminar el registro porque existe un %{record} dependiente
       taken: ya está en uso
       too_long: es demasiado largo (%{count} caracteres máximo)
       too_short: es demasiado corto (%{count} caracteres mínimo)
       wrong_length: no tiene la longitud correcta (%{count} caracteres exactos)
-      other_than: debe ser distinto de %{count}
     template:
       body: 'Se encontraron problemas con los siguientes campos:'
       header:
