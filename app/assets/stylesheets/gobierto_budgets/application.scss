@@ -1261,12 +1261,15 @@ header.sub {
 
 .main_metrics {
   margin: 1em 0;
+  display: flex;
+  justify-content: stretch;
+
   .metric {
     position: relative;
     box-sizing: border-box;
     background: $color_1_soft;
     padding: .5em .7em .6em .7em;
-    width: 19%;
+    flex: 1;
     float: left;
     margin: 0 1.2% 0 0;
     min-height: 66px;
