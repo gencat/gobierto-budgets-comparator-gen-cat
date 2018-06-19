@@ -10,18 +10,18 @@ This is a fork of [Gobierto budgets comparator](https://github.com/PopulateTools
 
 **Gobierto budgets comparator** is a budgets comparison tool to enable citizens to explore, visualize, compare and contextualize the budgets of multiple municipalities/public bodies at the same time (such as those of a given Province, Autonomous Region or Country). We use data from the Consorci d'Administració Oberta de Catalunya (AOC) (view [budgeting data](https://analisi.transparenciacatalunya.cat/d/4g9s-gzp6) and [execution data](https://analisi.transparenciacatalunya.cat/d/e7ah-kha8)) and from the [INE](http://ine.es).
 
-Gobierto is being built in the open by [Populate](http://populate.tools), a product design studio around civic engagement based in Madrid, Spain. We provide commercial services around data journalism, news products, open data... and Gobierto, of course ;) 
+Gobierto is being built in the open by [Populate](http://populate.tools), a product design studio around civic engagement based in Madrid, Spain. We provide commercial services around data journalism, news products, open data... and Gobierto, of course ;)
 
 * #todo Why we build Gobierto and our design philosophy
 
-More info: 
+More info:
 
 * Main site (spanish): [gobierto.es](http://gobierto.es)
 * Blog (spanish): [gobierto.es/blog](http://gobierto.es/blog)
 
 ## Feature requests
 
-File an [issue](https://github.com/PopulateTools/gobierto-comparador-presupuestos/issues). 
+File an [issue](https://github.com/PopulateTools/gobierto-comparador-presupuestos/issues).
 
 ## Application architecture
 
@@ -32,7 +32,7 @@ The application is written in the Ruby programming language and uses the Ruby on
 ### Software Requirements
 
 - Git
-- Ruby 2.3.1
+- Ruby 2.5.1
 - Rubygems
 - PostgreSQL
 - Elastic Search

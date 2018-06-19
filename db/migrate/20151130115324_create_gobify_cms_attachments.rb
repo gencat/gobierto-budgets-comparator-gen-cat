@@ -1,4 +1,4 @@
-class CreateGobifyCmsAttachments < ActiveRecord::Migration
+class CreateGobifyCmsAttachments < ActiveRecord::Migration[4.2]
   def change
     create_table :gobierto_cms_attachments do |t|
       t.string   "attachment_file_name"

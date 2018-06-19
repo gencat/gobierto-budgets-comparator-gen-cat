@@ -7,7 +7,15 @@ Estás viendo un fork del proyecto [Gobierto · Comparador de presupuestos](http
 
 El comparador de presupuestos de Gobierto es una herramienta de exploración, comparación y visualización de presupuestos municipales (u otros niveles administrativos). Utilizamos datos abiertos del Consorci d'Administració Oberta de Catalunya (AOC) (ver datos del [presupuesto](https://analisi.transparenciacatalunya.cat/d/4g9s-gzp6) y de la [ejecución](https://analisi.transparenciacatalunya.cat/d/e7ah-kha8)) y del [INE](http://ine.es).
 
-Además del Comparador de Presupuestos, Gobierto es una plataforma de gobierno abierto de código abierto. Tienes más informacin en su Github: http://github.com/populatetools/gobierto/
+**Gobierto comparador de presupuestos** es una herramienta de exploración, comparación y visualización de los presupuestos municipales. Utilizamos datos abiertos del Ministerio de Hacienda (tenemos un [repositorio](https://github.com/PopulateTools/gobierto-budgets-data) donde publicamos los datos ya limpios y procesados) y del [INE](http://ine.es).
+
+Puedes ver una instancia de este proyecto funcionando en [https://presupuestos.gobierto.es](https://presupuestos.gobierto.es).
+
+Gobierto es un proyecto abierto de [Populate](http://populate.tools), un estudio que diseña desde Madrid productos digitales alrededor de la Participación Ciudadana. Además de trabajar en Gobierto, también ofrecemos servicios en torno a datos abiertos, periodismo de datos, sostenibilidad, etc.
+
+* #todo Por qué Gobierto y nuestra filosofía de Diseño
+
+Más información:
 
 * Website de Gobierto: [gobierto.es](http://gobierto.es)
 * Blog: [gobierto.es/blog](http://gobierto.es/blog)
@@ -21,7 +29,7 @@ La aplicación está escrita en Ruby y usa el framework Ruby on Rails. Para la B
 ### Requerimientos de Software
 
 - Git
-- Ruby 2.3.1
+- Ruby 2.5.1
 - Rubygems
 - PostgreSQL
 - Elastic Search
