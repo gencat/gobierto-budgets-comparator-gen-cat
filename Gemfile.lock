@@ -292,7 +292,7 @@ GEM
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
       spring (>= 1.2, < 3.0)
-    sprockets (3.7.1)
+    sprockets (3.7.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
     sprockets-rails (3.2.1)
@@ -370,10 +370,11 @@ DEPENDENCIES
   soda-ruby (~> 0.2.24)
   spring
   spring-watcher-listen (~> 2.0.0)
+  sprockets (~> 3.7.2)
   therubyracer
   timecop
   turbolinks
   uglifier (>= 1.3.0)
 
 BUNDLED WITH
-   1.16.1
+   1.16.2
