@@ -71,8 +71,8 @@ GEM
       activesupport (>= 3.0)
       deep_merge (~> 1.2.1)
       dry-validation (>= 0.10.4)
-    cookies_eu (1.6.3)
-      js_cookie_rails
+    cookies_eu (1.7.3)
+      js_cookie_rails (~> 2.2.0)
     crass (1.0.4)
     daemons (1.2.6)
     dalli (2.7.8)
