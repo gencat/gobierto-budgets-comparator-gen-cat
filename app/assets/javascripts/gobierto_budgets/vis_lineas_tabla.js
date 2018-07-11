@@ -107,7 +107,8 @@ var VisLineasJ = Class.extend({
       if (error) throw error;
 
       this.data = jsonData;
-      this.showLegend = (this.data.budgets.per_person.length > 1);
+
+      this.showLegend = (this.data.budgets[this.measure].length > 1);
 
       if (this.showLegend) {
         this.margin.right = this.measure == 'per_person' ? this.containerWidth * .07 : this.containerWidth * .15;
