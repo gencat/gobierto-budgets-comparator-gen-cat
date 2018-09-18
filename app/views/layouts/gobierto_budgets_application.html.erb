@@ -37,6 +37,8 @@
     I18n.defaultLocale = "<%= I18n.default_locale %>";
     I18n.locale = "<%= I18n.locale %>";
   </script>
+
+  <%= render 'layouts/gencat_analytics_head' %>
 </head>
 
 <body <%= data_attributes %>>
@@ -140,8 +142,6 @@
     <%= yield :javascript %>
 
 </script>
-
-<%= render 'layouts/analytics_footer' %>
 
 </body>
 </html>

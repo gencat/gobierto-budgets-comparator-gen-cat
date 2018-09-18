@@ -33,6 +33,7 @@
     I18n.locale = "<%= I18n.locale %>";
   </script>
   <%= render 'layouts/analytics_header' %>
+  <%= render 'layouts/gencat_analytics_head' %>
 </head>
 
 <body <%= data_attributes %>>
@@ -82,8 +83,6 @@
     });
   });
 </script>
-
-<%= render 'layouts/analytics_footer' %>
 
 </body>
 </html>
