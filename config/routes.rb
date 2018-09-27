@@ -81,7 +81,7 @@ Rails.application.routes.draw do
     get '/budget_lines/:slug/:year/:code/:kind/:area' => 'budget_lines#show', as: :budget_line
     get '/budget_lines/:slug/:year/:code/:kind/:area/feedback/:question_id' => 'budget_lines#feedback', as: :budget_line_feedback
     get '/places/:slug' => 'places#show'
-    get '/places/:ine_code/:year/redirect' => 'places#redirect'
+    get '/places/:ine_code/redirect' => 'places#redirect'
     get '/places/:slug/inteligencia' => 'places#intelligence'
     get '/places/:slug/:year/execution' => 'places#execution', as: :place_execution
     get '/places/:slug/:year/debt' => 'places#debt_alive'

@@ -106,7 +106,7 @@ module GobiertoBudgets
     def redirect
       @place = INE::Places::Place.find params[:ine_code]
       if @place.present?
-        redirect_to gobierto_budgets_place_path(@place, params[:year])
+        redirect_to gobierto_budgets_place_path(@place.slug, GobiertoBudgets::SearchEngineConfiguration::Year.last)
       end
     end
 
