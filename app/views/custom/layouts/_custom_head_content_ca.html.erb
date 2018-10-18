@@ -3,7 +3,7 @@
      will be completely replaced by the <head> of the downloaded template -->
 
 <% set_meta_tags twitter: { :site => Settings.twitter_account} %>
-<%= display_meta_tags site: t('custom.layouts.gobierto_budgets.site_title'), reverse: true %>
+<%= display_meta_tags site: t("custom.layouts.gobierto_budgets.site_title"), reverse: true %>
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -15,9 +15,9 @@
 <![endif]-->
 
 <style>
-  <%= render partial: 'custom/css' %>
-  <%= render partial: 'custom/gobierto' %>
+  <%= render partial: "custom/css" %>
+  <%= render partial: "custom/gobierto" %>
 </style>
 
-<%= render 'layouts/analytics_header' %>
-<%= render 'layouts/gencat_analytics_head' %>
+<%= render "layouts/analytics_header" %>
+<%= render "layouts/gencat_analytics_head" %>
