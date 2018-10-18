@@ -1,55 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <% set_meta_tags twitter: { :site => Settings.twitter_account} %>
-  <%= display_meta_tags site: t('custom.layouts.gobierto_budgets.site_title'), reverse: true %>
-
   <%= stylesheet_link_tag    'gobierto_budgets/application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'gobierto_budgets/application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="google-site-verification" content="ecNoEaligHFBWMfXXqbQAQYu7_XlW2vZtDuvom7c5DA" />
 
   <link rel="manifest" href="<%= asset_path('favicons/manifest.json') %>">
   <link rel="mask-icon" href="<%= asset_path('favicons/safari-pinned-tab.svg') %>" color="#5bbad5">
+
   <meta name="msapplication-TileColor" content="#da532c">
   <meta name="msapplication-TileImage" content="<%= asset_path('favicons/mstile-144x144.png') %>">
   <meta name="theme-color" content="#ffffff">
-  <!-- GEN CAT -->
-  <link rel="stylesheet" type="text/css" href="/css/FW_bootStarp_Generic.css">
-  <link rel="stylesheet" type="text/css" href="/css/FW_Generic.css">
-  <!--[if lt IE 9]>
-    <link rel="stylesheet" type="text/css" href="css/FW_IE8_Generic.css">
-  <![endif]-->
-  <style>
-    <%= render partial: 'custom/css' %>
-    <%= render partial: 'custom/gobierto' %>
-  </style>
-  <!-- /GEN CAT -->
+
   <%= yield(:header) %>
+
   <script type="text/javascript">
     I18n.defaultLocale = "<%= I18n.default_locale %>";
     I18n.locale = "<%= I18n.locale %>";
   </script>
-  <%= render 'layouts/analytics_header' %>
-  <%= render 'layouts/gencat_analytics_head' %>
+
+  <%= render "custom/layouts/custom_head_content" %>
+
 </head>
 
 <body <%= data_attributes %>>
 
 <%= render 'layouts/gencat_analytics_noscript' %>
 
-<!-- GEN CAT -->
-<%= render partial: "custom/layouts/header_#{I18n.locale}" %>
-<!-- /GEN CAT -->
+<!-- Overridable by Gencat -->
+<%= render "custom/layouts/header_#{I18n.locale}" %>
+<!-- ./Overridable by Gencat -->
 
 <%= render "custom/layouts/breadcrumb" %>
 
 <div class="container">
 
   <div class="main_content clearfix">
-    <%= render partial: 'custom/layouts/navigation_ca' %>
+    <%= render "custom/layouts/navigation_ca" %>
 
     <%= yield %>
   </div>
@@ -57,9 +46,9 @@
 </div>
 
 
-<!-- GEN CAT -->
-<%= render partial: "custom/layouts/footer_#{I18n.locale}" %>
-<!-- /GEN CAT -->
+<!-- Overridable by Gencat -->
+<%= render "custom/layouts/footer_#{I18n.locale}" %>
+<!-- ./Overridable by Gencat -->
 
 <script type="text/javascript">
   'use strict';
