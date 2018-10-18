@@ -1,9 +1,12 @@
 ---
 es:
   custom:
-    layouts:
-      gobierto_budgets:
-        site_title: Presupuestos Municipales
     gobierto_budgets:
       home:
         subtitle: Consulta, analiza y compara los presupuestos municipales de Cataluña
+    layouts:
+      breadcrumb:
+        local_budgets: Presupuestos Municipales
+        root: Inicio
+      gobierto_budgets:
+        site_title: Presupuestos Municipales
