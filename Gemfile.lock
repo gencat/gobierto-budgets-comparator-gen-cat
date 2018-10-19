@@ -65,7 +65,7 @@ GEM
       xpath (~> 3.1)
     childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
-    cocoon (1.2.11)
+    cocoon (1.2.12)
     concurrent-ruby (1.0.5)
     config (1.7.0)
       activesupport (>= 3.0)
