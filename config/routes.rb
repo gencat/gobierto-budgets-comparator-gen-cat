@@ -91,7 +91,7 @@ Rails.application.routes.draw do
     get '/places/*slug/inteligencia' => 'places#intelligence'
     get '/places/*slug/:year/execution' => 'places#execution', as: :place_execution, constraints: YEAR_CONTRAINTS
     get '/places/*slug/:year/debt' => 'places#debt_alive', constraints: YEAR_CONTRAINTS
-    get '/places/:ine_code/:year/redirect' => 'places#redirect', constraints: YEAR_CONTRAINTS
+    get '/places/:ine_code(/:year)/redirect' => 'places#redirect', constraints: YEAR_CONTRAINTS
 
     get '/places/*slug/:year/:kind/:area' => 'places#budget', as: :place_budget, constraints: BUDGET_LINE_CONSTRAINTS
     get '/places/*slug/:year' => 'places#show', as: :place, constraints: YEAR_CONTRAINTS

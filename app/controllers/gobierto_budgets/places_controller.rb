@@ -137,9 +137,10 @@ module GobiertoBudgets
     end
 
     def redirect
-      current_organization = INE::Places::Place.find(params[:ine_code])
+      @current_organization = Organization.new(organization_id: params[:ine_code])
+      year = params[:year] || ::GobiertoBudgets::SearchEngineConfiguration::Year.last
       if current_organization.present?
-        redirect_to gobierto_budgets_place_path(current_organization.combined_slug, params[:year])
+        redirect_to gobierto_budgets_place_path(current_organization.combined_slug, year)
       end
     end
 
