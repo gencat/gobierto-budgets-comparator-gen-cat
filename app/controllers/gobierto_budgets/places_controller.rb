@@ -23,7 +23,7 @@ module GobiertoBudgets
         type: 'economic'
       )
 
-      @expense_lines = BudgetLine.search(organization_id: current_organization.id, level: 1, year: @year, kind: BudgetLine::EXPENSE, type: @area_name)
+      @expense_lines = BudgetLine.search(organization_id: current_organization.id, level: 1, year: @year, kind: BudgetLine::EXPENSE, type: @area_name, recalculate_aggregations: true)
       @no_data = @income_lines['hits'].empty?
 
       respond_to do |format|

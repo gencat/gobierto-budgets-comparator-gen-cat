@@ -198,6 +198,13 @@ module GobiertoBudgets
         body: query
       )
 
+      if options[:recalculate_aggregations] == true
+        total_budget = response["hits"]["hits"].map { |h| h["_source"]["amount"] }.sum
+        total_budget_per_inhabitant = response["hits"]["hits"].map { |h| h["_source"]["amount_per_inhabitant"] }.sum
+        response["aggregations"]["total_budget"]["value"] = total_budget
+        response["aggregations"]["total_budget_per_inhabitant"]["value"] = total_budget_per_inhabitant
+      end
+
       return {
         'hits' => response['hits']['hits'].map{ |h| h['_source'] },
         'aggregations' => response['aggregations']
