@@ -1,6 +1,8 @@
 <tr>
   <th>
-    <input type="text" placeholder="<%= t('.search_budget_lines_expense') %>" class="search_items search_categories_budget-expense" data-search-url="<%= gobierto_budgets_search_categories_path(@place.slug,@year, area_name, GobiertoBudgets::BudgetLine::EXPENSE) %>">
+    <input type="text" placeholder="<%= t('.search_budget_lines_expense') %>"
+           class="search_items search_categories_budget-expense"
+           data-search-url="<%= gobierto_budgets_search_categories_path(current_organization.combined_slug, @year, area_name, GobiertoBudgets::BudgetLine::EXPENSE) %>">
   </th>
   <th class="right "><%= kind_literal(GobiertoBudgets::BudgetLine::EXPENSE, false) %> <%= t('.total') %></th>
   <th class="right "><%= kind_literal(GobiertoBudgets::BudgetLine::EXPENSE, false) %> <%= t('.per_inhabitant') %></th>

@@ -1,211 +1,253 @@
 ---
 es:
   gobierto_budgets:
-    featured_budget_lines:
-      show:
-        title: Partidas destacadas
-        question: "¿Cuánto se gasta %{name} en..."
-        per_inhabitant: por habitante
-        percentage_over_total: Porcentaje sobre el total
-        show_me_another: 'Enséñame otra'
-    pages:
-      map:
-        title: "Mapas de presupuestos en %{year}"
-        meta_description: "Visualiza y explora el mapa de presupuestos en %{year}"
-        municipality_maps: Mapas por municipios
-        search: Busca partidas
-        incomes: Ingresos
-        in_what: En qué se gasta
-        for_what: Para qué se gasta
-        expense_per_inhabitant: Gasto por habitante
-        expense: Gasto total
-        planned_vs_executed: Planeado vs Ejecutado
-        debt: Deuda
-        population: Población
-        people: personas
-      map_metrics:
-        tipsit_planned_vs_executed: La diferencia entre los gastos planeados (Presupuesto) y lo que finalmente se ha gastado (Ejecutado). Haz click para ver detalle y también la ejecución de los ingresos
-      ranking:
-        rankings: Ránkings
-        subtitle: Consulta los municipios que más ingresos y gastos, total y por habitante, realizan para cada partida.
-        highlights: Algunas cifras destacadas
-      compare_big:
-        compare_municipalities: Compara municipios
-        select_municipalities: "Selecciona varios municipios para comparar sus presupuestos:"
-        search_municipality: "Busca municipio %{n}"
-        compare: Comparar
-        check_some_examples: O prueba algunos ejemplos
-        how_it_works: '¿Cómo funciona?'
-        description: "Además de usar el buscador en la parte superior de esta página, puedes añadir un municipio a tu lista de comparación desde la página del municipio en cuestión. Utiliza el botón 'Compara' para añadir y acceder a la comparación. Desde la página de comparación también podrás añadir otros municipios o eliminar los que necesites de la comparación."
-      home:
-        local_budgets: Presupuestos Municipales
-        subtitle: Consulta, analiza y compara los presupuestos municipales de España
-        search_municipality: Busca municipio...
-        for_example: Por ejemplo
-        explore_rankings: Explora los Rankings
-        explore_the_ranking_for: Explora el Ranking de
-        for_municipalities_of: para municipios de
-        whole_spain: Toda España
-        explore: Explorar
-        some_examples: Algunos ejemplos por partidas
-        more_information: Más información
-    places:
-      place_header:
-        compare: Compara
-        add_to_comparing_list_html: "Añade <strong>%{name}</strong> a tu lista y compara"
-        your_comparison_list: Tu lista de comparación
-        view_comparison_html: Ver comparación
-        without: "sin %{name}"
-        in_your_web: En tu web
-        municipality_responsible: "¿Eres responsable de este municipio?"
-        cta_desc: "Gobierto te permite hacer una integración personalizada de estas visualizaciones en tu web."
-        ask_for_info: 'Solicita información'
-        local_budgets_from: "Presupuestos Municipales de %{name}"
-        planned: presupuestados
-        search_municipality: Busca municipio...
-      no_data:
-        no_data_this_year: "Mmm... No tenemos datos sobre este municipio para este año. Prueba con otro año..."
-        why: '¿Por qué no hay datos?'
-      show:
-        title: "Presupuestos municipales de %{name} del %{year}"
-        meta_description: "Consulta y visualiza los presupuestos municipales de %{name} del %{year}. Consulta gastos e ingresos, indicadores presupuestarios, datos de ejecución..."
-        about_the_data: Nota sobre los datos
-        about_the_data_desc: 'La base de datos que utilizamos no incluye datos para el 100% de los municipios, por lo que las medias están calculadas solo con los datos que existen (que son la gran mayoría). Más información en nuestras preguntas frecuentes'
-        explore_income_expenses: 'Explora ingresos y gastos de %{name}'
-        total: total
-        per_inhabitant: "por hab."
-        percentage_over_total: "s/ total"
-        search_budget_lines_income: Busca partidas de ingresos
-      expense_lines:
-        total: total
-        per_inhabitant: "por hab."
-        percentage_over_total: "s/ total"
-        search_budget_lines_income: Busca partidas de ingresos
-        search_budget_lines_expense: Busca partidas de gastos
-      compare:
-        title: "Compara los presupuestos municipales de %{places}"
-        total: Total
-        per_inhabitant: Por Habitante
-        delete: 'Eliminar de la comparación'
-        add: 'Añadir otro municipio'
-        add_another: Añade otro municipio
-        totals: Totales
-        population: Población
-      execution:
-        title: "Ejecución del presupuesto municipal de %{place} del %{year}"
-        description: "Detalle sobre la ejecución del presupuesto municipal de %{place} del %{year}. Consulta la diferencia entre lo presupuestado y lo ejecutado."
-        execution_help: La ejecución es la cantidad que finalmente se ha gastado sobre lo presupuestado inicialmente.
-        execution_disclaimer: Es normal que haya desviaciones ya que es imposible preveer todos los gastos con precisión absoluta.
-        budget_lines_income_higher: Partidas de ingresos muy superiores al presupuesto
-        budget_lines_income_lower: Partidas de ingresos muy inferiores al presupuesto
-        budget_lines_expense_higher: Partidas de gastos muy superiores al presupuesto
-        budget_lines_expense_lower: Partidas de gastos muy inferiores al presupuesto
-        no_data: "No hay datos disponibles en %{year} así que te mostramos el primer año con datos"
-      execution_table:
-        planned: Plan.
-        executed: Ejecución
-        deviation: Dif
-        view_more: Ver más
-        view_less: Ver menos
-      ranking:
-        budget_lines_title: "Ránking de %{kind} en %{year}"
-        budget_lines_short_title: "Ránking de %{kind}"
-        budget_line_title: "Ránking de %{kind} en %{budget_line} en %{year}"
-        budget_line_short_title: "Ránking de %{kind} en %{budget_line}"
-        population_title: "Ránking de habitantes en %{year}"
-        population_short_title: "Ránking de habitantes"
-        population: Población
-        per_inhabitant: por habitante
-        total: Total
-        size: Tamaño del municipio
-        between: Entre
-        and: y
-        autonomous_region: Comunidad Autónoma
-        disclaimer: La base de datos que utilizamos no incluye datos para el 100% de los municipios, por lo que no mostramos los municipios para los que no hay datos.
-        why: '¿Por qué no hay datos de todos los municipios?'
-      ranking_table:
-        municipality: Municipio
-        inhabitants: Habitantes
-        compare: Compara
-    budget_lines:
-      show:
-        title: "%{kind} en %{budget_line} en %{place} para %{year}"
-        share_text: "%{kind} municipal de %{place} en %{budget_line} para el %{year}"
-        description: "Datos de %{kind} en %{budget_line} en %@place}. Consulta y visualiza la partida de %{budget_line} para %{place} en los últimos años y compara con otros municipios"
-        total_budget_per_inhabitant: "%{kind} total de esta partida en este año por habitante"
-        total_budget: "%{kind} total de esta partida en este año"
-        search: "Busca otras partidas de %{kind}"
-        about: Acerca de esta partida
-        description: Descripción
-        council_comment: Comentario del Ayuntamiento
-        contracts: 'Contratos asociados a esta partida'
-        qa: 'Preguntas y respuestas'
-        no_information: Todavía no hay información.
-        ask_for_it: Pide a tu municipio que incluya esta información.
-        coming_soon: Proximamente
     api:
       data:
-        budgets_execution_header: "Desviación de los %{kind} en %{year}"
-        income_up: "Se ha ingresado un %{percentage}% (%{diff}) más de lo planeado"
-        income_down: "Se ha ingresado un %{percentage}% (%{diff}) menos de lo planeado"
-        expense_up: "Se ha gastado un %{percentage}% (%{diff}) más de lo planeado"
-        expense_down: "Se ha gastado un %{percentage}% (%{diff}) menos de lo planeado"
-        total_expense: Gasto total
-        expense_per_inhabitant: Gasto por habitante
-        category_per_inhabitant: "%{category} por habitante"
-        total_budget:
-          total_expenses: Gasto total
-        population:
-          population: Habitantes
-        total_budget_per_inhabitant:
-          expenses_per_inhabitant: Gasto por habitante
+        G_deviation: Desviación de los gastos en %{year}
+        I_deviation: Desviación de los ingresos en %{year}
         budget_execution:
           expense_planned_vs_executed: Gasto planeado vs ejecutado
           income_planned_vs_executed: Ingreso planeado vs ejecutado
         budget_per_inhabitant:
           expenses_per_inhabitant: Gasto por habitante
           income_per_inhabitant: Ingreso por habitante
-        total_budget_execution:
-          planned_vs_executed: 'Ejecución vs Presupuesto'
-        debt:
-          debt: Deuda viva
         budget_percentage_over_total:
-          percentage_over_total: "Porcentaje sobre el total"
+          percentage_over_total: Porcentaje sobre el total
         budget_percentage_previous_year:
-          percentage_previous_year: "Porcentaje sobre año ant."
-        I_deviation: "Desviación de los ingresos en %{year}"
-        G_deviation: "Desviación de los gastos en %{year}"
-      global_data:
-        budgets_execution_header: "Desviación de los %{kind} en %{year}"
-        income_up: "Se ha ingresado un %{percentage}% (%{diff}) más de lo planeado"
-        income_down: "Se ha ingresado un %{percentage}% (%{diff}) menos de lo planeado"
-        expense_up: "Se ha gastado un %{percentage}% (%{diff}) más de lo planeado"
-        expense_down: "Se ha gastado un %{percentage}% (%{diff}) menos de lo planeado"
-        total_expense: Gasto total
-        expense_per_inhabitant: Gasto por habitante
+          percentage_previous_year: Porcentaje sobre año ant.
+        budgets_execution_header: Desviación de los %{kind} en %{year}
         category_per_inhabitant: "%{category} por habitante"
-        total_budget:
-          total_expenses: Gasto total
+        debt:
+          debt: Deuda viva
+        expense_down: Se ha gastado un %{percentage}% (%{diff}) menos de lo planeado
+        expense_per_inhabitant: Gasto por habitante
+        expense_up: Se ha gastado un %{percentage}% (%{diff}) más de lo planeado
+        income_down: Se ha ingresado un %{percentage}% (%{diff}) menos de lo planeado
+        income_up: Se ha ingresado un %{percentage}% (%{diff}) más de lo planeado
         population:
           population: Habitantes
+        total_budget:
+          total_expenses: Gasto total
+        total_budget_execution:
+          planned_vs_executed: Ejecución vs Presupuesto
         total_budget_per_inhabitant:
           expenses_per_inhabitant: Gasto por habitante
+        total_expense: Gasto total
+      global_data:
         budget_execution:
           expense_planned_vs_executed: Gasto planeado vs ejecutado
           income_planned_vs_executed: Ingreso planeado vs ejecutado
         budget_per_inhabitant:
           expenses_per_inhabitant: Gasto por habitante
           income_per_inhabitant: Ingreso por habitante
-        total_budget_execution:
-          planned_vs_executed: 'Ejecución vs Presupuesto'
+        budget_percentage_over_total:
+          percentage_over_total: Porcentaje sobre el total
+        budgets_execution_header: Desviación de los %{kind} en %{year}
+        category_per_inhabitant: "%{category} por habitante"
         debt:
           debt: Deuda viva
-        budget_percentage_over_total:
-          percentage_over_total: "Porcentaje sobre el total"
-        deviation: "Desviación de los %{kind} en %{year}"
-
+        deviation: Desviación de los %{kind} en %{year}
+        expense_down: Se ha gastado un %{percentage}% (%{diff}) menos de lo planeado
+        expense_per_inhabitant: Gasto por habitante
+        expense_up: Se ha gastado un %{percentage}% (%{diff}) más de lo planeado
+        income_down: Se ha ingresado un %{percentage}% (%{diff}) menos de lo planeado
+        income_up: Se ha ingresado un %{percentage}% (%{diff}) más de lo planeado
+        population:
+          population: Habitantes
+        total_budget:
+          total_expenses: Gasto total
+        total_budget_execution:
+          planned_vs_executed: Ejecución vs Presupuesto
+        total_budget_per_inhabitant:
+          expenses_per_inhabitant: Gasto por habitante
+        total_expense: Gasto total
+    budget_lines:
+      show:
+        about: Acerca de esta partida
+        ask_for_it: Pide a tu municipio que incluya esta información.
+        coming_soon: Proximamente
+        contracts: Contratos asociados a esta partida
+        council_comment: Comentario del Ayuntamiento
+        description: Descripción
+        no_information: Todavía no hay información.
+        qa: Preguntas y respuestas
+        search: Busca otras partidas de %{kind}
+        share_text: "%{kind} municipal de %{place} en %{budget_line} para el %{year}"
+        title: "%{kind} en %{budget_line} en %{place} para %{year}"
+        total_budget: "%{kind} total de esta partida en este año"
+        total_budget_per_inhabitant: "%{kind} total de esta partida en este año por
+          habitante"
+    featured_budget_lines:
+      show:
+        per_inhabitant: por habitante
+        percentage_over_total: Porcentaje sobre el total
+        question: "¿Cuánto se gasta %{name} en..."
+        show_me_another: Enséñame otra
+        title: Partidas destacadas
+    pages:
+      compare_big:
+        check_some_examples: O prueba algunos ejemplos
+        compare: Comparar
+        compare_municipalities: Compara municipios
+        description: Además de usar el buscador en la parte superior de esta página,
+          puedes añadir un municipio a tu lista de comparación desde la página del
+          municipio en cuestión. Utiliza el botón 'Compara' para añadir y acceder
+          a la comparación. Desde la página de comparación también podrás añadir otros
+          municipios o eliminar los que necesites de la comparación.
+        how_it_works: "¿Cómo funciona?"
+        search_municipality: Busca municipio %{n}
+        select_municipalities: 'Selecciona varios municipios para comparar sus presupuestos:'
+      home:
+        explore: Explorar
+        explore_rankings: Explora los Rankings
+        explore_the_ranking_for: Explora el Ranking de
+        for_example: Por ejemplo
+        for_municipalities_of: para municipios de
+        local_budgets: Presupuestos Municipales
+        more_information: Más información
+        search_municipality: Busca municipio...
+        some_examples: Algunos ejemplos por partidas
+        subtitle: Consulta, analiza y compara los presupuestos municipales de España
+        whole_spain: Toda España
+      map:
+        debt: Deuda
+        expense: Gasto total
+        expense_per_inhabitant: Gasto por habitante
+        for_what: Para qué se gasta
+        in_what: En qué se gasta
+        incomes: Ingresos
+        meta_description: Visualiza y explora el mapa de presupuestos en %{year}
+        municipality_maps: Mapas por municipios
+        people: personas
+        planned_vs_executed: Planeado vs Ejecutado
+        population: Población
+        search: Busca partidas
+        title: Mapas de presupuestos en %{year}
+      map_metrics:
+        tipsit_planned_vs_executed: La diferencia entre los gastos planeados (Presupuesto)
+          y lo que finalmente se ha gastado (Ejecutado). Haz click para ver detalle
+          y también la ejecución de los ingresos
+      ranking:
+        highlights: Algunas cifras destacadas
+        rankings: Ránkings
+        subtitle: Consulta los municipios que más ingresos y gastos, total y por habitante,
+          realizan para cada partida.
+    places:
+      compare:
+        add: Añadir otro municipio
+        add_another: Añade otro municipio
+        delete: Eliminar de la comparación
+        per_inhabitant: Por Habitante
+        population: Población
+        title: Compara los presupuestos municipales de %{places}
+        total: Total
+        totals: Totales
+      execution:
+        budget_lines_expense_higher: Partidas de gastos muy superiores al presupuesto
+        budget_lines_expense_lower: Partidas de gastos muy inferiores al presupuesto
+        budget_lines_income_higher: Partidas de ingresos muy superiores al presupuesto
+        budget_lines_income_lower: Partidas de ingresos muy inferiores al presupuesto
+        description: Detalle sobre la ejecución del presupuesto municipal de %{place}
+          del %{year}. Consulta la diferencia entre lo presupuestado y lo ejecutado.
+        execution_disclaimer: Es normal que haya desviaciones ya que es imposible
+          preveer todos los gastos con precisión absoluta.
+        execution_help: La ejecución es la cantidad que finalmente se ha gastado sobre
+          lo presupuestado inicialmente.
+        no_data: No hay datos disponibles en %{year} así que te mostramos el primer
+          año con datos
+        title: Ejecución del presupuesto municipal de %{place} del %{year}
+      execution_table:
+        deviation: Dif
+        executed: Ejecución
+        planned: Plan.
+        view_less: Ver menos
+        view_more: Ver más
+      expense_lines:
+        per_inhabitant: por hab.
+        percentage_over_total: s/ total
+        search_budget_lines_expense: Busca partidas de gastos
+        search_budget_lines_income: Busca partidas de ingresos
+        total: total
+      no_data:
+        no_data_this_year: Mmm... No tenemos datos sobre este municipio para este
+          año. Prueba con otro año...
+        why: "¿Por qué no hay datos?"
+      place_header:
+        add_to_comparing_list_html: Añade <strong>%{name}</strong> a tu lista y compara
+        ask_for_info: Solicita información
+        compare: Compara
+        cta_desc: Gobierto te permite hacer una integración personalizada de estas
+          visualizaciones en tu web.
+        in_your_web: En tu web
+        local_budgets_from: Presupuestos Municipales de %{name}
+        municipality_responsible: "¿Eres responsable de este municipio?"
+        planned: presupuestados
+        search_municipality: Busca municipio...
+        view_comparison_html: Ver comparación
+        without: sin %{name}
+        your_comparison_list: Tu lista de comparación
+      ranking:
+        and: y
+        autonomous_region: Comunidad Autónoma
+        between: Entre
+        budget_line_short_title: Ránking de %{kind} en %{budget_line}
+        budget_line_title: Ránking de %{kind} en %{budget_line} en %{year}
+        budget_lines_short_title: Ránking de %{kind}
+        budget_lines_title: Ránking de %{kind} en %{year}
+        disclaimer: La base de datos que utilizamos no incluye datos para el 100%
+          de los municipios, por lo que no mostramos los municipios para los que no
+          hay datos.
+        per_inhabitant: por habitante
+        population: Población
+        population_short_title: Ránking de habitantes
+        population_title: Ránking de habitantes en %{year}
+        size: Tamaño del municipio
+        total: Total
+        why: "¿Por qué no hay datos de todos los municipios?"
+      ranking_table:
+        compare: Compara
+        inhabitants: Habitantes
+        municipality: Municipio
+      related_entities_budget:
+        entity: Entidad
+        expense: Gasto
+        explore: Explora
+        income: Ingreso
+        table_title: Consulta el presupuesto de las entidades dependientes de %{name}
+      show:
+        about_the_data: Nota sobre los datos
+        about_the_data_desc: La base de datos que utilizamos no incluye datos para
+          el 100% de los municipios, por lo que las medias están calculadas solo con
+          los datos que existen (que son la gran mayoría). Más información en nuestras
+          preguntas frecuentes
+        explore_income_expenses: Explora ingresos y gastos de %{name}
+        main_budget_levels_legend_down: Han bajado
+        main_budget_levels_legend_one: Cambio entre este año
+        main_budget_levels_legend_two: y el pasado
+        main_budget_levels_legend_up: Han subido
+        main_budget_levels_per_inhabitant: por habitante
+        main_budget_levels_timeline: Compara gastos e ingresos año por año
+        main_budget_levels_tooltip_article: desde
+        main_budget_levels_tooltip_down: Ha bajado un
+        main_budget_levels_tooltip_up: Ha subido un
+        main_budget_lines: Los principales ingresos y gastos %{from_your_organization_name}
+        main_budget_lines_expense: Gastos
+        main_budget_lines_income: Ingresos
+        meta_description: Consulta y visualiza los presupuestos municipales de %{name}
+          del %{year}. Consulta gastos e ingresos, indicadores presupuestarios, datos
+          de ejecución...
+        new: Nuevo
+        per_inhabitant: por hab.
+        percentage_over_total: s/ total
+        related_entities: Entidades relacionadas
+        related_entities_budget:
+          see_all: Ver todas las entidades relacionadas (%{number})
+          see_less: Ver menos
+        search_budget_lines_income: Busca partidas de ingresos
+        title: Presupuestos municipales de %{name} del %{year}
+        total: total
     visualizations:
-      mean_national: Media nacional
       mean_autonomy: Media autonómica
+      mean_national: Media nacional
       mean_province: Media provincial
       previous_year_diff: Cambio año anterior

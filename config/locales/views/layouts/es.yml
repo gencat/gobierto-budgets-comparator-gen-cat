@@ -2,25 +2,25 @@
 es:
   layouts:
     gobierto_budgets_application:
-      site_title: Gobierto Presupuestos Municipales
-      download_guide: 'Descarga la Guía de Comunicación para Municipios'
-      search_municipality: Busca municipio...
-      municipalities: Municipios
-      compare: Compara
-      rankings: Ránkings
-      services: Servicios
-      hi: Hola
-      your_municipality: Tu municipio
-      edit_your_personal_data: Editar datos personales
-      close_session: Cerrar sesión
-      recent_municipalities: Municipios recientes
-      recent_comparisons: Comparaciones recientes
       about: Acerca de
-      faq: Preguntas frecuentes
-      methodology_and_sources: Metodología y fuentes
+      close_session: Cerrar sesión
+      compare: Compara
       contact: Contacto
-      legal_warning: Aviso legal
-      privacy: Política de privacidad
       cookies: Política de cookies
-      maps: Mapas
+      download_guide: Descarga la Guía de Comunicación para Municipios
+      edit_your_personal_data: Editar datos personales
+      faq: Preguntas frecuentes
+      hi: Hola
+      legal_warning: Aviso legal
       local_budgets: Presupuestos Municipales
+      maps: Mapas
+      methodology_and_sources: Metodología y fuentes
+      municipalities: Municipios
+      privacy: Política de privacidad
+      rankings: Ránkings
+      recent_comparisons: Comparaciones recientes
+      recent_municipalities: Municipios recientes
+      search_municipality: Busca municipio...
+      services: Servicios
+      site_title: Gobierto Presupuestos Municipales
+      your_municipality: Tu municipio

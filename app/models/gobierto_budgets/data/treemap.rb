@@ -12,7 +12,7 @@ module GobiertoBudgets
 
       def generate_json
         options = [
-          {term: { ine_code: @place.id }},
+          {term: { organization_id: @place.id }},
           {term: { kind: @kind }},
           {missing: { field: 'functional_code'}},
           {missing: { field: 'custom_code'}},

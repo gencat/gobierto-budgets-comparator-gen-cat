@@ -1,0 +1,51 @@
+---
+- id: 1
+  entity_id: 8019-gencat-801933099
+  name: Institut Barcelona Esports
+  ine_code: 8019
+  slug: institut-barcelona-esports
+- id: 2
+  entity_id: 8019-gencat-801933012
+  name: Institut Municipal d'Educació de Barcelona
+  ine_code: 8019
+  slug: institut-municipal-d-educacio-de-barcelona
+- id: 3
+  entity_id: 8019-gencat-801933064
+  name: Institut Municipal d'Hisenda de Barcelona
+  ine_code: 8019
+  slug: institut-municipal-d-hisenda-de-barcelona
+- id: 4
+  entity_id: 8019-gencat-801933086
+  name: Institut Municipal d'Informàtica de Barcelona
+  ine_code: 8019
+  slug: institut-municipal-d-informatica-de-barcelona
+- id: 5
+  entity_id: 8019-gencat-801933070
+  name: Institut Municipal d'Urbanisme, de Barcelona
+  ine_code: 8019
+  slug: institut-municipal-d-urbanisme-de-barcelona
+- id: 6
+  entity_id: 8019-gencat-801933048
+  name: Institut Municipal de Mercats de Barcelona
+  ine_code: 8019
+  slug: institut-municipal-de-mercats-de-barcelona
+- id: 7
+  entity_id: 8019-gencat-801933027
+  name: Institut Municipal de Persones amb Discapacitat
+  ine_code: 8019
+  slug: institut-municipal-de-persones-amb-discapacitat
+- id: 8
+  entity_id: 8019-gencat-801933103
+  name: Institut Municipal de Serveis Socials de Barcelona
+  ine_code: 8019
+  slug: institut-municipal-de-serveis-socials-de-barcelona
+- id: 9
+  entity_id: 8019-gencat-801933033
+  name: Institut Municipal del Paisatge Urbà i la Qualitat de Vida
+  ine_code: 8019
+  slug: institut-municipal-del-paisatge-urba-i-la-qualitat-de-vida
+- id: 10
+  entity_id: 8019-gencat-801933051
+  name: Fundació Mies Van der Rohe - Barcelona
+  ine_code: 8019
+  slug: fundacio-mies-van-der-rohe-barcelona
