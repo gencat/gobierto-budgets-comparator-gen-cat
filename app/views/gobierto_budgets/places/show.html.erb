@@ -1,12 +1,33 @@
 <%
-  @title = t('.title', name: @place.name, year: @year)
+  @title = t('.title', name: current_organization.name, year: @year)
   set_meta_tags title: @title
-  set_meta_tags description: t('.meta_description', name: @place.name, year: @year)
+  set_meta_tags description: t('.meta_description', name: current_organization.name, year: @year)
 %>
 
 <%= render partial: 'place_header' %>
 
 <%= render partial: 'place_widgets' %>
+
+<div class="pure-g m_t_1">
+  <div class="pure-u-1 pure-u-lg-11-24">
+    <h3 class="center m_v_0 mt1"><%= t('.main_budget_lines_income') %></h3>
+    <div class="graph vis-bubbles vis-bubbles-income"></div>
+  </div>
+
+  <div class="pure-u-1 pure-u-lg-1-24 bubble_legend_wrapper">
+    <div class="bubble_legend"></div>
+  </div>
+
+  <div class="pure-u-1 pure-u-lg-11-24">
+    <h3 class="center m_v_0 mt1"><%= t('.main_budget_lines_expense') %></h3>
+    <div class="graph vis-bubbles vis-bubbles-expense"></div>
+  </div>
+
+  <div class="pure-u-1">
+    <h3 class="m_v_0"><%= t('.main_budget_levels_timeline') %></h3>
+    <div class="timeline"></div>
+  </div>
+</div>
 
 <div class="metric_graphs clearfix">
   <div class="widget_graph show clearfix">
@@ -20,10 +41,21 @@
   </div>
 </div>
 
-<div class="section_separator" name="separator">
-  <div class="sep"></div>
-  <%= t('.explore_income_expenses', name: @place.name) %>
-  <div class="sep"></div>
+<div class="flex space-between">
+
+  <div class="section_separator" name="separator">
+    <div class="sep"></div>
+    <%= t('.explore_income_expenses', name: current_organization.name) %>
+    <div class="sep"></div>
+  </div>
+
+  <% if current_organization.associated_entities.any? %>
+    <div>
+      <span class="tag warning"><%= t('.new') %></span>
+      <%= link_to t(".related_entities"), "#related-entities-budget-table", class: "js-scrollto" %>
+    </div>
+  <% end %>
+
 </div>
 
 <div class="ie_intro clearfix">
@@ -36,8 +68,8 @@
 
       <div class="form_filters">
         <ul>
-          <li><%= link_to t('common.economic').capitalize, gobierto_budgets_place_path(@place.slug, @year, {area: 'economic'}), remote: true, class: 'toggle', id: 'Economica' %></li>
-          <li><%= link_to t('common.functional').capitalize, gobierto_budgets_place_path(@place.slug, @year, {area: 'functional'}), remote: true, class: 'toggle buttonSelected', id: 'Funcional' %></li>
+          <li><%= link_to t('common.economic').capitalize, gobierto_budgets_place_path(current_organization.combined_slug, @year, {area: 'economic'}), remote: true, class: 'toggle', id: 'Economica' %></li>
+          <li><%= link_to t('common.functional').capitalize, gobierto_budgets_place_path(current_organization.combined_slug, @year, {area: 'functional'}), remote: true, class: 'toggle buttonSelected', id: 'Funcional' %></li>
         </ul>
       </div>
 
@@ -45,8 +77,8 @@
     </header>
 
     <div class="graph" id="expense-treemap"
-                       data-functional-url="<%= gobierto_budgets_place_budget_path(@place.slug, @year, GobiertoBudgets::BudgetLine::EXPENSE, 'functional', format: :json) %>"
-                       data-economic-url="<%= gobierto_budgets_place_budget_path(@place.slug, @year, GobiertoBudgets::BudgetLine::EXPENSE, 'economic', format: :json) %>">
+                       data-functional-url="<%= gobierto_budgets_place_budget_path(current_organization.combined_slug, @year, GobiertoBudgets::BudgetLine::EXPENSE, 'functional', format: :json) %>"
+                       data-economic-url="<%= gobierto_budgets_place_budget_path(current_organization.combined_slug, @year, GobiertoBudgets::BudgetLine::EXPENSE, 'economic', format: :json) %>">
     </div>
 
     <div class="items">
@@ -64,14 +96,17 @@
       <div class="qty"><%= number_to_currency @income_lines['aggregations']['total_budget']['value'], precision: 0 %></div>
     </header>
 
-    <div class="graph" id="income-treemap" data-economic-url="<%= gobierto_budgets_place_budget_path(@place.slug, @year, GobiertoBudgets::BudgetLine::INCOME, 'economic', format: :json) %>">
+    <div class="graph" id="income-treemap" data-economic-url="<%= gobierto_budgets_place_budget_path(current_organization.combined_slug, @year, GobiertoBudgets::BudgetLine::INCOME, 'economic', format: :json) %>">
     </div>
 
     <div class="items">
       <table>
       <tr>
         <th>
-          <input type="text" placeholder="<%= t('.search_budget_lines_income') %>" class="search_items search_categories_budget-income" data-search-url="<%= gobierto_budgets_search_categories_path(@place.slug,@year, 'economic', GobiertoBudgets::BudgetLine::INCOME) %>">
+          <input type="text"
+                 placeholder="<%= t('.search_budget_lines_income') %>"
+                 class="search_items search_categories_budget-income"
+                 data-search-url="<%= gobierto_budgets_search_categories_path(current_organization.combined_slug, @year, 'economic', GobiertoBudgets::BudgetLine::INCOME) %>">
         </th>
         <th class="right "><%= kind_literal(GobiertoBudgets::BudgetLine::INCOME, false) %> <%= t('.total') %></th>
         <th class="right "><%= kind_literal(GobiertoBudgets::BudgetLine::INCOME, false) %> <%= t('.per_inhabitant') %></th>
@@ -87,9 +122,33 @@
   </div>
 </div>
 
-<div class="featured_budget_line" data-featured-budget-line="<%= gobierto_budgets_featured_budget_line_path(@place.slug, year: @year) %>">
+<div class="featured_budget_line"
+     data-featured-budget-line="<%= gobierto_budgets_featured_budget_line_path(
+       current_organization.combined_slug,
+       year: @year
+     ) %>">
 </div>
 
+<% if current_organization.associated_entities.any? %>
+  <%= render(
+        partial: "gobierto_budgets/places/related_entities_budget",
+        locals: {
+          entities: current_organization.associated_entities,
+          place_name: current_organization.name,
+          year: @year
+        }
+      ) %>
+<% elsif !current_organization.city_council? %>
+  <%= render(
+        partial: "gobierto_budgets/places/related_entities_budget",
+        locals: {
+          entities: current_organization.parent_place_associated_entities,
+          place_name: current_organization.parent_place_name,
+          year: @year
+        }
+      ) %>
+<% end %>
+
 <% if users_enabled? && !logged_in? %>
-  <%= render partial: 'gobierto_budgets/places/cta_block' %>
+  <%= render "gobierto_budgets/places/cta_block", organization: current_organization %>
 <% end %>

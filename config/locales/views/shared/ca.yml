@@ -10,8 +10,8 @@ ca:
       datum: dada
       not_available: no disponible
     widget_template_deviation:
-      expenses_planned: Ingressos pressupostats
-      incomes_planned: Despeses pressupostades
+      expenses_planned: Despeses pressupostades
+      incomes_planned: Ingressos pressupostats
       real: reals
     widget_template_execution:
       not_available: No disponible

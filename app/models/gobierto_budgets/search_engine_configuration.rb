@@ -7,7 +7,7 @@ module GobiertoBudgets
         @all ||= (first..last).to_a.reverse
       end
       def self.fallback_year?(year)
-        year == self.last
+        self.last < Date.today.year ? year == self.last + 1 : year == self.last
       end
     end
 

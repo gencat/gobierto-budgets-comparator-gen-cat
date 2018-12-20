@@ -43,6 +43,7 @@ Una vez tengas PostgreSQL corriendo y hayas clonado este repo, haz lo siguiente 
 $ cd gobierto
 $ cp config/database.yml.example config/database.yml
 $ cp config/secrets.yml.example config/secrets.yml
+$ cp .env.example .env # or copy to .rbenv-vars if you use Rbenv
 $ bundle install
 $ rake db:setup
 ```
@@ -76,10 +77,10 @@ Después, configura el servidor así:
 
 ```
 cd ~/.pow
-ln -s DIRECTORIO/gobierto gobierto
+ln -s DIRECTORIO/gobierto-comparador-presupuestos gobierto-comparador-presupuestos
 ```
 
-Y simplemente navega a http://presupuestos.gobierto.dev/ para cargar la aplicación.
+Y simplemente navega a http://gobierto-comparador-presupuestos.test/ para cargar la aplicación.
 
 ### Montando el site para una sóla entidad pública
 

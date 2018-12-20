@@ -208,6 +208,12 @@ ca:
         compare: Compareu
         inhabitants: Habitants
         municipality: Municipi
+      related_entities_budget:
+        entity: Entitat
+        expense: Despesa
+        explore: Explora
+        income: Ingrés
+        table_title: Consulta el pressupost de les entitats depenents de %{name}
       show:
         about_the_data: Nota sobre les dades
         about_the_data_desc: La base de dades que utilitzem no inclou dades per al
@@ -215,11 +221,28 @@ ca:
           dades que hi existeixen (que són la gran majoria). Més informació a les
           nostres preguntes freqüents.
         explore_income_expenses: Exploreu ingressos i despeses de %{name}
+        main_budget_levels_legend_down: Han baixat
+        main_budget_levels_legend_one: Canvi entre aquest any
+        main_budget_levels_legend_two: i el passat
+        main_budget_levels_legend_up: Han pujat
+        main_budget_levels_per_inhabitant: per habitant
+        main_budget_levels_timeline: Compara despeses i ingressos any per any
+        main_budget_levels_tooltip_article: des de
+        main_budget_levels_tooltip_down: Ha baixat un
+        main_budget_levels_tooltip_up: Ha pujat un
+        main_budget_lines: Els principals ingressos i despeses %{from_your_organization_name}
+        main_budget_lines_expense: Despeses
+        main_budget_lines_income: Ingressos
         meta_description: Consulteu i visualitzeu els pressupostos municipals de %{name}
           del %{year}. Consulteu despeses i ingressos, indicadors pressupostaris,
           dades d'execució...
+        new: Nou
         per_inhabitant: per hab.
         percentage_over_total: s/ total
+        related_entities: Entitats relacionades
+        related_entities_budget:
+          see_all: Veure totes les entitats depenents (%{number})
+          see_less: Veure menys
         search_budget_lines_income: Busqueu partides d'ingressos
         title: Pressupostos municipals de %{name} del %{year}
         total: total
