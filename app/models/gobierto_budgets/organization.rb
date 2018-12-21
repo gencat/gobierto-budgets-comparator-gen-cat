@@ -1,17 +1,15 @@
 module GobiertoBudgets
   class Organization
 
-    attr_accessor(:id, :place)
+    attr_accessor :id, :place, :associated_entity
 
     def initialize(attributes)
       if (slug_param = attributes[:slug])
         (slug_param = slug_param.split("/").last) if slug_param.include?("/")
 
-        @place = ::INE::Places::Place.find_by_slug(slug_param)
-        if place
-          @id = place.id
-        else
-          @associated_entity = AssociatedEntity.find_by!(slug: slug_param)
+        if @place = ::INE::Places::Place.find_by_slug(slug_param)
+          @id = @place.id
+        elsif @associated_entity = AssociatedEntity.find_by(slug: slug_param)
           @id = @associated_entity.entity_id
         end
       elsif attributes[:organization_id]
