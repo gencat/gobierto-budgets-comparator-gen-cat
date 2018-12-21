@@ -14,10 +14,14 @@ module GobiertoBudgets
 
     def total_expenses(year)
       BudgetTotal.budgeted_for(entity_id, year, BudgetLine::EXPENSE)
+    rescue Elasticsearch::Transport::Transport::Errors::NotFound
+      nil
     end
 
     def total_income(year)
       BudgetTotal.budgeted_for(entity_id, year, BudgetLine::INCOME)
+    rescue Elasticsearch::Transport::Transport::Errors::NotFound
+      nil
     end
 
     def combined_slug

@@ -10,7 +10,6 @@ module GobiertoBudgets
     helper_method :current_organization
 
     def show
-      render_404 and return if current_organization.nil?
       if @year.nil?
         redirect_to gobierto_budgets_place_path(current_organization.combined_slug, SearchEngineConfiguration::Year.last) and return
       end
@@ -33,8 +32,6 @@ module GobiertoBudgets
     end
 
     def execution
-      render_404 and return if current_organization.nil?
-
       @top_possitive_difference_income, @top_negative_difference_income = BudgetLine.top_differences(
         organization_id: current_organization.id,
         year: @year,
@@ -180,6 +177,7 @@ module GobiertoBudgets
                               elsif params[:organization_id]
                                 Organization.new(id: params[:organization_id])
                               end
+      render_404 and return if @current_organization.place.nil? && @current_organization.associated_entity.nil?
     end
 
   end
