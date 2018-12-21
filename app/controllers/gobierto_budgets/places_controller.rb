@@ -1,7 +1,8 @@
 module GobiertoBudgets
   class PlacesController < GobiertoBudgets::ApplicationController
     layout :choose_layout
-    before_action :set_current_organization, :get_params
+    before_action :set_current_organization, except: [:ranking, :compare]
+    before_action :get_params
     before_action :solve_income_area_mismatch, except: [:show]
     before_action :admin_user, only: [:intelligence]
 
@@ -177,7 +178,7 @@ module GobiertoBudgets
                               elsif params[:organization_id]
                                 Organization.new(id: params[:organization_id])
                               end
-      render_404 and return if @current_organization.place.nil? && @current_organization.associated_entity.nil?
+      render_404 and return if @current_organization.nil? || (@current_organization.place.nil? && @current_organization.associated_entity.nil?)
     end
 
   end
