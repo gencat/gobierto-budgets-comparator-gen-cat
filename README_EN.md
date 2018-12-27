@@ -31,7 +31,7 @@ The application is written in the Ruby programming language and uses the Ruby on
 ### Software Requirements
 
 - Git
-- Ruby 2.5.3
+- Ruby 2.6.0
 - Rubygems
 - PostgreSQL
 - Elastic Search
