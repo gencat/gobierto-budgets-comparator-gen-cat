@@ -460,7 +460,7 @@ var VisLineasJ = Class.extend({
             .html(function(d, i) {return i != 0 ? d.value : '<i class="' + d.value + '"></i>'; }.bind(this));
 
         // Replace bullets colors
-        var bulletsColors   = this.colorScale.range().reverse();
+        var bulletsColors   = this.colorScale.range();
         var $chartContainer = $(this.container).closest('.widget_graph');
         var $legendBullets  = $chartContainer.find('.le');
 
@@ -639,8 +639,8 @@ var VisLineasJ = Class.extend({
   },
 
   _normalize: (function() {
-    var from = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç ",
-        to   = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc_",
+    var from = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç '",
+        to   = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc__",
         mapping = {};
 
     for(var i = 0, j = from.length; i < j; i++ )
