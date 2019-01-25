@@ -30,9 +30,7 @@ module GobiertoBudgets
       def total_budget_per_inhabitant
         year = params[:year].to_i
         total_budget_data = total_budget_data(year, 'total_budget')
-        population_year = year
-        population_year -= 1 if GobiertoBudgets::SearchEngineConfiguration::Year.fallback_year?(year)
-        population = total_population(population_year)
+        population = total_population(year) || total_population(year - 1) || total_population(year - 2)
         total_budget_data = total_budget_data / population
         total_budget_data_previous_year = total_budget_data(year - 1, 'total_budget')
         population_previous_year = total_population(year - 1)
