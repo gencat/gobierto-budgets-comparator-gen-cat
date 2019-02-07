@@ -15,6 +15,7 @@ namespace :gobierto_budgets do
         type.to_sym => {
           properties: {
             ine_code:              { type: 'integer', index: 'not_analyzed' },
+            organization_id:       { type: 'string',  index: 'not_analyzed' },
             province_id:           { type: 'integer', index: 'not_analyzed' },
             autonomy_id:           { type: 'integer', index: 'not_analyzed' },
             year:                  { type: 'integer', index: 'not_analyzed' },
@@ -25,12 +26,8 @@ namespace :gobierto_budgets do
     end
 
     def import_debt(file_path, year)
-      pbar = ProgressBar.new("debt-#{year}", INE::Places::Place.all.length)
-
       problems = []
       CSV.foreach(file_path) do |row|
-        pbar.inc
-
         id = row[1] + format('%.3i', row[2].to_i)
         next if id.nil?
         value = row[4].tr('.','').to_f
@@ -41,7 +38,7 @@ namespace :gobierto_budgets do
         end
 
         data = {
-          ine_code: place.id.to_i, province_id: place.province.id.to_i,
+          ine_code: place.id.to_i, province_id: place.province.id.to_i, organization_id: place.id.to_s,
           autonomy_id: place.province.autonomous_region.id.to_i, year: year,
           value: value
         }
@@ -51,7 +48,6 @@ namespace :gobierto_budgets do
         GobiertoBudgets::SearchEngine.client.index index: DEBT_INDEX, type: DEBT_TYPE, id: id, body: data
       end
 
-      pbar.finish
       puts "Problems importing debt with: " if problems.any?
       problems.each do |row|
         puts "  #{row.join(',')}"

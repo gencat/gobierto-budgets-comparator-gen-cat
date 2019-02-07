@@ -5,7 +5,7 @@ module GobiertoBudgets
     end
 
     def self.per_page
-      25
+      200
     end
 
     def self.position(i, page)
@@ -49,7 +49,7 @@ module GobiertoBudgets
       filters = options[:filters]
 
       if code.present?
-        return BudgetLine.place_position_in_ranking(options)
+        return BudgetLine.place_position_in_ranking(options, true)
       else
         if variable == 'population'
           return Population.place_position_in_ranking(year, ine_code, filters)
@@ -64,7 +64,7 @@ module GobiertoBudgets
 
     def self.budget_line_ranking(options, offset)
 
-      results, total_elements = BudgetLine.for_ranking(options.merge(offset: offset, per_page: self.per_page))
+      results, total_elements = BudgetLine.for_ranking(options.merge(offset: offset, per_page: self.per_page), true)
 
       places_ids = results.map {|h| h['ine_code']}
       population_results = Population.for_places(places_ids, options[:year])
@@ -73,7 +73,8 @@ module GobiertoBudgets
       total_results = BudgetTotal.for_places(places_ids, options[:year])
 
       return results.map do |h|
-        id = h['ine_code']
+        id = h['ine_code'].to_i
+
         Item.new({
           place: INE::Places::Place.find(id),
           population: h['population'],

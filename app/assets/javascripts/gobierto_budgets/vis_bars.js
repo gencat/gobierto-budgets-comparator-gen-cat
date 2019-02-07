@@ -4,14 +4,14 @@ var BarsVis = Class.extend({
   init: function(divId, mean, divLegend) {
     this.container = divId;
     this.containerLegend = divLegend;
-    
+
     // Chart dimensions
     this.containerWidth = null;
     this.margin = {top: 10, right: 50, bottom: 20, left: 82};
     this.width = null;
-    this.height = null;    
-    
-    // Variable 
+    this.height = null;
+
+    // Variable
     this.mean = mean;
 
     // Scales
@@ -70,7 +70,7 @@ var BarsVis = Class.extend({
         .style('background-color', d3.rgb(this.mainColor).brighter(1))
       .append('g')
         .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
-    
+
     // Set nice category
     this.niceCategory = {
       "Actuaciones de carácter general": "Actuaciones Generales",
@@ -104,12 +104,12 @@ var BarsVis = Class.extend({
     // Load the data
     d3.json(urlData, function(error, jsonData){
       if (error) throw error;
-      
+
       this.dataChart = jsonData.budgets;
-      this.kind = jsonData.kind; 
-      
+      this.kind = jsonData.kind;
+
       this.dataChart.sort(function(a, b) { return a.value - b.value; })
-      
+
       // Get the values array to take the max
       var values = [];
       this.dataChart.forEach(function(d) {
@@ -123,11 +123,11 @@ var BarsVis = Class.extend({
 
 
       this.yScale
-        .domain(this.dataChart.map(function(d) { return d.name; })) 
+        .domain(this.dataChart.map(function(d) { return d.name; }))
         .rangeRoundBands([this.height, 0], .05);
 
 
-      // Define the axis 
+      // Define the axis
 
       this.xAxis
           .scale(this.xScale)
@@ -136,7 +136,7 @@ var BarsVis = Class.extend({
           .orient("bottom");
 
       this.yAxis
-          .scale(this.yScale)  
+          .scale(this.yScale)
           .tickFormat(function(d) { return this.niceCategory[d]; }.bind(this))
           .orient("left");
 
@@ -159,9 +159,9 @@ var BarsVis = Class.extend({
 
       d3.selectAll('.x.axis').selectAll('text')
         .style('text-anchor', function(d, i) { return i == 0 ? 'start' : 'end' ; });
-      
 
-      // --> DRAW BARS CHART 
+
+      // --> DRAW BARS CHART
       this.chart = this.svgBars.append('g')
           .attr('class', 'chart');
 
@@ -185,11 +185,11 @@ var BarsVis = Class.extend({
           .duration(this.duration)
           .attr('width', function(d) { return this.xScale(d.value); }.bind(this));
 
-      // --> DRAW THE MEAN LINE 
+      // --> DRAW THE MEAN LINE
       var meanGroup = this.chart.append('g')
           .attr('class', 'mean_lines')
           .attr('transform', 'translate(' + this.margin.left + ',0)');
-          
+
 
       meanGroup.selectAll('.mean_line')
           .data(this.dataChart)
@@ -211,8 +211,8 @@ var BarsVis = Class.extend({
           .style('opacity', 1)
 
 
-      // --> DRAW THE Legend 
-      
+      // --> DRAW THE Legend
+
       this.legendScale.domain([this.niceCategory[this.mean]]).range([this.darkColor]);
 
       this.svgLegendBars = d3.select(this.containerLegend).append('svg');
@@ -220,7 +220,7 @@ var BarsVis = Class.extend({
       this.svgLegendBars.append("g")
         .attr("class", "legend_bar")
         .attr('transform', 'translate(' + (this.margin.left / 1.5) + ',' + 2 + ')')
-        
+
       this.legendBars
           .shapeWidth(2)
           .shapeHeight(20)
@@ -238,7 +238,7 @@ var BarsVis = Class.extend({
   }, // end render
 
   updateRender: function () {
-    
+
     // Update the mean lines
     this.svgBars.selectAll('.mean_line')
       .transition()
@@ -251,7 +251,7 @@ var BarsVis = Class.extend({
 
     this.legendBars
         .scale(this.legendScale);
-    
+
     this.svgLegendBars.select(".legend_bar")
         .call(this.legendBars);
 
@@ -271,7 +271,7 @@ var BarsVis = Class.extend({
         selectedData = d3.select(selected).data()[0];
 
 
-    var text = this.niceCategory[this.kind] + ': <strong>' + this.formatPercent(selectedData.value) + 
+    var text = this.niceCategory[this.kind] + ': <strong>' + this.formatPercent(selectedData.value) +
               '</strong>€<br>' + this.niceCategory[this.mean] + ': <strong>' + selectedData[this.mean] +
               '</strong>€<br>'+ this.niceCategory['percentage']+': <strong>' + selectedData.percentage + '</strong>%<br>';
 
@@ -280,7 +280,7 @@ var BarsVis = Class.extend({
       .transition()
       .duration(this.duration / 4)
       .style('opacity', .5);
-    
+
     this.tooltip
         .transition()
         .duration(this.duration / 4)
@@ -309,13 +309,13 @@ var BarsVis = Class.extend({
   },
 
   _normalize: (function() {
-    var from = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç ", 
+    var from = "ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç ",
         to   = "AAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc_",
         mapping = {};
-   
+
     for(var i = 0, j = from.length; i < j; i++ )
         mapping[ from.charAt( i ) ] = to.charAt( i );
-   
+
     return function( str ) {
         var ret = [];
         for( var i = 0, j = str.length; i < j; i++ ) {
@@ -324,18 +324,10 @@ var BarsVis = Class.extend({
                 ret.push( mapping[ c ] );
             else
                 ret.push( c );
-        }      
+        }
         return ret.join( '' ).toLowerCase();
     }
- 
+
   })()
 
 }); // End object
-
-
-
-
-
-
-
-

@@ -1,7 +1,7 @@
 <%
-  @title = t('.title', place: @place.name, year: @year)
+  @title = t('.title', place: current_organization.name, year: @year)
   set_meta_tags title: @title
-  set_meta_tags description: t('.description', place: @place.name, year: @year)
+  set_meta_tags description: t('.description', place: current_organization.name, year: @year)
 %>
 
 <%= render partial: 'place_header' %>
@@ -19,7 +19,7 @@
 			<div class="deviation_widget"
 				data-widget-template="#widget-template-deviation"
     		data-widget-type="budget_execution_deviation"
-    		data-widget-data-url="<%= gobierto_budgets_api_data_budget_execution_deviation_path(ine_code: @place.id, year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, format: :json) %>"
+    		data-widget-data-url="<%= gobierto_budgets_api_data_budget_execution_deviation_path(organization_slug: current_organization.combined_slug, year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, format: :json) %>"
     		data-callback="render_evo_line">
 			</div>
 		</div>
@@ -28,7 +28,7 @@
 			<div class="deviation_widget"
 				data-widget-template="#widget-template-deviation"
     		data-widget-type="budget_execution_deviation"
-    		data-widget-data-url="<%= gobierto_budgets_api_data_budget_execution_deviation_path(ine_code: @place.id, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, format: :json) %>"
+    		data-widget-data-url="<%= gobierto_budgets_api_data_budget_execution_deviation_path(organization_slug: current_organization.combined_slug, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, format: :json) %>"
     		data-callback="render_evo_line">
 			</div>
 		</div>

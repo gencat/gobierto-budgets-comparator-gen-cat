@@ -1,6 +1,4 @@
-
-$(function () {
-
+$(document).on('turbolinks:load', function() {
   var POPULATION_RANGE = [0, 5000000];
   var TOTAL_RANGE = [0, 5000000000];
   var PER_INHABITANT_RANGE = [0, 20000];

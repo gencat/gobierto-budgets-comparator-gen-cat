@@ -1,4 +1,4 @@
-class CreateGobifyParticipationConsultations < ActiveRecord::Migration
+class CreateGobifyParticipationConsultations < ActiveRecord::Migration[4.2]
   def change
     create_table :gobierto_participation_consultations do |t|
       t.references :user, null: false

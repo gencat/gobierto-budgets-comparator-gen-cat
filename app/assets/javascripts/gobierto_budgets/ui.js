@@ -14,9 +14,9 @@ function responsive() {
   }
 }
 
-$(function(){
+$(document).on('turbolinks:load', function() {
   // $('.spinner').hide();
-  Turbolinks.enableProgressBar();
+  // Turbolinks.enableProgressBar();
 
   // Modals
   $('.open_modal').magnificPopup({
@@ -305,6 +305,42 @@ $(function(){
       Turbolinks.visit($(this).data('page-href'));
     } else {
       return false;
+    }
+  }
+
+  if ($('.vis-bubbles-expense').length && $('.vis-bubbles-income').length && !$('.vis-bubbles-expense svg').length && !$('.vis-bubbles-income svg').length) {
+    var getBubbleData = new getBudgetLevelData();
+
+    getBubbleData.getData(function() {
+      new VisSlider('.timeline', window.budgetLevels);
+
+      var visBubblesExpense = new VisBubbles('.vis-bubbles-expense', 'expense', window.budgetLevels);
+      visBubblesExpense.render();
+
+      var visBubblesIncome = new VisBubbles('.vis-bubbles-income', 'income', window.budgetLevels);
+      visBubblesIncome.render();
+
+      window.addEventListener("resize", _.debounce(function() {
+        new VisSlider('.timeline', window.budgetLevels);
+
+        visBubblesExpense.resize();
+        visBubblesIncome.resize();
+
+        if (window.innerWidth >= 1024) {
+          new VisBubbleLegend('.bubble_legend');
+        } else {
+          $('.bubble_legend svg').remove();
+        }
+      }, 250));
+
+      $(document).on('visSlider:yearChanged', function(e, year) {
+        visBubblesIncome.update(year);
+        visBubblesExpense.update(year);
+      });
+    });
+
+    if (window.innerWidth >= 1024) {
+      new VisBubbleLegend('.bubble_legend');
     }
   }
 

@@ -23,9 +23,6 @@ public/cache
 public/assets
 **/.DS_Store
 
-# Ruby version
-.ruby-version
-
 config/settings.local.yml
 config/settings/*.local.yml
 config/environments/*.local.yml
@@ -35,3 +32,8 @@ config/deploy/production.rb
 
 # Settings
 config/settings/production.yml
+
+# Environment
+.env
+.rbenv-vars
+

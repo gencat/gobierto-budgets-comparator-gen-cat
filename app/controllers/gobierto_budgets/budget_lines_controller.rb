@@ -1,7 +1,12 @@
 module GobiertoBudgets
   class BudgetLinesController < GobiertoBudgets::ApplicationController
+
     layout :choose_layout
-    before_action :load_params
+    before_action :set_current_organization, :load_params
+
+    attr_accessor :current_organization
+
+    helper_method :current_organization
 
     def show
     end
@@ -15,19 +20,25 @@ module GobiertoBudgets
 
     private
 
+    def set_current_organization
+      @current_organization = Organization.new(slug: params[:slug])
+      render_404 and return if @current_organization.nil? || (@current_organization.place.nil? && @current_organization.associated_entity.nil?)
+    end
+
     def load_params
-      @place = INE::Places::Place.find_by_slug params[:slug]
       @year = params[:year]
       @code = params[:code]
-      if @code.include?('-')
-        redirect_to gobierto_budgets_budget_line_path(params[:slug], @year, @code.tr('-0', ''), params[:kind], params[:area]) and return
-      end
       @kind = ( %w{income i}.include?(params[:kind].downcase) ? GobiertoBudgets::BudgetLine::INCOME : GobiertoBudgets::BudgetLine::EXPENSE )
       @area_name = params[:area] || 'economic'
 
-      options = { ine_code: @place.id, year: @year, kind: @kind, type: @area_name }
+      options = { organization_id: current_organization.id, year: @year, kind: @kind, type: @area_name }
 
-      @budget_line = BudgetLine.new year: @year, kind: @kind, place_id: @place.id, area_name: @area_name, code: @code
+      @budget_line = BudgetLine.new(
+        year: @year,
+        kind: @kind,
+        place_id: current_organization.place_id,
+        area_name: @area_name, code: @code
+      )
 
       @parent_line = BudgetLine.find(options.merge(code: @code))
       render_404 and return if @parent_line.nil?

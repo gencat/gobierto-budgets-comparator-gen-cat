@@ -1,4 +1,4 @@
-$(function () {
+$(document).on('turbolinks:load', function() {
   function placesScopeCondition(){
     if(window.placesScope.length)
       return " i.place_id IN (" + window.placesScope + ")";
@@ -70,16 +70,16 @@ $(function () {
             return [cluster[0],cluster.pop()];
           });
 
-          var css = "#indicators_2016 [ value = 0]  { polygon-fill: #ffffff; } ";
+          var css = "#indicators_2017 [ value = 0]  { polygon-fill: #ffffff; } ";
           if(indicator === 'debt'){
-            css = "#indicators_2016 [ value = 0]  { polygon-fill: "+customColors[0]+"; } ";
+            css = "#indicators_2017 [ value = 0]  { polygon-fill: "+customColors[0]+"; } ";
           }
           ranges.forEach(function(range,i){
             var value = range[0];
             if(i === 0)
               value = 0;
             var color = customColors[i];
-            css += "#indicators_2016 [value>"+value + "] {polygon-fill:" + color + "}\n";
+            css += "#indicators_2017 [value>"+value + "] {polygon-fill:" + color + "}\n";
           });
 
           var query = "select i.cartodb_id, t.place_id as place_id, t.nameunit as name, t.the_geom, " +
@@ -140,11 +140,11 @@ $(function () {
             return [cluster[0],cluster.pop()];
           });
 
-          var css = "#indicators_2016 [ value = 0]  { polygon-fill: #ffffff; } ";
+          var css = "#indicators_2017 [ value = 0]  { polygon-fill: #ffffff; } ";
           ranges.forEach(function(range,i){
             var value = range[0]
             var color = colors[i];
-            css += "#indicators_2016 [value>"+value + "] {polygon-fill:" + color + "}\n";
+            css += "#indicators_2017 [value>"+value + "] {polygon-fill:" + color + "}\n";
           });
 
           var query = "select i.cartodb_id, t.place_id as place_id, t.nameunit as name, t.the_geom, t.the_geom_webmercator, " +

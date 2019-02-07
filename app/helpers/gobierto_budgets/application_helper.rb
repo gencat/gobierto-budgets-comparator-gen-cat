@@ -22,6 +22,7 @@ module GobiertoBudgets
 
     def format_currency(n, absolute_value = false)
       return nil if n.blank?
+      n = n.to_f
       n = n.abs if absolute_value
 
       if n.abs > 1_000_000
@@ -55,7 +56,7 @@ module GobiertoBudgets
       res
     end
 
-    def budget_line_description(area_name, code, kind)
+    def budget_line_description(area_name, code, kind, current_organization_slug)
       area = area_class area_name, kind
       description = area.all_descriptions[I18n.locale][area_name][kind][code.to_s]
       name = area.all_items[kind][code]
@@ -64,7 +65,15 @@ module GobiertoBudgets
       elsif description.present?
         kind_what = kind == 'I' ? t('common.incomes') : t('common.expenses')
 
-        I18n.t('helpers.budget_line_description', kind_what: kind_what, description: description.downcase, link: link_to(budget_line_denomination(area_name, code[0..-2], kind), gobierto_budgets_budget_line_path(@place.slug, params[:year],code[0..-2], kind, area_name))).html_safe
+        I18n.t(
+          "helpers.budget_line_description",
+          kind_what: kind_what,
+          description: description.downcase,
+          link: link_to(
+            budget_line_denomination(area_name, code[0..-2], kind),
+            gobierto_budgets_budget_line_path(current_organization_slug, params[:year], code[0..-2], kind, area_name)
+          )
+        ).html_safe
       end
     end
 
@@ -106,8 +115,16 @@ module GobiertoBudgets
 
     def lines_chart_api_path(what, compared_level, places, year, kind, parent_code = nil, area_name = 'economic')
       place_ids = places.map(&:id).join(':')
+
       path = if compared_level > 1
-        gobierto_budgets_api_data_compare_budget_lines_path(place_ids, year, what, kind, parent_code, area_name, format: :json )
+        gobierto_budgets_api_data_compare_budget_lines_path(
+          place_ids,
+          year, what,
+          kind,
+          parent_code,
+          area_name,
+          format: :json
+        )
       else
         gobierto_budgets_api_data_compare_path(place_ids, year, what, kind: kind, format: :json)
       end
@@ -139,10 +156,16 @@ module GobiertoBudgets
 
     def data_attributes
       attrs = []
-      if @place
-        attrs << %Q{data-track-url="#{gobierto_budgets_place_path(@place.slug, @year || GobiertoBudgets::SearchEngineConfiguration::Year.last)}"}
-        attrs << %Q{data-place-slug="#{@place.slug}"}
-        attrs << %Q{data-place-name="#{@place.name}"}
+
+      target = @place || try(:current_organization)
+      if target
+        # TODO: Hacer dinamico
+        attrs << %Q{data-bubbles-data="https://gobierto-populate-#{Rails.env.development? ? 'dev' : Rails.env }.s3.eu-west-1.amazonaws.com/gobierto_budgets/#{current_organization.id}/data/bubbles.json"}
+        attrs << %Q{data-max-year="#{GobiertoBudgets::SearchEngineConfiguration::Year.last}"}
+        # TODO: End TODO
+        attrs << %Q{data-track-url="#{gobierto_budgets_place_path(target.slug, @year || GobiertoBudgets::SearchEngineConfiguration::Year.last)}"}
+        attrs << %Q{data-place-slug="#{target.slug}"}
+        attrs << %Q{data-place-name="#{target.name}"}
       end
       if action_name == 'compare' and controller_name == 'places'
         attrs << %Q{data-comparison-name="#{@places.map{|p| p.name }.join(' + ')}"}
@@ -214,7 +237,7 @@ module GobiertoBudgets
     def gobierto_budgets_answers_path_with_params(question_id, answer_text)
       gobierto_budgets_answers_path(answer: {
         question_id: question_id, answer_text: answer_text,
-        place_id: @place.id, year: @year, kind: @kind, area_name: @area_name, code: @code
+        place_id: current_organization.place_id, year: @year, kind: @kind, area_name: @area_name, code: @code
       })
     end
 

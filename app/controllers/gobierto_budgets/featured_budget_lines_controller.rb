@@ -1,32 +1,41 @@
 module GobiertoBudgets
   class FeaturedBudgetLinesController < GobiertoBudgets::ApplicationController
+
+    before_action :set_current_organization
+
+    attr_accessor :current_organization
+    helper_method :current_organization
+
     def show
-      @place = INE::Places::Place.find_by_slug(params[:id])
       @year = params[:year].to_i
-      @area_name = 'functional'
-
+      @area_name = "functional"
       @kind = GobiertoBudgets::BudgetLine::EXPENSE
-      results = BudgetLine.search({
-          kind: @kind, year: @year, ine_code: @place.id,
-          type: @area_name, range_hash: {
-            level: {ge: 3},
-            amount_per_inhabitant: { gt: 0 }
-          }
-      })['hits']
 
-      @code = results.sample['code'] if results.any?
+      results = BudgetLine.search(
+        kind: @kind,
+        year: @year,
+        organization_id: current_organization.id,
+        type: @area_name,
+        range_hash: {
+          level: { ge: 3 },
+          amount_per_inhabitant: { gt: 0 }
+        }
+      )["hits"]
 
-      if @code.present?
-        render pick_template, layout: false
-      else
-        render nothing: true, status: 404
+      @code = results.sample["code"] if results.any?
+
+      respond_to do |format|
+        format.js { @code.present? ? render(:show) : head(:not_found) }
       end
     end
 
     private
 
-    def pick_template
-      params[:template] || 'show'
+    def set_current_organization
+      @current_organization = Organization.new(slug: params[:id])
+
+      render_404 and return if @current_organization.nil? || (@current_organization.place.nil? && @current_organization.associated_entity.nil?)
     end
+
   end
 end

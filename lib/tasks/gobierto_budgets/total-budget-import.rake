@@ -1,11 +1,12 @@
 namespace :gobierto_budgets do
   namespace :total_budget do
-    TOTAL_BUDGET_INDEXES = [GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast, GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_executed]
+    TOTAL_BUDGET_INDEXES = [GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast, GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_executed, GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast_updated]
 
     def create_total_budget_mapping(index, type)
       m = GobiertoBudgets::SearchEngine.client.indices.get_mapping index: index, type: type
       return unless m.empty?
 
+      puts "  - Creating #{index} > #{GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type}"
       # Document identifier: <ine_code>/<year>/<kind>
       #
       # Example: 28079/2015/I
@@ -15,6 +16,7 @@ namespace :gobierto_budgets do
         type.to_sym => {
           properties: {
             ine_code:                    { type: 'integer', index: 'not_analyzed' },
+            organization_id:             { type: 'string',  index: 'not_analyzed' },
             province_id:                 { type: 'integer', index: 'not_analyzed' },
             autonomy_id:                 { type: 'integer', index: 'not_analyzed' },
             year:                        { type: 'integer', index: 'not_analyzed' },
@@ -26,7 +28,7 @@ namespace :gobierto_budgets do
       }
     end
 
-    def get_data(index,place,year,kind)
+    def get_data(index,place,year,kind,type=nil)
       # total budget in a place
       query = {
         query: {
@@ -40,7 +42,9 @@ namespace :gobierto_budgets do
                   {term: { ine_code: place.id }},
                   {term: { level: 1 }},
                   {term: { kind: kind }},
-                  {term: { year: year }}
+                  {term: { year: year }},
+                  {missing: { field: 'functional_code'}},
+                  {missing: { field: 'custom_code'}}
                 ]
               }
             }
@@ -53,18 +57,14 @@ namespace :gobierto_budgets do
         size: 0
       }
 
-      type = (kind == 'G') ? 'functional' : 'economic'
+      type ||= (kind == 'G') ? 'functional' : 'economic'
 
       result = GobiertoBudgets::SearchEngine.client.search index: index, type: type, body: query
       return result['aggregations']['total_budget']['value'].round(2), result['aggregations']['total_budget_per_inhabitant']['value'].round(2)
     end
 
     def import_total_budget(year, index, kind)
-      pbar = ProgressBar.new("total-#{year}", INE::Places::Place.all.length)
-
       INE::Places::Place.all.each do |place|
-        pbar.inc
-
         if ENV['place_id'].present?
           next if place.id.to_i != ENV['place_id'].to_i
         end
@@ -76,9 +76,12 @@ namespace :gobierto_budgets do
         end
 
         total_budget, total_budget_per_inhabitant = get_data(index, place, year, kind)
+        if total_budget == 0.0 && kind == 'G'
+          total_budget, total_budget_per_inhabitant = get_data(index, place, year, kind, 'economic')
+        end
 
         data = {
-          ine_code: place.id.to_i, province_id: place.province.id.to_i,
+          ine_code: place.id.to_i, province_id: place.province.id.to_i, organization_id: place.id.to_s,
           autonomy_id: place.province.autonomous_region.id.to_i, year: year,
           kind: kind,
           total_budget: total_budget,
@@ -88,8 +91,6 @@ namespace :gobierto_budgets do
         id = [place.id,year,kind].join("/")
         GobiertoBudgets::SearchEngine.client.index index: index, type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: id, body: data
       end
-
-      pbar.finish
     end
 
     desc 'Reset ElasticSearch'
@@ -115,13 +116,12 @@ namespace :gobierto_budgets do
           }
         end
 
-        puts "- Creating #{index} > #{GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type}"
         create_total_budget_mapping(index, GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type)
       end
     end
 
-    desc "Import total budgets. Example rake total_budget:import['budgets-execution',2014]"
-    task :import, [:index,:year,:ine_code] => :environment do |t, args|
+    desc "Import total budgets. Example rake total_budget:import['budgets-execution',2014] place_id=28079 province_id=3 autonomous_region_id=5"
+    task :import, [:index,:year] => :environment do |t, args|
       index = args[:index] if TOTAL_BUDGET_INDEXES.include?(args[:index])
       raise "Invalid index #{args[:index]}" if index.blank?
 

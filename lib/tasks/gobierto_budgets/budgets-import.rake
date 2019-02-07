@@ -1,14 +1,16 @@
 namespace :gobierto_budgets do
   namespace :budgets do
-    BUDGETS_INDEXES = [GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed]
-    BUDGETS_TYPES = ['economic', 'functional']
+    BUDGETS_INDEXES = [GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed,
+                       GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed_series, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated]
+    BUDGETS_TYPES = ['economic', 'functional', 'custom']
 
     def create_budgets_mapping(index, type)
       m = GobiertoBudgets::SearchEngine.client.indices.get_mapping index: index, type: type
       return unless m.empty?
 
+      puts "  - Creating #{index} #{type}"
       # BUDGETS_INDEX: budgets-forecast // budgets-execution
-      # BUDGETS_TYPE: economic // functional
+      # BUDGETS_TYPE: economic // functional // custom
       #
       # Document identifier: <ine_code>/<year>/<code>/<kind>
       #
@@ -18,16 +20,46 @@ namespace :gobierto_budgets do
         type.to_sym => {
           properties: {
             ine_code:              { type: 'integer', index: 'not_analyzed' },
+            organization_id:       { type: 'string',  index: 'not_analyzed' },
             year:                  { type: 'integer', index: 'not_analyzed' },
             amount:                { type: 'double', index: 'not_analyzed'  },
             code:                  { type: 'string', index: 'not_analyzed'  },
             parent_code:           { type: 'string', index: 'not_analyzed'  },
             functional_code:       { type: 'string', index: 'not_analyzed'  },
+            custom_code:           { type: 'string', index: 'not_analyzed'  },
             level:                 { type: 'integer', index: 'not_analyzed' },
             kind:                  { type: 'string', index: 'not_analyzed'  }, # income I / expense G
             province_id:           { type: 'integer', index: 'not_analyzed' },
             autonomy_id:           { type: 'integer', index: 'not_analyzed' },
             amount_per_inhabitant: { type: 'double', index: 'not_analyzed'  }
+          }
+        }
+      }
+    end
+
+    def create_budgets_execution_series_mapping(index, type)
+      m = GobiertoBudgets::SearchEngine.client.indices.get_mapping index: index, type: type
+      return unless m.empty?
+
+      puts "  - Creating #{index} #{type}"
+      # BUDGETS_INDEX: gobierto-budgets-execution-series
+      # BUDGETS_TYPE: economic // functional // custom
+      #
+      # Document identifier: <ine_code>/<code>/<kind>
+      # Example: 28079/101/I
+      GobiertoBudgets::SearchEngine.client.indices.put_mapping index: index, type: type, body: {
+        type.to_sym => {
+          properties: {
+            ine_code:       { type: 'integer', index: 'not_analyzed' },
+            organization_id:       { type: 'string',  index: 'not_analyzed' },
+            kind:           { type: 'string',  index: 'not_analyzed' },  # income I / expense G
+            code:           { type: 'string',  index: 'not_analyzed' },
+            values: {
+              properties: {
+                date:       { type: 'string',  index: 'not_analyzed' },
+                amount:     { type: 'double',  index: 'not_analyzed' }
+              }
+            }
           }
         }
       }
@@ -45,14 +77,10 @@ namespace :gobierto_budgets do
       nil
     end
 
-    def import_functional_budgets(db_name, index, year)
+    def import_functional_budgets(db_name, index, year, destination_year)
       db = create_db_connection(db_name)
 
-      pbar = ProgressBar.new("funct-#{year}", INE::Places::Place.all.length)
-
       INE::Places::Place.all.each do |place|
-        pbar.inc
-
         if ENV['place_id'].present?
           next if place.id.to_i != ENV['place_id'].to_i
         end
@@ -63,15 +91,16 @@ namespace :gobierto_budgets do
           next if place.province.autonomous_region.id.to_i != ENV['autonomous_region_id'].to_i
         end
 
-        pop = population(place.id, year) || population(place.id, year - 1)
+        pop = population(place.id, destination_year) || population(place.id, destination_year - 1) || population(place.id, destination_year - 2)
+
         if pop.nil?
-          puts "- Skipping #{place.id} #{place.name} because population data is missing for #{year} and #{year-1}"
+          puts "- Skipping #{place.id} #{place.name} because population data is missing for #{destination_year} and #{destination_year-1}"
           next
         end
 
         base_data = {
-          ine_code: place.id.to_i, province_id: place.province.id.to_i,
-          autonomy_id: place.province.autonomous_region.id.to_i, year: year,
+          ine_code: place.id.to_i, province_id: place.province.id.to_i, organization_id: place.id.to_s,
+          autonomy_id: place.province.autonomous_region.id.to_i, year: destination_year,
           population: pop
         }
 
@@ -99,7 +128,7 @@ SQL
             parent_code: parent_code
           })
 
-          id = [place.id,year,code,'G'].join("/")
+          id = [place.id,destination_year,code,'G'].join("/")
           index_request_body << {index: {_id: id, data: data}}
         end
         next if index_request_body.empty?
@@ -126,25 +155,19 @@ SQL
             amount_per_inhabitant: (row['amount'].to_f / pop).round(2)
           })
 
-          id = [place.id,year,"#{code}-#{functional_code}",'G'].join("/")
+          id = [place.id,destination_year,"#{code}-#{functional_code}",'G'].join("/")
           index_request_body << {index: {_id: id, data: data}}
         end
         next if index_request_body.empty?
 
         GobiertoBudgets::SearchEngine.client.bulk index: index, type: 'economic', body: index_request_body
       end
-
-      pbar.finish
     end
 
-    def import_economic_budgets(db_name, index, year)
+    def import_economic_budgets(db_name, index, year, destination_year)
       db = create_db_connection(db_name)
 
-      pbar = ProgressBar.new("economic-#{year}", INE::Places::Place.all.length)
-
       INE::Places::Place.all.each do |place|
-        pbar.inc
-
         if ENV['place_id'].present?
           next if place.id.to_i != ENV['place_id'].to_i
         end
@@ -155,15 +178,15 @@ SQL
           next if place.province.autonomous_region.id.to_i != ENV['autonomous_region_id'].to_i
         end
 
-        pop = population(place.id, year) || population(place.id, year - 1)
+        pop = population(place.id, destination_year) || population(place.id, destination_year - 1) || population(place.id, destination_year - 2)
         if pop.nil?
-          puts "- Skipping #{place.id} #{place.name} because population data is missing for #{year} and #{year-1}"
+          puts "- Skipping #{place.id} #{place.name} because population data is missing for #{destination_year} and #{destination_year-1}"
           next
         end
 
         base_data = {
-          ine_code: place.id.to_i, province_id: place.province.id.to_i,
-          autonomy_id: place.province.autonomous_region.id.to_i, year: year,
+          ine_code: place.id.to_i, province_id: place.province.id.to_i, organization_id: place.id.to_s,
+          autonomy_id: place.province.autonomous_region.id.to_i, year: destination_year,
           population: pop
         }
 
@@ -197,15 +220,13 @@ SQL
             parent_code: parent_code
           })
 
-          id = [place.id,year,code,row['kind']].join("/")
+          id = [place.id,destination_year,code,row['kind']].join("/")
           index_request_body << {index: {_id: id, data: data}}
         end
         next if index_request_body.empty?
 
         GobiertoBudgets::SearchEngine.client.bulk index: index, type: 'economic', body: index_request_body
       end
-
-      pbar.finish
     end
 
     desc 'Reset ElasticSearch'
@@ -232,14 +253,17 @@ SQL
         end
 
         BUDGETS_TYPES.each do |type|
-          puts "- Creating #{index} #{type}"
-          create_budgets_mapping(index, type)
+          if index == GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed_series
+            create_budgets_execution_series_mapping(index, type)
+          else
+            create_budgets_mapping(index, type)
+          end
         end
       end
     end
 
-    desc "Import budgets from database into ElasticSearch. Example rake budgets:import['budgets-dbname','budgets-execution','economic',2015] place_id=28079 province_id=3 autonomous_region_id=5"
-    task :import, [:db_name, :index, :type, :year] => :environment do |t, args|
+    desc "Import budgets from database into ElasticSearch. Example bin/rails gobierto_budgets:budgets:import['budgets-dbname','budgets-execution','economic',2015] place_id=28079 province_id=3 autonomous_region_id=5"
+    task :import, [:db_name, :index, :type, :year, :destination_year] => :environment do |t, args|
       db_name = args[:db_name]
       index = args[:index] if BUDGETS_INDEXES.include?(args[:index])
       raise "Invalid index #{args[:index]}" if index.blank?
@@ -250,7 +274,13 @@ SQL
       end
       raise "Invalid year #{args[:year]}" if year.blank?
 
-      self.send("import_#{type}_budgets", db_name, index, year)
+      if args[:destination_year].present? && m = args[:destination_year].match(/\A\d{4}\z/)
+        destination_year = m[0].to_i
+      else
+        destination_year = year
+      end
+
+      self.send("import_#{type}_budgets", db_name, index, year, destination_year)
     end
   end
 end

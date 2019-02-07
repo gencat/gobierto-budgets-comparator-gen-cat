@@ -3,49 +3,37 @@
 
 This README is available [in English](README_EN.md)
 
-# Gobierto
+# Gobierto comparador de presupuestos
 
 Gobierto es una aplicación Rails que proporciona una serie de herramientas a las administraciones públicas para facilitar la transparencia y la participación ciudadana, para que se comuniquen mejor con los ciudadanos y para facilitar la explotación de los datos públicos.
 
-Gobierto está comenzando y es posible que algunas cosas cambien por el camino. El primer módulo disponible es el de Visualización de Presupuestos. Este es el tipo de cosas que puedes hacer:
+**Gobierto comparador de presupuestos** es una herramienta de exploración, comparación y visualización de los presupuestos municipales. Utilizamos datos abiertos del Ministerio de Hacienda (tenemos un [repositorio](https://github.com/PopulateTools/gobierto-budgets-data) donde publicamos los datos ya limpios y procesados) y del [INE](http://ine.es).
 
-1. **Sitio único para una entidad pública (por ejemplo, un municipio)**: Monta un sitio web para un Municipio (por ejemplo, madrid.gobierto.es) para publicar sus presupuestos de una manera sencilla de comprender. Pronto añadiremos otros módulos tales como Consultas de Presupuestos, Indicadores, Historias...
-2. **Sitio múltiple para entidades públicas**: Como el punto 1, pero para dar servico a múltiples entidades públicas bajo la misma instalación de Software y con distintos subdominios (madrid.gobierto.es, barcelona.gobierto.es, etc). 
-3. **Comparación de Presupuestos**: Una herramienta de comparación de presupuestos para que los ciudadanos puedan explorar, visualizar, comparar y poner en contexto los presupuestos de varias entidades públicas al mismo tiempo (como por ejemplo los de los municipios de una Provincia, Comunidad Autónoma o de un País). Puedes ver una instancia activa aquí [presupuestos.gobierto.es](http://presupuestos.gobierto.es) (contiene datos presupuestarios municipales para prácticamente la totalidad de los 8000 municipios en España).
-
-Puedes usar cualquiera de los tres escenarios de forma independiente o todos a la vez bajo una única instalación. Y no tienes por qué ser una institución pública para usarlo.
+Puedes ver una instancia de este proyecto funcionando en [https://presupuestos.gobierto.es](https://presupuestos.gobierto.es).
 
 Gobierto es un proyecto abierto de [Populate](http://populate.tools), un estudio que diseña desde Madrid productos digitales alrededor de la Participación Ciudadana. Además de trabajar en Gobierto, también ofrecemos servicios en torno a datos abiertos, periodismo de datos, sostenibilidad, etc.
 
 * #todo Por qué Gobierto y nuestra filosofía de Diseño
 
-Más información: 
+Más información:
 
 * Website de Gobierto: [gobierto.es](http://gobierto.es)
 * Blog: [gobierto.es/blog](http://gobierto.es/blog)
-* #todo public broadcast channel to report updates
-
-## Roadmap
-
-[Puedes verlo en nuestro Wiki](https://github.com/PopulateTools/gobierto/wiki). (En Inglés)
 
 ## Sugerencias de Mejora
 
-Crea un [issue](https://github.com/PopulateTools/gobierto/issues).
+Crea un [issue](https://github.com/PopulateTools/gobierto-comparador-presupuestos/issues).
 
 ## Arquitectura de la aplicación
 
-La aplicación está escrita en Ruby y usa el framework Ruby on Rails. Para la Base de Datos usa PostgreSQL y también usa ElasticSearch para almacenar toda la información de presupuestos y otros datos de terceros. El módulo de presupuestos vive bajo su propio subdominio, lo mismo que cada uno de los sites individuales para cada una de las entidades públicas. Este es el esquema que siguen los subdominios:
-
-- `presupuestos.`, donde vive el comparador de presupuestos.
-- `<entidad_publica>.`, es como empieza el dominio de cada Sitio individual para cada entidad pública donde el módulo de presupuestos y otros se pueden activar.
+La aplicación está escrita en Ruby y usa el framework Ruby on Rails. Para la Base de Datos usa PostgreSQL y también usa ElasticSearch para almacenar toda la información de presupuestos y otros datos de terceros.
 
 ## Desarrollo
 
 ### Requerimientos de Software
 
 - Git
-- Ruby 2.3.1
+- Ruby 2.6.0
 - Rubygems
 - PostgreSQL
 - Elastic Search
@@ -59,7 +47,7 @@ Una vez tengas PostgreSQL corriendo y hayas clonado este repo, haz lo siguiente 
 $ cd gobierto
 $ cp config/database.yml.example config/database.yml
 $ cp config/secrets.yml.example config/secrets.yml
-$ cp config/deploy_secrets.yml.example config/deploy_secrets.yml
+$ cp .env.example .env # or copy to .rbenv-vars if you use Rbenv
 $ bundle install
 $ rake db:setup
 ```
@@ -93,10 +81,10 @@ Después, configura el servidor así:
 
 ```
 cd ~/.pow
-ln -s DIRECTORIO/gobierto gobierto
+ln -s DIRECTORIO/gobierto-comparador-presupuestos gobierto-comparador-presupuestos
 ```
 
-Y simplemente navega a http://presupuestos.gobierto.dev/ para cargar la aplicación.
+Y simplemente navega a http://gobierto-comparador-presupuestos.test/ para cargar la aplicación.
 
 ### Montando el site para una sóla entidad pública
 
@@ -113,13 +101,13 @@ ToDo: Documentar el formato de datos para importar
 
 ## Contribuir
 
-Claro! Mira [cómo contribuir](https://github.com/PopulateTools/gobierto/blob/master/CONTRIBUTING_ES.md)
+Claro! Mira [cómo contribuir](https://github.com/PopulateTools/gobierto-comparador-presupuestos/blob/master/CONTRIBUTING_ES.md)
 
 ### Librerías/gemas
 
-* Gemas: Echa un vistazo a [Gemfile](https://github.com/PopulateTools/gobierto/blob/master/Gemfile) para una referencia completa
+* Gemas: Echa un vistazo a [Gemfile](https://github.com/PopulateTools/gobierto-comparador-presupuestos/blob/master/Gemfile) para una referencia completa
 * Otras (CSS, JS): #ToDo (explora el código de momento;)
 
 ## Licencia
 
-Software publicado bajo la licencia de código abierto AFFERO GPL v3 (ver [LICENSE-AGPLv3.txt](https://github.com/PopulateTools/gobierto/blob/master/LICENSE-AGPLv3.txt))
+Software publicado bajo la licencia de código abierto AFFERO GPL v3 (ver [LICENSE-AGPLv3.txt](https://github.com/PopulateTools/gobierto-comparador-presupuestos/blob/master/LICENSE-AGPLv3.txt))

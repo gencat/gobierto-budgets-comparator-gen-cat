@@ -12,6 +12,6 @@ RSpec.feature 'Homepage' do
     fill_autocomplete('.pre_home .places_search', page, with: 'madri', select: 'Madrid')
 
     expect(page).to have_content('Madridejos')
-    expect(page).to have_css("ul#history li", text: 'Madridejos (2016)')
+    expect(page).to have_css("ul#history li", text: 'Madridejos (2017)')
   end
 end

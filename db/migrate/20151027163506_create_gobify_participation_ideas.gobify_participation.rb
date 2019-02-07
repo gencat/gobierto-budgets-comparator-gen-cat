@@ -1,5 +1,5 @@
 # This migration comes from gobierto_participation (originally 20151027153937)
-class CreateGobifyParticipationIdeas < ActiveRecord::Migration
+class CreateGobifyParticipationIdeas < ActiveRecord::Migration[4.2]
   def change
     create_table :gobierto_participation_ideas do |t|
       t.references :user, null: false

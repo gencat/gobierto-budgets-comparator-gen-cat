@@ -15,6 +15,7 @@ namespace :gobierto_budgets do
         type.to_sym => {
           properties: {
             ine_code:              { type: 'integer', index: 'not_analyzed' },
+            organization_id:       { type: 'string',  index: 'not_analyzed' },
             province_id:           { type: 'integer', index: 'not_analyzed' },
             autonomy_id:           { type: 'integer', index: 'not_analyzed' },
             year:                  { type: 'integer', index: 'not_analyzed' },
@@ -25,8 +26,6 @@ namespace :gobierto_budgets do
     end
 
     def import_population(file_path, year)
-      pbar = ProgressBar.new("popul-#{year}", INE::Places::Place.all.length)
-
       dataset = RubyPx::Dataset.new file_path
       population_data = dataset.data('edad (año a año)' => 'Total', 'sexo' => 'Ambos sexos')
       places_codes = dataset.dimension('municipios').map{|k| k.split('-').first.to_i }
@@ -34,7 +33,6 @@ namespace :gobierto_budgets do
       missing_data = []
 
       INE::Places::Place.all.each do |place|
-        pbar.inc
         pop = population_data[place.id.to_i]
         if pop.nil?
           missing_data << place.name
@@ -42,7 +40,7 @@ namespace :gobierto_budgets do
         end
 
         data = {
-          ine_code: place.id.to_i, province_id: place.province.id.to_i,
+          ine_code: place.id.to_i, province_id: place.province.id.to_i, organization_id: place.id.to_s,
           autonomy_id: place.province.autonomous_region.id.to_i, year: year,
           value: pop.to_i
         }
@@ -52,7 +50,6 @@ namespace :gobierto_budgets do
         GobiertoBudgets::SearchEngine.client.index index: POPULATION_INDEXES.first, type: POPULATION_TYPES.first, id: id, body: data
       end
 
-      pbar.finish
       if missing_data.any?
         puts "Couldn't find population data of #{year} for #{missing_data.join(', ')}"
       end

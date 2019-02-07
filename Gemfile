@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.6'
-gem 'pg'
+gem "rails", "~> 5.2.0"
+gem "pg", "~> 0.19"
 gem 'sass-rails', '~> 5.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'redcarpet', require: true
@@ -10,9 +10,8 @@ gem 'rollbar'
 gem 'meta-tags'
 gem 'ine-places'
 gem 'actionpack-action_caching'
-gem 'progressbar'
 gem 'ruby_px'
-gem 'kaminari', git: 'git@github.com:amatsuda/kaminari.git'
+gem "kaminari", "~> 1.0"
 gem 'geocoder'
 gem 'responders'
 gem 'daemons'
@@ -20,11 +19,16 @@ gem 'config'
 gem 'dalli'
 gem 'aws-ses'
 gem 'cocoon'
+gem 'nokogiri', '~> 1.8', '>= 1.8.1'
+gem 'json', '~> 2.1'
+gem "gobierto_data", git: "https://github.com/PopulateTools/gobierto_data.git"
+gem "bootsnap"
+gem 'sprockets', '~> 3.7.2'
 
 # Frontend
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
-gem 'bourbon'
+gem "bourbon", "~> 4.3.4"
 gem 'turbolinks'
 gem 'therubyracer'
 gem 'cookies_eu'
@@ -37,10 +41,13 @@ gem 'elasticsearch-extensions'
 gem 'oj'
 gem 'hashie'
 
+# Socrata integration
+gem 'soda-ruby', '~> 0.2.24', require: 'soda'
+
 group :development, :test do
-  gem 'spring'
-  gem 'spring-commands-rspec'
-  gem 'byebug'
+  gem "byebug", platform: :mri
+  gem "spring"
+  gem "spring-watcher-listen", "~> 2.0.0"
 end
 
 group :test do
@@ -56,13 +63,5 @@ end
 
 group :development do
   gem 'puma'
-  gem 'web-console', '~> 2.0'
-  gem 'quiet_assets'
-  gem 'capistrano'
-  gem 'capistrano-rbenv'
-  gem 'capistrano-bundler'
-  gem 'capistrano-rails'
-  gem 'capistrano-passenger'
-  gem 'capistrano-rails-console'
-  gem 'capistrano-rails-log'
+  gem "rubocop"
 end
