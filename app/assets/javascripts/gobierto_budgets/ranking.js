@@ -171,5 +171,10 @@ $(document).on('turbolinks:load', function() {
     $('body').on('change','#aarr', function(v) {
       updateRanking(true);
     })
+
+    $(document).on('renderBudgetLineCategory', function(e){
+      var url = "/ranking/"+$('body').data('year') +"/"+e.kind+"/"+e.area+"/amount/" + e.code;
+      Turbolinks.visit(url);
+    });
   }
 });
