@@ -1,7 +1,7 @@
 module GobiertoBudgets
   class PlacesController < GobiertoBudgets::ApplicationController
     layout :choose_layout
-    before_action :set_current_organization, except: [:ranking, :compare]
+    before_action :set_current_organization, except: [:ranking, :compare, :redirect]
     before_action :get_params
     before_action :solve_income_area_mismatch, except: [:show]
     before_action :admin_user, only: [:intelligence]
