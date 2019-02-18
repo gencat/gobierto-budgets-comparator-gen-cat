@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/PopulateTools/gobierto_data.git
-  revision: 55434c357f30caf9c0a8bf51d0e7c682a296d8f0
+  revision: a2c24511ad0fff1765f358c755a6227a27e40fa8
   specs:
     gobierto_data (0.0.1)
       actionpack (>= 5.0.0.1)
@@ -10,6 +10,7 @@ GIT
       elasticsearch-extensions (~> 0.0.27)
       ine-places (~> 0.3.0)
       oj (~> 3.5, >= 3.5.0)
+      rake (~> 12.3.2)
 
 GEM
   remote: https://rubygems.org/
@@ -62,13 +63,13 @@ GEM
     ansi (1.5.0)
     arel (9.0.0)
     ast (2.4.0)
-    aws-sdk (2.11.211)
-      aws-sdk-resources (= 2.11.211)
-    aws-sdk-core (2.11.211)
+    aws-sdk (2.11.222)
+      aws-sdk-resources (= 2.11.222)
+    aws-sdk-core (2.11.222)
       aws-sigv4 (~> 1.0)
       jmespath (~> 1.0)
-    aws-sdk-resources (2.11.211)
-      aws-sdk-core (= 2.11.211)
+    aws-sdk-resources (2.11.222)
+      aws-sdk-core (= 2.11.222)
     aws-ses (0.6.0)
       builder
       mail (> 2.2.5)
