@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/PopulateTools/gobierto_data.git
-  revision: b149dfc88e16e57394de8cbf911271e1aad31363
+  revision: f13142bd1f424dcf9d485dec3cdfa82caabd6ad1
   specs:
-    gobierto_data (0.0.1)
+    gobierto_data (0.1.0)
       actionpack (>= 5.0.0.1)
       activesupport (>= 5.0.0)
       aws-sdk (~> 2.11, >= 2.11.45)
@@ -63,13 +63,13 @@ GEM
     ansi (1.5.0)
     arel (9.0.0)
     ast (2.4.0)
-    aws-sdk (2.11.222)
-      aws-sdk-resources (= 2.11.222)
-    aws-sdk-core (2.11.222)
+    aws-sdk (2.11.223)
+      aws-sdk-resources (= 2.11.223)
+    aws-sdk-core (2.11.223)
       aws-sigv4 (~> 1.0)
       jmespath (~> 1.0)
-    aws-sdk-resources (2.11.222)
-      aws-sdk-core (= 2.11.222)
+    aws-sdk-resources (2.11.223)
+      aws-sdk-core (= 2.11.223)
     aws-ses (0.6.0)
       builder
       mail (> 2.2.5)
@@ -224,7 +224,7 @@ GEM
     nio4r (2.3.1)
     nokogiri (1.10.1)
       mini_portile2 (~> 2.4.0)
-    oj (3.7.8)
+    oj (3.7.9)
     parallel (1.13.0)
     parser (2.6.0.0)
       ast (~> 2.4.0)
