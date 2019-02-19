@@ -14,11 +14,11 @@ namespace :gobierto_budgets do
       planned_db_name = 'budgets_planned'
       executed_db_name = 'budgets_executed'
 
-      indices = %w{budgets total_budget budget_categories places debt population}
+      indices = %w{budgets total_budget budget_categories places}
       indices.each { |index| Rake::Task["gobierto_budgets:#{index}:create"].invoke }
     end
 
-    desc "Import supporting data. Imports Population, Places, Categories and Debt info"
+    desc "Import supporting data. Imports Population, Places, Categories info"
     task :import_supporting_data => :environment do |t, args|
       fail "Indices are not empty" if indices_populated?
       # Create categories
@@ -30,19 +30,10 @@ namespace :gobierto_budgets do
       Rake::Task["gobierto_budgets:places:import"].invoke
 
       # Load population
-      puts "Importing population data..."
-      (2011..2015).to_a.reverse.each do |year|
-        Rake::Task["gobierto_budgets:population:import"].invoke(year.to_s,"db/data/population/#{year}.px")
-        Rake::Task["gobierto_budgets:population:import"].reenable
-      end
+      puts "Populate must be imported using Populate Data task"
 
       # Load debt info
-      puts "Importing debt info..."
-      (2010..2015).to_a.reverse.each do |year|
-        puts year
-        Rake::Task["gobierto_budgets:debt:import"].invoke(year.to_s,"db/data/debt/debt-#{year}.csv")
-        Rake::Task["gobierto_budgets:debt:import"].reenable
-      end
+      puts "Debt must be imported using Populate Data task"
     end
 
     desc "Imports data for sample municipalities. Good to get started"
