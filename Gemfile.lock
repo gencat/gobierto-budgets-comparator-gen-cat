@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/PopulateTools/gobierto_data.git
-  revision: b7a8bb2b6374bc17b30c4dbbf43f41f9d6cecfe4
+  revision: de1ed0fb9a7ccca8988bc5154b2f5c1994f0b62e
   specs:
     gobierto_data (0.1.0)
       actionpack (>= 5.0.0.1)
