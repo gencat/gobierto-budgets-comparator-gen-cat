@@ -17,9 +17,7 @@ namespace :custom do
       ]
 
       file_names = ["_header_", "_footer_", "_custom_head_content_"].map do |name_fragment|
-        # TODO: only use catalan until template is available in all locales
-        ["ca"].map { |lc| "#{name_fragment}#{lc}.html.erb" }
-        #I18n.available_locales.map { |lc| "#{name_fragment}#{lc}.html.erb" }
+        I18n.available_locales.map { |lc| "#{name_fragment}#{lc}.html.erb" }
       end.flatten
 
       file_names.each do |file_name|
