@@ -60,28 +60,6 @@
 <script type="text/javascript">
   'use strict';
   <%= yield :javascript %>
-
-  $(function(){
-    $('.widget_graph .help').hide();
-    $(document).on('click', function(e){
-      var target = $(e.target);
-      var href = target.attr('href');
-      if(href !== undefined && href.indexOf('locale') !== -1){
-        e.preventDefault();
-        e.stopPropagation();
-
-        if(href.indexOf('ovt.gencat.cat') !== -1){
-          window.location.href = href;
-        }
-        else if(href.indexOf('es_ES') !== -1){
-          window.location.href = '/locale/es';
-        }
-        else if(href.indexOf('ca_CA') !== -1){
-          window.location.href = '/locale/ca';
-        }
-      }
-    });
-  });
 </script>
 
 </body>
