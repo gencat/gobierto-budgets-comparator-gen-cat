@@ -33,7 +33,7 @@ La aplicación está escrita en Ruby y usa el framework Ruby on Rails. Para la B
 ### Requerimientos de Software
 
 - Git
-- Ruby 2.6.0
+- Ruby 2.6.1
 - Rubygems
 - PostgreSQL
 - Elastic Search
@@ -44,12 +44,14 @@ La aplicación está escrita en Ruby y usa el framework Ruby on Rails. Para la B
 Una vez tengas PostgreSQL corriendo y hayas clonado este repo, haz lo siguiente en el terminal:
 
 ```
-$ cd gobierto
+$ git clone git@github.com:PopulateTools/gobierto-comparador-presupuestos.git
+$ cd gobierto-comparador-presupuestos
 $ cp config/database.yml.example config/database.yml
 $ cp config/secrets.yml.example config/secrets.yml
-$ cp .env.example .env # or copy to .rbenv-vars if you use Rbenv
+$ cp .env.example .env
+$ ln -s .env .rbenv-vars # if you use Rbenv
 $ bundle install
-$ rake db:setup
+$ bin/rails db:setup
 ```
 
 ### Monta una instancia de Elastic Search
