@@ -396,7 +396,7 @@ module GobiertoBudgets
               title: t('.debt'),
               sign: nil,
               delta_percentage: helpers.number_with_precision(delta_percentage(debt_previous_year[:value], debt_year[:value]), precision: 2),
-              value: helpers.number_to_currency(debt_year[:value], precision: 0, strip_insignificant_zeros: true),
+              value: format_currency(debt_year[:value]),
               no_data_this_year: no_data_this_year,
               ranking_position: debt_year[:position],
               ranking_total_elements: helpers.number_with_precision(debt_year[:total_elements], precision: 0),
@@ -594,7 +594,7 @@ module GobiertoBudgets
           position = debts.index(id) + 1 rescue 0
 
           value = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::Data.index, type: GobiertoBudgets::SearchEngineConfiguration::Data.type_debt, id: id
-          value = value['_source']['value'] * 1000
+          value = value['_source']['value']
         rescue Elasticsearch::Transport::Transport::Errors::NotFound
           debts = []
           position = nil
