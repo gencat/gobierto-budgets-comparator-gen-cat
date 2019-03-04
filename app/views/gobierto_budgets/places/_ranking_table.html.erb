@@ -12,12 +12,35 @@
     <thead>
       <th class="r_pos">#</th>
       <th class="location"><%= t('.municipality') %></th>
-      <th class="population"><%= link_to_unless @variable == 'population', t('.inhabitants'), gobierto_budgets_population_ranking_path(@year, ine_code: params[:ine_code]) %></th>
-      <th class="expense_per" title="Gasto por habitante"><%= link_to_unless @variable == 'amount_per_inhabitant', "#{kind_literal(@kind)}/hab", gobierto_budgets_places_ranking_path(@year,@kind,@area_name,'amount_per_inhabitant', code: @code, ine_code: params[:ine_code], f: params[:f]) %></th>
-      <th class="expense"><%= link_to_unless @variable == 'amount', "#{kind_literal(@kind)} #{I18n.t('common.totals')}", gobierto_budgets_places_ranking_path(@year,@kind,@area_name,'amount', code: @code, ine_code: params[:ine_code], f: params[:f]) %></th>
+
+      <th class="population">
+        <%= link_to_unless(
+              @variable == 'population',
+              t('.inhabitants'),
+              gobierto_budgets_population_ranking_path(@year, ine_code: params[:ine_code])
+            ) %>
+      </th>
+
+      <th class="expense_per" title="Gasto por habitante">
+        <%= link_to_unless(
+              @variable == 'amount_per_inhabitant',
+              "#{kind_literal(@kind)}/hab",
+              gobierto_budgets_places_ranking_path(@year,@kind,@area_name,'amount_per_inhabitant', code: @code, ine_code: params[:ine_code], f: params[:f])
+            ) %>
+      </th>
+
+      <th class="expense">
+        <%= link_to_unless(
+              @variable == 'amount',
+              "#{kind_literal(@kind)} #{I18n.t('common.totals')}",
+              gobierto_budgets_places_ranking_path(@year,@kind,@area_name,'amount', code: @code, ine_code: params[:ine_code], f: params[:f])
+            ) %>
+      </th>
+
       <% if @variable != 'population' && @code.present? %>
         <th class="percentage">% s/ Total</th>
       <% end %>
+
       <th class="compare"><%= t('.compare') %></th>
     </thead>
 
