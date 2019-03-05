@@ -13,5 +13,9 @@ module GobiertoBudgets
       )
     end
 
+    def filter_selected?(filter_key)
+      @variable == filter_key
+    end
+
   end
 end

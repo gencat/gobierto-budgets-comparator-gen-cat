@@ -13,27 +13,27 @@
       <th class="r_pos">#</th>
       <th class="location"><%= t('.municipality') %></th>
 
-      <th class="population">
+      <th class="expense <%= class_if('selected', filter_selected?('population')) %>">
         <%= link_to_unless(
-              @variable == 'population',
+              filter_selected?('population'),
               t('.inhabitants'),
               filter_link_path('population'),
               remote: true
             ) %>
       </th>
 
-      <th class="expense_per" title="Gasto por habitante">
+      <th class="expense <%= class_if('selected', filter_selected?('amount_per_inhabitant')) %>" title="Gasto por habitante">
         <%= link_to_unless(
-              @variable == 'amount_per_inhabitant',
+              filter_selected?('amount_per_inhabitant'),
               "#{kind_literal(@kind)}/hab",
               filter_link_path('amount_per_inhabitant'),
               remote: true
             ) %>
       </th>
 
-      <th class="expense">
+      <th class="expense <%= class_if('selected', filter_selected?('amount')) %>">
         <%= link_to_unless(
-              @variable == 'amount',
+              filter_selected?('amount'),
               "#{kind_literal(@kind)} #{I18n.t('common.totals')}",
               filter_link_path('amount'),
               remote: true
@@ -52,9 +52,9 @@
         <tr <%= 'class="selected"'.html_safe if ranking_item.place == @place %> id='<%= "place_#{ranking_item.place.id}" %>'>
           <td class="r_pos"><%= GobiertoBudgets::Ranking.position(i, @page) %>.</td>
           <td class="location"><%= link_to ranking_item.place.name, gobierto_budgets_place_path(ranking_item.place.slug, @year) %> (<%= ranking_item.place.province.name %>)</td>
-          <td class="population"><%= number_with_precision ranking_item.population, precision: 0, delimiter: '.' %></td>
-          <td class="expense_per"><%= number_to_currency ranking_item.amount_per_inhabitant, strip_insignificant_zeros: true %></td>
-          <td class="expense"><%= number_to_currency ranking_item.amount.to_i, strip_insignificant_zeros: true %></td>
+          <td class="expense <%= class_if('selected', filter_selected?('population')) %>"><%= number_with_precision ranking_item.population, precision: 0, delimiter: '.' %></td>
+          <td class="expense <%= class_if('selected', filter_selected?('amount_per_inhabitant')) %>"><%= number_to_currency ranking_item.amount_per_inhabitant, strip_insignificant_zeros: true %></td>
+          <td class="expense <%= class_if('selected', filter_selected?('amount')) %>"><%= number_to_currency ranking_item.amount.to_i, strip_insignificant_zeros: true %></td>
           <% if @variable != 'population' && @code.present? %>
             <td class="percentage"><%= percentage_of_total(ranking_item.amount, ranking_item.total) %></td>
           <% end %>
