@@ -132,6 +132,8 @@ module GobiertoBudgets
 
       query = delete_autonomy_id_term_if_ine_codes_present(query)
 
+      replace_autonomy_id_per_autonomous_region_id(query)
+
       SearchEngine.client.search(
         index: SearchEngineConfiguration::Data.index,
         type: SearchEngineConfiguration::Data.type_population,
@@ -141,6 +143,19 @@ module GobiertoBudgets
 
     def self.population_query_results(options)
       population_query(options)['hits']['hits'].map{|h| h['_source']}
+    end
+
+    def self.replace_autonomy_id_per_autonomous_region_id(query)
+      must_terms = query[:query][:filtered][:filter][:bool][:must]
+
+      must_terms.each do |must_term|
+        if must_term.is_a?(Hash) && must_term[:term] && must_term[:term].keys.include?(:autonomy_id)
+          term_value = must_term[:term][:autonomy_id]
+          must_term[:term] = { autonomous_region_id: term_value }
+        end
+      end
+
+      query
     end
 
     def self.delete_autonomy_id_term_if_ine_codes_present(query)
