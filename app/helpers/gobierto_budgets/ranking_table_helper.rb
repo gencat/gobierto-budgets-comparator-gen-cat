@@ -1,6 +1,14 @@
 module GobiertoBudgets
   module RankingTableHelper
 
+    def column_filters
+      [
+        { key: 'population', literal: t('.inhabitants') },
+        { key: 'amount_per_inhabitant', literal: "#{kind_literal(@kind)}/hab", tooltip: "Gasto por habitante" },
+        { key: 'amount', literal: "#{kind_literal(@kind)} #{I18n.t('common.totals')}" }
+      ]
+    end
+
     def filter_link_path(filter_kind)
       gobierto_budgets_places_ranking_path(
         @year,

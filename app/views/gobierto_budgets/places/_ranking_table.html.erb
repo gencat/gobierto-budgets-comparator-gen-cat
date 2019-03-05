@@ -13,32 +13,16 @@
       <th class="r_pos">#</th>
       <th class="location"><%= t('.municipality') %></th>
 
-      <th class="expense <%= class_if('selected', filter_selected?('population')) %>">
-        <%= link_to_unless(
-              filter_selected?('population'),
-              t('.inhabitants'),
-              filter_link_path('population'),
-              remote: true
-            ) %>
-      </th>
-
-      <th class="expense <%= class_if('selected', filter_selected?('amount_per_inhabitant')) %>" title="Gasto por habitante">
-        <%= link_to_unless(
-              filter_selected?('amount_per_inhabitant'),
-              "#{kind_literal(@kind)}/hab",
-              filter_link_path('amount_per_inhabitant'),
-              remote: true
-            ) %>
-      </th>
-
-      <th class="expense <%= class_if('selected', filter_selected?('amount')) %>">
-        <%= link_to_unless(
-              filter_selected?('amount'),
-              "#{kind_literal(@kind)} #{I18n.t('common.totals')}",
-              filter_link_path('amount'),
-              remote: true
-            ) %>
-      </th>
+      <% column_filters.each do |column_filter| %>
+        <th class="expense <%= class_if('selected', filter_selected?(column_filter[:key])) %>" title="<%= column_filter[:tooltip] %>">
+          <%= link_to_unless(
+                filter_selected?(column_filter[:key]),
+                column_filter[:literal],
+                filter_link_path(column_filter[:key]),
+                remote: true
+              ) %>
+        </th>
+      <% end %>
 
       <% if @variable != 'population' && @code.present? %>
         <th class="percentage">% s/ Total</th>
