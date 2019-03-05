@@ -130,11 +130,38 @@ module GobiertoBudgets
       query.merge!(from: options[:offset]) if options[:offset].present?
       query.merge!(_source: false) if options[:to_rank]
 
-      SearchEngine.client.search index: SearchEngineConfiguration::Data.index, type: SearchEngineConfiguration::Data.type_population, body: query
+      query = delete_autonomy_id_term_if_ine_codes_present(query)
+
+      SearchEngine.client.search(
+        index: SearchEngineConfiguration::Data.index,
+        type: SearchEngineConfiguration::Data.type_population,
+        body: query
+      )
     end
 
     def self.population_query_results(options)
       population_query(options)['hits']['hits'].map{|h| h['_source']}
+    end
+
+    def self.delete_autonomy_id_term_if_ine_codes_present(query)
+      must = query[:query][:filtered][:filter][:bool][:must]
+
+      must_terms = must.map do |item|
+        if item.is_a?(Array)
+          item[0][:terms]
+        else
+          item[:term]
+        end
+      end
+
+      filters = must_terms.compact.map(&:keys).flatten
+
+      if filters.include?(:ine_code) && filters.include?(:autonomy_id)
+        deletable_term_index = must.find_index { |item| item.is_a?(Hash) && item[:term] && item[:term].keys.include?(:autonomy_id) }
+        must.delete_at(deletable_term_index)
+      end
+
+      query
     end
 
   end

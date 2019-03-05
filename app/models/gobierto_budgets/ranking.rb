@@ -108,6 +108,8 @@ module GobiertoBudgets
     def self.total_budget_ranking(variable, year, kind, offset, filters)
       variable = if variable == 'amount'
                    'total_budget'
+                 elsif variable == 'population'
+                   variable
                  else
                    'total_budget_per_inhabitant'
                  end
