@@ -17,7 +17,7 @@
         <%= link_to_unless(
               @variable == 'population',
               t('.inhabitants'),
-              gobierto_budgets_population_ranking_path(@year, ine_code: params[:ine_code]),
+              filter_link_path('population'),
               remote: true
             ) %>
       </th>
@@ -26,7 +26,7 @@
         <%= link_to_unless(
               @variable == 'amount_per_inhabitant',
               "#{kind_literal(@kind)}/hab",
-              gobierto_budgets_places_ranking_path(@year,@kind,@area_name,'amount_per_inhabitant', code: @code, ine_code: params[:ine_code], f: params[:f]),
+              filter_link_path('amount_per_inhabitant'),
               remote: true
             ) %>
       </th>
@@ -35,7 +35,7 @@
         <%= link_to_unless(
               @variable == 'amount',
               "#{kind_literal(@kind)} #{I18n.t('common.totals')}",
-              gobierto_budgets_places_ranking_path(@year,@kind,@area_name,'amount', code: @code, ine_code: params[:ine_code], f: params[:f]),
+              filter_link_path('amount'),
               remote: true
             ) %>
       </th>

@@ -1,5 +1,6 @@
 module GobiertoBudgets
   class PlacesController < GobiertoBudgets::ApplicationController
+
     layout :choose_layout
     before_action :set_current_organization, except: [:ranking, :compare, :redirect]
     before_action :get_params
@@ -9,6 +10,8 @@ module GobiertoBudgets
     attr_reader :current_organization
 
     helper_method :current_organization
+
+    include RankingTableHelper
 
     def show
       if @year.nil?
@@ -123,7 +126,16 @@ module GobiertoBudgets
       render_404 and return if @page <= 0
 
       @compared_level = params[:code] ? (params[:code].include?('-') ? params[:code].split('-').first.length : params[:code].length) : 0
-      @ranking_items = GobiertoBudgets::Ranking.query({year: @year, variable: @variable, page: @page, code: @code, kind: @kind, area_name: @area_name, filters: @filters})
+
+      @ranking_items = GobiertoBudgets::Ranking.query({
+        year: @year,
+        variable: @variable,
+        page: @page,
+        code: @code,
+        kind: @kind,
+        area_name: @area_name,
+        filters: @filters
+      })
 
       respond_to do |format|
         format.html
