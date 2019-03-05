@@ -108,7 +108,7 @@ module GobiertoBudgets
         terms << {range: { value: { gte: population_filter[:from].to_i, lte: population_filter[:to].to_i} }}
       end
 
-      terms << {term: { autonomy_id: aarr_filter }} unless aarr_filter.blank?
+      terms << { term: { autonomous_region_id: aarr_filter } } unless aarr_filter.blank?
 
       query = {
         sort: [
@@ -130,10 +130,6 @@ module GobiertoBudgets
       query.merge!(from: options[:offset]) if options[:offset].present?
       query.merge!(_source: false) if options[:to_rank]
 
-      query = delete_autonomy_id_term_if_ine_codes_present(query)
-
-      replace_autonomy_id_per_autonomous_region_id(query)
-
       SearchEngine.client.search(
         index: SearchEngineConfiguration::Data.index,
         type: SearchEngineConfiguration::Data.type_population,
@@ -143,40 +139,6 @@ module GobiertoBudgets
 
     def self.population_query_results(options)
       population_query(options)['hits']['hits'].map{|h| h['_source']}
-    end
-
-    def self.replace_autonomy_id_per_autonomous_region_id(query)
-      must_terms = query[:query][:filtered][:filter][:bool][:must]
-
-      must_terms.each do |must_term|
-        if must_term.is_a?(Hash) && must_term[:term] && must_term[:term].keys.include?(:autonomy_id)
-          term_value = must_term[:term][:autonomy_id]
-          must_term[:term] = { autonomous_region_id: term_value }
-        end
-      end
-
-      query
-    end
-
-    def self.delete_autonomy_id_term_if_ine_codes_present(query)
-      must = query[:query][:filtered][:filter][:bool][:must]
-
-      must_terms = must.map do |item|
-        if item.is_a?(Array)
-          item[0][:terms]
-        else
-          item[:term]
-        end
-      end
-
-      filters = must_terms.compact.map(&:keys).flatten
-
-      if filters.include?(:ine_code) && filters.include?(:autonomy_id)
-        deletable_term_index = must.find_index { |item| item.is_a?(Hash) && item[:term] && item[:term].keys.include?(:autonomy_id) }
-        must.delete_at(deletable_term_index)
-      end
-
-      query
     end
 
   end
