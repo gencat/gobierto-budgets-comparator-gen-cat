@@ -26,7 +26,7 @@ module GobiertoBudgets
     end
 
     def formatted_amount(amount)
-      if amount.zero?
+      if amount.to_i.zero?
         "-"
       else
         number_to_currency(amount, strip_insignificant_zeros: true)
