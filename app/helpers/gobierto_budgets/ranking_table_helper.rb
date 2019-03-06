@@ -25,5 +25,13 @@ module GobiertoBudgets
       @variable == filter_key
     end
 
+    def formatted_amount(amount)
+      if amount.zero?
+        "-"
+      else
+        number_to_currency(amount, strip_insignificant_zeros: true)
+      end
+    end
+
   end
 end
