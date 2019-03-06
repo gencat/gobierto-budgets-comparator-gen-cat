@@ -1,4 +1,13 @@
 $('#ranking-table').replaceWith("<%= j(render partial: 'gobierto_budgets/places/ranking_table') %>")
 $('.pagination').replaceWith("<%= j(paginate @ranking_items, remote: true) %>")
 
-history.pushState(null, '', "<%= request.url %>");
+function updatePageUrl() {
+  history.pushState(null, '', "<%= request.url %>");
+}
+
+function updateDataEndpointPath() {
+  $('[data-ranking-url]').data('ranking-url', "<%= request.path %>");
+}
+
+updatePageUrl();
+updateDataEndpointPath();
