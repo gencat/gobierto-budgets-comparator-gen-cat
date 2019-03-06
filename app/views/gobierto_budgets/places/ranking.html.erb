@@ -23,16 +23,18 @@
         <li>
           <%= link_to(
                 t('common.economic'),
-                gobierto_budgets_places_ranking_path(@year, @kind, 'economic', @variable, ine_code: params[:ine_code]),
-                class: "#{'buttonSelected' if @area_name == 'economic'}",
+                gobierto_budgets_places_ranking_path(@year, @kind, 'economic', @variable, ine_code: params[:ine_code], f: params[:f]),
+                class: "#{'buttonSelected' if @area_name == 'economic'} js-ranking-link",
+                data: { turbolinks: false },
                 id: 'Economica'
               ) %>
         </li>
         <li>
           <%= link_to(
                 t('common.functional'),
-                gobierto_budgets_places_ranking_path(@year, @kind, 'functional', @variable, ine_code: params[:ine_code]),
-                class: "#{'buttonSelected' if @area_name == 'functional'}",
+                gobierto_budgets_places_ranking_path(@year, @kind, 'functional', @variable, ine_code: params[:ine_code], f: params[:f]),
+                class: "#{'buttonSelected' if @area_name == 'functional'} js-ranking-link",
+                data: { turbolinks: false },
                 id: 'Funcional'
               ) %>
         </li>
@@ -62,8 +64,18 @@
         <div class="switcher kind_switcher">
           <%= link_to "#{kind_literal(@kind).capitalize} #{t('.per_inhabitant') if @variable == 'amount_per_inhabitant'} <i class='fa fa-angle-down'></i>".html_safe, '', class: 'current' %>
           <ul>
-            <li><%= link_to kind_literal(@kind).capitalize, gobierto_budgets_places_ranking_path(@year, @kind, @area_name, @variable, ine_code: params[:ine_code], f: params[:f]) %></li>
-            <li><%= link_to kind_literal(other_kind(@kind)).capitalize, gobierto_budgets_places_ranking_path(@year, other_kind(@kind), @area_name, @variable, ine_code: params[:ine_code], f: params[:f]) %></li>
+            <li><%= link_to(
+                      kind_literal(@kind).capitalize,
+                      gobierto_budgets_places_ranking_path(@year, @kind, @area_name, @variable, ine_code: params[:ine_code], f: params[:f]),
+                      class: 'js-ranking-link',
+                      data: { turbolinks: false }
+                  ) %></li>
+            <li><%= link_to(
+                      kind_literal(other_kind(@kind)).capitalize,
+                      gobierto_budgets_places_ranking_path(@year, other_kind(@kind), @area_name, @variable, ine_code: params[:ine_code], f: params[:f]),
+                      class: 'js-ranking-link',
+                      data: { turbolinks: false }
+                    ) %></li>
           </ul>
         </div>
 
@@ -89,7 +101,14 @@
           <% if items.any? %>
             <ul>
               <% items.each do |code, name| %>
-                <li><%= link_to budget_line_denomination(@area_name, code, @kind), gobierto_budgets_places_ranking_path(@year, @kind, @area_name, @variable, code, ine_code: params[:ine_code], f: params[:f]) %></li>
+                <li>
+                  <%= link_to(
+                        budget_line_denomination(@area_name, code, @kind),
+                        gobierto_budgets_places_ranking_path(@year, @kind, @area_name, @variable, code, ine_code: params[:ine_code], f: params[:f]),
+                        class: 'js-ranking-link',
+                        data: { turbolinks: false }
+                      ) %>
+                </li>
               <% end %>
             </ul>
           <% end %>

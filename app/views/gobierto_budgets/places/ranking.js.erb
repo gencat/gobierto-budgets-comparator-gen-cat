@@ -9,5 +9,17 @@ function updateDataEndpointPath() {
   $('[data-ranking-url]').data('ranking-url', "<%= request.path %>");
 }
 
+function updateExistingLinksWithNewFilters() {
+  $('.js-ranking-link').each(function() {
+    var auxLink = document.createElement("a");
+    auxLink.href = this.href;
+
+    var newParams = '<%= URI.decode({ f: params[:f] }.to_query).html_safe %>';
+
+    this.href = auxLink.origin + auxLink.pathname + '?' + newParams;
+  });
+}
+
 updatePageUrl();
 updateDataEndpointPath();
+updateExistingLinksWithNewFilters();

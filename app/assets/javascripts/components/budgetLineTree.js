@@ -158,7 +158,7 @@
       var lastTr = this.itemsParent.find('tr:last');
       var html = '<tr><td class="item_name">' +
                  (addExpand ? '<i class="fa '+this.attr.expandIconClass+'" data-expand-category="'+categoryCode+'"></i>' : '') +
-                 '<a href="#" data-area="'+area+'" data-kind="'+kind+'" data-category-code="'+categoryCode+'">'+categoryName+'</a></td></tr>';
+                 '<a href="#" data-area="'+area+'" data-kind="'+kind+'" data-category-code="'+categoryCode+'" data-turbolinks="false" class="js-ranking-link">'+categoryName+'</a></td></tr>';
       $(html).insertAfter(lastTr);
     };
 
