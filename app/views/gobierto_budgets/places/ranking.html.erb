@@ -20,8 +20,22 @@
   <% if @variable != 'population' && @kind == 'G' %>
     <div class="form_filters">
       <ul>
-        <li><%= link_to t('common.economic'), gobierto_budgets_places_ranking_path(@year,@kind,'economic',@variable, ine_code: params[:ine_code]), class: "#{'buttonSelected' if @area_name == 'economic'}", id: 'Economica' %></li>
-        <li><%= link_to t('common.functional'), gobierto_budgets_places_ranking_path(@year,@kind,'functional',@variable, ine_code: params[:ine_code]), class: "#{'buttonSelected' if @area_name == 'functional'}", id: 'Funcional' %></li>
+        <li>
+          <%= link_to(
+                t('common.economic'),
+                gobierto_budgets_places_ranking_path(@year, @kind, 'economic', @variable, ine_code: params[:ine_code]),
+                class: "#{'buttonSelected' if @area_name == 'economic'}",
+                id: 'Economica'
+              ) %>
+        </li>
+        <li>
+          <%= link_to(
+                t('common.functional'),
+                gobierto_budgets_places_ranking_path(@year, @kind, 'functional', @variable, ine_code: params[:ine_code]),
+                class: "#{'buttonSelected' if @area_name == 'functional'}",
+                id: 'Funcional'
+              ) %>
+        </li>
       </ul>
     </div>
   <% end %>
@@ -143,5 +157,3 @@
   </div>
 
 </div>
-
-
