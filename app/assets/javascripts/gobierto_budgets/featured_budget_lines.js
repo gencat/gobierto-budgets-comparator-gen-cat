@@ -1,6 +1,11 @@
 $(document).on('turbolinks:load', function() {
-  $.ajax({
-    url: $('.featured_budget_line').attr('data-featured-budget-line'),
-    dataType: 'script'
-  });
+
+  var targetUrl = $('.featured_budget_line').attr('data-featured-budget-line');
+
+  if (targetUrl) {
+    $.ajax({
+      url: targetUrl,
+      dataType: 'script'
+    });
+  }
 });
