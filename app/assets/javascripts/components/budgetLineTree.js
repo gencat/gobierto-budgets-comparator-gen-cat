@@ -1,3 +1,19 @@
+function generateTargetUrl(node) {
+  var splittedHrefAttr = node.href.split("?");
+  var hrefPath = splittedHrefAttr[0];
+  var queryParams = splittedHrefAttr[1];
+  var budgetLineCode = $(node).data('category-code');
+  var lastHrefSegment = hrefPath.split("/")[hrefPath.split("/").length - 1];
+
+  if (isNaN(parseInt(lastHrefSegment))) {
+    hrefPath = hrefPath + "/" + budgetLineCode;  // append budget line code
+  } else {
+    hrefPath = hrefPath.replace(new RegExp(lastHrefSegment + "$"), budgetLineCode); // replace budget line code
+  }
+
+  return hrefPath + "?" + queryParams;
+}
+
 (function(window, undefined){
   'use strict';
 
@@ -27,15 +43,12 @@
       $(document).on('click', '[data-category-code]', function(e){
         e.preventDefault();
 
-        var hrefSegments = e.target.href.split("?");
-        var targetUrl = hrefSegments[0] + "/" + $(e.target).data('category-code') + "?" + hrefSegments[1]
-
         $.event.trigger({
           type: "renderBudgetLineCategory",
           code: $(e.target).data('category-code'),
           kind: $(e.target).data('kind'),
           area: $(e.target).data('area'),
-          url: targetUrl
+          url: generateTargetUrl(e.target)
         });
         $('[data-category-code]').removeClass('active');
         $(e.target).addClass('active');
