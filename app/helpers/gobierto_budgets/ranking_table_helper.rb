@@ -33,5 +33,49 @@ module GobiertoBudgets
       end
     end
 
+    def population_ranking?
+      population_sorted? && @kind.nil?
+    end
+
+    def population_sorted?
+      @variable == 'population'
+    end
+
+    def budgets_ranking?
+      @kind.present?
+    end
+
+    def expense_filter?
+      @kind == 'G'
+    end
+
+    def budget_line?
+      @code.present?
+    end
+
+    def kind
+      @kind == 'G' ? t('common.expenses') : t('common.incomes')
+    end
+
+    def page_title
+      if population_sorted?
+        t('.population_title', kind: kind, year: @year)
+      elsif budget_line?
+        t('.budget_line_title', kind: kind, budget_line: budget_line_denomination(@area_name, @code, @kind), year: @year)
+      else
+        t('.budget_lines_title', kind: kind, year: @year)
+      end
+    end
+
+    def page_short_title
+      if population_sorted?
+        t('.population_short_title', kind: kind)
+      elsif budget_line?
+        t('.budget_line_short_title', kind: kind, budget_line: budget_line_denomination(@area_name, @code, @kind))
+      else
+        t('.budget_lines_short_title', kind: kind)
+      end
+    end
+
   end
 end

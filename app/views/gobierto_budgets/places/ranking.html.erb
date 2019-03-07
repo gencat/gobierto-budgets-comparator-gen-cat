@@ -1,24 +1,8 @@
-<%
-  kind = @kind == 'G' ? t('common.expenses') : t('common.incomes')
-
-  if @variable == 'population'
-    title = t('.population_title', kind: kind, year: @year)
-    short_title = t('.population_short_title', kind: kind)
-  elsif @code
-    title = t('.budget_line_title', kind: kind, budget_line: budget_line_denomination(@area_name, @code, @kind), year: @year)
-    short_title = t('.budget_line_short_title', kind: kind, budget_line: budget_line_denomination(@area_name, @code, @kind))
-  else
-    title = t('.budget_lines_title', kind: kind, year: @year)
-    short_title = t('.budget_lines_short_title', kind: kind)
-  end
-
-  set_meta_tags title: title
-%>
+<% set_meta_tags(title: page_title) %>
 
 <header class="place">
 
-  <% if @variable != 'population' && @kind == 'G' %>
-    <div class="form_filters">
+    <div class="form_filters js-expense-filter-show" <%= show_if expense_filter? %>>
       <ul>
         <li>
           <%= link_to(
@@ -40,27 +24,25 @@
         </li>
       </ul>
     </div>
-  <% end %>
 
   <h1>
     <%= render partial: 'gobierto_budgets/places/year_switcher' %>
-    <%= short_title %>
+    <span id="page-short-title"><%= page_short_title %></span>
   </h1>
 
   <div class="share_links">
-    <%= link_to '<i class="fa fa-twitter"></i>'.html_safe, "https://twitter.com/home?status=#{u twitter_share(short_title || @share_text, request.original_url)}", class: 'small_button popup', data: {rel: 'Twitter'} %>
+    <%= link_to '<i class="fa fa-twitter"></i>'.html_safe, "https://twitter.com/home?status=#{u twitter_share(page_short_title || @share_text, request.original_url)}", class: 'small_button popup', data: {rel: 'Twitter'} %>
     <%= link_to '<i class="fa fa-facebook"></i>'.html_safe, "http://www.facebook.com/sharer/sharer.php?u=#{u request.original_url}", class: 'small_button popup', data: {rel: 'Facebook'} %>
   </div>
 
   <header class="sub">
-    <% if @variable == 'population' %>
-      <span>
+      <span class="js-population-ranking-show" <%= show_if population_ranking? %>>
         <div class="switcher kind_switcher">
           <%= link_to t('.population'), '', class: 'current' %>
         </div>
       </span>
-    <% else %>
-      <span>
+
+      <span class="js-budgets-ranking-show" <%= show_if budgets_ranking? %>>
         <div class="switcher kind_switcher">
           <%= link_to "#{kind_literal(@kind).capitalize} #{t('.per_inhabitant') if @variable == 'amount_per_inhabitant'} <i class='fa fa-angle-down'></i>".html_safe, '', class: 'current' %>
           <ul>
@@ -115,7 +97,6 @@
         </div>
       <% end %>
       </span>
-    <% end %>
 
     <div data-budget-line-categories-tree data-api-url="<%= gobierto_budgets_api_categories_path(format: :json) %>">
       <div class="sidebar_wrapper">

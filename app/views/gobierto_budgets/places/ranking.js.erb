@@ -35,6 +35,41 @@ function updateExistingLinksWithNewVariableType() {
   });
 }
 
+if (<%= expense_filter? %>) {
+  $('.js-expense-filter-show').show();
+} else {
+  $('.js-expense-filter-show').hide();
+}
+
+if (<%= population_ranking? %>) {
+  $('.js-population-ranking-show').show();
+} else {
+  $('.js-population-ranking-show').hide();
+}
+
+if (<%= population_sorted? %>) {
+  $('.js-population-sorted-show').show();
+} else {
+  $('.js-population-sorted-show').hide();
+}
+
+if (<%= budgets_ranking? %>) {
+  $('.js-budgets-ranking-show').show();
+} else {
+  $('.js-budgets-ranking-show').hide();
+}
+
+if (<%= budget_line? %>) {
+  $('.js-budget-line-show').show();
+  $('.js-budget-line-hide').hide();
+} else {
+  $('.js-budget-line-show').hide();
+  $('.js-budget-line-hide').show();
+}
+
+$("#page-short-title").text('<%= page_short_title %>');
+<% set_meta_tags(title: page_title) %>
+
 updatePageUrl();
 updateDataEndpointPath();
 updateExistingLinksWithNewFilters();
