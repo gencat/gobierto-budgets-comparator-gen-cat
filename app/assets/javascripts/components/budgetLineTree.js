@@ -7,7 +7,7 @@ function generateTargetUrl(node) {
   var code = $(node).data('category-code');
   var queryParams = node.href.split("?")[1];
 
-  if (window.location.href.indexOf('population') != -1) {
+  if (window.location.href.split("?")[0].indexOf('population') != -1) {
     var variable = 'population';
   } else if (window.location.href.indexOf('amount_per_inhabitant') != -1) {
     var variable = 'amount_per_inhabitant';
