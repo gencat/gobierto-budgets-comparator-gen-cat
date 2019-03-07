@@ -77,5 +77,13 @@ module GobiertoBudgets
       end
     end
 
+    def twitter_share_url
+      "https://twitter.com/home?status=#{u twitter_share(page_short_title || @share_text, request.original_url)}"
+    end
+
+    def facebook_share_url
+      "http://www.facebook.com/sharer/sharer.php?u=#{u request.original_url}"
+    end
+
   end
 end

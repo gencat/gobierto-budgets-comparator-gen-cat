@@ -35,6 +35,14 @@ function updateExistingLinksWithNewVariableType() {
   });
 }
 
+function updateSocialShareLinks() {
+  var twitterLink = $("a[data-rel='Twitter']")[0];
+  var facebookLink = $("a[data-rel='Facebook']")[0];
+
+  twitterLink.href = '<%= twitter_share_url %>';
+  facebookLink.href = '<%= facebook_share_url %>';
+}
+
 if (<%= expense_filter? %>) {
   $('.js-expense-filter-show').show();
 } else {
@@ -74,3 +82,4 @@ updatePageUrl();
 updateDataEndpointPath();
 updateExistingLinksWithNewFilters();
 updateExistingLinksWithNewVariableType();
+updateSocialShareLinks();

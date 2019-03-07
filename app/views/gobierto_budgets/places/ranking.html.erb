@@ -31,8 +31,18 @@
   </h1>
 
   <div class="share_links">
-    <%= link_to '<i class="fa fa-twitter"></i>'.html_safe, "https://twitter.com/home?status=#{u twitter_share(page_short_title || @share_text, request.original_url)}", class: 'small_button popup', data: {rel: 'Twitter'} %>
-    <%= link_to '<i class="fa fa-facebook"></i>'.html_safe, "http://www.facebook.com/sharer/sharer.php?u=#{u request.original_url}", class: 'small_button popup', data: {rel: 'Facebook'} %>
+    <%= link_to(
+          '<i class="fa fa-twitter"></i>'.html_safe,
+          twitter_share_url,
+          class: 'small_button popup',
+          data: { rel: 'Twitter' }
+        ) %>
+    <%= link_to(
+          '<i class="fa fa-facebook"></i>'.html_safe,
+          facebook_share_url,
+          class: 'small_button popup',
+          data: { rel: 'Facebook' }
+        ) %>
   </div>
 
   <header class="sub">
