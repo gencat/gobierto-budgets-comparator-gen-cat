@@ -181,7 +181,7 @@ $(document).on('turbolinks:load', function() {
         var url = fallbackUrl;
       }
 
-      Turbolinks.visit(url);
+      window.location.href = url;
     });
   }
 });
