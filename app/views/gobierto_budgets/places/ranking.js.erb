@@ -20,6 +20,22 @@ function updateExistingLinksWithNewFilters() {
   });
 }
 
+function updateExistingLinksWithNewVariableType() {
+  $('.js-ranking-link').each(function(e) {
+    var auxLink = document.createElement("a");
+    auxLink.href = this.href;
+
+    var oldVariableType = auxLink.pathname.split("/")[5];
+    var newVariableType = '<%= request.path.split("/")[5] %>';
+
+    if (oldVariableType !== newVariableType) {
+      var newParams = '<%= URI.decode({ f: params[:f] }.to_query).html_safe %>';
+      this.href = (auxLink.origin + auxLink.pathname).replace(oldVariableType, newVariableType) + '?' + newParams;
+    }
+  });
+}
+
 updatePageUrl();
 updateDataEndpointPath();
 updateExistingLinksWithNewFilters();
+updateExistingLinksWithNewVariableType();

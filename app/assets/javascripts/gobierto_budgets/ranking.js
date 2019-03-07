@@ -173,7 +173,14 @@ $(document).on('turbolinks:load', function() {
     })
 
     $(document).on('renderBudgetLineCategory', function(e){
-      var url = "/ranking/"+$('body').data('year') +"/"+e.kind+"/"+e.area+"/amount/" + e.code;
+      var fallbackUrl = "/ranking/" + $('body').data('year') + "/" + e.kind + "/" + e.area + "/amount/" + e.code;
+
+      if (e.url.indexOf("ranking") !== -1) {
+        var url = e.url;
+      } else {
+        var url = fallbackUrl;
+      }
+
       Turbolinks.visit(url);
     });
   }

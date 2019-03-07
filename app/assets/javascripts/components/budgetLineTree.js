@@ -26,11 +26,16 @@
 
       $(document).on('click', '[data-category-code]', function(e){
         e.preventDefault();
+
+        var hrefSegments = e.target.href.split("?");
+        var targetUrl = hrefSegments[0] + "/" + $(e.target).data('category-code') + "?" + hrefSegments[1]
+
         $.event.trigger({
           type: "renderBudgetLineCategory",
           code: $(e.target).data('category-code'),
           kind: $(e.target).data('kind'),
-          area: $(e.target).data('area')
+          area: $(e.target).data('area'),
+          url: targetUrl
         });
         $('[data-category-code]').removeClass('active');
         $(e.target).addClass('active');
