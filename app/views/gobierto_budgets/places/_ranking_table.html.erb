@@ -40,7 +40,7 @@
           <td class="expense <%= class_if('selected', filter_selected?('amount_per_inhabitant')) %>"><%= formatted_amount(ranking_item.amount_per_inhabitant) %></td>
           <td class="expense <%= class_if('selected', filter_selected?('amount')) %>"><%= formatted_amount(ranking_item.amount.to_i) %></td>
           <% if @variable != 'population' && @code.present? %>
-            <td class="percentage"><%= percentage_of_total(ranking_item.amount, ranking_item.total) %></td>
+            <td class="percentage" <%= class_if('selected', filter_selected?('amount')) %>><%= percentage_of_total(ranking_item.amount, ranking_item.total) %></td>
           <% end %>
           <td class="compare">
             <%= link_to t('.compare'), '#', class: 'tool_button js-add_compare_no_hide', data: {place: compare_slug(ranking_item.place,@year)}, title: "Comparar #{ranking_item.place.name} con el resto de municipios que tengas en el comparador" %>
