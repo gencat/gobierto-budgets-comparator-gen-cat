@@ -1,17 +1,21 @@
 function generateTargetUrl(node) {
-  var splittedHrefAttr = node.href.split("?");
-  var hrefPath = splittedHrefAttr[0];
-  var queryParams = splittedHrefAttr[1];
-  var budgetLineCode = $(node).data('category-code');
-  var lastHrefSegment = hrefPath.split("/")[hrefPath.split("/").length - 1];
+  var auxLink = document.createElement("a");
 
-  if (isNaN(parseInt(lastHrefSegment))) {
-    hrefPath = hrefPath + "/" + budgetLineCode;  // append budget line code
+  var year = $(".year_switcher > .current").text().trim();
+  var kind = $(node).data('kind');
+  var area = $(node).data('area');
+  var code = $(node).data('category-code');
+  var queryParams = node.href.split("?")[1];
+
+  if (window.location.href.indexOf('population') != -1) {
+    var variable = 'population';
+  } else if (window.location.href.indexOf('amount_per_inhabitant') != -1) {
+    var variable = 'amount_per_inhabitant';
   } else {
-    hrefPath = hrefPath.replace(new RegExp(lastHrefSegment + "$"), budgetLineCode); // replace budget line code
+    var variable = 'amount';
   }
 
-  return hrefPath + "?" + queryParams;
+  return auxLink.origin + '/ranking/' + year + '/' + kind + '/' + area + '/' + variable + '/' + code + '?' + queryParams;
 }
 
 (function(window, undefined){
