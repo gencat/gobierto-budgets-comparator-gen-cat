@@ -41,6 +41,10 @@ module GobiertoBudgets
       @variable == 'population'
     end
 
+    def amount_per_inhabitant?
+      @variable == 'amount_per_inhabitant'
+    end
+
     def budgets_ranking?
       @kind.present?
     end
@@ -83,6 +87,14 @@ module GobiertoBudgets
 
     def facebook_share_url
       "http://www.facebook.com/sharer/sharer.php?u=#{u request.original_url}"
+    end
+
+    def expense_filter_dropdown_title
+      "#{kind_literal(@kind).capitalize} #{t('.per_inhabitant') if amount_per_inhabitant?} <i class=\"fa fa-angle-down\"></i>".html_safe
+    end
+
+    def expense_filter_dropdown_content
+      link_to(expense_filter_dropdown_title, "", class: "current")
     end
 
   end

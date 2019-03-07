@@ -54,7 +54,7 @@
 
       <span class="js-budgets-ranking-show" <%= show_if budgets_ranking? %>>
         <div class="switcher kind_switcher">
-          <%= link_to "#{kind_literal(@kind).capitalize} #{t('.per_inhabitant') if @variable == 'amount_per_inhabitant'} <i class='fa fa-angle-down'></i>".html_safe, '', class: 'current' %>
+          <span id="expense-filter-dropdown-content"><%= expense_filter_dropdown_content %></span>
           <ul>
             <li><%= link_to(
                       kind_literal(@kind).capitalize,
