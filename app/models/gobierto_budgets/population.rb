@@ -1,5 +1,8 @@
 module GobiertoBudgets
   class Population
+
+    include CommonQueryBehavior
+
     FILTER_MIN = 0
     FILTER_MAX = 5000000
 
@@ -75,7 +78,7 @@ module GobiertoBudgets
         end
       end
 
-      terms << {terms: { ine_code: ine_codes }} if ine_codes.any?
+      append_ine_codes(terms, ine_codes)
       terms << {term: { ine_code: options[:ine_code] }} if options[:ine_code].present?
       terms << {term: { year: options[:year] }}
 
@@ -101,7 +104,7 @@ module GobiertoBudgets
 
         results,total_elements = BudgetTotal.for_ranking(options[:year], 'total_budget', GobiertoBudgets::BudgetLine::EXPENSE, 0, nil, budget_filters)
         ine_codes = results.map{|p| p['ine_code']}
-        terms << [{terms: { ine_code: ine_codes }}] if ine_codes.any?
+        append_ine_codes(terms, ine_codes)
       end
 
       if (population_filter && (population_filter[:from].to_i > Population::FILTER_MIN || population_filter[:to].to_i < Population::FILTER_MAX))

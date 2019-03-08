@@ -7,7 +7,13 @@ module GobiertoBudgets
       def self.append_ine_codes(terms, ine_codes)
         return unless ine_codes.any?
 
-        terms << [{ terms: { ine_code: ine_codes } }]
+        terms << [{ terms: { ine_code: ine_codes.compact } }]
+      end
+
+      def append_ine_codes(terms, ine_codes)
+        return unless ine_codes.any?
+
+        terms << [{ terms: { ine_code: ine_codes.compact } }]
       end
 
     end
