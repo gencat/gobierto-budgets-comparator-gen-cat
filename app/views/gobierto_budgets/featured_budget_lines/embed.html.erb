@@ -1,0 +1,6 @@
+<% endpoint_path = gobierto_budgets_featured_budget_line_path(
+    current_organization.combined_slug,
+    year: @year
+  ) %>
+
+<div class="featured_budget_line" data-featured-budget-line="<%= endpoint_path %>"></div>
