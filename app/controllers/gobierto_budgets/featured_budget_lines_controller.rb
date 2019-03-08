@@ -18,11 +18,8 @@ module GobiertoBudgets
       end
     end
 
-    # http://localhost:3000/featured_budget_lines/embed/28079
     def embed
       @year = 2018
-
-      @current_organization = Organization.new(slug: "madrid")
 
       budget_lines = featured_budget_line_candidates(@kind, @year, @area_name)
 
