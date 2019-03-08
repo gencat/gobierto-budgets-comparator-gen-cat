@@ -1,7 +1,7 @@
 module GobiertoBudgets
   class FeaturedBudgetLinesController < GobiertoBudgets::ApplicationController
 
-    before_action :set_current_organization, :set_featured_budget_line_attributes
+    before_action :set_current_organization, :set_featured_budget_line_attributes, :check_embedded
 
     attr_accessor :current_organization
     helper_method :current_organization
@@ -60,6 +60,10 @@ module GobiertoBudgets
           amount_per_inhabitant: { gt: 0 }
         }
       )["hits"]
+    end
+
+    def check_embedded
+      @embedded = params[:embed]
     end
 
   end

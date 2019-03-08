@@ -1,4 +1,6 @@
-<h3 class="lite"><%= t('.title') %></h3>
+<% unless @embedded %>
+  <h3 class="lite"><%= t('.title') %></h3>
+<% end %>
 
 <div class="cont clearfix">
   <div class="main">
@@ -31,7 +33,7 @@
       </div>
     </div>
   </div>
-  <% if users_enabled? %>
+  <% if users_enabled? && !@embedded %>
     <div class="act">
       <header>
         <div>¿Entiendes de qué va esta partida?</div>
@@ -45,7 +47,7 @@
 
 <%= link_to(
       t('.show_me_another'),
-      gobierto_budgets_featured_budget_line_path(current_organization.combined_slug, year: @year),
+      gobierto_budgets_featured_budget_line_path(current_organization.combined_slug, year: @year, embed: @embedded),
       class: 'show_me_another',
       data: { remote: true }
     ) %>
