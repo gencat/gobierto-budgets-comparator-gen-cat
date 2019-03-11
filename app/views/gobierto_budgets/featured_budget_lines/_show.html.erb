@@ -9,7 +9,8 @@
       <%= t('.question', name: current_organization.name) %>
       <h2><%= link_to(
                 budget_line_denomination(@area_name, @code, @kind),
-                gobierto_budgets_budget_line_url(current_organization.combined_slug, @year, @code.parameterize, @kind, @area_name)
+                gobierto_budgets_budget_line_url(current_organization.combined_slug, @year, @code.parameterize, @kind, @area_name),
+                target: "_parent"
               ) %>?</h2>
     </header>
 
@@ -40,7 +41,7 @@
         <div>¿Te parece mucho, poco?</div>
       </header>
 
-      <%= link_to 'Levanta la mano: opina', '', class: 'button user', data: {feedback: true} %>
+      <%= link_to 'Levanta la mano: opina', '', class: 'button user', data: {feedback: true}, target: "_parent" %>
     </div>
   <% end %>
 </div>
@@ -49,7 +50,8 @@
       t('.show_me_another'),
       gobierto_budgets_featured_budget_line_url(current_organization.combined_slug, year: @year, embed: @embedded),
       class: 'show_me_another',
-      data: { remote: true }
+      data: { remote: true },
+      target: "_parent"
     ) %>
 
 <%= render partial: 'gobierto_budgets/budget_lines/feedback' %>
