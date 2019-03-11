@@ -30,4 +30,14 @@ module SiteHelper
     end
   end
 
+  def hide_if(condition)
+    show_if(!condition)
+  end
+
+  def show_if(condition)
+    unless condition
+      "style=\"display: none;\"".html_safe
+    end
+  end
+
 end

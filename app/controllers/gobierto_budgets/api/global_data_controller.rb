@@ -1,7 +1,9 @@
 module GobiertoBudgets
   module Api
     class GlobalDataController < ApplicationController
+
       include GobiertoBudgets::ApplicationHelper
+      include CommonQueryBehavior
 
       caches_action :total_budget, :total_budget_execution, :population, :total_budget_per_inhabitant, :debt, cache_path: ->(c) { { locale: I18n.locale} }
 
@@ -140,7 +142,7 @@ module GobiertoBudgets
 
         if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
           ine_codes = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
-          terms << {terms: { ine_code: ine_codes.compact }} if ine_codes.any?
+          append_ine_codes(terms, ine_codes)
         end
 
         query = {
@@ -176,7 +178,7 @@ module GobiertoBudgets
 
         if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
           ine_codes = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
-          terms << {terms: { ine_code: ine_codes.compact }} if ine_codes.any?
+          append_ine_codes(terms, ine_codes)
         end
 
         query = {
@@ -210,7 +212,7 @@ module GobiertoBudgets
 
         if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
           ine_codes = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
-          terms << {terms: { ine_code: ine_codes.compact }} if ine_codes.any?
+          append_ine_codes(terms, ine_codes)
         end
 
         query = {
@@ -244,7 +246,7 @@ module GobiertoBudgets
 
         if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
           ine_codes = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
-          terms << {terms: { ine_code: ine_codes.compact }} if ine_codes.any?
+          append_ine_codes(terms, ine_codes)
         end
 
         query = {

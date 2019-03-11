@@ -692,22 +692,21 @@ table {
     text-align: right;
     border-left: 1px solid #eaeaea;
   }
-  .expense_per {
-    width: 12%;
-    text-align: right;
-    padding-right: 1%;
-  }
   .expense {
     width: 16%;
     text-align: right;
     color: $text_soft;
     border-left: 1px solid #eaeaea;
+    &.selected {
+      color: $text;
+    }
   }
   .percentage {
     width: 10%;
     text-align: right;
     padding-right: 1%;
     white-space: nowrap;
+    color: $text_soft;
   }
   .compare {
     padding-left: 20px;

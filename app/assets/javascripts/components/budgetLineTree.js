@@ -1,3 +1,23 @@
+function generateTargetUrl(node) {
+  var auxLink = document.createElement("a");
+
+  var year = $(".year_switcher > .current").text().trim();
+  var kind = $(node).data('kind');
+  var area = $(node).data('area');
+  var code = $(node).data('category-code');
+  var queryParams = node.href.split("?")[1];
+
+  if (window.location.href.split("?")[0].indexOf('population') != -1) {
+    var variable = 'population';
+  } else if (window.location.href.indexOf('amount_per_inhabitant') != -1) {
+    var variable = 'amount_per_inhabitant';
+  } else {
+    var variable = 'amount';
+  }
+
+  return auxLink.origin + '/ranking/' + year + '/' + kind + '/' + area + '/' + variable + '/' + code + '?' + queryParams;
+}
+
 (function(window, undefined){
   'use strict';
 
@@ -26,11 +46,13 @@
 
       $(document).on('click', '[data-category-code]', function(e){
         e.preventDefault();
+
         $.event.trigger({
           type: "renderBudgetLineCategory",
           code: $(e.target).data('category-code'),
           kind: $(e.target).data('kind'),
-          area: $(e.target).data('area')
+          area: $(e.target).data('area'),
+          url: generateTargetUrl(e.target)
         });
         $('[data-category-code]').removeClass('active');
         $(e.target).addClass('active');
@@ -158,7 +180,7 @@
       var lastTr = this.itemsParent.find('tr:last');
       var html = '<tr><td class="item_name">' +
                  (addExpand ? '<i class="fa '+this.attr.expandIconClass+'" data-expand-category="'+categoryCode+'"></i>' : '') +
-                 '<a href="#" data-area="'+area+'" data-kind="'+kind+'" data-category-code="'+categoryCode+'">'+categoryName+'</a></td></tr>';
+                 '<a href="#" data-area="'+area+'" data-kind="'+kind+'" data-category-code="'+categoryCode+'" data-turbolinks="false" class="js-ranking-link">'+categoryName+'</a></td></tr>';
       $(html).insertAfter(lastTr);
     };
 

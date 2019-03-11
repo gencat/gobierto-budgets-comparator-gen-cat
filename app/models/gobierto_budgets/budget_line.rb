@@ -1,5 +1,8 @@
 module GobiertoBudgets
   class BudgetLine < OpenStruct
+
+    include CommonQueryBehavior
+
     INCOME = 'I'
     EXPENSE = 'G'
     ECONOMIC = 'economic'
@@ -236,6 +239,8 @@ module GobiertoBudgets
         results_ine_codes = results.map{|p| p['ine_code']}
         ine_codes.concat(results_ine_codes) if results_ine_codes.any?
       end
+
+      append_ine_codes(terms, ine_codes)
 
       if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
         permitted_municipalities = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope

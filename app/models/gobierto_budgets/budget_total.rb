@@ -2,6 +2,9 @@
 
 module GobiertoBudgets
   class BudgetTotal
+
+    include CommonQueryBehavior
+
     TOTAL_FILTER_MIN = 0
     TOTAL_FILTER_MAX = 5_000_000_000
     PER_INHABITANT_FILTER_MIN = 0
@@ -131,7 +134,7 @@ module GobiertoBudgets
         end
       end
 
-      terms << {terms: { ine_code: ine_codes.compact }} if ine_codes.any?
+      append_ine_codes(terms, ine_codes)
 
       if (total_filter && (total_filter[:from].to_i > BudgetTotal::TOTAL_FILTER_MIN || total_filter[:to].to_i < BudgetTotal::TOTAL_FILTER_MAX))
         terms << {range: { total_budget: { gte: total_filter[:from].to_i, lte: total_filter[:to].to_i} }}

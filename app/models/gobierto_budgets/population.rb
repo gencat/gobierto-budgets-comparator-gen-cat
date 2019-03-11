@@ -1,5 +1,8 @@
 module GobiertoBudgets
   class Population
+
+    include CommonQueryBehavior
+
     FILTER_MIN = 0
     FILTER_MAX = 5000000
 
@@ -75,7 +78,7 @@ module GobiertoBudgets
         end
       end
 
-      terms << {terms: { ine_code: ine_codes }} if ine_codes.any?
+      append_ine_codes(terms, ine_codes)
       terms << {term: { ine_code: options[:ine_code] }} if options[:ine_code].present?
       terms << {term: { year: options[:year] }}
 
@@ -101,14 +104,14 @@ module GobiertoBudgets
 
         results,total_elements = BudgetTotal.for_ranking(options[:year], 'total_budget', GobiertoBudgets::BudgetLine::EXPENSE, 0, nil, budget_filters)
         ine_codes = results.map{|p| p['ine_code']}
-        terms << [{terms: { ine_code: ine_codes }}] if ine_codes.any?
+        append_ine_codes(terms, ine_codes)
       end
 
       if (population_filter && (population_filter[:from].to_i > Population::FILTER_MIN || population_filter[:to].to_i < Population::FILTER_MAX))
         terms << {range: { value: { gte: population_filter[:from].to_i, lte: population_filter[:to].to_i} }}
       end
 
-      terms << {term: { autonomy_id: aarr_filter }} unless aarr_filter.blank?
+      terms << { term: { autonomous_region_id: aarr_filter } } unless aarr_filter.blank?
 
       query = {
         sort: [
@@ -130,7 +133,11 @@ module GobiertoBudgets
       query.merge!(from: options[:offset]) if options[:offset].present?
       query.merge!(_source: false) if options[:to_rank]
 
-      SearchEngine.client.search index: SearchEngineConfiguration::Data.index, type: SearchEngineConfiguration::Data.type_population, body: query
+      SearchEngine.client.search(
+        index: SearchEngineConfiguration::Data.index,
+        type: SearchEngineConfiguration::Data.type_population,
+        body: query
+      )
     end
 
     def self.population_query_results(options)

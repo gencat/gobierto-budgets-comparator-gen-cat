@@ -1,2 +1,86 @@
 $('#ranking-table').replaceWith("<%= j(render partial: 'gobierto_budgets/places/ranking_table') %>")
 $('.pagination').replaceWith("<%= j(paginate @ranking_items, remote: true) %>")
+
+function updatePageUrl() {
+  history.pushState({ turbolinks: {} }, '', "<%= request.url %>");
+}
+
+function updateDataEndpointPath() {
+  $('[data-ranking-url]').data('ranking-url', "<%= request.path %>");
+}
+
+function updateExistingLinksWithNewFilters() {
+  $('.js-ranking-link').each(function() {
+    var auxLink = document.createElement("a");
+    auxLink.href = this.href;
+
+    var newParams = '<%= URI.decode({ f: params[:f] }.to_query).html_safe %>';
+
+    this.href = auxLink.origin + auxLink.pathname + '?' + newParams;
+  });
+}
+
+function updateExistingLinksWithNewVariableType() {
+  $('.js-ranking-link').each(function(e) {
+    var auxLink = document.createElement("a");
+    auxLink.href = this.href;
+
+    var oldVariableType = auxLink.pathname.split("/")[5];
+    var newVariableType = '<%= request.path.split("/")[5] %>';
+
+    if (oldVariableType !== newVariableType) {
+      var newParams = '<%= URI.decode({ f: params[:f] }.to_query).html_safe %>';
+      this.href = (auxLink.origin + auxLink.pathname).replace(oldVariableType, newVariableType) + '?' + newParams;
+    }
+  });
+}
+
+function updateSocialShareLinks() {
+  var twitterLink = $("a[data-rel='Twitter']")[0];
+  var facebookLink = $("a[data-rel='Facebook']")[0];
+
+  twitterLink.href = '<%= twitter_share_url %>';
+  facebookLink.href = '<%= facebook_share_url %>';
+}
+
+if (<%= expense_filter? %>) {
+  $('.js-expense-filter-show').show();
+} else {
+  $('.js-expense-filter-show').hide();
+}
+
+if (<%= population_ranking? %>) {
+  $('.js-population-ranking-show').show();
+} else {
+  $('.js-population-ranking-show').hide();
+}
+
+if (<%= population_sorted? %>) {
+  $('.js-population-sorted-show').show();
+} else {
+  $('.js-population-sorted-show').hide();
+}
+
+if (<%= budgets_ranking? %>) {
+  $('.js-budgets-ranking-show').show();
+} else {
+  $('.js-budgets-ranking-show').hide();
+}
+
+if (<%= budget_line? %>) {
+  $('.js-budget-line-show').show();
+  $('.js-budget-line-hide').hide();
+} else {
+  $('.js-budget-line-show').hide();
+  $('.js-budget-line-hide').show();
+}
+
+$("#page-short-title").text('<%= page_short_title %>');
+<% set_meta_tags(title: page_title) %>
+$("#expense-filter-dropdown-content").html('<%= expense_filter_dropdown_content %>');
+
+updatePageUrl();
+updateDataEndpointPath();
+updateExistingLinksWithNewFilters();
+updateExistingLinksWithNewVariableType();
+updateSocialShareLinks();

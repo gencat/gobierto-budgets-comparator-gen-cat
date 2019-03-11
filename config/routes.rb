@@ -31,7 +31,8 @@ Rails.application.routes.draw do
   get '/locale/:locale' => 'locale#update'
 
   namespace :gobierto_budgets, path: '/', module: 'gobierto_budgets' do
-    resources :featured_budget_lines, only: [:show]
+    resources :featured_budget_lines, param: :organization_slug, only: [:show]
+    get 'featured_budget_lines/embed/:organization_id', to: 'featured_budget_lines#embed', as: :featured_budget_lines
 
     namespace :api do
       get '/data/lines/:organization_slug/:year/:what' => 'data#lines', as: :data_lines
