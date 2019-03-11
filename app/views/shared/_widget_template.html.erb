@@ -8,7 +8,7 @@
   <div class="secondary">
     <div class="percentage_change up {{sign}}">{{delta_percentage}}%</div>
     {{#ranking_url}}
-      <div class="ranking"><a href="{{ranking_url}}" class="ranking_link"><strong>#{{ranking_position}}</strong>/{{ranking_total_elements}}</a></div>
+      <div class="ranking"><a href="{{ranking_url}}" class="ranking_link" target="_parent"><strong>#{{ranking_position}}</strong>/{{ranking_total_elements}}</a></div>
     {{/ranking_url}}
     {{^ranking_url}}
       <div class="ranking"><strong>#{{ranking_position}}</strong>/{{ranking_total_elements}}</div>
