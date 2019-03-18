@@ -1,7 +1,41 @@
-<% endpoint_url = gobierto_budgets_featured_budget_line_url(
-    current_organization.combined_slug,
-    year: @year,
-    embed: true
-  ) %>
+<div class="featured_budget_line">
+  <div class="cont clearfix">
+    <div class="main">
 
-<div class="featured_budget_line" data-featured-budget-line="<%= endpoint_url %>"></div>
+      <header>
+        <%= t("gobierto_budgets.featured_budget_lines.show.question", name: current_organization.name) %>
+        <h2><%= link_to(
+                  budget_line_denomination(@area_name, @code, @kind),
+                  gobierto_budgets_budget_line_url(current_organization.combined_slug, @year, @code.parameterize, @kind, @area_name),
+                  target: "_parent"
+                ) %>?</h2>
+      </header>
+
+      <div class="main_metrics clearfix">
+        <div class="metric tipsit"
+             title="<%= kind_literal(@kind, false).humanize %> <%= t('gobierto_budgets.featured_budget_lines.show.per_inhabitant') %>">
+          <%= render(partial: "shared/widget_template.new.html.erb", locals: @amount_per_inhabitant_summary)  %>
+        </div>
+
+        <div class="metric tipsit"
+             title="<%= kind_literal(@kind, false).humanize %>">
+          <%= render(partial: "shared/widget_template.new.html.erb", locals: @amount_summary)  %>
+        </div>
+
+        <div class="metric tipsit"
+             title="<%= t('gobierto_budgets.featured_budget_lines.show..percentage_over_total') %>">
+            <%= render(partial: "shared/widget_template_lite.new.html.erb", locals: @percentage_over_total_summary)  %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <%= link_to(
+        t("gobierto_budgets.featured_budget_lines.show.show_me_another"),
+        gobierto_budgets_featured_budget_lines_url(organization_id: current_organization.id),
+        class: 'show_me_another',
+        target: "_parent"
+      ) %>
+
+</div>

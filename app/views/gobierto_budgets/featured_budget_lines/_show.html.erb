@@ -1,6 +1,4 @@
-<% unless @embedded %>
-  <h3 class="lite"><%= t('.title') %></h3>
-<% end %>
+<h3 class="lite"><%= t('.title') %></h3>
 
 <div class="cont clearfix">
   <div class="main">
@@ -48,7 +46,7 @@
 
 <%= link_to(
       t('.show_me_another'),
-      gobierto_budgets_featured_budget_line_url(current_organization.combined_slug, year: @year, embed: @embedded),
+      gobierto_budgets_featured_budget_line_url(current_organization.combined_slug, year: @year),
       class: 'show_me_another',
       data: { remote: true },
       target: "_parent"
