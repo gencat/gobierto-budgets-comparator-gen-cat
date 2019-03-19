@@ -160,7 +160,7 @@ module GobiertoBudgets
     end
 
     def elasticsearch_query_cache_key(method_name, params)
-      "#{self.class.name.parameterize}-#{method_name}-#{params[:year]}-#{params[:kind]}-#{params[:area]}-#{params[:code]}"
+      "#{self.class.name.parameterize}-#{method_name}-#{current_organization.id}-#{params[:year]}-#{params[:kind]}-#{params[:area]}-#{params[:code]}"
     end
 
   end
