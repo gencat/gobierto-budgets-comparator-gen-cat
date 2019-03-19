@@ -134,25 +134,23 @@ module GobiertoBudgets
 
       opts = { year: year, code: code, kind: kind, area_name: area, variable: field }
 
-      Rails.cache.fetch(elasticsearch_query_cache_key(__method__, params)) do
-        results, total_elements = BudgetLine.for_ranking(opts)
+      results, total_elements = BudgetLine.for_ranking(opts)
 
-        if ranking
-          opts[:organization_id] = current_organization.id
-          position = BudgetLine.place_position_in_ranking(opts)
-        else
-          total_elements = 0
-          position = 0
-        end
-
-        value = results.select { |r| r['organization_id'] == current_organization.id }.first.try(:[], field)
-
-        return {
-          value: value,
-          position: position,
-          total_elements: total_elements
-        }
+      if ranking
+        opts[:organization_id] = current_organization.id
+        position = BudgetLine.place_position_in_ranking(opts)
+      else
+        total_elements = 0
+        position = 0
       end
+
+      value = results.select { |r| r['organization_id'] == current_organization.id }.first.try(:[], field)
+
+      return {
+        value: value,
+        position: position,
+        total_elements: total_elements
+      }
     end
 
     def delta_percentage(value, old_value)
