@@ -159,7 +159,13 @@ module GobiertoBudgets
         @category_name = @kind == 'G' ? t('.expense_planned_vs_executed') : t('.income_planned_vs_executed')
 
         budget_executed = budget_data_executed(@year, 'amount')
-        budget_planned = budget_data(@year, 'amount')
+        budget_planned = budget_data(
+          year: @year,
+          kind: @kind,
+          area: @area,
+          code: @code,
+          field: "amount"
+        )
         sign = sign(budget_executed[:value], budget_planned[:value])
 
         respond_to do |format|
