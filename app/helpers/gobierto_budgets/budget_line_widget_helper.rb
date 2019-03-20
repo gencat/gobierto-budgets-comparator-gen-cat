@@ -2,10 +2,44 @@
 
 module GobiertoBudgets
   module BudgetLineWidgetHelper
-
     extend ActiveSupport::Concern
 
+    include GobiertoBudgets::ApplicationHelper
+
     private
+
+    def load_featured_budget_line(params = {})
+      @area_name = "functional"
+      @kind = GobiertoBudgets::BudgetLine::EXPENSE
+
+      results = featured_budget_line_candidates
+
+      if params[:allow_year_fallback]
+        until results.any? || (@year < current_year - 2)
+          @year -= 1
+          results = featured_budget_line_candidates
+        end
+      end
+
+      @code = results.sample["code"] if results.any?
+    end
+
+    def featured_budget_line_candidates
+      GobiertoBudgets::BudgetLine.search(
+        kind: @kind,
+        year: @year,
+        organization_id: @current_organization.id,
+        type: @area_name,
+        range_hash: {
+          level: { ge: 3 },
+          amount_per_inhabitant: { gt: 0 }
+        }
+      )["hits"]
+    end
+
+    def default_budget_line_params
+      { year: @year, kind: @kind, area: @area_name, code: @code }
+    end
 
     def budget_per_inhabitant_summary(params)
       year = params[:year]

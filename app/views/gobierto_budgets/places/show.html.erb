@@ -122,11 +122,8 @@
   </div>
 </div>
 
-<div class="featured_budget_line"
-     data-featured-budget-line="<%= gobierto_budgets_featured_budget_line_path(
-       current_organization.combined_slug,
-       year: @year
-     ) %>">
+<div class="featured_budget_line">
+  <%= render partial: "gobierto_budgets/featured_budget_lines/show" %>
 </div>
 
 <% if current_organization.associated_entities.any? %>
