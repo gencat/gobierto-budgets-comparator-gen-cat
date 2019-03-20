@@ -15,7 +15,7 @@ module GobiertoBudgets
       results = featured_budget_line_candidates
 
       if params[:allow_year_fallback]
-        until results.any? || (@year < current_year - 2)
+        until results.any? || (@year < Date.today.year - 2)
           @year -= 1
           results = featured_budget_line_candidates
         end
