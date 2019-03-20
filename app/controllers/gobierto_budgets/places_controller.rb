@@ -1,5 +1,7 @@
 module GobiertoBudgets
   class PlacesController < GobiertoBudgets::ApplicationController
+    include RankingTableHelper
+    include GobiertoBudgets::BudgetLineWidgetHelper
 
     layout :choose_layout
     before_action :set_current_organization, except: [:ranking, :compare, :redirect]
@@ -10,8 +12,6 @@ module GobiertoBudgets
     attr_reader :current_organization
 
     helper_method :current_organization
-
-    include RankingTableHelper
 
     def show
       if @year.nil?
@@ -28,6 +28,11 @@ module GobiertoBudgets
 
       @expense_lines = BudgetLine.search(organization_id: current_organization.id, level: 1, year: @year, kind: BudgetLine::EXPENSE, type: @area_name, recalculate_aggregations: true)
       @no_data = @income_lines['hits'].empty?
+
+      load_featured_budget_line(allow_year_fallback: true)
+      @amount_per_inhabitant_summary = budget_per_inhabitant_summary(default_budget_line_params)
+      @amount_summary = amount_summary(default_budget_line_params)
+      @percentage_over_total_summary = percentage_over_total_summary(default_budget_line_params)
 
       respond_to do |format|
         format.html

@@ -32,7 +32,11 @@ module GobiertoBudgets
       @amount_summary = amount_summary(default_budget_line_params)
       @percentage_over_total_summary = percentage_over_total_summary(default_budget_line_params)
 
-      render(action: "embed", layout: "embed")
+
+      respond_to do |format|
+        format.html { render(action: "embed", layout: "embed") }
+        format.js { @code.present? ? render(:show) : head(:not_found) }
+      end
     end
 
     private
@@ -47,45 +51,12 @@ module GobiertoBudgets
       render_404 and return if @current_organization.nil? || (@current_organization.place.nil? && @current_organization.associated_entity.nil?)
     end
 
-    def load_featured_budget_line(params = {})
-      @area_name = "functional"
-      @kind = GobiertoBudgets::BudgetLine::EXPENSE
-
-      results = featured_budget_line_candidates
-
-      if params[:allow_year_fallback]
-        until results.any? || (@year < current_year - 2)
-          @year -= 1
-          results = featured_budget_line_candidates
-        end
-      end
-
-      @code = results.sample["code"] if results.any?
-    end
-
-    def featured_budget_line_candidates
-      BudgetLine.search(
-        kind: @kind,
-        year: @year,
-        organization_id: @current_organization.id,
-        type: @area_name,
-        range_hash: {
-          level: { ge: 3 },
-          amount_per_inhabitant: { gt: 0 }
-        }
-      )["hits"]
-    end
-
     def override_response_headers
       response.headers.delete "X-Frame-Options"
     end
 
     def current_year
       Time.zone.now.year
-    end
-
-    def default_budget_line_params
-      { year: @year, kind: @kind, area: @area_name, code: @code }
     end
 
   end
