@@ -1,7 +1,1 @@
-<% endpoint_url = gobierto_budgets_featured_budget_line_url(
-    current_organization.combined_slug,
-    year: @year,
-    embed: true
-  ) %>
-
-<div class="featured_budget_line" data-featured-budget-line="<%= endpoint_url %>"></div>
+<%= render partial: "featured_budget_line" %>

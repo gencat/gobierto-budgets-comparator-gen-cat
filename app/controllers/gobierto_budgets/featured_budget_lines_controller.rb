@@ -1,9 +1,13 @@
+# frozen_string_literal: true
+
 module GobiertoBudgets
   class FeaturedBudgetLinesController < GobiertoBudgets::ApplicationController
 
+    include GobiertoBudgets::ApplicationHelper
+    include GobiertoBudgets::BudgetLineWidgetHelper
+
     before_action(
       :set_current_organization,
-      :check_embedded,
       :override_response_headers
     )
 
@@ -23,9 +27,16 @@ module GobiertoBudgets
     def embed
       @year = current_year
 
-      load_featured_budget_line
+      load_featured_budget_line(allow_year_fallback: true)
+      @amount_per_inhabitant_summary = budget_per_inhabitant_summary(default_budget_line_params)
+      @amount_summary = amount_summary(default_budget_line_params)
+      @percentage_over_total_summary = percentage_over_total_summary(default_budget_line_params)
 
-      render(action: "embed", layout: "embed")
+
+      respond_to do |format|
+        format.html { render(action: "embed", layout: "embed") }
+        format.js { @code.present? ? render(:show) : head(:not_found) }
+      end
     end
 
     private
@@ -38,39 +49,6 @@ module GobiertoBudgets
       end
 
       render_404 and return if @current_organization.nil? || (@current_organization.place.nil? && @current_organization.associated_entity.nil?)
-    end
-
-    def load_featured_budget_line
-      @area_name = "functional"
-      @kind = GobiertoBudgets::BudgetLine::EXPENSE
-
-      results = featured_budget_line_candidates
-
-      if @embedded
-        until results.any? || (@year < current_year - 2)
-          @year -= 1
-          results = featured_budget_line_candidates
-        end
-      end
-
-      @code = results.sample["code"] if results.any?
-    end
-
-    def featured_budget_line_candidates
-      BudgetLine.search(
-        kind: @kind,
-        year: @year,
-        organization_id: @current_organization.id,
-        type: @area_name,
-        range_hash: {
-          level: { ge: 3 },
-          amount_per_inhabitant: { gt: 0 }
-        }
-      )["hits"]
-    end
-
-    def check_embedded
-      @embedded = params[:embed]
     end
 
     def override_response_headers

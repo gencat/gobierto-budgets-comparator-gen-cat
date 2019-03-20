@@ -1,0 +1,9 @@
+<script type="text/javascript">
+  <% if Settings.google_analytics_key.present? %>
+    ga('create', '<%= Settings.google_analytics_key %>', 'auto');
+    ga('send', 'pageview', window.location.pathname);
+  <% end %>
+  <% if Settings.mixpanel_key.present? %>
+    mixpanel.init('<%= Settings.mixpanel_key %>');
+  <% end %>
+</script>
