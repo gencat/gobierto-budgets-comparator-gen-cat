@@ -1,0 +1,21 @@
+<div class="label">
+  <%= title %>
+</div>
+
+<div class="main <%= sign %>"><%= value %></div>
+
+<div class="secondary">
+  <div class="percentage_change up <%= sign %>">
+    <%= delta_percentage %>%
+  </div>
+
+  <div class="ranking">
+    <% if ranking_url %>
+      <a href="<%= ranking_url %>" class="ranking_link" target="_parent">
+        <strong>#<%= ranking_position %></strong>/<%= ranking_total_elements %>
+      </a>
+    <% else %>
+      <strong>#<%= ranking_position %></strong>/<%= ranking_total_elements %>
+    <% end %>
+  </div>
+</div>

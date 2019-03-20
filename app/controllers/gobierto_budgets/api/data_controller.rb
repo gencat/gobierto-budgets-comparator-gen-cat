@@ -1,7 +1,11 @@
+# frozen_string_literal: true
+
 module GobiertoBudgets
   module Api
     class DataController < ApplicationController
+
       include GobiertoBudgets::ApplicationHelper
+      include GobiertoBudgets::BudgetLineWidgetHelper
 
       before_action :set_current_organization
       attr_accessor :current_organization
@@ -137,37 +141,11 @@ module GobiertoBudgets
       end
 
       def budget
-        @year = params[:year].to_i
-        @area = params[:area]
-        @kind = params[:kind]
-        @code = params[:code]
-
-        @category_name = @kind == 'G' ? t('common.expense').capitalize : t('common.income').capitalize
-
-        budget_data = budget_data(@year, 'amount')
-        budget_data_previous_year = budget_data(@year - 1, 'amount', false)
-        position = budget_data[:position].to_i
-        sign = sign(budget_data[:value], budget_data_previous_year[:value])
+        data_hash = amount_summary(default_budget_line_params)
 
         respond_to do |format|
           format.json do
-            render json: {
-              title: @category_name,
-              sign: sign,
-              value: format_currency(budget_data[:value]),
-              delta_percentage: helpers.number_with_precision(delta_percentage(budget_data[:value], budget_data_previous_year[:value]), precision: 2),
-              ranking_position: position,
-              ranking_total_elements: helpers.number_with_precision(budget_data[:total_elements], precision: 0),
-              ranking_url: gobierto_budgets_places_ranking_path(
-                @year,
-                @kind,
-                @area,
-                "amount",
-                @code.parameterize,
-                page: GobiertoBudgets::Ranking.page_from_position(position),
-                ine_code: current_organization.ine_code
-              )
-            }.to_json
+            render(json: data_hash.to_json)
           end
         end
       end
@@ -181,7 +159,13 @@ module GobiertoBudgets
         @category_name = @kind == 'G' ? t('.expense_planned_vs_executed') : t('.income_planned_vs_executed')
 
         budget_executed = budget_data_executed(@year, 'amount')
-        budget_planned = budget_data(@year, 'amount')
+        budget_planned = budget_data(
+          year: @year,
+          kind: @kind,
+          area: @area,
+          code: @code,
+          field: "amount"
+        )
         sign = sign(budget_executed[:value], budget_planned[:value])
 
         respond_to do |format|
@@ -197,36 +181,11 @@ module GobiertoBudgets
       end
 
       def budget_per_inhabitant
-        @year = params[:year].to_i
-        @area = params[:area]
-        @kind = params[:kind]
-        @code = params[:code]
-
-        title = @kind == 'G' ? t('.expenses_per_inhabitant') : t('.income_per_inhabitant')
-        budget_data = budget_data(@year, 'amount_per_inhabitant')
-        budget_data_previous_year = budget_data(@year - 1, 'amount_per_inhabitant', false)
-        position = budget_data[:position].to_i
-        sign = sign(budget_data[:value], budget_data_previous_year[:value])
+        data_hash = budget_per_inhabitant_summary(default_budget_line_params)
 
         respond_to do |format|
           format.json do
-            render json: {
-              sign: sign,
-              title: title,
-              value: format_currency(budget_data[:value]),
-              delta_percentage: helpers.number_with_precision(delta_percentage(budget_data[:value], budget_data_previous_year[:value]), precision: 2),
-              ranking_position: position,
-              ranking_total_elements: helpers.number_with_precision(budget_data[:total_elements], precision: 0),
-              ranking_url: gobierto_budgets_places_ranking_path(
-                @year,
-                @kind,
-                @area,
-                "amount_per_inhabitant",
-                @code.parameterize,
-                page: GobiertoBudgets::Ranking.page_from_position(position),
-                ine_code: current_organization.ine_code
-              )
-            }.to_json
+            render(json: data_hash.to_json)
           end
         end
       end
@@ -271,40 +230,11 @@ module GobiertoBudgets
       end
 
       def budget_percentage_over_total
-        @year = params[:year].to_i
-        @area = params[:area]
-        @kind = params[:kind]
-        @code = params[:code]
-
-        begin
-          result = GobiertoBudgets::SearchEngine.client.get(
-            index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
-            type: @area,
-            id: [current_organization.id, @year, @code, @kind].join("/")
-          )
-
-          amount = result['_source']['amount'].to_f
-
-          result = GobiertoBudgets::SearchEngine.client.get(
-            index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast,
-            type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type,
-            id: [current_organization.id, @year, BudgetLine::EXPENSE].join('/')
-          )
-
-          total_amount = result['_source']['total_budget'].to_f
-
-          percentage = (amount.to_f * 100)/total_amount
-        rescue Elasticsearch::Transport::Transport::Errors::NotFound
-          percentage = 0
-        end
+        data_hash = percentage_over_total_summary(default_budget_line_params)
 
         respond_to do |format|
           format.json do
-            render json: {
-              title: t('.percentage_over_total'),
-              value: "#{helpers.number_with_precision(percentage, precision: 2, strip_insignificant_zeros: true)}%",
-              sign: sign(percentage)
-            }.to_json
+            render(json: data_hash.to_json)
           end
         end
       end
@@ -616,28 +546,6 @@ module GobiertoBudgets
         title.join(' ')
       end
 
-      def budget_data(year, field, ranking = true)
-        opts = { year: year, code: @code, kind: @kind, area_name: @area, variable: field }
-
-        results, total_elements = BudgetLine.for_ranking(opts)
-
-        if ranking
-          opts[:organization_id] = current_organization.id
-          position = BudgetLine.place_position_in_ranking(opts)
-        else
-          total_elements = 0
-          position = 0
-        end
-
-        value = results.select { |r| r['organization_id'] == current_organization.id }.first.try(:[], field)
-
-        return {
-          value: value,
-          position: position,
-          total_elements: total_elements
-        }
-      end
-
       def budget_data_executed(year, field)
         id = "#{current_organization.id}/#{year}/#{@code}/#{@kind}"
 
@@ -730,11 +638,6 @@ module GobiertoBudgets
         }
       end
 
-      def delta_percentage(value, old_value)
-        return "" if value.nil? || old_value.nil?
-        ((value.to_f - old_value.to_f)/old_value.to_f) * 100
-      end
-
       def deviation_message(kind, up_or_down, percentage, diff)
         percentage = percentage.to_s.gsub('-', '')
         diff = format_currency(diff, true)
@@ -785,6 +688,11 @@ module GobiertoBudgets
                                   Organization.new(slug: params[:organization_slug])
                                 end
         render_404 and return if @current_organization.nil? || (@current_organization.place.nil? && @current_organization.associated_entity.nil?)
+      end
+
+      def default_budget_line_params
+        params.slice(:area, :kind, :code)
+              .merge(year: params[:year].to_i)
       end
 
     end
