@@ -48,9 +48,9 @@ module GobiertoBudgets
       code = params[:code]
 
       title = if kind == "G"
-                t("gobierto_budgets.api.data.budget_per_inhabitant.expenses_per_inhabitant")
+                I18n.t("gobierto_budgets.api.data.budget_per_inhabitant.expenses_per_inhabitant")
               else
-                t("gobierto_budgets.api.data.budget_per_inhabitant.income_per_inhabitant")
+                I18n.t("gobierto_budgets.api.data.budget_per_inhabitant.income_per_inhabitant")
               end
 
       Rails.cache.fetch(elasticsearch_query_cache_key(__method__, params)) do
@@ -89,7 +89,7 @@ module GobiertoBudgets
       area = params[:area]
       code = params[:code]
 
-      category_name = kind == 'G' ? t('common.expense').capitalize : t('common.income').capitalize
+      category_name = kind == 'G' ? I18n.t('common.expense').capitalize : I18n.t('common.income').capitalize
 
       Rails.cache.fetch(elasticsearch_query_cache_key(__method__, params)) do
         budget_data = budget_data(params.merge(field: "amount"))
@@ -151,7 +151,7 @@ module GobiertoBudgets
         end
 
         {
-          title: t('gobierto_budgets.featured_budget_lines.show.percentage_over_total'),
+          title: I18n.t('gobierto_budgets.featured_budget_lines.show.percentage_over_total'),
           value: "#{helpers.number_with_precision(percentage, precision: 2, strip_insignificant_zeros: true)}%",
           sign: sign(percentage)
         }
@@ -194,7 +194,7 @@ module GobiertoBudgets
     end
 
     def elasticsearch_query_cache_key(method_name, params)
-      "#{self.class.name.parameterize}-#{method_name}-#{current_organization.id}-#{params[:year]}-#{params[:kind]}-#{params[:area]}-#{params[:code]}"
+      "#{method_name}-#{current_organization.id}-#{params[:year]}-#{params[:kind]}-#{params[:area]}-#{params[:code]}"
     end
 
   end
