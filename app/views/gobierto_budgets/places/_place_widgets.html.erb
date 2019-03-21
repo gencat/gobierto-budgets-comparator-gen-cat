@@ -20,7 +20,7 @@
     data-page-href="<%= gobierto_budgets_place_path(slug: current_organization.combined_slug, year: @year, anchor: 'total_budget')%>">
   </div>
 
-  <div class="metric tipsit" title="<%= t('gobierto_budgets.pages.map_metrics.tipsit_planned_vs_executed') %>"
+  <div class="metric"
     data-widget-template="#widget-template-execution"
     data-widget-type="total_budget_execution"
     data-widget-data-url="<%= gobierto_budgets_api_data_total_budget_execution_path(organization_slug: current_organization.combined_slug, year: @year, format: :json) %>"
