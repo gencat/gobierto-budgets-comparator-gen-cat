@@ -15,12 +15,17 @@ module GobiertoBudgets
     helper_method :current_organization
 
     def show
-      @year = params[:year].to_i
-
-      load_featured_budget_line
-
       respond_to do |format|
-        format.js { @code.present? ? render(:show) : head(:not_found) }
+        format.js do
+          @year = params[:year].to_i
+
+          load_featured_budget_line
+          @amount_per_inhabitant_summary = budget_per_inhabitant_summary(default_budget_line_params)
+          @amount_summary = amount_summary(default_budget_line_params)
+          @percentage_over_total_summary = percentage_over_total_summary(default_budget_line_params)
+
+          @code.present? ? render(:show) : head(:not_found)
+        end
       end
     end
 
@@ -31,7 +36,6 @@ module GobiertoBudgets
       @amount_per_inhabitant_summary = budget_per_inhabitant_summary(default_budget_line_params)
       @amount_summary = amount_summary(default_budget_line_params)
       @percentage_over_total_summary = percentage_over_total_summary(default_budget_line_params)
-
 
       respond_to do |format|
         format.html { render(action: "embed", layout: "embed") }
