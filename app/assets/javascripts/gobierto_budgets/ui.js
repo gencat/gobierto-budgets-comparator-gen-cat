@@ -127,7 +127,10 @@ $(document).on('turbolinks:load', function() {
 
   $('.switcher').hover(function(e) {
     e.preventDefault();
-    $(this).find('ul').show();
+    // Don't act if the clicked element belongs to map sidebar
+    if($(this).parents('.map_sidebar').length === 0){
+      $(this).find('ul').show();
+    }
   }, function(e) {
     $(this).find('ul').hide();
   });
@@ -137,6 +140,10 @@ $(document).on('turbolinks:load', function() {
     if(mixpanel.length > 0) {
       mixpanel.track('Year Selection', { 'Year Selected': e.target.innerHTML});
     }
+  });
+
+  $('.map_sidebar .switcher.year_switcher ul').click(function(e){
+    e.preventDefault();
   });
 
   $('.home_section .switcher').click(function(e){
@@ -151,7 +158,6 @@ $(document).on('turbolinks:load', function() {
 
     var form = tgt.parents('form');
     var action = form.attr('action');
-    console.log(value);
     var kind_re = /[GI]\/.*\//;
 
     if (value == 'I') {

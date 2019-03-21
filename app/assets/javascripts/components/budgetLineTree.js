@@ -24,7 +24,7 @@ function generateTargetUrl(node) {
   window.budgetLineTree = flight.component(function(){
     this.attributes({
       categories: [],
-      dropDownIcon: "<i class='fa fa-angle-down'></i>",
+      dropDownIcon: "<i class=\"fa fa-angle-down\"></i>",
       expandIconClass: "fa-plus-square-o",
       collapseIconClass: "fa-minus-square-o",
       state: {
@@ -61,14 +61,19 @@ function generateTargetUrl(node) {
       $(document).on('click', '[data-select-category]', function(e){
         e.preventDefault();
         var target = $(e.target);
+        var $list = $('.map_sidebar .switcher.year_switcher ul');
+        if($list.is(":hidden")){
+          $list.show();
+        } else {
+          $list.hide();
+        }
         this.attr.categories = [];
         this.attr.state.kind = target.data('kind');
         this.attr.state.area = target.data('area');
         this.fillPlaceHolder(target);
-        target.parents('ul').hide();
         this.itemsParent.show();
         if (toggle.hasClass('fa-caret-square-o-down')) {
-            toggle.removeClass('fa-caret-square-o-down').addClass('fa-caret-square-o-up');
+          toggle.removeClass('fa-caret-square-o-down').addClass('fa-caret-square-o-up');
         }
       }.bind(this));
 
@@ -118,8 +123,17 @@ function generateTargetUrl(node) {
       }.bind(this));
 
       // Initial state
-      $('[data-selected]').click();
-      if(!$('[data-selected]').length) this.renderCategories();
+      var target = $('[data-selected]');
+      this.attr.categories = [];
+      this.attr.state.kind = target.data('kind');
+      this.attr.state.area = target.data('area');
+      this.fillPlaceHolder(target);
+      this.itemsParent.show();
+      if (toggle.hasClass('fa-caret-square-o-down')) {
+        toggle.removeClass('fa-caret-square-o-down').addClass('fa-caret-square-o-up');
+      }
+      $('.map_sidebar .switcher.year_switcher ul').show();
+      $('.map_sidebar .switcher.year_switcher ul').hide();
 
       // Collapse sidebar on phones
       if (window.innerWidth <= 768) {
@@ -131,7 +145,9 @@ function generateTargetUrl(node) {
     this.fillPlaceHolder = function(selectedCategory) {
       this.titlePlaceholder.html('');
       var category = selectedCategory.clone();
-      category.html(category.html() + ' ' + this.attr.dropDownIcon);
+      if(category.html().indexOf(this.attr.dropDownIcon) === -1){
+        category.html(category.html() + ' ' + this.attr.dropDownIcon);
+      }
       category.addClass('current');
       this.titlePlaceholder.html(category);
       this.renderCategories();
