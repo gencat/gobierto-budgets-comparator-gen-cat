@@ -119,13 +119,6 @@ module GobiertoBudgets
 
     def ranking
       @filters = params[:f]
-      if current_organization && params[:page].nil?
-        place_position = GobiertoBudgets::Ranking.place_position(year: @year, ine_code: current_organization.id, code: @code, kind: @kind, area_name: @area_name, variable: @variable, filters: @filters)
-
-        page = GobiertoBudgets::Ranking.page_from_position(place_position)
-        redirect_to url_for(params.merge(page: page)) and return
-      end
-
       @per_page = GobiertoBudgets::Ranking.per_page
       @page = params[:page] ? params[:page].to_i : 1
       render_404 and return if @page <= 0
