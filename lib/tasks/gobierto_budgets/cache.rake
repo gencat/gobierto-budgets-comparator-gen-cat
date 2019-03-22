@@ -13,10 +13,11 @@ namespace :gobierto_budgets do
         Rails.application.routes.url_helpers.gobierto_budgets_places_ranking_path(*params)
       end
 
-      INE::Places::Place.all.in_groups_of(10) do |places_groups|
+      GobiertoBudgets::Population.for_year(2018).in_groups_of(10) do |places_groups|
         threads = []
 
-        places_groups.each do |place|
+        places_groups.each do |place_info|
+          place = INE::Places::Place.find(place_info["organization_id"])
           threads << Thread.new do
             define_method(:current_organization) do
               place
