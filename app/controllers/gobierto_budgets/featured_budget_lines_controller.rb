@@ -60,8 +60,7 @@ module GobiertoBudgets
     end
 
     def current_year
-      Time.zone.now.year
+      GobiertoBudgets::SearchEngineConfiguration::Year.last
     end
-
   end
 end
