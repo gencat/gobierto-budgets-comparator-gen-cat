@@ -316,11 +316,9 @@ module GobiertoBudgets
 
     def self.place_position_in_ranking(options, only_municipalities=false)
       id = %w{organization_id year code kind}.map {|f| options[f.to_sym]}.join('/')
-
       response = budget_line_query(options.merge(to_rank: true), only_municipalities)
-      buckets = response['hits']['hits'].map{|h| h['_id']}
-      position = buckets.index(id) ? buckets.index(id) + 1 : 0;
-      return position
+      position = response['hits']['hits'].map{ |h| h['_id'] }.index(id) + 1 rescue 0
+      return position, response['hits']['total']
     end
 
     def self.compare(options)

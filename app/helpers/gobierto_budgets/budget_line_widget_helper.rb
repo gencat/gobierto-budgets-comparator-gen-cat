@@ -164,21 +164,18 @@ module GobiertoBudgets
       area = params[:area]
       code = params[:code]
       field = params[:field]
-      ranking = params[:ranking] || true
+      ranking = params[:ranking] != false
 
-      opts = { year: year, code: code, kind: kind, area_name: area, variable: field }
+      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: area, id: [current_organization.id, year, code, kind].join('/')
+      value = result['_source'][field]
 
-      results, total_elements = BudgetLine.for_ranking(opts)
+      total_elements = 0
+      position = 0
 
       if ranking
-        opts[:organization_id] = current_organization.id
-        position = BudgetLine.place_position_in_ranking(opts)
-      else
-        total_elements = 0
-        position = 0
+        opts = { year: year, code: code, kind: kind, area_name: area, variable: field, place: current_organization&.place, organization_id: current_organization.id }
+        position, total_elements = BudgetLine.place_position_in_ranking(opts)
       end
-
-      value = results.select { |r| r['organization_id'] == current_organization.id }.first.try(:[], field)
 
       return {
         value: value,
