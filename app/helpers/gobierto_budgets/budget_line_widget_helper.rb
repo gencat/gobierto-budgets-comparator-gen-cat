@@ -6,6 +6,8 @@ module GobiertoBudgets
 
     include GobiertoBudgets::ApplicationHelper
 
+    MAX_FEATURED_BUDGET_LINE_YEAR_FALLBACK = 3
+
     private
 
     def featured_budget_line?
@@ -19,7 +21,7 @@ module GobiertoBudgets
       results = featured_budget_line_candidates
 
       if params[:allow_year_fallback]
-        until results.any? || (@year < Date.today.year - 2)
+        until results.any? || (@year < Date.today.year - MAX_FEATURED_BUDGET_LINE_YEAR_FALLBACK)
           @year -= 1
           results = featured_budget_line_candidates
         end
