@@ -11,7 +11,7 @@ module GobiertoBudgets
 
     attr_reader :current_organization
 
-    helper_method :current_organization
+    helper_method :current_organization, :featured_budget_line?
 
     def show
       if @year.nil?
@@ -30,9 +30,12 @@ module GobiertoBudgets
       @no_data = @income_lines['hits'].empty?
 
       load_featured_budget_line(allow_year_fallback: true)
-      @amount_per_inhabitant_summary = budget_per_inhabitant_summary(default_budget_line_params)
-      @amount_summary = amount_summary(default_budget_line_params)
-      @percentage_over_total_summary = percentage_over_total_summary(default_budget_line_params)
+
+      if featured_budget_line?
+        @amount_per_inhabitant_summary = budget_per_inhabitant_summary(default_budget_line_params)
+        @amount_summary = amount_summary(default_budget_line_params)
+        @percentage_over_total_summary = percentage_over_total_summary(default_budget_line_params)
+      end
 
       respond_to do |format|
         format.html

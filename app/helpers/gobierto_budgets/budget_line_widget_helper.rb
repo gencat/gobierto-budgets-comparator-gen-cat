@@ -8,6 +8,10 @@ module GobiertoBudgets
 
     private
 
+    def featured_budget_line?
+      @code.present?
+    end
+
     def load_featured_budget_line(params = {})
       @area_name = "functional"
       @kind = GobiertoBudgets::BudgetLine::EXPENSE
@@ -21,7 +25,7 @@ module GobiertoBudgets
         end
       end
 
-      @code = results.sample["code"] if results.any?
+      @code = results.any? ? results.sample["code"] : nil
     end
 
     def featured_budget_line_candidates
