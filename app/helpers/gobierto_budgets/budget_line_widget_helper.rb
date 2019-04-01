@@ -64,19 +64,22 @@ module GobiertoBudgets
 
       Rails.cache.fetch(elasticsearch_query_cache_key(__method__, params)) do
         budget_data = budget_data(params.merge(field: "amount_per_inhabitant"))
-        budget_data_previous_year = budget_data(params.merge(
-          year: year - 1,
-          field: "amount_per_inhabitant",
-          ranking: false
-        ))
+        budget_data_previous_year = budget_data_previous_year(params.merge(field: "amount_per_inhabitant"))
         position = budget_data[:position].to_i
-        sign = sign(budget_data[:value], budget_data_previous_year[:value])
+
+        if budget_data_previous_year
+          delta_percentage = helpers.number_with_precision(delta_percentage(budget_data[:value], budget_data_previous_year[:value]), precision: 2)
+          sign = sign(budget_data[:value], budget_data_previous_year[:value])
+        else
+          delta_percentage = nil
+          sign = nil
+        end
 
         {
           sign: sign,
           title: title,
           value: format_currency(budget_data[:value]),
-          delta_percentage: helpers.number_with_precision(delta_percentage(budget_data[:value], budget_data_previous_year[:value]), precision: 2),
+          delta_percentage: delta_percentage,
           ranking_position: position,
           ranking_total_elements: helpers.number_with_precision(budget_data[:total_elements], precision: 0),
           ranking_url: gobierto_budgets_places_ranking_path(
@@ -102,19 +105,22 @@ module GobiertoBudgets
 
       Rails.cache.fetch(elasticsearch_query_cache_key(__method__, params)) do
         budget_data = budget_data(params.merge(field: "amount"))
-        budget_data_previous_year = budget_data(params.merge(
-          year: year - 1,
-          field: "amount",
-          ranking: false
-        ))
+        budget_data_previous_year = budget_data_previous_year(params.merge(field: "amount"))
         position = budget_data[:position].to_i
-        sign = sign(budget_data[:value], budget_data_previous_year[:value])
+
+        if budget_data_previous_year
+          delta_percentage = helpers.number_with_precision(delta_percentage(budget_data[:value], budget_data_previous_year[:value]), precision: 2)
+          sign = sign(budget_data[:value], budget_data_previous_year[:value])
+        else
+          delta_percentage = nil
+          sign = nil
+        end
 
         {
           title: category_name,
           sign: sign,
           value: format_currency(budget_data[:value]),
-          delta_percentage: helpers.number_with_precision(delta_percentage(budget_data[:value], budget_data_previous_year[:value]), precision: 2),
+          delta_percentage: delta_percentage,
           ranking_position: position,
           ranking_total_elements: helpers.number_with_precision(budget_data[:total_elements], precision: 0),
           ranking_url: gobierto_budgets_places_ranking_path(
@@ -165,6 +171,12 @@ module GobiertoBudgets
           sign: sign(percentage)
         }
       end
+    end
+
+    def budget_data_previous_year(params)
+      budget_data(params.merge(year: params[:year] - 1, ranking: false))
+    rescue Elasticsearch::Transport::Transport::Errors::NotFound
+      nil
     end
 
     def budget_data(params = {})
