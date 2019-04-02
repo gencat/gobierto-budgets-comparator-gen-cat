@@ -5,9 +5,11 @@
 <div class="main <%= sign %>"><%= value %></div>
 
 <div class="secondary">
-  <div class="percentage_change up <%= sign %>">
-    <%= delta_percentage %>%
-  </div>
+  <% if sign %>
+    <div class="percentage_change up <%= sign %>">
+      <%= delta_percentage %>%
+    </div>
+  <% end %>
 
   <div class="ranking">
     <% if ranking_url %>
