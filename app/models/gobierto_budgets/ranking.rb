@@ -38,36 +38,9 @@ module GobiertoBudgets
       Kaminari.paginate_array(results, {limit: self.per_page, offset: offset, total_count: total_results})
     end
 
-    # Returns the position of a place in a ranking. The ranking is determined by the variable
-    # parameter
-    def self.place_position(options)
-      year = options[:year]
-      ine_code = options[:ine_code]
-      code = options[:code]
-      kind = options[:kind]
-      variable = options[:variable]
-      filters = options[:filters]
-
-      if code.present?
-        return BudgetLine.place_position_in_ranking(options, true)
-      else
-        if variable == 'population'
-          return Population.place_position_in_ranking(year, ine_code, filters)
-        else
-          variable = (variable == 'amount') ? 'total_budget' : 'total_budget_per_inhabitant'
-          return BudgetTotal.place_position_in_ranking(year, variable, ine_code, kind, filters)
-        end
-      end
-    end
-
     ## Private
-
     def self.budget_line_ranking(options, offset)
-
       results, total_elements = BudgetLine.for_ranking(options.merge(offset: offset, per_page: self.per_page), true)
-
-      places_ids = results.map {|h| h['ine_code']}
-      population_results = Population.for_places(places_ids, options[:year])
 
       places_ids = results.map{|h| h['ine_code']}
       total_results = BudgetTotal.for_places(places_ids, options[:year])
@@ -86,12 +59,10 @@ module GobiertoBudgets
     end
 
     def self.population_ranking(variable, year, offset, filters)
-
       results, total_elements = Population.for_ranking(year, offset, self.per_page, filters)
 
       places_ids = results.map{|h| h['ine_code']}
       total_results = BudgetTotal.for_places(places_ids, year)
-
 
       return results.map do |h|
         id = h['ine_code']

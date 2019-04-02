@@ -122,9 +122,11 @@
   </div>
 </div>
 
-<div class="featured_budget_line">
-  <%= render partial: "gobierto_budgets/featured_budget_lines/show" %>
-</div>
+<% if featured_budget_line? %>
+  <div class="featured_budget_line">
+    <%= render partial: "gobierto_budgets/featured_budget_lines/show" %>
+  </div>
+<% end %>
 
 <% if current_organization.associated_entities.any? %>
   <%= render(

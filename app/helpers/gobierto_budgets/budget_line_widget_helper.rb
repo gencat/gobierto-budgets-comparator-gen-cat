@@ -6,7 +6,13 @@ module GobiertoBudgets
 
     include GobiertoBudgets::ApplicationHelper
 
+    MAX_FEATURED_BUDGET_LINE_YEAR_FALLBACK = 3
+
     private
+
+    def featured_budget_line?
+      @code.present?
+    end
 
     def load_featured_budget_line(params = {})
       @area_name = "functional"
@@ -15,13 +21,16 @@ module GobiertoBudgets
       results = featured_budget_line_candidates
 
       if params[:allow_year_fallback]
-        until results.any? || (@year < Date.today.year - 2)
+        until results.any? || (@year < Date.today.year - MAX_FEATURED_BUDGET_LINE_YEAR_FALLBACK)
           @year -= 1
           results = featured_budget_line_candidates
         end
       end
 
-      @code = results.sample["code"] if results.any?
+      @code = if results.any?
+                Rollbar.warning("No featured_budget_line candidates for #{@current_organization.slug}")
+                results.sample["code"]
+              end
     end
 
     def featured_budget_line_candidates
@@ -48,26 +57,29 @@ module GobiertoBudgets
       code = params[:code]
 
       title = if kind == "G"
-                t("gobierto_budgets.api.data.budget_per_inhabitant.expenses_per_inhabitant")
+                I18n.t("gobierto_budgets.api.data.budget_per_inhabitant.expenses_per_inhabitant")
               else
-                t("gobierto_budgets.api.data.budget_per_inhabitant.income_per_inhabitant")
+                I18n.t("gobierto_budgets.api.data.budget_per_inhabitant.income_per_inhabitant")
               end
 
       Rails.cache.fetch(elasticsearch_query_cache_key(__method__, params)) do
         budget_data = budget_data(params.merge(field: "amount_per_inhabitant"))
-        budget_data_previous_year = budget_data(params.merge(
-          year: year - 1,
-          field: "amount_per_inhabitant",
-          ranking: false
-        ))
+        budget_data_previous_year = budget_data_previous_year(params.merge(field: "amount_per_inhabitant"))
         position = budget_data[:position].to_i
-        sign = sign(budget_data[:value], budget_data_previous_year[:value])
+
+        if budget_data_previous_year
+          delta_percentage = helpers.number_with_precision(delta_percentage(budget_data[:value], budget_data_previous_year[:value]), precision: 2)
+          sign = sign(budget_data[:value], budget_data_previous_year[:value])
+        else
+          delta_percentage = nil
+          sign = nil
+        end
 
         {
           sign: sign,
           title: title,
           value: format_currency(budget_data[:value]),
-          delta_percentage: helpers.number_with_precision(delta_percentage(budget_data[:value], budget_data_previous_year[:value]), precision: 2),
+          delta_percentage: delta_percentage,
           ranking_position: position,
           ranking_total_elements: helpers.number_with_precision(budget_data[:total_elements], precision: 0),
           ranking_url: gobierto_budgets_places_ranking_path(
@@ -89,23 +101,26 @@ module GobiertoBudgets
       area = params[:area]
       code = params[:code]
 
-      category_name = kind == 'G' ? t('common.expense').capitalize : t('common.income').capitalize
+      category_name = kind == 'G' ? I18n.t('common.expense').capitalize : I18n.t('common.income').capitalize
 
       Rails.cache.fetch(elasticsearch_query_cache_key(__method__, params)) do
         budget_data = budget_data(params.merge(field: "amount"))
-        budget_data_previous_year = budget_data(params.merge(
-          year: year - 1,
-          field: "amount",
-          ranking: false
-        ))
+        budget_data_previous_year = budget_data_previous_year(params.merge(field: "amount"))
         position = budget_data[:position].to_i
-        sign = sign(budget_data[:value], budget_data_previous_year[:value])
+
+        if budget_data_previous_year
+          delta_percentage = helpers.number_with_precision(delta_percentage(budget_data[:value], budget_data_previous_year[:value]), precision: 2)
+          sign = sign(budget_data[:value], budget_data_previous_year[:value])
+        else
+          delta_percentage = nil
+          sign = nil
+        end
 
         {
           title: category_name,
           sign: sign,
           value: format_currency(budget_data[:value]),
-          delta_percentage: helpers.number_with_precision(delta_percentage(budget_data[:value], budget_data_previous_year[:value]), precision: 2),
+          delta_percentage: delta_percentage,
           ranking_position: position,
           ranking_total_elements: helpers.number_with_precision(budget_data[:total_elements], precision: 0),
           ranking_url: gobierto_budgets_places_ranking_path(
@@ -151,11 +166,17 @@ module GobiertoBudgets
         end
 
         {
-          title: t('gobierto_budgets.featured_budget_lines.show.percentage_over_total'),
+          title: I18n.t('gobierto_budgets.featured_budget_lines.show.percentage_over_total'),
           value: "#{helpers.number_with_precision(percentage, precision: 2, strip_insignificant_zeros: true)}%",
           sign: sign(percentage)
         }
       end
+    end
+
+    def budget_data_previous_year(params)
+      budget_data(params.merge(year: params[:year] - 1, ranking: false))
+    rescue Elasticsearch::Transport::Transport::Errors::NotFound
+      nil
     end
 
     def budget_data(params = {})
@@ -164,21 +185,18 @@ module GobiertoBudgets
       area = params[:area]
       code = params[:code]
       field = params[:field]
-      ranking = params[:ranking] || true
+      ranking = params[:ranking] != false
 
-      opts = { year: year, code: code, kind: kind, area_name: area, variable: field }
+      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: area, id: [current_organization.id, year, code, kind].join('/')
+      value = result['_source'][field]
 
-      results, total_elements = BudgetLine.for_ranking(opts)
+      total_elements = 0
+      position = 0
 
       if ranking
-        opts[:organization_id] = current_organization.id
-        position = BudgetLine.place_position_in_ranking(opts)
-      else
-        total_elements = 0
-        position = 0
+        opts = { year: year, code: code, kind: kind, area_name: area, variable: field, place: current_organization&.place, organization_id: current_organization.id }
+        position, total_elements = BudgetLine.place_position_in_ranking(opts)
       end
-
-      value = results.select { |r| r['organization_id'] == current_organization.id }.first.try(:[], field)
 
       return {
         value: value,
@@ -194,7 +212,7 @@ module GobiertoBudgets
     end
 
     def elasticsearch_query_cache_key(method_name, params)
-      "#{self.class.name.parameterize}-#{method_name}-#{current_organization.id}-#{params[:year]}-#{params[:kind]}-#{params[:area]}-#{params[:code]}"
+      "#{method_name}-#{current_organization.id}-#{params[:year]}-#{params[:kind]}-#{params[:area]}-#{params[:code]}"
     end
 
   end

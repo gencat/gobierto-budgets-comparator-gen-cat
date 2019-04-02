@@ -32,10 +32,15 @@ module GobiertoBudgets
     def embed
       @year = current_year
 
-      load_featured_budget_line(allow_year_fallback: true)
-      @amount_per_inhabitant_summary = budget_per_inhabitant_summary(default_budget_line_params)
-      @amount_summary = amount_summary(default_budget_line_params)
-      @percentage_over_total_summary = percentage_over_total_summary(default_budget_line_params)
+      begin
+        retries ||= 0
+        load_featured_budget_line(allow_year_fallback: true)
+        @amount_per_inhabitant_summary = budget_per_inhabitant_summary(default_budget_line_params)
+        @amount_summary = amount_summary(default_budget_line_params)
+        @percentage_over_total_summary = percentage_over_total_summary(default_budget_line_params)
+      rescue Elasticsearch::Transport::Transport::Errors::NotFound
+        retry if (retries += 1) < 10
+      end
 
       respond_to do |format|
         format.html { render(action: "embed", layout: "embed") }
@@ -60,8 +65,7 @@ module GobiertoBudgets
     end
 
     def current_year
-      Time.zone.now.year
+      GobiertoBudgets::SearchEngineConfiguration::Year.last
     end
-
   end
 end
