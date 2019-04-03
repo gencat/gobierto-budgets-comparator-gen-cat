@@ -20,11 +20,16 @@ module GobiertoBudgets
           @year = params[:year].to_i
 
           load_featured_budget_line
-          @amount_per_inhabitant_summary = budget_per_inhabitant_summary(default_budget_line_params)
-          @amount_summary = amount_summary(default_budget_line_params)
-          @percentage_over_total_summary = percentage_over_total_summary(default_budget_line_params)
 
-          @code.present? ? render(:show) : head(:not_found)
+          if featured_budget_line?
+            @amount_per_inhabitant_summary = budget_per_inhabitant_summary(default_budget_line_params)
+            @amount_summary = amount_summary(default_budget_line_params)
+            @percentage_over_total_summary = percentage_over_total_summary(default_budget_line_params)
+
+            render(:show)
+          else
+            head(:not_found)
+          end
         end
       end
     end
@@ -35,9 +40,12 @@ module GobiertoBudgets
       begin
         retries ||= 0
         load_featured_budget_line(allow_year_fallback: true)
-        @amount_per_inhabitant_summary = budget_per_inhabitant_summary(default_budget_line_params)
-        @amount_summary = amount_summary(default_budget_line_params)
-        @percentage_over_total_summary = percentage_over_total_summary(default_budget_line_params)
+
+        if featured_budget_line?
+          @amount_per_inhabitant_summary = budget_per_inhabitant_summary(default_budget_line_params)
+          @amount_summary = amount_summary(default_budget_line_params)
+          @percentage_over_total_summary = percentage_over_total_summary(default_budget_line_params)
+        end
       rescue Elasticsearch::Transport::Transport::Errors::NotFound
         retry if (retries += 1) < 10
       end

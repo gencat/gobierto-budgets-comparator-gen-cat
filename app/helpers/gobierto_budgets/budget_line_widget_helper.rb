@@ -28,8 +28,10 @@ module GobiertoBudgets
       end
 
       @code = if results.any?
-                Rollbar.warning("No featured_budget_line candidates for #{@current_organization.slug}")
                 results.sample["code"]
+              else
+                Rollbar.warning("No featured_budget_line candidates for #{@current_organization.slug}")
+                nil
               end
     end
 
