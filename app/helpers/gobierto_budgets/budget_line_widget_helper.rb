@@ -6,7 +6,7 @@ module GobiertoBudgets
 
     include GobiertoBudgets::ApplicationHelper
 
-    MAX_FEATURED_BUDGET_LINE_YEAR_FALLBACK = 3
+    MAX_FEATURED_BUDGET_LINE_YEAR_FALLBACK = 8
 
     private
 
