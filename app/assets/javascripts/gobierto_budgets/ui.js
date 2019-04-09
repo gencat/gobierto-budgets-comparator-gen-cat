@@ -129,7 +129,7 @@ $(document).on('turbolinks:load', function() {
   $('.switcher').hover(function(e) {
     e.preventDefault();
     // Don't act in mobile
-    if(responsive()){
+    if(responsive() && !$(this).parents('.map_sidebar').length){
       $(this).find('ul').show();
     }
   }, function(e) {
@@ -155,7 +155,7 @@ $(document).on('turbolinks:load', function() {
       mixpanel.track('Year Selection', { 'Year Selected': e.target.innerHTML});
     }
     // Only in mobile
-    if(!responsive()){
+    if(!responsive() && !$(this).parents('.map_sidebar').length){
       var $ul = $(this).find('ul');
       if(!$ul.is(':visible')){
         $ul.show();
