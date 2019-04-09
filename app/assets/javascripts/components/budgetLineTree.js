@@ -145,7 +145,8 @@ function generateTargetUrl(node) {
     this.fillPlaceHolder = function(selectedCategory) {
       this.titlePlaceholder.html('');
       var category = selectedCategory.clone();
-      if(category.html().indexOf(this.attr.dropDownIcon) === -1){
+      var categoryHtml = category.html();
+      if(categoryHtml !== undefined && categoryHtml.indexOf(this.attr.dropDownIcon) === -1){
         category.html(category.html() + ' ' + this.attr.dropDownIcon);
       }
       category.addClass('current');
@@ -165,7 +166,7 @@ function generateTargetUrl(node) {
     };
 
     this.categoriesHandler = function(parentCode){
-      if(this.attr.state.kind === null)
+      if(parentCode === undefined || this.attr.state.kind === null)
         return;
 
       var categories = this.attr.categories[this.attr.state.area][this.attr.state.kind];

@@ -12,6 +12,7 @@ function responsive() {
   if($(window).width() > 740) {
     return true;
   }
+  return false;
 }
 
 $(document).on('turbolinks:load', function() {
@@ -127,18 +128,41 @@ $(document).on('turbolinks:load', function() {
 
   $('.switcher').hover(function(e) {
     e.preventDefault();
-    // Don't act if the clicked element belongs to map sidebar
-    if($(this).parents('.map_sidebar').length === 0){
+    // Don't act in mobile
+    if(responsive()){
       $(this).find('ul').show();
     }
   }, function(e) {
     $(this).find('ul').hide();
   });
 
+  $('.kind_switcher').click(function(e){
+    // Only in mobile
+    if(!responsive()){
+      var $ul = $(this).find('ul');
+      if(!$ul.is(':visible')){
+        $ul.show();
+        e.preventDefault();
+      } else {
+        $ul.hide();
+      }
+    }
+  });
+
   $('.year_switcher').click(function(e){
     ga('send', 'event', 'Year Selection', 'Click', 'ChangeYear', {nonInteraction: true});
     if(mixpanel.length > 0) {
       mixpanel.track('Year Selection', { 'Year Selected': e.target.innerHTML});
+    }
+    // Only in mobile
+    if(!responsive()){
+      var $ul = $(this).find('ul');
+      if(!$ul.is(':visible')){
+        $ul.show();
+        e.preventDefault();
+      } else {
+        $ul.hide();
+      }
     }
   });
 
@@ -152,26 +176,28 @@ $(document).on('turbolinks:load', function() {
     var value = tgt.data('value');
     var switcher = tgt.parents('.switcher');
     var selected = switcher.find('a.selected');
-    selected.data('value', value);
-    selected.html(tgt.text() + " <i class='fa fa-angle-down'></i>");
-    switcher.find('ul').hide();
+    var $ul = switcher.find('ul');
+    if(!$ul.is(':visible')){
+      $ul.show();
+    } else {
+      $ul.hide();
+      selected.data('value', value);
+      selected.html(tgt.text() + " <i class='fa fa-angle-down'></i>");
 
-    var form = tgt.parents('form');
-    var action = form.attr('action');
-    var kind_re = /[GI]\/.*\//;
+      var form = tgt.parents('form');
+      var action = form.attr('action');
+      var kind_re = /[GI]\/.*\//;
 
-    if (value == 'I') {
-      action = action.replace(kind_re, 'I/economic/');
+      if (value == 'I') {
+        action = action.replace(kind_re, 'I/economic/');
+      } else if (value == 'G') {
+        action = action.replace(kind_re, 'G/functional/');
+      } else {
+        $('input#f_aarr[type=hidden]').val(value);
+      }
+
+      form.attr('action',action);
     }
-    else if (value == 'G') {
-      action = action.replace(kind_re, 'G/functional/');
-    }
-    else {
-      $('input#f_aarr[type=hidden]').val(value);
-    }
-
-    form.attr('action',action);
-
   });
 
   $('.modal_widget').hover(function(e) {
