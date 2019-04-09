@@ -138,7 +138,7 @@ $(document).on('turbolinks:load', function() {
 
   $('.kind_switcher').click(function(e){
     // Only in mobile
-    if(!responsive()){
+    if(!responsive() && !$('.home_section .switcher').length){
       var $ul = $(this).find('ul');
       if(!$ul.is(':visible')){
         $ul.show();
