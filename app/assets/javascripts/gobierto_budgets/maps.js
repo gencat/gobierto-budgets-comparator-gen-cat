@@ -54,6 +54,9 @@ $(document).on('turbolinks:load', function() {
       layer.show();
 
       var sql = new cartodb.SQL({ user: 'gobierto' });
+      if(indicator === 'debt'){
+        year--;
+      }
       sql.execute("SELECT {{indicator}} as value FROM indicators_{{year}} as i WHERE" + placesScopeCondition(), { indicator: indicator, year: year })
         .done(function(data) {
           var customColors = colors.slice(0);
