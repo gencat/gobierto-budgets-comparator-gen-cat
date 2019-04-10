@@ -199,7 +199,6 @@ var VisLineasJ = Class.extend({
         }
       });
 
-
       this.dataDomain = [d3.min(this.dataChart.map(function(d) { return d3.min(d.values.map(function(v) { return v.value; })); })),
               d3.max(this.dataChart.map(function(d) { return d3.max(d.values.map(function(v) { return v.value; })); }))];
 
@@ -409,7 +408,7 @@ var VisLineasJ = Class.extend({
 
         // create a row for each object in the data
         var rows = tbody.selectAll("tr")
-                        .data(this.series == 'means' ? this.dataChart.reverse() : this.dataChart)
+                        .data(this.dataChart)
                         .enter()
                         .append("tr")
                         .attr('class', function(d) { return this._normalize(d.name); }.bind(this))
