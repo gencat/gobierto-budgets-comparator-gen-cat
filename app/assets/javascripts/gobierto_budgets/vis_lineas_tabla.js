@@ -111,7 +111,8 @@ var VisLineasJ = Class.extend({
       this.showLegend = (this.data.budgets[this.measure].length > 1);
 
       if (this.showLegend) {
-        this.margin.right = this.measure == 'per_person' ? this.containerWidth * .07 : this.containerWidth * .15;
+        //this.margin.right = this.measure == 'per_person' ? this.containerWidth * .07 : this.containerWidth * .15;
+        this.margin.right = this.containerWidth * .07;
       } else {
         this.containerWidth += this.tableWidth;
         this.margin.right = 20;
@@ -147,14 +148,6 @@ var VisLineasJ = Class.extend({
           v.name = d.name;
         }.bind(this));
       }.bind(this));
-
-      // TODO
-      //this.data.budgets.percentage.forEach(function(d) {
-        //d.values.forEach(function(v) {
-          //v.date = this.parseDate(v.date);
-          //v.name = d.name;
-        //}.bind(this));
-      //}.bind(this));
 
       this.dataChart = this.data.budgets[this.measure];
       this.kind = this.data.kind;
@@ -206,7 +199,6 @@ var VisLineasJ = Class.extend({
         }
       });
 
-
       this.dataDomain = [d3.min(this.dataChart.map(function(d) { return d3.min(d.values.map(function(v) { return v.value; })); })),
               d3.max(this.dataChart.map(function(d) { return d3.max(d.values.map(function(v) { return v.value; })); }))];
 
@@ -248,7 +240,13 @@ var VisLineasJ = Class.extend({
       this.yAxis
           .scale(this.yScale)
           .tickValues(this._tickValues(this.yScale))
-          .tickFormat(function(d) { return accounting.formatMoney(d, "€", 0, ".", ","); })
+          .tickFormat(function(d) {
+            if(d > 1000000) {
+              return accounting.formatMoney(d / 1000000, "M €", 0, ".", ",");
+            } else {
+              return accounting.formatMoney(d, "€", 0, ".", ",");
+            }
+          })
           .tickSize(-(this.width - (this.margin.right + this.margin.left - 20)));
 
 
@@ -410,7 +408,7 @@ var VisLineasJ = Class.extend({
 
         // create a row for each object in the data
         var rows = tbody.selectAll("tr")
-                        .data(this.series == 'means' ? this.dataChart.reverse() : this.dataChart)
+                        .data(this.dataChart)
                         .enter()
                         .append("tr")
                         .attr('class', function(d) { return this._normalize(d.name); }.bind(this))
@@ -487,7 +485,12 @@ var VisLineasJ = Class.extend({
   },
 
   _xTickValues: function(years){
-    return [new Date(2010,0,1), new Date(2011,0,1), new Date(2012, 0, 1), new Date(2013,0,1), new Date(2014,0,1), new Date(2015,0,1)].concat(years).unique();
+   var years = [new Date(2010,0,1), new Date(2011,0,1), new Date(2012, 0, 1), new Date(2013,0,1), new Date(2014,0,1), new Date(2015,0,1)].concat(years).unique();
+   if(this.containerWidth < 500) {
+     return [new Date(2010,0,1), new Date(2012,0,1), new Date(2014, 0, 1), new Date(2016,0,1), new Date(2018,0,1)];
+   } else {
+     return years;
+   }
   },
 
   _mouseover: function () {
