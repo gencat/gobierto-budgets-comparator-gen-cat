@@ -13,7 +13,7 @@
 
     <span class="" id="suggested_location"></span>
 
-    <%= link_to 'Santander', '/places/santander' %>, <%= link_to 'Talaván', '/places/talavan'  %>, <%= link_to 'Órgiva', '/places/orgiva'  %>, <%= link_to 'Zaragoza', '/places/zaragoza'  %>.
+  <%= link_to 'Santander', '/places/santander' %>, <%= link_to 'Talaván', "/places/talavan/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}"  %>, <%= link_to 'Órgiva', "/places/orgiva/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}"  %>, <%= link_to 'Zaragoza', "/places/zaragoza/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}"  %>.
   </p>
 
   <div class="home_section">
