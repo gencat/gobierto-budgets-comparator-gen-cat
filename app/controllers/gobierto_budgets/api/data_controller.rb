@@ -23,6 +23,7 @@ module GobiertoBudgets
         :debt,
         :budget_percentage_previous_year,
         :ranking,
+        :budget_execution_deviation,
         cache_path: ->(c) { { locale: I18n.locale} }
       )
 
@@ -39,6 +40,7 @@ module GobiertoBudgets
         :debt,
         :budget_percentage_previous_year,
         :ranking,
+        :budget_execution_deviation,
         cache_path: ->(c) { { locale: I18n.locale} }
       )
 
