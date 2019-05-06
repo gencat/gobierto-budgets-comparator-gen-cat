@@ -1,5 +1,8 @@
 module GobiertoBudgets
   class PagesController < GobiertoBudgets::ApplicationController
+
+    caches_page :home
+
     def home
     end
 
