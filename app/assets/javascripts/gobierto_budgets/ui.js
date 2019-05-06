@@ -271,11 +271,11 @@ $(document).on('turbolinks:load', function() {
   });
 
   function parent_treemap_url(parent_url) {
-    var pattern = /parent_code=\d+/;
+    var pattern = /parent\/\d+/;
     parent_url = parent_url.replace(pattern, function(match) {
       return match.substring(0,match.length - 1)
     });
-    return parent_url + '&amp;format=json';
+    return parent_url + '.json';
   }
 
   /* Tree navigation */

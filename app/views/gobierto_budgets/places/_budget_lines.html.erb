@@ -2,7 +2,7 @@
   <td class="item_name">
     <% if GobiertoBudgets::BudgetLine.has_children?(budget_line.merge(area: area_name)) %>
       <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe,
-            gobierto_budgets_place_budget_path(current_organization.combined_slug, budget_line['year'], budget_line['kind'], {parent_code: budget_line['code'], area: area_name }), remote: true %>
+            gobierto_budgets_place_budget_path(current_organization.combined_slug, budget_line['year'], budget_line['kind'], area_name, budget_line['code']), remote: true %>
     <% else %>
       <i class="fa fa-plus-square-o invisible"></i>
     <% end %>

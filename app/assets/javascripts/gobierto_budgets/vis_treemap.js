@@ -70,7 +70,7 @@ var TreemapVis = Class.extend({
         }.bind(this))
         .attr("data-url", function(d){
           if(this.clickable){
-            return d.data.children ? null : urlData.split('?')[0] + "?parent_code=" + d.data.code;
+            return d.data.children ? null : urlData.split('.')[0] + "/parent/" + d.data.code + ".json";
           }
         }.bind(this))
         .style("left", function(d) { return d.x0 + "px"; })

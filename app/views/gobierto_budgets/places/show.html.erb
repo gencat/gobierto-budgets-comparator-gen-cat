@@ -77,8 +77,8 @@
     </header>
 
     <div class="graph" id="expense-treemap"
-                       data-functional-url="<%= gobierto_budgets_place_budget_path(current_organization.combined_slug, @year, GobiertoBudgets::BudgetLine::EXPENSE, 'functional', format: :json) %>"
-                       data-economic-url="<%= gobierto_budgets_place_budget_path(current_organization.combined_slug, @year, GobiertoBudgets::BudgetLine::EXPENSE, 'economic', format: :json) %>">
+                       data-functional-url="<%= gobierto_budgets_place_budget_path(current_organization.combined_slug, @year, GobiertoBudgets::BudgetLine::EXPENSE, 'functional', nil, format: :json) %>"
+                       data-economic-url="<%= gobierto_budgets_place_budget_path(current_organization.combined_slug, @year, GobiertoBudgets::BudgetLine::EXPENSE, 'economic', nil, format: :json) %>">
     </div>
 
     <div class="items">
@@ -96,7 +96,7 @@
       <div class="qty"><%= number_to_currency @income_lines['aggregations']['total_budget']['value'], precision: 0 %></div>
     </header>
 
-    <div class="graph" id="income-treemap" data-economic-url="<%= gobierto_budgets_place_budget_path(current_organization.combined_slug, @year, GobiertoBudgets::BudgetLine::INCOME, 'economic', format: :json) %>">
+    <div class="graph" id="income-treemap" data-economic-url="<%= gobierto_budgets_place_budget_path(current_organization.combined_slug, @year, GobiertoBudgets::BudgetLine::INCOME, 'economic', nil, format: :json) %>">
     </div>
 
     <div class="items">
