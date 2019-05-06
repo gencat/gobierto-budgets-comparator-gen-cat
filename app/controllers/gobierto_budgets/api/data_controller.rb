@@ -10,7 +10,7 @@ module GobiertoBudgets
       before_action :set_current_organization
       attr_accessor :current_organization
 
-      caches_action(
+      caches_page(
         :total_budget,
         :total_budget_execution,
         :population,
@@ -23,7 +23,7 @@ module GobiertoBudgets
         :debt,
         :budget_percentage_previous_year,
         cache_path: ->(c) { { locale: I18n.locale} }
-      ) if Rails.env.production?
+      )
 
       def total_budget
         year = params[:year].to_i
