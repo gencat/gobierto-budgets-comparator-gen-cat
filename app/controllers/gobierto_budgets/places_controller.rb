@@ -13,7 +13,7 @@ module GobiertoBudgets
 
     helper_method :current_organization, :featured_budget_line?
 
-    caches_page :show, :execution
+    caches_page :show, :execution, :budget
 
     def show
       if @year.nil?
