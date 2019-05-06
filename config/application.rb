@@ -47,7 +47,7 @@ module GobiertoBudgetsComparator
 
     config.action_controller.permit_all_parameters = true
 
-    config.action_controller.page_cache_directory = Rails.root.join("public", "cached_pages")
+    config.action_controller.page_cache_directory = Rails.root.join("public", "cache")
   end
 end
 
