@@ -25,6 +25,21 @@ module GobiertoBudgets
         cache_path: ->(c) { { locale: I18n.locale} }
       )
 
+      caches_action(
+        :total_budget,
+        :total_budget_execution,
+        :population,
+        :total_budget_per_inhabitant,
+        :lines,
+        :budget,
+        :budget_execution,
+        :budget_per_inhabitant,
+        :budget_percentage_over_total,
+        :debt,
+        :budget_percentage_previous_year,
+        cache_path: ->(c) { { locale: I18n.locale} }
+      )
+
       def total_budget
         year = params[:year].to_i
         total_budget_data = total_budget_data(year, 'total_budget')
