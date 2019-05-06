@@ -5,7 +5,7 @@ $(document).on('turbolinks:load', function() {
   Cookies.defaults.path = '/';
 
   var addPlaceOptions = {
-    serviceUrl: '/search',
+    serviceUrl: '/places.json',
     onSelect: function (suggestion) {
       if(suggestion.data.type == 'Place') {
         var places_list = Cookies.get('comparison');
