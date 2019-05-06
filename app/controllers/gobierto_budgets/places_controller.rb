@@ -17,7 +17,7 @@ module GobiertoBudgets
 
     def show
       if @year.nil?
-        @year = SearchEngineConfiguration::Year.last
+        redirect_to gobierto_budgets_place_path(current_organization.combined_slug, SearchEngineConfiguration::Year.last) and return
       end
 
       @income_lines = BudgetLine.search(
