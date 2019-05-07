@@ -5,7 +5,20 @@ $(document).on('turbolinks:load', function() {
   Cookies.defaults.path = '/';
 
   var addPlaceOptions = {
-    serviceUrl: '/places.json',
+    lookup: function (query, done) {
+      $.ajax('/places.json', {
+        complete: function(data) {
+          var suggestions = data.responseJSON.filter(function(result){
+            return result.value.indexOf(query) !== -1 || result.data.slug.indexOf(query) !== -1 ||
+              result.value.toLowerCase().indexOf(query) !== -1
+          });
+          var result = {
+            suggestions: suggestions
+          };
+          done(result);
+        }
+      })
+    },
     onSelect: function (suggestion) {
       if(suggestion.data.type == 'Place') {
         var places_list = Cookies.get('comparison');
