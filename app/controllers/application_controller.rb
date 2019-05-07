@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :helpers, :users_enabled?
 
-  before_action :set_locale
+  before_action :set_locale, :set_cache_headers
 
   def render_404
     render file: "public/404", status: 404, layout: false, handlers: [:erb], formats: [:html]
@@ -39,6 +39,13 @@ class ApplicationController < ActionController::Base
   rescue I18n::InvalidLocale
     session[:locale] = nil
     I18n.locale = I18n.default_locale
+  end
+
+  private
+
+  def set_cache_headers
+    response.headers["Cache-Control"] = "86400" # 1 day
+    response.headers["Expires"] = 1.day.from_now
   end
 
   protected
