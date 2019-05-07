@@ -14,6 +14,7 @@ module GobiertoBudgets
     helper_method :current_organization, :featured_budget_line?
 
     caches_page :show, :execution, :budget
+    caches_page :ranking, if: -> { params[:f].blank? }
 
     def show
       if @year.nil?
