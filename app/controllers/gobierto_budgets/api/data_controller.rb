@@ -95,7 +95,7 @@ module GobiertoBudgets
               delta_percentage: helpers.number_with_precision(delta_percentage(population_data[:value], population_data_previous_year[:value]), precision: 2),
               ranking_position: position,
               ranking_total_elements: helpers.number_with_precision(population_data[:total_elements], precision: 0),
-              ranking_url: gobierto_budgets_population_ranking_path(year, page: GobiertoBudgets::Ranking.page_from_position(position), ine_code: params[:ine_code]),
+              ranking_url: gobierto_budgets_population_ranking_path(year, GobiertoBudgets::Ranking.page_from_position(position), ine_code: params[:ine_code]),
               no_data_this_year: no_data_this_year
             }.to_json
           end
@@ -123,7 +123,8 @@ module GobiertoBudgets
                 'G',
                 'economic',
                 'amount_per_inhabitant',
-                page: GobiertoBudgets::Ranking.page_from_position(position),
+                nil,
+                GobiertoBudgets::Ranking.page_from_position(position),
                 ine_code: current_organization.ine_code
               )
             }.to_json
