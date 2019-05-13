@@ -5,3 +5,11 @@ Disallow: /api/
 Disallow: /ranking/
 Disallow: /compare/
 Disallow: /budget_lines/
+Disallow: /places/*/2017/*
+Disallow: /places/*/2016/*
+Disallow: /places/*/2015/*
+Disallow: /places/*/2014/*
+Disallow: /places/*/2013/*
+Disallow: /places/*/2012/*
+Disallow: /places/*/2011/*
+Disallow: /places/*/2010/*
