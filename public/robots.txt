@@ -1,2 +1,3 @@
 User-agent: *
-Disallow: /answers
+Disallow: /answers/
+Disallow: /api/
