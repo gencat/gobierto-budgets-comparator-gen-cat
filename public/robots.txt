@@ -1,3 +1,7 @@
 User-agent: *
+Crawl-delay: 5
 Disallow: /answers/
 Disallow: /api/
+Disallow: /ranking/
+Disallow: /compare/
+Disallow: /budget_lines/
