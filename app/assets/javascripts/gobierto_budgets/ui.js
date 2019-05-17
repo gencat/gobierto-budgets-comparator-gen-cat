@@ -494,11 +494,6 @@ $(document).on('turbolinks:load', function() {
     }
   });
 
-  $('.ranking_card').click(function(e) {
-    Turbolinks.visit($(this).find('h2 a').attr('href'));
-  });
-
-
   $('.toggle_div').on('click', function(e){
     e.preventDefault();
     $('.'+$(this).data('target')).toggle();
