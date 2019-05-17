@@ -47,6 +47,7 @@ var TreemapVis = Class.extend({
       .get(function(error, data){
         if (error) throw error;
 
+        $(this.containerId).html('');
         var root = d3.hierarchy(data)
           .eachBefore(function(d) { d.data.id = d.data.code; })
           .sum(function(d) { return d.budget; })
