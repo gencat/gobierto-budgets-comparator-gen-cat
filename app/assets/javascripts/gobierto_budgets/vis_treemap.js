@@ -47,6 +47,7 @@ var TreemapVis = Class.extend({
       .get(function(error, data){
         if (error) throw error;
 
+        $(this.containerId).html('');
         var root = d3.hierarchy(data)
           .eachBefore(function(d) { d.data.id = d.data.code; })
           .sum(function(d) { return d.budget; })
@@ -70,7 +71,7 @@ var TreemapVis = Class.extend({
         }.bind(this))
         .attr("data-url", function(d){
           if(this.clickable){
-            return d.data.children ? null : urlData.split('?')[0] + "?parent_code=" + d.data.code;
+            return d.data.children ? null : urlData.split('.')[0] + "/parent/" + d.data.code + ".json";
           }
         }.bind(this))
         .style("left", function(d) { return d.x0 + "px"; })

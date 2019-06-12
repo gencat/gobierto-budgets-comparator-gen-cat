@@ -46,6 +46,8 @@ module GobiertoBudgetsComparator
     config.paths['app/views'].unshift(Rails.root.join('app', 'views', 'custom'))
 
     config.action_controller.permit_all_parameters = true
+
+    config.action_controller.page_cache_directory = Rails.root.join("public", "cache")
   end
 end
 

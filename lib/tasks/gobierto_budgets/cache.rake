@@ -9,10 +9,6 @@ namespace :gobierto_budgets do
         ActionController::Base.helpers
       end
 
-      def gobierto_budgets_places_ranking_path(*params)
-        Rails.application.routes.url_helpers.gobierto_budgets_places_ranking_path(*params)
-      end
-
       GobiertoBudgets::Population.for_year(2018).in_groups_of(10) do |places_groups|
         threads = []
 
@@ -50,6 +46,14 @@ namespace :gobierto_budgets do
         end
 
         threads.each(&:join)
+      end
+    end
+
+    desc "Clear small municipalities budget lines cache"
+    task clean_small_budget_lines: :environment do
+      GobiertoBudgets::Population.for_year(2018)[4000..-1].each do |place_info|
+        place = INE::Places::Place.find(place_info["organization_id"])
+        FileUtils.rm_rf(Rails.root.join("public/cache/budget_lines/#{place.slug}"))
       end
     end
   end

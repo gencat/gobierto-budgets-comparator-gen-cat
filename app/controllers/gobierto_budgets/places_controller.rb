@@ -13,6 +13,8 @@ module GobiertoBudgets
 
     helper_method :current_organization, :featured_budget_line?
 
+    caches_page :show, :execution, :budget
+
     def show
       if @year.nil?
         redirect_to gobierto_budgets_place_path(current_organization.combined_slug, SearchEngineConfiguration::Year.last) and return

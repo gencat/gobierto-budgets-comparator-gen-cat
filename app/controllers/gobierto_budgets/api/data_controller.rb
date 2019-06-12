@@ -10,6 +10,23 @@ module GobiertoBudgets
       before_action :set_current_organization
       attr_accessor :current_organization
 
+      caches_page(
+        :total_budget,
+        :total_budget_execution,
+        :population,
+        :total_budget_per_inhabitant,
+        :lines,
+        :budget,
+        :budget_execution,
+        :budget_per_inhabitant,
+        :budget_percentage_over_total,
+        :debt,
+        :budget_percentage_previous_year,
+        :ranking,
+        :budget_execution_deviation,
+        cache_path: ->(c) { { locale: I18n.locale} }
+      )
+
       caches_action(
         :total_budget,
         :total_budget_execution,
@@ -22,8 +39,10 @@ module GobiertoBudgets
         :budget_percentage_over_total,
         :debt,
         :budget_percentage_previous_year,
+        :ranking,
+        :budget_execution_deviation,
         cache_path: ->(c) { { locale: I18n.locale} }
-      ) if Rails.env.production?
+      )
 
       def total_budget
         year = params[:year].to_i
@@ -76,7 +95,7 @@ module GobiertoBudgets
               delta_percentage: helpers.number_with_precision(delta_percentage(population_data[:value], population_data_previous_year[:value]), precision: 2),
               ranking_position: position,
               ranking_total_elements: helpers.number_with_precision(population_data[:total_elements], precision: 0),
-              ranking_url: gobierto_budgets_population_ranking_path(year, page: GobiertoBudgets::Ranking.page_from_position(position), ine_code: params[:ine_code]),
+              ranking_url: gobierto_budgets_population_ranking_path(year, GobiertoBudgets::Ranking.page_from_position(position), ine_code: params[:ine_code]),
               no_data_this_year: no_data_this_year
             }.to_json
           end
@@ -104,7 +123,8 @@ module GobiertoBudgets
                 'G',
                 'economic',
                 'amount_per_inhabitant',
-                page: GobiertoBudgets::Ranking.page_from_position(position),
+                nil,
+                GobiertoBudgets::Ranking.page_from_position(position),
                 ine_code: current_organization.ine_code
               )
             }.to_json

@@ -127,6 +127,9 @@ var VisLineasJ = Class.extend({
         this.height = 230;
       }
 
+      $(this.container).html('');
+      $(this.tableContainer).html('');
+
       // Append svg
       this.svgLines = d3.select(this.container).append('svg')
           .attr('width', this.width + this.margin.left + this.margin.right)

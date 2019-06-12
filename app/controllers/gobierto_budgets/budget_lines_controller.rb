@@ -8,6 +8,8 @@ module GobiertoBudgets
 
     helper_method :current_organization
 
+    caches_page :show
+
     def show
     end
 

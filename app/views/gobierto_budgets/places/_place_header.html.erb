@@ -78,7 +78,7 @@
 
   <% if params['controller'] == 'budget_lines' %>
   <div class="breadcrumb">
-    <span class="sep"><%= link_to kind_literal(@kind).capitalize, gobierto_budgets_place_budget_path(current_organization.combined_slug, @year, @kind, @area_name) %> »</span>
+    <span class="sep"><%= link_to kind_literal(@kind).capitalize, gobierto_budgets_place_budget_path(current_organization.combined_slug, @year, @kind, @area_name, nil) %> »</span>
     <%= render partial: 'breadcrumb',
               collection: budget_line_crumbs(@parent_line, @area_name),
               as: 'budget_line',

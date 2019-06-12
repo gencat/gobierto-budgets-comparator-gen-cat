@@ -43,6 +43,7 @@ var VisBubbles = Class.extend({
       .on('tick', this._ticked.bind(this));
 
     this.simulation.stop();
+    d3.select(this.container).html('');
 
     this.svg = d3.select(this.container).append('svg')
       .attr('width', this.width + this.margin.left + this.margin.right)

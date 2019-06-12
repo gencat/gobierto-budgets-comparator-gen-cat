@@ -22,6 +22,7 @@ config/deploy_secrets.yml
 public/cache
 public/assets
 **/.DS_Store
+public/cached_pages
 
 config/settings.local.yml
 config/settings/*.local.yml

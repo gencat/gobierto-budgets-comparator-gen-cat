@@ -1,5 +1,8 @@
 module GobiertoBudgets
   class PagesController < GobiertoBudgets::ApplicationController
+
+    caches_page :home, :ranking
+
     def home
     end
 
@@ -26,6 +29,9 @@ module GobiertoBudgets
 
     def request_access
       render layout: false
+    end
+
+    def ranking
     end
 
     def map

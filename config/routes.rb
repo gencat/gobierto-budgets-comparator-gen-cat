@@ -97,7 +97,7 @@ Rails.application.routes.draw do
     get '/places/*slug/:year/debt' => 'places#debt_alive', constraints: YEAR_CONTRAINTS
     get '/places/:ine_code(/:year)/redirect' => 'places#redirect', constraints: YEAR_CONTRAINTS
 
-    get '/places/*slug/:year/:kind/:area' => 'places#budget', as: :place_budget, constraints: BUDGET_LINE_CONSTRAINTS
+    get '/places/*slug/:year/:kind/:area(/parent/:parent_code)' => 'places#budget', as: :place_budget, constraints: BUDGET_LINE_CONSTRAINTS
     get '/places/*slug/:year' => 'places#show', as: :place, constraints: YEAR_CONTRAINTS
     get '/places/*slug' => 'places#show'
 
@@ -107,8 +107,8 @@ Rails.application.routes.draw do
     get '/compare/:slug_list/:year/:kind/:area' => 'places#compare', as: :places_compare
 
     get 'ranking' => 'pages#ranking'
-    get '/ranking/:year/:kind/:area/:variable(/:code)' => 'places#ranking', as: :places_ranking
-    get '/ranking/:year/population' => 'places#ranking', as: :population_ranking, defaults: {variable: 'population'}
+    get '/ranking/:year/:kind/:area/:variable(/:code)(/p/:page)' => 'places#ranking', as: :places_ranking
+    get '/ranking/:year/population(/:page)' => 'places#ranking', as: :population_ranking, defaults: {variable: 'population'}
 
     # feedback
     resources :answers, only: [:create]
