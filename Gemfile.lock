@@ -273,9 +273,9 @@ GEM
     redcarpet (3.4.0)
     ref (2.0.0)
     regexp_parser (1.5.1)
-    responders (2.4.1)
-      actionpack (>= 4.2.0, < 6.0)
-      railties (>= 4.2.0, < 6.0)
+    responders (3.0.0)
+      actionpack (>= 5.0)
+      railties (>= 5.0)
     rollbar (2.20.2)
       multi_json
     rspec-core (3.8.0)
