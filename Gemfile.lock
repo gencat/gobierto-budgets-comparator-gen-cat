@@ -98,7 +98,7 @@ GEM
       xpath (~> 3.2)
     childprocess (1.0.1)
       rake (< 13.0)
-    cocoon (1.2.13)
+    cocoon (1.2.14)
     concurrent-ruby (1.1.5)
     config (2.0.0)
       activesupport (>= 4.2)
