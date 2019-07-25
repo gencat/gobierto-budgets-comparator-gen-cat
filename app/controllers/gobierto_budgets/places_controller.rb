@@ -104,14 +104,15 @@ module GobiertoBudgets
       @places = get_places params[:slug_list]
       redirect_to gobierto_budgets_compare_path if @places.empty?
 
-      @totals = GobiertoBudgets::BudgetTotal.for @places.map(&:id), @year
-      @population = GobiertoBudgets::Population.for @places.map(&:id), @year
+      ids = @places.map(&:id)
+      @totals = GobiertoBudgets::BudgetTotal.for ids, @year
+      @population = GobiertoBudgets::Population.for ids, @year
       if @population.empty?
-        @population = GobiertoBudgets::Population.for @places.map(&:id), @year - 1
+        @population = GobiertoBudgets::Population.for ids, @year - 1
       end
 
       @compared_level = (params[:parent_code].present? ? params[:parent_code].length + 1 : 1)
-      options = { ine_codes: @places.map(&:id), year: @year, kind: @kind, level: @compared_level, type: @area_name }
+      options = { ine_codes: ids, year: @year, kind: @kind, level: @compared_level, type: @area_name }
 
       if @compared_level > 1
         @budgets_and_ancestors = GobiertoBudgets::BudgetLine.compare_with_ancestors(options.merge(parent_code: params[:parent_code]))
