@@ -44,6 +44,7 @@ module GobiertoBudgets
 
       places_ids = results.map{|h| h['ine_code']}
       total_results = BudgetTotal.for_places(places_ids, options[:year])
+      total_results = Hash[total_results.map{ |i| [i["ine_code"], i["total_budget"]]}]
 
       return results.map do |h|
         id = h['ine_code'].to_i
@@ -53,7 +54,7 @@ module GobiertoBudgets
           population: h['population'],
           amount_per_inhabitant: h['amount_per_inhabitant'],
           amount: h['amount'],
-          total: total_results.detect{|h| h['ine_code'] == id}['total_budget']
+          total: total_results[id]
         })
       end, total_elements
     end
@@ -63,15 +64,17 @@ module GobiertoBudgets
 
       places_ids = results.map{|h| h['ine_code']}
       total_results = BudgetTotal.for_places(places_ids, year)
+      total_results = Hash[total_results.map{ |i| [i["ine_code"], {total_budget: i["total_budget"], total_budget_per_inhabitant: i["total_budget_per_inhabitant"]}]}]
 
       return results.map do |h|
-        id = h['ine_code']
+        id = h['ine_code'].to_i
+
         Item.new({
           place: INE::Places::Place.find(id),
-          population: h['value'],
-          amount_per_inhabitant: total_results.detect{|h| h['ine_code'] == id}['total_budget_per_inhabitant'],
-          amount: total_results.detect{|h| h['ine_code'] == id}['total_budget'],
-          total: total_results.detect{|h| h['ine_code'] == id}['total_budget']
+          population: h["value"],
+          amount_per_inhabitant: total_results[id][:total_budget_per_inhabitant],
+          amount: total_results[id][:total_budget],
+          total: total_results[id][:total_budget]
         })
       end, total_elements
     end
@@ -89,12 +92,14 @@ module GobiertoBudgets
 
       places_ids = results.map {|h| h['ine_code']}
       population_results = Population.for_places(places_ids, year)
+      population_results = Hash[population_results.map{ |i| [i["ine_code"], i["value"]] }]
 
       return results.map do |h|
-        id = h['ine_code']
+        id = h['ine_code'].to_i
+
         Item.new({
           place: INE::Places::Place.find(id),
-          population: population_results.detect{|h| h['ine_code'] == id}.try(:[],'value'),
+          population: population_results[id],
           amount_per_inhabitant: h['total_budget_per_inhabitant'],
           amount: h['total_budget'],
           total: h['total_budget']
