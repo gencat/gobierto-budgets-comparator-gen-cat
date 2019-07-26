@@ -299,7 +299,13 @@ module GobiertoBudgets
       query.merge!(from: options[:offset]) if options[:offset].present?
       query.merge!(_source: false) if options[:to_rank]
 
-      GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: options[:area_name], body: query
+      GobiertoBudgets::SearchEngine.client.search(
+        index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
+        type: options[:area_name],
+        body: query,
+        filter_path: options[:to_rank] ? "hits.total" : "hits.hits._source,hits.total",
+        _source: ["population", "ine_code", "amount", "amount_per_inhabitant"]
+      )
     end
 
     def self.find(options)
