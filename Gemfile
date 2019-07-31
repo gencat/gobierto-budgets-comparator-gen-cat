@@ -13,9 +13,7 @@ gem 'actionpack-action_caching'
 gem "actionpack-page_caching"
 gem 'ruby_px'
 gem "kaminari", "~> 1.0"
-gem 'geocoder'
 gem 'responders'
-gem 'daemons'
 gem 'config'
 gem 'dalli'
 gem 'aws-ses'
@@ -41,9 +39,6 @@ gem 'elasticsearch'
 gem 'elasticsearch-extensions'
 gem 'oj'
 gem 'hashie'
-
-# Socrata integration
-gem 'soda-ruby', '~> 0.2.24', require: 'soda'
 
 group :development, :test do
   gem "byebug", platform: :mri

@@ -5,7 +5,7 @@ module GobiertoBudgets
     end
 
     def self.per_page
-      200
+      100
     end
 
     def self.position(i, page)
