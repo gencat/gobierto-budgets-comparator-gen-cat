@@ -5,6 +5,7 @@ Disallow: /api/
 Disallow: /ranking/
 Disallow: /compare/
 Disallow: /budget_lines/
+Disallow: /places/*/2018/*
 Disallow: /places/*/2017/*
 Disallow: /places/*/2016/*
 Disallow: /places/*/2015/*

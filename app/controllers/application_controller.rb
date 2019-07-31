@@ -44,8 +44,8 @@ class ApplicationController < ActionController::Base
   private
 
   def set_cache_headers
-    response.headers["Cache-Control"] = "86400" # 1 day
-    response.headers["Expires"] = 1.day.from_now
+    response.headers["Cache-Control"] = "public,864000"
+    response.headers["Expires"] = 10.days.from_now
   end
 
   protected
