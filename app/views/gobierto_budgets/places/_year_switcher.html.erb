@@ -1,7 +1,7 @@
 <div class="switcher year_switcher">
     <%= link_to "#{@year} <i class='fa fa-angle-down'></i>".html_safe, '', class: 'current' %>
     <ul>
-      <% GobiertoBudgets::SearchEngineConfiguration::Year.last.downto(GobiertoBudgets::SearchEngineConfiguration::Year.first) do |y| %>
+      <% GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |y| %>
         <li><%= link_to y.to_s, url_for(params.reject {|k,v| k == 'page' }.merge(year: y)) %></li>
       <% end %>
     </ul>

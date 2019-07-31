@@ -102,7 +102,7 @@ module GobiertoBudgets
 
         budget_filters.merge!(aarr: aarr_filter) if aarr_filter
 
-        results,total_elements = BudgetTotal.for_ranking(options[:year], 'total_budget', GobiertoBudgets::BudgetLine::EXPENSE, 0, nil, budget_filters)
+        results, total_elements = BudgetTotal.for_ranking(options[:year], 'total_budget', GobiertoBudgets::BudgetLine::EXPENSE, 0, nil, budget_filters)
         ine_codes = results.map{|p| p['ine_code']}
         append_ine_codes(terms, ine_codes)
       end
@@ -136,7 +136,9 @@ module GobiertoBudgets
       SearchEngine.client.search(
         index: SearchEngineConfiguration::Data.index,
         type: SearchEngineConfiguration::Data.type_population,
-        body: query
+        body: query,
+        filter_path: options[:to_rank] ? "hits.total" : "hits.hits._source,hits.total",
+        _source: ["value", "ine_code"]
       )
     end
 

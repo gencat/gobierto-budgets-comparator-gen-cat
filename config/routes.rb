@@ -86,7 +86,6 @@ Rails.application.routes.draw do
 
     get 'search' => 'search#index'
     get 'categories/:slug/:year/:area/:kind' => 'search#categories', as: :search_categories
-    get 'geocoder' => 'geocoder#index', as: :geocoder
     get '/mapas/:year' => 'pages#map', as: :map
 
     get '/budget_lines/*slug/:year/:code/:kind/:area' => 'budget_lines#show', as: :budget_line, constraints: BUDGET_LINE_CONSTRAINTS
