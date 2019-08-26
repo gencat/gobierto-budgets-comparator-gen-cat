@@ -143,7 +143,11 @@ module GobiertoBudgets
     end
 
     def self.population_query_results(options)
-      population_query(options)['hits']['hits'].map{|h| h['_source']}
+      if result = population_query(options)['hits']['hits']
+        result.map{|h| h['_source']}
+      else
+        []
+      end
     end
 
   end
