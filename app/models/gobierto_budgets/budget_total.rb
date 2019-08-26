@@ -92,6 +92,9 @@ module GobiertoBudgets
 
     def self.for_ranking(year, variable, kind, offset, per_page, filters = {})
       response = budget_total_ranking_query(year: year, variable: variable, kind: kind, filters: filters, offset: offset, per_page: per_page)
+      if response.empty?
+        return [], 0
+      end
       results = response['hits']['hits'].map{|h| h['_source']}
       total_elements = response['hits']['total']
       return results, total_elements
