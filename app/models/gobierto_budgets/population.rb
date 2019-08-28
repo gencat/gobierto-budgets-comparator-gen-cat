@@ -30,7 +30,11 @@ module GobiertoBudgets
 
       response = population_query(year: year, offset: offset, per_page: per_page, filters: filters)
       total_elements = response['hits']['total']
-      return response['hits']['hits'].map{|h| h['_source']}, total_elements
+      if result = response['hits']['hits']
+        return result.map{|h| h['_source']}, total_elements
+      else
+        return [], 0
+      end
     end
 
     def self.ranking_hash_for(ine_code, year)
