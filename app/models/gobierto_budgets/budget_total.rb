@@ -87,7 +87,11 @@ module GobiertoBudgets
         _source: ["total_budget", "ine_code", "total_budget_per_inhabitant"]
       )
 
-      response['hits']['hits'].map{ |h| h['_source'] }
+      if response.empty?
+        {}
+      else
+        response['hits']['hits'].map{ |h| h['_source'] }
+      end
     end
 
     def self.for_ranking(year, variable, kind, offset, per_page, filters = {})
