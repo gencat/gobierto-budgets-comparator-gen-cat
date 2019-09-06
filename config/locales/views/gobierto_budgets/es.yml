@@ -109,6 +109,8 @@ es:
         some_examples: Algunos ejemplos por partidas
         subtitle: Consulta, analiza y compara los presupuestos municipales de España
         whole_spain: Toda España
+        checkout_gobierto_blog: Consulta el blog de Gobierto
+        checkout_gobierto_blog_desc: Historias y análisis sobre gobierno abierto, transparencia y participación en 
       map:
         debt: Deuda
         expense: Gasto total

@@ -17,6 +17,10 @@
   </p>
 
   <div class="home_section">
+    <%# render partial: 'gobierto_budgets/pages/analysis' %>
+  </div>
+
+  <div class="home_section">
     <%= render partial: 'gobierto_budgets/pages/compare_big' %>
   </div>
 
@@ -76,7 +80,15 @@
 
   </div>
 
+  <div class="home_section">
+    <h2 class="section_heading"><%= t('.checkout_gobierto_blog') %></h2>
+    <p><%= t('.checkout_gobierto_blog_desc') %> <%= link_to 'gobierto.es/blog', 'https://gobierto.es/blog' %></p>
+  </div>
+
+
 </div>
+
+
 
 <div class="clearfix">
 
