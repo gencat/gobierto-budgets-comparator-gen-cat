@@ -273,8 +273,9 @@ module GobiertoBudgets
       end
 
       terms << {term: { autonomy_id: aarr_filter }}  unless aarr_filter.blank?
-
       terms << { exists: { field: "ine_code" } } if only_municipalities
+      terms << { missing: { field: "custom_code" } }
+      terms << { missing: { field: "functional_code" } }
 
       query = {
         sort: [ { options[:variable].to_sym => { order: 'desc' } } ],
@@ -282,12 +283,7 @@ module GobiertoBudgets
           filtered: {
             filter: {
               bool: {
-                must: terms,
-                must_not: {
-                  exists: {
-                    field: "functional_code"
-                  }
-                }
+                must: terms
               }
             }
           }
