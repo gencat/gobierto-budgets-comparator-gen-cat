@@ -182,7 +182,7 @@ module GobiertoBudgets
       SearchEngine.client.search index: index,
         type: SearchEngineConfiguration::TotalBudget.type,
         body: query,
-        filter_path: "hits.hits._source",
+        filter_path: "hits.hits._source,hits.total",
         _source: ["total_budget", "ine_code", "total_budget_per_inhabitant"]
     end
   end

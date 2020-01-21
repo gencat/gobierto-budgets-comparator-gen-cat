@@ -99,7 +99,7 @@
 
       <p><strong>Datos presupuestarios:</strong> Los datos económicos de los presupuestos de los municipios están extraídos de la base de datos que publica el Ministerio de Economía y Hacienda a través de la Secretaría General de Coordinación Autónomica y Local. La publicación de esta base de datos se realiza en esta URL: <a href="https://serviciostelematicosext.minhap.gob.es/SGCAL/CONPREL" target="_blank">serviciostelematicosext.minhap.gob.es/SGCAL/CONPREL</a>. Se publican de forma anual datos sobre los presupuestos y la ejecución presupuestaria.</p>
 
-      <p>Los datos se publican en formato Microsoft Access. Populate ha transformado esta base de datos para la carga en su sistema y <a href="https://github.com/PopulateTools/gobierto-budgets-data" target="blank">ha publicado dicho código</a>. La Secretaría publica una <a href="https://serviciostelematicosext.minhap.gob.es/SGCAL/CONPREL/Consulta/DescargaFicheroMetodologico?idFichero=814" target="_blank">Nota Metodológica</a> sobre los datos de los presupuestos. La última actualización de los datos de los presupuestos corresponde a la actualización del 30/12/<%= GobiertoBudgets::SearchEngineConfiguration::Year.last %> por parte del Ministerio.</p>
+      <p>Los datos se publican en formato Microsoft Access. Populate ha transformado esta base de datos para la carga en su sistema y <a href="https://github.com/PopulateTools/gobierto-budgets-data" target="blank">ha publicado dicho código</a>. La Secretaría publica una <a href="https://serviciostelematicosext.minhap.gob.es/SGCAL/CONPREL/Consulta/DescargaFicheroMetodologico?idFichero=814" target="_blank">Nota Metodológica</a> sobre los datos de los presupuestos. La última actualización de los datos de los presupuestos corresponde a la actualización del <%= GobiertoBudgets::SearchEngineConfiguration::Year.last %> por parte del Ministerio.</p>
 
       <p><strong>Datos de población:</strong> La información sobre la población de los municipios proviene del INE, extraída y transformada usando la librería <a href="https://github.com/PopulateTools/ruby-px" target="_blank">Ruby-PX</a> desarrollada por Populate.</p>
 
@@ -113,32 +113,34 @@
       <p>Han pensado y construido la herramienta:</p>
 
       <ul class="team ul_showcase_30">
+        <% image_size = "73x73" %>
+
         <li>
-          <%= image_tag 'https://pbs.twimg.com/profile_images/305246290/Foto_2_bigger.jpg' %>
+          <%= image_tag 'https://pbs.twimg.com/profile_images/305246290/Foto_2_400x400.jpg', size: image_size %>
           <strong>Álvaro Ortiz</strong>
           <%= link_to '@furilo', 'http://twitter.com/furilo' %>
           <span>Producto, UX, front</span>
         </li>
         <li>
-          <%= image_tag 'https://pbs.twimg.com/profile_images/644796859727265792/-gZwsNdM_bigger.png' %>
+          <%= image_tag 'https://pbs.twimg.com/profile_images/644796859727265792/-gZwsNdM_400x400.png', size: image_size %>
           <strong>Fernando Blat</strong>
           <%= link_to '@ferblape', 'http://twitter.com/ferblape' %>
           <span>Back, Elastic Search, Rails</span>
         </li>
         <li>
-          <%= image_tag 'https://media.licdn.com/mpr/mpr/shrink_100_100/p/4/000/181/330/38d106b.jpg', size: '73x73' %>
+          <%= image_tag 'https://pbs.twimg.com/profile_images/741304109819695108/owoM5Bj5_200x200.jpg', size: image_size %>
           <strong>Jorge Gómez Sancha</strong>
           <%= link_to '@jorgesancha', 'http://twitter.com/jorgesancha' %>
           <span>Producto, Rails</span>
         </li>
         <li>
-          <%= image_tag 'https://pbs.twimg.com/profile_images/644504357082398720/Hs2771LP_bigger.jpg' %>
+          <%= image_tag 'https://pbs.twimg.com/profile_images/644504357082398720/Hs2771LP_400x400.jpg', size: image_size %>
           <strong>Beatriz Martínez</strong>
           <%= link_to '@maritrinez', 'http://twitter.com/maritrinez' %>
           <span>D3.js</span>
         </li>
         <li>
-          <%= image_tag 'https://pbs.twimg.com/profile_images/378800000677403757/fb30fb620ed6cad93fea8b84132c2c6b_bigger.jpeg' %>
+          <%= image_tag 'https://pbs.twimg.com/profile_images/1044895684812517378/tS78PyVC_200x200.jpg', size: image_size %>
           <strong>Ajo Galván</strong>
           <%= link_to '@AjoGalvan', 'http://twitter.com/AjoGalvan' %>
           <span>Ilustraciones</span>
@@ -149,19 +151,19 @@
 
       <ul class="team ul_showcase_30">
         <li>
-          <%= image_tag 'https://pbs.twimg.com/profile_images/656460015058997248/X0XjdhQv_bigger.jpg' %>
+          <%= image_tag 'https://pbs.twimg.com/profile_images/656460015058997248/X0XjdhQv_bigger.jpg', size: image_size %>
           <strong>Nagore de los Ríos</strong>
           <%= link_to '@nagodelos', 'http://twitter.com/nagodelos' %>
           <span></span>
         </li>
         <li>
-          <%= image_tag 'https://pbs.twimg.com/profile_images/519535276645834752/ZmxVF2NP_bigger.jpeg' %>
+          <%= image_tag 'https://pbs.twimg.com/profile_images/1149798792931237888/JQ3mYBeE_200x200.png', size: image_size %>
           <strong>Reyes Montiel</strong>
           <%= link_to '@reyesmontiel', 'http://twitter.com/reyesmontiel' %>
           <span></span>
         </li>
         <li>
-          <%= image_tag 'https://pbs.twimg.com/profile_images/2869487895/ace8770c8319fa72eb4e9fa00d3ea34a_bigger.jpeg' %>
+          <%= image_tag 'https://pbs.twimg.com/profile_images/868416428160012288/CNDFrr1k_200x200.jpg', size: image_size %>
           <strong>Alberto Ortiz de Zárate</strong>
           <%= link_to '@alorza', 'http://twitter.com/alorza' %>
           <span></span>

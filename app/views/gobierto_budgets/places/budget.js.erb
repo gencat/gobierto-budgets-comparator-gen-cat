@@ -1,4 +1,7 @@
-$('#code_<%= params[:parent_code] %>_<%= params[:area] %>_<%= params[:kind] %>').after("<%= j(render partial: 'gobierto_budgets/places/nested_budget_lines') %>")
+var $budgetLineRow = $('#code_<%= params[:parent_code] %>_<%= params[:area] %>_<%= params[:kind] %>');
+
+$budgetLineRow.siblings(".child_group").remove()
+$budgetLineRow.after("<%= j(render partial: 'gobierto_budgets/places/nested_budget_lines') %>")
 
 rebindAll();
 

@@ -281,7 +281,9 @@ $(document).on('turbolinks:load', function() {
   /* Tree navigation */
   $('.items').on('ajax:success', 'a[data-remote=true]', function(event, data, status, xhr) {
     $(this).addClass('extended');
-    $(this).find('.fa').toggleClass('fa-plus-square-o fa-minus-square-o');
+    $(this).find('.fa').removeClass('fa-plus-square-o');
+    $(this).find('.fa').addClass('fa-minus-square-o');
+
     ga('send', 'event', 'Tree Navigation', 'Open', $(this).attr('href'), {nonInteraction: true});
     if(mixpanel.length > 0) {
       mixpanel.track("Tree Navigation", {"Open": $(this).attr('href')});
