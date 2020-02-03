@@ -51,7 +51,7 @@ module GobiertoBudgets
       end
 
       respond_to do |format|
-        format.html { render(action: "embed", layout: "embed") }
+        format.html { @code.present? ? render(action: "embed", layout: "embed") : render_404 }
         format.js { @code.present? ? render(:show) : head(:not_found) }
       end
     end
