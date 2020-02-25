@@ -231,7 +231,7 @@ GEM
     multi_json (1.14.1)
     multipart-post (2.0.0)
     nio4r (2.5.2)
-    nokogiri (1.10.7)
+    nokogiri (1.10.8)
       mini_portile2 (~> 2.4.0)
     oj (3.10.2)
     parallel (1.19.1)
@@ -394,7 +394,7 @@ DEPENDENCIES
   kaminari (~> 1.0)
   launchy
   meta-tags
-  nokogiri (~> 1.8, >= 1.8.1)
+  nokogiri (~> 1.10)
   oj
   pg (~> 0.19)
   puma

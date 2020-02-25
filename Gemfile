@@ -18,7 +18,7 @@ gem 'config'
 gem 'dalli'
 gem 'aws-ses'
 gem 'cocoon'
-gem 'nokogiri', '~> 1.8', '>= 1.8.1'
+gem 'nokogiri', '~> 1.10'
 gem 'json', '~> 2.1'
 gem "gobierto_data", git: "https://github.com/PopulateTools/gobierto_data.git"
 gem "bootsnap"
