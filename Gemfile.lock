@@ -334,7 +334,7 @@ GEM
       hashie (~> 3.5)
       multipart-post (~> 2.0.0)
       sys-uname (~> 1.0.2)
-    spring (2.1.0)
+    spring (2.1.1)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
       spring (>= 1.2, < 3.0)
