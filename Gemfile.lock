@@ -102,7 +102,7 @@ GEM
     config (2.2.1)
       deep_merge (~> 1.2, >= 1.2.1)
       dry-validation (~> 1.0, >= 1.0.0)
-    cookies_eu (1.7.6)
+    cookies_eu (1.7.7)
       js_cookie_rails (~> 2.2.0)
     crass (1.0.6)
     dalli (2.7.11)
