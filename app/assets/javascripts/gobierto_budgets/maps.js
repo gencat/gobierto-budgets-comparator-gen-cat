@@ -1,5 +1,75 @@
 $(document).on('turbolinks:load', function() {
-  function placesScopeCondition(){
+
+  var dataJSON
+  var dataPlaces
+  var mapMunicipalities = d3.map();
+
+  var COLOR_SCALE = d3.scaleThreshold()
+    .domain([100000, 110000, 120000, 140000, 160000, 170000, 180000])
+    .range([
+      [255, 255, 201],
+      [192, 229, 174],
+      [117, 198, 179],
+      [59, 173, 187],
+      [30, 134, 181],
+      [31, 83, 155],
+      [14, 39, 118]
+    ]);
+
+  var INITIAL_VIEW_STATE = {
+    latitude: 40.46,
+    longitude: 3.74,
+    zoom: 5,
+    maxZoom: 8
+  };
+
+  var promises = [
+    d3.json("https://unpkg.com/es-atlas@0.2.0/es/municipalities.json"),
+    d3.csv("https://gist.githubusercontent.com/jorgeatgu/9995ac58cb5465d4a46f3e8fffe17cd3/raw/c12be8e0de4dd80e27c1fbe650a21461a840cc7c/places.csv", function(d) { mapMunicipalities.set(d.id, +d.budget) })
+  ]
+
+  Promise.all(promises).then(initDeckGL)
+
+  function initDeckGL([data]) {
+    var MUNICIPALITIES = topojson.feature(data, data.objects.municipalities);
+    var geojsonLayer = new deck.GeoJsonLayer({
+      id: 'map-webgl',
+      data: MUNICIPALITIES,
+      stroked: true,
+      filled: true,
+      lineWidthMinPixels: 0.5,
+      opacity: 0.4,
+      getLineColor: [0, 0, 0],
+      getFillColor: d => COLOR_SCALE(d.budget = mapMunicipalities.get(d.id)),
+      pickable: true
+    })
+
+    new deck.Deck({
+      canvas: 'map-webgl',
+      initialViewState: INITIAL_VIEW_STATE,
+      controller: true,
+      layers: [geojsonLayer],
+      getTooltip: ({object}) => {
+        console.log("object", object);
+        if(object) {
+          return {
+            html: `<h3 style="margin:0; padding-bottom: .25rem; border-bottom: 1px solid #111; color: #554E41;">${object.id}</h3>
+                  <span style="display: block; margin-top: .25rem; color: #000;">Presupuesto: <b style="font-size: .65rem;">${object.budget}€<b></span>`,
+            style: {
+              backgroundColor: '#FFF',
+              fontFamily: 'BlinkMacSystemFont, -apple-system',
+              fontSize: '.65rem',
+              borderRadius: '2px',
+              padding: '0.5rem',
+              boxShadow: '2px 2px 2px 1px rgba(0,0,0,0.1)'
+            }
+          }
+        }
+      }
+    });
+  }
+
+ /* function placesScopeCondition(){
     if(window.placesScope.length)
       return " i.place_id IN (" + window.placesScope + ")";
     else
@@ -19,7 +89,7 @@ $(document).on('turbolinks:load', function() {
      * is not an int, then really you should average the two elements on either
      * side to find q1.
      */
-    var q1 = values[Math.floor((values.length / 4))];
+    /*var q1 = values[Math.floor((values.length / 4))];
     // Likewise for q3.
     var q3 = values[Math.ceil((values.length * (3 / 4)))];
     var iqr = q3 - q1;
@@ -35,9 +105,9 @@ $(document).on('turbolinks:load', function() {
 
     // Then return
     return filteredValues;
-  }
+  }*/
 
-  function renderMapIndicator(layer, vis){
+  /*function renderMapIndicator(layer, vis){
     $('[data-indicator]').click(function(e){
       $('#map .overlay').css({
         'display': 'block'
@@ -108,9 +178,9 @@ $(document).on('turbolinks:load', function() {
         console.log("errors:" + errors);
       });
     });
-  }
+  }*/
 
-  function renderMapBudgetLine(layer, vis){
+ /* function renderMapBudgetLine(layer, vis){
     $(document).on('renderBudgetLineCategory', function(e){
       $('.cartodb-tooltip').hide();
       $('#map .overlay').css({
@@ -177,9 +247,9 @@ $(document).on('turbolinks:load', function() {
 
       $('#legend-container').html($('#legend').html());
     });
-  }
+  }*/
 
-  if($('#map').length){
+  /*if($('#map').length){
 
     var colors = ['#ffffcc','#c7e9b4','#7fcdbb','#41b6c4','#1d91c0','#225ea8','#0c2c84'];
     var indicators = {
@@ -264,5 +334,6 @@ $(document).on('turbolinks:load', function() {
       $('[data-category-code]').removeClass('active');
       $(this).addClass('selected');
     });
-  }
+  }*/
+
 });
