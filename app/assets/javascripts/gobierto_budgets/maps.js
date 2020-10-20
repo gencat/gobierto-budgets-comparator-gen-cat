@@ -19,8 +19,10 @@ $(document).on('turbolinks:load', function() {
   var INITIAL_VIEW_STATE = {
     latitude: 40.46,
     longitude: 3.74,
-    zoom: 5,
-    maxZoom: 8
+    zoom: 6,
+    minZoom: 5,
+    maxZoom: 6,
+    pitch: 1.5
   };
 
   var promises = [
@@ -33,7 +35,7 @@ $(document).on('turbolinks:load', function() {
   function initDeckGL([data]) {
     var MUNICIPALITIES = topojson.feature(data, data.objects.municipalities);
     var geojsonLayer = new deck.GeoJsonLayer({
-      id: 'map-webgl',
+      id: 'map',
       data: MUNICIPALITIES,
       stroked: true,
       filled: true,
@@ -44,13 +46,15 @@ $(document).on('turbolinks:load', function() {
       pickable: true
     })
 
+    var testDesck = new deck.Deck()
+    console.log("testDesck", testDesck);
+
     new deck.Deck({
-      canvas: 'map-webgl',
+      canvas: 'map',
       initialViewState: INITIAL_VIEW_STATE,
       controller: true,
       layers: [geojsonLayer],
       getTooltip: ({object}) => {
-        console.log("object", object);
         if(object) {
           return {
             html: `<h3 style="margin:0; padding-bottom: .25rem; border-bottom: 1px solid #111; color: #554E41;">${object.id}</h3>
@@ -65,6 +69,10 @@ $(document).on('turbolinks:load', function() {
             }
           }
         }
+      },
+      _onEvent: function(e) {
+        console.log("e", e);
+
       }
     });
   }
