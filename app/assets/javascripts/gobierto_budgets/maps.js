@@ -5,6 +5,7 @@ $(document).on('turbolinks:load', function() {
   var mapMunicipalities = d3.map();
 
   var COLOR_SCALE = d3.scaleThreshold()
+    //TODO: build scale with d3min and d3max
     .domain([100000, 110000, 120000, 140000, 160000, 170000, 180000])
     .range([
       [255, 255, 201],
@@ -21,19 +22,20 @@ $(document).on('turbolinks:load', function() {
     longitude: 3.74,
     zoom: 6,
     minZoom: 5,
-    maxZoom: 6,
-    pitch: 1.5
+    maxZoom: 8
   };
 
   var promises = [
-    d3.json("https://unpkg.com/es-atlas@0.2.0/es/municipalities.json"),
+    d3.json("https://gist.githubusercontent.com/jorgeatgu/dcb73825b02af45250c4dfa66aa0f94f/raw/18a9f2fa108c56454556abc7e08b64eb2a0dc4d8/municipalities_topojson.json"),
     d3.csv("https://gist.githubusercontent.com/jorgeatgu/9995ac58cb5465d4a46f3e8fffe17cd3/raw/c12be8e0de4dd80e27c1fbe650a21461a840cc7c/places.csv", function(d) { mapMunicipalities.set(d.id, +d.budget) })
   ]
 
   Promise.all(promises).then(initDeckGL)
 
   function initDeckGL([data]) {
+
     var MUNICIPALITIES = topojson.feature(data, data.objects.municipalities);
+
     var geojsonLayer = new deck.GeoJsonLayer({
       id: 'map',
       data: MUNICIPALITIES,
@@ -42,13 +44,11 @@ $(document).on('turbolinks:load', function() {
       lineWidthMinPixels: 0.5,
       opacity: 0.4,
       getLineColor: [0, 0, 0],
-      getFillColor: d => COLOR_SCALE(d.budget = mapMunicipalities.get(d.id)),
+      getFillColor: d => COLOR_SCALE(d.budget = mapMunicipalities.get(d.properties.cp)),
       pickable: true
     })
 
-    var testDesck = new deck.Deck()
-    console.log("testDesck", testDesck);
-
+    /*https://datos.gobierto.es/api/v1/data/data.csv?sql=SELECT+*+FROM+municipios+LIMIT+50*/
     new deck.Deck({
       canvas: 'map',
       initialViewState: INITIAL_VIEW_STATE,
@@ -57,7 +57,8 @@ $(document).on('turbolinks:load', function() {
       getTooltip: ({object}) => {
         if(object) {
           return {
-            html: `<h3 style="margin:0; padding-bottom: .25rem; border-bottom: 1px solid #111; color: #554E41;">${object.id}</h3>
+            //TODO: extract to CSS
+            html: `<h3 style="margin:0; padding-bottom: .25rem; border-bottom: 1px solid #111; color: #554E41;">${object.properties.name}</h3>
                   <span style="display: block; margin-top: .25rem; color: #000;">Presupuesto: <b style="font-size: .65rem;">${object.budget}€<b></span>`,
             style: {
               backgroundColor: '#FFF',
@@ -69,10 +70,6 @@ $(document).on('turbolinks:load', function() {
             }
           }
         }
-      },
-      _onEvent: function(e) {
-        console.log("e", e);
-
       }
     });
   }
