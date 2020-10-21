@@ -31,6 +31,24 @@ $(document).on('turbolinks:load', function() {
     d3.csv(dataPlaces, function(d) { mapMunicipalities.set(d.id, +d.budget) })
   ]
 
+  var request = new XMLHttpRequest();
+  request.open('GET', "https://datos.gobierto.es/api/v1/data/data.csv?sql=SELECT+*+FROM+municipios", true);
+
+  request.onload = function() {
+    if (request.status >= 200 && request.status < 400) {
+      console.log("request.responseText", request.responseText);
+
+    } else {
+      console.log("ERROR! in the request")
+    }
+  };
+
+  request.onerror = function() {
+      // There was a connection error of some sort
+    };
+
+  request.send();
+
   Promise.all(promises).then(initDeckGL)
 
   function initDeckGL([data]) {
@@ -49,7 +67,6 @@ $(document).on('turbolinks:load', function() {
       pickable: true
     })
 
-    /*https://datos.gobierto.es/api/v1/data/data.csv?sql=SELECT+*+FROM+municipios+LIMIT+50*/
     new deck.Deck({
       canvas: 'map',
       initialViewState: INITIAL_VIEW_STATE,
