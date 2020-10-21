@@ -1,7 +1,5 @@
 $(document).on('turbolinks:load', function() {
 
-  var dataJSON
-  var dataPlaces
   var mapMunicipalities = d3.map();
 
   var COLOR_SCALE = d3.scaleThreshold()
@@ -25,9 +23,12 @@ $(document).on('turbolinks:load', function() {
     maxZoom: 8
   };
 
+  var dataTOPOJSON = "https://gist.githubusercontent.com/jorgeatgu/dcb73825b02af45250c4dfa66aa0f94f/raw/18a9f2fa108c56454556abc7e08b64eb2a0dc4d8/municipalities_topojson.json"
+  var dataPlaces = "https://gist.githubusercontent.com/jorgeatgu/9995ac58cb5465d4a46f3e8fffe17cd3/raw/c12be8e0de4dd80e27c1fbe650a21461a840cc7c/places.csv"
+
   var promises = [
-    d3.json("https://gist.githubusercontent.com/jorgeatgu/dcb73825b02af45250c4dfa66aa0f94f/raw/18a9f2fa108c56454556abc7e08b64eb2a0dc4d8/municipalities_topojson.json"),
-    d3.csv("https://gist.githubusercontent.com/jorgeatgu/9995ac58cb5465d4a46f3e8fffe17cd3/raw/c12be8e0de4dd80e27c1fbe650a21461a840cc7c/places.csv", function(d) { mapMunicipalities.set(d.id, +d.budget) })
+    d3.json(dataTOPOJSON),
+    d3.csv(dataPlaces, function(d) { mapMunicipalities.set(d.id, +d.budget) })
   ]
 
   Promise.all(promises).then(initDeckGL)
