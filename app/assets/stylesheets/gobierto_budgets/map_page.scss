@@ -143,3 +143,20 @@ body[data-action="map"] .main_metrics .metric:hover {
     width: 300px;
   }
 }
+
+
+.map_select_municipalities {
+  width: 300px;
+  padding: 1rem;
+  position: absolute;
+  right: 1rem;
+  background-color: rgba(255, 255, 255, .95);
+  box-shadow: 5px 5px 5px -5px rgba(0, 0, 0, .2);
+  z-index: 1000001;
+  margin-top: .5em;
+}
+
+.ss-main .ss-single-selected .placeholder {
+  height: auto;
+  min-width: 200px;
+}

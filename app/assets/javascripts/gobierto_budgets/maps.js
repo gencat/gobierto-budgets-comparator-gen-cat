@@ -2,6 +2,11 @@ $(document).on('turbolinks:load', function() {
 
   var mapMunicipalities = d3.map();
 
+  new SlimSelect({
+    select: '#municipalities-flyTO',
+    placeholder: 'Introduce un municipio'
+  })
+
   var COLOR_SCALE = d3.scaleThreshold()
     //TODO: build scale with d3min and d3max
     .domain([100000, 110000, 120000, 140000, 160000, 170000, 180000])
@@ -26,28 +31,13 @@ $(document).on('turbolinks:load', function() {
   var dataTOPOJSON = "https://gist.githubusercontent.com/jorgeatgu/dcb73825b02af45250c4dfa66aa0f94f/raw/18a9f2fa108c56454556abc7e08b64eb2a0dc4d8/municipalities_topojson.json"
   var dataPlaces = "https://gist.githubusercontent.com/jorgeatgu/9995ac58cb5465d4a46f3e8fffe17cd3/raw/c12be8e0de4dd80e27c1fbe650a21461a840cc7c/places.csv"
 
+  var dataMunicipalities = "https://datos.gobierto.es/api/v1/data/data.csv?sql=SELECT+*+FROM+municipios"
+
   var promises = [
     d3.json(dataTOPOJSON),
     d3.csv(dataPlaces, function(d) { mapMunicipalities.set(d.id, +d.budget) })
   ]
-
-  var request = new XMLHttpRequest();
-  request.open('GET', "https://datos.gobierto.es/api/v1/data/data.csv?sql=SELECT+*+FROM+municipios", true);
-
-  request.onload = function() {
-    if (request.status >= 200 && request.status < 400) {
-      console.log("request.responseText", request.responseText);
-
-    } else {
-      console.log("ERROR! in the request")
-    }
-  };
-
-  request.onerror = function() {
-      // There was a connection error of some sort
-    };
-
-  request.send();
+  
 
   Promise.all(promises).then(initDeckGL)
 
@@ -58,7 +48,7 @@ $(document).on('turbolinks:load', function() {
     var geojsonLayer = new deck.GeoJsonLayer({
       id: 'map',
       data: MUNICIPALITIES,
-      stroked: true,
+      stroked: false,
       filled: true,
       lineWidthMinPixels: 0.5,
       opacity: 0.4,
@@ -67,7 +57,7 @@ $(document).on('turbolinks:load', function() {
       pickable: true
     })
 
-    new deck.Deck({
+    var deckgl = new deck.Deck({
       canvas: 'map',
       initialViewState: INITIAL_VIEW_STATE,
       controller: true,
@@ -89,6 +79,42 @@ $(document).on('turbolinks:load', function() {
           }
         }
       }
+    });
+
+    d3.csv(dataMunicipalities).then(function(data) {
+      var nest = d3
+        .nest()
+        .key(d => d.nombre)
+        .entries(data);
+
+      nest.sort(function(x, y){
+         return d3.ascending(x.key, y.key);
+      })
+
+      var selectMunicipalities = d3.select('#municipalities-flyTO');
+
+      selectMunicipalities
+        .selectAll('option')
+        .data(nest)
+        .enter()
+        .append('option')
+        .attr('value', d => d.key)
+        .text(d => d.key);
+
+      selectMunicipalities.on('change', d => {
+        console.log("d", d);
+        deckgl.setProps({
+          viewState: {
+            longitude: d.longitude,
+            latitude: d.latitude,
+            zoom: 10,
+            pitch: 0,
+            bearing: 0,
+            transitionInterpolator: new deck.FlyToInterpolator(),
+            transitionDuration: 'auto'
+          }
+        })
+      });
     });
   }
 
