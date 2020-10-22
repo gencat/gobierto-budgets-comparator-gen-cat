@@ -3,9 +3,9 @@ namespace :gobierto_budgets do
     desc 'Export main indicators'
     task export_main_indicators: :environment do
       CSV.open("indicators.csv", "wb") do |csv|
+        csv << ['year', 'place_id', 'gasto_por_habitante', 'gasto_total', 'planned_vs_executed','population','debt']
         GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |year|
           puts year
-          csv << ['year', 'place_id', 'gasto_por_habitante', 'gasto_total', 'planned_vs_executed','population','debt']
           INE::Places::Place.all.each do |place|
             csv << [year, place.id, get_expense_per_inhabitant(place, year), get_total_expense(place, year),
                     get_planned_vs_executed(place, year), get_population(place, year), get_debt(place, year)]
@@ -17,9 +17,9 @@ namespace :gobierto_budgets do
     desc 'Export planned budgets CSVs'
     task export_planned_budgets: :environment do
       CSV.open("planned_budgets.csv", "wb") do |csv|
+        csv << ['year', 'place_id', 'area', 'kind', 'amount', 'code', 'amount_per_inhabitant']
         GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |year|
           puts year
-          csv << ['year', 'place_id', 'area', 'kind', 'amount', 'code', 'amount_per_inhabitant']
           INE::Places::Place.all.each do |place|
             get_budgets(place, year, 'economic').each do |budget_line|
               csv << [year, budget_line['ine_code'], 'e', budget_line['kind'], budget_line['amount'], budget_line['code'], budget_line['amount_per_inhabitant']]
