@@ -18,6 +18,13 @@ $(document).on('turbolinks:load', function () {
     [14, 39, 118]
   ]);
 
+  var COLOR_LINE = d3.scaleThreshold() //TODO: build scale with d3min and d3max
+  .domain([0, 1])
+  .range([
+    [0, 0, 0],
+    [255, 255, 255],
+  ]);
+
   var INITIAL_VIEW_STATE = {
     latitude: 40.416775,
     longitude: -3.703790,
@@ -46,34 +53,14 @@ $(document).on('turbolinks:load', function () {
     var geojsonLayer = new deck.GeoJsonLayer({
       id: 'map',
       data: MUNICIPALITIES,
-      stroked: true,
+      stroked: false,
       filled: true,
-      opacity: 1,
+      opacity: 0.8,
       getFillColor: function (d) {
         return COLOR_SCALE(d.budget = mapMunicipalities.get(d.properties.cp));
       },
-      getLineColor: [0,0,0],
       pickable: true
     });
-
-    var updateLayers = [new deck.GeoJsonLayer({
-      id: 'map',
-      data: MUNICIPALITIES,
-      stroked: true,
-      filled: true,
-      opacity: 0.1,
-      getLineColor: [0, 0, 0],
-      getFillColor: function getFillColor(d) {
-        return COLOR_SCALE(d.budget = mapMunicipalities.get(d.properties.cp));
-      },
-      getLineColor: function (d) {
-        if (d.selected) {
-          console.log('is selected')
-          return [0,0,0]
-        }
-      },
-      pickable: true,
-    })];
 
     var deckgl = new deck.Deck({
       canvas: 'map',
@@ -99,8 +86,6 @@ $(document).on('turbolinks:load', function () {
       },
       onViewStateChange: ({viewState}) => deckgl.setProps({viewState})
     });
-
-    console.log("deckgl", deckgl);
 
     d3.csv(dataMunicipalities).then(function(data) {
       var nest = d3
@@ -133,17 +118,28 @@ $(document).on('turbolinks:load', function () {
           return el.nombre === value
         });
 
-        console.log("MUNICIPALITIES", MUNICIPALITIES.features);
+        var strokeDATA = JSON.parse(JSON.stringify(MUNICIPALITIES));
 
-        var testMUNI = MUNICIPALITIES.features
+        var strokeDATAFILTER = strokeDATA.features
 
-        testMUNI.forEach(function (d) {
-          if(d.properties.name === selectElement[0].nombre) {
-            d['selected'] = true
-          } else {
-            d['selected'] = false
-          }
-        })
+        var strokeSelected = strokeDATAFILTER.filter(function (el) {
+          return el.properties.name === value
+        });
+
+        strokeDATA.features = strokeSelected
+
+        var updateLayers = [new deck.GeoJsonLayer({
+          id: 'map',
+          data: strokeDATA,
+          stroked: true,
+          filled: true,
+          lineWidthMinPixels: 1,
+          opacity: 1,
+          getFillColor: function (d) {
+            return COLOR_SCALE(d.budget = mapMunicipalities.get(d.properties.cp));
+          },
+          pickable: true
+        })];
 
         //Pass coordinates to deck.gl
         deckgl.setProps({
@@ -157,7 +153,7 @@ $(document).on('turbolinks:load', function () {
         })
 
         //Update layer
-        deckgl.setProps({layers: updateLayers});
+        deckgl.setProps({layers: [geojsonLayer, updateLayers]});
       });
     });
   });
