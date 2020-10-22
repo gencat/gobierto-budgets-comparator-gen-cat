@@ -19,9 +19,9 @@ $(document).on('turbolinks:load', function () {
   ]);
 
   var INITIAL_VIEW_STATE = {
-    latitude: 40.46,
-    longitude: 3.74,
-    zoom: 6,
+    latitude: 40.416775,
+    longitude: -3.703790,
+    zoom: 5,
     minZoom: 5,
     maxZoom: 8
   };
@@ -31,6 +31,9 @@ $(document).on('turbolinks:load', function () {
 
   var dataMunicipalities = "https://datos.gobierto.es/api/v1/data/data.csv?sql=SELECT+*+FROM+municipios"
 
+  var dataIndicators = "https://datos.gobierto.es/api/v1/data/data.csv?sql=SELECT+*+FROM+indicadores_presupuestos_municipales"
+  var dataBudgtes = "https://datos.gobierto.es/api/v1/data/data.csv?sql=SELECT+*+FROM+presupuestos_municipales"
+
 
   d3.csv(dataPlaces, function (d) {
     mapMunicipalities.set(d.id, +d.budget);
@@ -39,32 +42,38 @@ $(document).on('turbolinks:load', function () {
   d3.json(dataTOPOJSON).then(function (data) {
 
     var MUNICIPALITIES = topojson.feature(data, data.objects.municipalities);
+
     var geojsonLayer = new deck.GeoJsonLayer({
       id: 'map',
       data: MUNICIPALITIES,
-      stroked: false,
+      stroked: true,
       filled: true,
-      lineWidthMinPixels: 0.5,
       opacity: 1,
-      getLineColor: [0, 0, 0],
-      getFillColor: function getFillColor(d) {
+      getFillColor: function (d) {
         return COLOR_SCALE(d.budget = mapMunicipalities.get(d.properties.cp));
       },
+      getLineColor: [0,0,0],
       pickable: true
     });
 
-    var updateLayers = new deck.GeoJsonLayer({
+    var updateLayers = [new deck.GeoJsonLayer({
       id: 'map',
       data: MUNICIPALITIES,
       stroked: true,
-      filled: false,
-      opacity: 1,
+      filled: true,
+      opacity: 0.1,
       getLineColor: [0, 0, 0],
       getFillColor: function getFillColor(d) {
         return COLOR_SCALE(d.budget = mapMunicipalities.get(d.properties.cp));
       },
-      pickable: true
-    });
+      getLineColor: function (d) {
+        if (d.selected) {
+          console.log('is selected')
+          return [0,0,0]
+        }
+      },
+      pickable: true,
+    })];
 
     var deckgl = new deck.Deck({
       canvas: 'map',
@@ -73,7 +82,6 @@ $(document).on('turbolinks:load', function () {
       layers: [geojsonLayer],
       getTooltip: function getTooltip(_ref) {
         var object = _ref.object;
-
         if (object) {
           return {
             //TODO: extract to CSS
@@ -92,10 +100,12 @@ $(document).on('turbolinks:load', function () {
       onViewStateChange: ({viewState}) => deckgl.setProps({viewState})
     });
 
+    console.log("deckgl", deckgl);
+
     d3.csv(dataMunicipalities).then(function(data) {
       var nest = d3
         .nest()
-        .key(d => d.nombre)
+        .key(function(d) { return d.nombre})
         .entries(data);
 
       nest.sort(function(x, y){
@@ -109,8 +119,8 @@ $(document).on('turbolinks:load', function () {
         .data(nest)
         .enter()
         .append('option')
-        .attr('value', d => d.key)
-        .text(d => d.key);
+        .attr('value', function(d) { return d.key})
+        .text(function(d) { return d.key})
 
       selectMunicipalities.on('change', function() {
         //Get the selected municipality
@@ -123,6 +133,18 @@ $(document).on('turbolinks:load', function () {
           return el.nombre === value
         });
 
+        console.log("MUNICIPALITIES", MUNICIPALITIES.features);
+
+        var testMUNI = MUNICIPALITIES.features
+
+        testMUNI.forEach(function (d) {
+          if(d.properties.name === selectElement[0].nombre) {
+            d['selected'] = true
+          } else {
+            d['selected'] = false
+          }
+        })
+
         //Pass coordinates to deck.gl
         deckgl.setProps({
           viewState: {
@@ -134,7 +156,8 @@ $(document).on('turbolinks:load', function () {
           }
         })
 
-        geojsonLayer.setProps({layers: updateLayers});
+        //Update layer
+        deckgl.setProps({layers: updateLayers});
       });
     });
   });
