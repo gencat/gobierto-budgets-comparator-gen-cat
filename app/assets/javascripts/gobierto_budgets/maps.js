@@ -5,8 +5,6 @@ $(document).on('turbolinks:load', function () {
     placeholder: 'Introduce un municipio'
   })
 
-  var minMaxValue
-
   var CHOROPLET_SCALE = [ [255, 255, 201], [192, 229, 174], [117, 198, 179], [59, 173, 187], [30, 134, 181], [31, 83, 155], [14, 39, 118]]
 
   var mapMunicipalities = d3.map();
@@ -61,7 +59,7 @@ $(document).on('turbolinks:load', function () {
         if (object) {
           return {
             //TODO: extract to CSS
-            html: "<h3 style=\"margin:0; padding-bottom: .25rem; border-bottom: 1px solid #111; color: #554E41;\">".concat(object.properties.name, "</h3>\n                  <span style=\"display: block; margin-top: .25rem; color: #000;\">Presupuesto: <b style=\"font-size: .65rem;\">").concat(object.budget, "\u20AC<b></span>"),
+            html: "<h3 class=\"tooltip-name\">".concat(object.properties.name, "</h3>\n <span style=\"tooltip-value\">Presupuesto: <b style=\"font-size: .65rem;\">").concat(object.budget, "\u20AC<b></span>"),
             style: {
               backgroundColor: '#FFF',
               fontFamily: 'BlinkMacSystemFont, -apple-system',

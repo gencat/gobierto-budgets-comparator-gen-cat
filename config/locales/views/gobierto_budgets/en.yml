@@ -21,6 +21,7 @@ en:
         expense: Total expense
         planned_vs_executed: Planned vs Executed
         debt: Debt
+        search_municipality: Search municipality
         population: Population
         people: people
       map_metrics:

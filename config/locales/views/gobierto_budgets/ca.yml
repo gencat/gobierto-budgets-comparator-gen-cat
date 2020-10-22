@@ -122,6 +122,7 @@ ca:
         planned_vs_executed: Planejat vs Executat
         population: Població
         search: Busqueu partides
+        search_municipality: Busqueu per municipi
         title: Mapes de pressupostos el %{year}
       map_metrics:
         tipsit_planned_vs_executed: La diferència entre les despeses planejades (Pressupost)

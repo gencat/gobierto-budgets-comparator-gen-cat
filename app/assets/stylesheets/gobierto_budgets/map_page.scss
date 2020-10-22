@@ -159,6 +159,7 @@ body[data-action="map"] .main_metrics .metric:hover {
 .ss-main .ss-single-selected .placeholder {
   height: auto;
   min-width: 200px;
+  background-color: transparent;
 }
 
 .map_container_zoom {
@@ -199,6 +200,7 @@ body[data-action="map"] .main_metrics .metric:hover {
   z-index: 100001;
   bottom: 1rem;
   border-radius: 4px;
+  background-color: #fff;
   box-shadow: 0 0 2px 1px rgba(0, 0, 0, .1);
   padding: 1rem;
   font-size: 0;
@@ -212,6 +214,13 @@ body[data-action="map"] .main_metrics .metric:hover {
   &:last-child {
     text-align: right;
   }
+}
+
+.map_select_title {
+  margin: 0;
+  margin-bottom: 0.5em;
+  font-weight: normal;
+  color: #999;
 }
 
 .map_legend_chrolopleth {
@@ -247,4 +256,17 @@ body[data-action="map"] .main_metrics .metric:hover {
 }
 .chrolopleth_element_seventh {
   background-color: rgba(14, 39, 118, 1);
+}
+
+.tooltip-name {
+  margin:0;
+  padding-bottom: .25rem;
+  border-bottom: 1px solid #111;
+  color: #554E41;
+}
+
+.tooltip-value {
+  display: block;
+  margin-top: .25rem;
+  color: #000;
 }

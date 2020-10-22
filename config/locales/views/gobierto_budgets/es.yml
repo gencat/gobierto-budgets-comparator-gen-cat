@@ -98,6 +98,9 @@ es:
         search_municipality: Busca municipio %{n}
         select_municipalities: 'Selecciona varios municipios para comparar sus presupuestos:'
       home:
+        checkout_gobierto_blog: Consulta el blog de Gobierto
+        checkout_gobierto_blog_desc: Historias y análisis sobre gobierno abierto,
+          transparencia y participación en
         explore: Explorar
         explore_rankings: Explora los Rankings
         explore_the_ranking_for: Explora el Ranking de
@@ -109,8 +112,6 @@ es:
         some_examples: Algunos ejemplos por partidas
         subtitle: Consulta, analiza y compara los presupuestos municipales de España
         whole_spain: Toda España
-        checkout_gobierto_blog: Consulta el blog de Gobierto
-        checkout_gobierto_blog_desc: Historias y análisis sobre gobierno abierto, transparencia y participación en 
       map:
         debt: Deuda
         expense: Gasto total
@@ -124,6 +125,7 @@ es:
         planned_vs_executed: Planeado vs Ejecutado
         population: Población
         search: Busca partidas
+        search_municipality: Busca un municipio
         title: Mapas de presupuestos en %{year}
       map_metrics:
         tipsit_planned_vs_executed: La diferencia entre los gastos planeados (Presupuesto)
