@@ -5,25 +5,11 @@ $(document).on('turbolinks:load', function () {
     placeholder: 'Introduce un municipio'
   })
 
-  var mapMunicipalities = d3.map();
-  var COLOR_SCALE = d3.scaleThreshold() //TODO: build scale with d3min and d3max
-  .domain([100000, 110000, 120000, 140000, 160000, 170000, 180000])
-  .range([
-    [255, 255, 201],
-    [192, 229, 174],
-    [117, 198, 179],
-    [59, 173, 187],
-    [30, 134, 181],
-    [31, 83, 155],
-    [14, 39, 118]
-  ]);
+  var minMaxValue
 
-  var COLOR_LINE = d3.scaleThreshold() //TODO: build scale with d3min and d3max
-  .domain([0, 1])
-  .range([
-    [0, 0, 0],
-    [255, 255, 255],
-  ]);
+  var CHOROPLET_SCALE = [ [255, 255, 201], [192, 229, 174], [117, 198, 179], [59, 173, 187], [30, 134, 181], [31, 83, 155], [14, 39, 118]]
+
+  var mapMunicipalities = d3.map();
 
   var INITIAL_VIEW_STATE = {
     latitude: 40.416775,
@@ -49,13 +35,16 @@ $(document).on('turbolinks:load', function () {
   d3.json(dataTOPOJSON).then(function (data) {
 
     var MUNICIPALITIES = topojson.feature(data, data.objects.municipalities);
+    var COLOR_SCALE = d3.scaleThreshold() //TODO: build scale with d3min and d3max
+    .domain([100000, 110000, 120000, 140000, 160000, 170000, 180000])
+    .range(CHOROPLET_SCALE);
 
     var geojsonLayer = new deck.GeoJsonLayer({
       id: 'map',
       data: MUNICIPALITIES,
       stroked: false,
       filled: true,
-      opacity: 0.8,
+      opacity: 0.6,
       getFillColor: function (d) {
         return COLOR_SCALE(d.budget = mapMunicipalities.get(d.properties.cp));
       },
@@ -93,8 +82,8 @@ $(document).on('turbolinks:load', function () {
         .key(function(d) { return d.nombre})
         .entries(data);
 
-      nest.sort(function(x, y){
-         return d3.ascending(x.key, y.key);
+      nest.sort(function(a, b){
+         return d3.ascending(a.key, b.key);
       })
 
       var selectMunicipalities = d3.select('#municipalities-flyTO');
@@ -107,6 +96,45 @@ $(document).on('turbolinks:load', function () {
         .attr('value', function(d) { return d.key})
         .text(function(d) { return d.key})
 
+      var increaseButton = document.getElementById('increaseZoom')
+      var decreaseButton = document.getElementById('decreaseZoom')
+
+      increaseButton.addEventListener("click", increaseZoom, false)
+      decreaseButton.addEventListener("click", decreaseZoom, false)
+
+      function increaseZoom() {
+        //In the first render props.viewState are undefined, so we need modify the initialViewState instead viewState
+        if (!deckgl.props.hasOwnProperty('viewState')) {
+          changeStateProps('initialViewState', true)
+          console.log("initialViewState");
+        } else {
+          changeStateProps('viewState', true)
+        }
+      }
+
+      function decreaseZoom() {
+        if (!deckgl.props.hasOwnProperty('viewState')) {
+          changeStateProps('initialViewState', false)
+          console.log("initialViewState");
+        } else {
+          changeStateProps('viewState', false)
+        }
+      }
+
+      function changeStateProps(value, math) {
+        var mathValue = math === true ? + 1 : - 1
+        deckgl.setProps({
+          viewState: {
+            zoom: deckgl.props[value].zoom + mathValue,
+            latitude: deckgl.props[value].latitude,
+            longitude: deckgl.props[value].longitude,
+            maxZoom: deckgl.props[value].maxZoom,
+            minZoom: deckgl.props[value].minZoom
+          }
+        })
+      }
+
+
       selectMunicipalities.on('change', function() {
         //Get the selected municipality
         var value = d3
@@ -118,17 +146,32 @@ $(document).on('turbolinks:load', function () {
           return el.nombre === value
         });
 
+        //Pass coordinates to deck.gl
+        deckgl.setProps({
+          viewState: {
+            longitude: +selectElement[0].lat,
+            latitude: +selectElement[0].lon,
+            zoom: 9,
+            transitionInterpolator: new deck.FlyToInterpolator(),
+            transitionDuration: 1500
+          }
+        })
+
+        //Clone MUNICIPALITIES object
         var strokeDATA = JSON.parse(JSON.stringify(MUNICIPALITIES));
 
         var strokeDATAFILTER = strokeDATA.features
 
+        //Filter by selected municipality
         var strokeSelected = strokeDATAFILTER.filter(function (el) {
           return el.properties.name === value
         });
 
+        //Replace object features
         strokeDATA.features = strokeSelected
 
-        var updateLayers = [new deck.GeoJsonLayer({
+        //Create a new layer that contains only the selected municipality
+        var selectedMunicipality = [new deck.GeoJsonLayer({
           id: 'map',
           data: strokeDATA,
           stroked: true,
@@ -141,19 +184,8 @@ $(document).on('turbolinks:load', function () {
           pickable: true
         })];
 
-        //Pass coordinates to deck.gl
-        deckgl.setProps({
-          viewState: {
-            longitude: +selectElement[0].lat,
-            latitude: +selectElement[0].lon,
-            zoom: 8,
-            transitionInterpolator: new deck.FlyToInterpolator(),
-            transitionDuration: 1500
-          }
-        })
-
-        //Update layer
-        deckgl.setProps({layers: [geojsonLayer, updateLayers]});
+        //Update deck.gl with the old and new layer.
+        deckgl.setProps({layers: [geojsonLayer, selectedMunicipality]});
       });
     });
   });
