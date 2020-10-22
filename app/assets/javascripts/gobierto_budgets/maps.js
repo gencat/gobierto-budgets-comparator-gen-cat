@@ -22,6 +22,8 @@ $(document).on('turbolinks:load', function () {
 
   var dataMunicipalities = "https://datos.gobierto.es/api/v1/data/data.csv?sql=SELECT+*+FROM+municipios"
 
+  var endPoint = "https://datos.gobierto.es/api/v1/data/data.csv?sql="
+
   var dataIndicators = "https://datos.gobierto.es/api/v1/data/data.csv?sql=SELECT+*+FROM+indicadores_presupuestos_municipales"
   var dataBudgtes = "https://datos.gobierto.es/api/v1/data/data.csv?sql=SELECT+*+FROM+presupuestos_municipales"
 
@@ -30,7 +32,31 @@ $(document).on('turbolinks:load', function () {
     mapMunicipalities.set(d.id, +d.budget);
   });
 
+  var indicators = document.querySelectorAll('[data-indicator]')
+
+  indicators.forEach(
+    function(indicator) {
+     indicator.addEventListener("click", loadIndicators);
+    }
+  );
+
+  function loadIndicators(e) {
+    var year = document.getElementsByTagName('body')[0].getAttribute('data-year')
+    var indicatorValue = e.originalTarget.attributes["data-indicator"].nodeValue
+    var textEndPoint = `SELECT+${indicatorValue}+,place_id+FROM+indicadores_presupuestos_municipales+WHERE+year=${year}`;
+
+    var finalString = `${endPoint}${textEndPoint}`
+
+    d3.csv(finalString).then(function (data) {
+      data.forEach(function (d) {
+        mapMunicipalities.set(+d.place_id, +d.gasto_por_habitante);
+      })
+      console.log("mapMunicipalities", mapMunicipalities);
+    })
+  }
+
   d3.json(dataTOPOJSON).then(function (data) {
+
 
     var MUNICIPALITIES = topojson.feature(data, data.objects.municipalities);
     var COLOR_SCALE = d3.scaleThreshold() //TODO: build scale with d3min and d3max
@@ -44,7 +70,7 @@ $(document).on('turbolinks:load', function () {
       filled: true,
       opacity: 0.6,
       getFillColor: function (d) {
-        return COLOR_SCALE(d.budget = mapMunicipalities.get(d.properties.cp));
+        return COLOR_SCALE(d.gasto_por_habitante = mapMunicipalities.get(d.properties.cp));
       },
       pickable: true
     });
@@ -58,7 +84,6 @@ $(document).on('turbolinks:load', function () {
         var object = _ref.object;
         if (object) {
           return {
-            //TODO: extract to CSS
             html: "<h3 class=\"tooltip-name\">".concat(object.properties.name, "</h3>\n <span style=\"tooltip-value\">Presupuesto: <b style=\"font-size: .65rem;\">").concat(object.budget, "\u20AC<b></span>"),
             style: {
               backgroundColor: '#FFF',
@@ -104,7 +129,6 @@ $(document).on('turbolinks:load', function () {
         //In the first render props.viewState are undefined, so we need modify the initialViewState instead viewState
         if (!deckgl.props.hasOwnProperty('viewState')) {
           changeStateProps('initialViewState', true)
-          console.log("initialViewState");
         } else {
           changeStateProps('viewState', true)
         }
@@ -113,7 +137,6 @@ $(document).on('turbolinks:load', function () {
       function decreaseZoom() {
         if (!deckgl.props.hasOwnProperty('viewState')) {
           changeStateProps('initialViewState', false)
-          console.log("initialViewState");
         } else {
           changeStateProps('viewState', false)
         }
