@@ -5,9 +5,21 @@ $(document).on('turbolinks:load', function () {
     placeholder: 'Introduce un municipio'
   })
 
-  var CHOROPLET_SCALE = [ [255, 255, 201], [192, 229, 174], [117, 198, 179], [59, 173, 187], [30, 134, 181], [31, 83, 155], [14, 39, 118]]
-
   var mapMunicipalities = d3.map();
+  var dataTOPOJSON = "https://gist.githubusercontent.com/jorgeatgu/dcb73825b02af45250c4dfa66aa0f94f/raw/18a9f2fa108c56454556abc7e08b64eb2a0dc4d8/municipalities_topojson.json";
+  var dataMunicipalities = "https://datos.gobierto.es/api/v1/data/data.csv?sql=SELECT+*+FROM+municipios"
+  var endPoint = "https://datos.gobierto.es/api/v1/data/data.csv?sql="
+
+  var CHOROPLET_SCALE = [
+    [255, 255, 201],
+    [192, 229, 174],
+    [117, 198, 179],
+    [59, 173, 187],
+    [30, 134, 181],
+    [31, 83, 155],
+    [14, 39, 118]
+  ]
+
 
   var INITIAL_VIEW_STATE = {
     latitude: 40.416775,
@@ -17,20 +29,30 @@ $(document).on('turbolinks:load', function () {
     maxZoom: 8
   };
 
-  var dataTOPOJSON = "https://gist.githubusercontent.com/jorgeatgu/dcb73825b02af45250c4dfa66aa0f94f/raw/18a9f2fa108c56454556abc7e08b64eb2a0dc4d8/municipalities_topojson.json";
-  var dataPlaces = "https://gist.githubusercontent.com/jorgeatgu/9995ac58cb5465d4a46f3e8fffe17cd3/raw/c12be8e0de4dd80e27c1fbe650a21461a840cc7c/places.csv";
 
-  var dataMunicipalities = "https://datos.gobierto.es/api/v1/data/data.csv?sql=SELECT+*+FROM+municipios"
+  var indicatorValue = 'gasto_por_habitante'
+  var year = document.getElementsByTagName('body')[0].getAttribute('data-year')
+  var queryData = `SELECT+${indicatorValue}+,place_id+FROM+indicadores_presupuestos_municipales+WHERE+year=${year}AND+${indicatorValue}+IS+NOT+NULL`;
 
-  var endPoint = "https://datos.gobierto.es/api/v1/data/data.csv?sql="
+  function getValuesIndicators() {
+    var populationAndCostQuery = `SELECT+SUM%28population%29+AS+population%2C+SUM%28gasto_total%29+AS+gasto_total+FROM+indicadores_presupuestos_municipales+WHERE+year=${year}`
+    var populationAndCostData = `${endPoint}${populationAndCostQuery}`
 
-  var dataIndicators = "https://datos.gobierto.es/api/v1/data/data.csv?sql=SELECT+*+FROM+indicadores_presupuestos_municipales"
-  var dataBudgtes = "https://datos.gobierto.es/api/v1/data/data.csv?sql=SELECT+*+FROM+presupuestos_municipales"
+    d3.csv(populationAndCostData).then(function (data) {
+      var totalCost = +data[0].gasto_total
+      var totalPopulation = +data[0].population
+      var costPerHabitant = (totalCost / totalPopulation)
+    })
 
+    var debtQuery = `SELECT+sum%28debt%29+AS+debt+FROM+indicadores_presupuestos_municipales+WHERE+year=${year}`
+    var debtData = `${endPoint}${debtQuery}`
 
-  d3.csv(dataPlaces, function (d) {
-    mapMunicipalities.set(d.id, +d.budget);
-  });
+    d3.csv(debtData).then(function (data) {
+      var totalDebt = +data[0].debt
+    })
+  }
+
+  var urlData = `${endPoint}${queryData}`
 
   var indicators = document.querySelectorAll('[data-indicator]')
 
@@ -43,173 +65,190 @@ $(document).on('turbolinks:load', function () {
   function loadIndicators(e) {
     var year = document.getElementsByTagName('body')[0].getAttribute('data-year')
     var indicatorValue = e.originalTarget.attributes["data-indicator"].nodeValue
-    var textEndPoint = `SELECT+${indicatorValue}+,place_id+FROM+indicadores_presupuestos_municipales+WHERE+year=${year}`;
+    var queryData = `SELECT+${indicatorValue}+,place_id+FROM+indicadores_presupuestos_municipales+WHERE+year=${year}AND+${indicatorValue}+IS+NOT+NULL`;
 
-    var finalString = `${endPoint}${textEndPoint}`
+    var urlData = `${endPoint}${queryData}`
 
-    d3.csv(finalString).then(function (data) {
-      data.forEach(function (d) {
-        mapMunicipalities.set(+d.place_id, +d.gasto_por_habitante);
-      })
-      console.log("mapMunicipalities", mapMunicipalities);
-    })
+    initMap(urlData, indicatorValue)
   }
 
-  d3.json(dataTOPOJSON).then(function (data) {
-
-
-    var MUNICIPALITIES = topojson.feature(data, data.objects.municipalities);
-    var COLOR_SCALE = d3.scaleThreshold() //TODO: build scale with d3min and d3max
-    .domain([100000, 110000, 120000, 140000, 160000, 170000, 180000])
-    .range(CHOROPLET_SCALE);
-
-    var geojsonLayer = new deck.GeoJsonLayer({
-      id: 'map',
-      data: MUNICIPALITIES,
-      stroked: false,
-      filled: true,
-      opacity: 0.6,
-      getFillColor: function (d) {
-        return COLOR_SCALE(d.gasto_por_habitante = mapMunicipalities.get(d.properties.cp));
-      },
-      pickable: true
-    });
-
-    var deckgl = new deck.Deck({
-      canvas: 'map',
-      initialViewState: INITIAL_VIEW_STATE,
-      controller: true,
-      layers: [geojsonLayer],
-      getTooltip: function getTooltip(_ref) {
-        var object = _ref.object;
-        if (object) {
-          return {
-            html: "<h3 class=\"tooltip-name\">".concat(object.properties.name, "</h3>\n <span style=\"tooltip-value\">Presupuesto: <b style=\"font-size: .65rem;\">").concat(object.budget, "\u20AC<b></span>"),
-            style: {
-              backgroundColor: '#FFF',
-              fontFamily: 'BlinkMacSystemFont, -apple-system',
-              fontSize: '.65rem',
-              borderRadius: '2px',
-              padding: '0.5rem',
-              boxShadow: '2px 2px 2px 1px rgba(0,0,0,0.1)'
-            }
-          };
-        }
-      },
-      onViewStateChange: ({viewState}) => deckgl.setProps({viewState})
-    });
-
-    d3.csv(dataMunicipalities).then(function(data) {
-      var nest = d3
-        .nest()
-        .key(function(d) { return d.nombre})
-        .entries(data);
-
-      nest.sort(function(a, b){
-         return d3.ascending(a.key, b.key);
+  function initMap(queryData, indicator) {
+    console.log("queryData", queryData);
+    console.log("indicator", indicator);
+    d3.csv(queryData).then(function (data) {
+      data.forEach(function (d) {
+        d.place_id = +d.place_id
+        d[indicator] = +d[indicator]
+        mapMunicipalities.set(d.place_id, d[indicator]);
       })
 
-      var selectMunicipalities = d3.select('#municipalities-flyTO');
+      var minValue = d3.min(data, function(d) { return d[indicator]})
+      var maxValue = d3.max(data, function(d) { return d[indicator]})
 
-      selectMunicipalities
-        .selectAll('option')
-        .data(nest)
-        .enter()
-        .append('option')
-        .attr('value', function(d) { return d.key})
-        .text(function(d) { return d.key})
+      var textMinValue = document.getElementById('map_legend_min_value')
+      var textMaxValue = document.getElementById('map_legend_max_value')
+      textMinValue.textContent = minValue
+      textMaxValue.textContent = maxValue
 
-      var increaseButton = document.getElementById('increaseZoom')
-      var decreaseButton = document.getElementById('decreaseZoom')
+      d3.json(dataTOPOJSON).then(function (data) {
 
-      increaseButton.addEventListener("click", increaseZoom, false)
-      decreaseButton.addEventListener("click", decreaseZoom, false)
+        var MUNICIPALITIES = topojson.feature(data, data.objects.municipalities);
+        var COLOR_SCALE = d3.scaleThreshold()
+          //FIX: HACK DOMAIN
+          .domain([minValue, minValue*2, minValue*3, minValue*4, minValue*5, minValue*6, minValue*7])
+          .range(CHOROPLET_SCALE);
 
-      function increaseZoom() {
-        //In the first render props.viewState are undefined, so we need modify the initialViewState instead viewState
-        if (!deckgl.props.hasOwnProperty('viewState')) {
-          changeStateProps('initialViewState', true)
-        } else {
-          changeStateProps('viewState', true)
-        }
-      }
-
-      function decreaseZoom() {
-        if (!deckgl.props.hasOwnProperty('viewState')) {
-          changeStateProps('initialViewState', false)
-        } else {
-          changeStateProps('viewState', false)
-        }
-      }
-
-      function changeStateProps(value, math) {
-        var mathValue = math === true ? + 1 : - 1
-        deckgl.setProps({
-          viewState: {
-            zoom: deckgl.props[value].zoom + mathValue,
-            latitude: deckgl.props[value].latitude,
-            longitude: deckgl.props[value].longitude,
-            maxZoom: deckgl.props[value].maxZoom,
-            minZoom: deckgl.props[value].minZoom
-          }
-        })
-      }
-
-
-      selectMunicipalities.on('change', function() {
-        //Get the selected municipality
-        var value = d3
-          .select(this)
-          .property('value')
-
-        //Filter municipalities with the selected value
-        var selectElement = data.filter(function (el) {
-          return el.nombre === value
-        });
-
-        //Pass coordinates to deck.gl
-        deckgl.setProps({
-          viewState: {
-            longitude: +selectElement[0].lat,
-            latitude: +selectElement[0].lon,
-            zoom: 9,
-            transitionInterpolator: new deck.FlyToInterpolator(),
-            transitionDuration: 1500
-          }
-        })
-
-        //Clone MUNICIPALITIES object
-        var strokeDATA = JSON.parse(JSON.stringify(MUNICIPALITIES));
-
-        var strokeDATAFILTER = strokeDATA.features
-
-        //Filter by selected municipality
-        var strokeSelected = strokeDATAFILTER.filter(function (el) {
-          return el.properties.name === value
-        });
-
-        //Replace object features
-        strokeDATA.features = strokeSelected
-
-        //Create a new layer that contains only the selected municipality
-        var selectedMunicipality = [new deck.GeoJsonLayer({
+        var geojsonLayer = new deck.GeoJsonLayer({
           id: 'map',
-          data: strokeDATA,
-          stroked: true,
+          data: MUNICIPALITIES,
+          stroked: false,
           filled: true,
-          lineWidthMinPixels: 1,
           opacity: 1,
           getFillColor: function (d) {
-            return COLOR_SCALE(d.budget = mapMunicipalities.get(d.properties.cp));
+            return COLOR_SCALE(d[indicator] = mapMunicipalities.get(d.properties.cp));
           },
           pickable: true
-        })];
+        });
 
-        //Update deck.gl with the old and new layer.
-        deckgl.setProps({layers: [geojsonLayer, selectedMunicipality]});
+        var deckgl = new deck.Deck({
+          canvas: 'map',
+          initialViewState: INITIAL_VIEW_STATE,
+          controller: true,
+          layers: [geojsonLayer],
+          getTooltip: function getTooltip(_ref) {
+            var object = _ref.object;
+            if (object && object[indicator]) {
+              return {
+                html: "<h3 class=\"tooltip-name\">".concat(object.properties.name, "</h3>\n <span style=\"tooltip-value\">Presupuesto: <b style=\"font-size: .65rem;\">").concat(object[indicator], "\u20AC<b></span>"),
+                style: {
+                  backgroundColor: '#FFF',
+                  fontFamily: 'BlinkMacSystemFont, -apple-system',
+                  fontSize: '.65rem',
+                  borderRadius: '2px',
+                  padding: '0.5rem',
+                  boxShadow: '2px 2px 2px 1px rgba(0,0,0,0.1)'
+                }
+              };
+            }
+          },
+          onViewStateChange: ({viewState}) => deckgl.setProps({viewState})
+        });
+
+        d3.csv(dataMunicipalities).then(function(data) {
+          var nest = d3
+            .nest()
+            .key(function(d) { return d.nombre})
+            .entries(data);
+
+          nest.sort(function(a, b){
+             return d3.ascending(a.key, b.key);
+          })
+
+          var selectMunicipalities = d3.select('#municipalities-flyTO');
+
+          selectMunicipalities
+            .selectAll('option')
+            .data(nest)
+            .enter()
+            .append('option')
+            .attr('value', function(d) { return d.key})
+            .text(function(d) { return d.key})
+
+          var increaseButton = document.getElementById('increaseZoom')
+          var decreaseButton = document.getElementById('decreaseZoom')
+
+          increaseButton.addEventListener("click", increaseZoom, false)
+          decreaseButton.addEventListener("click", decreaseZoom, false)
+
+          function increaseZoom() {
+            //In the first render props.viewState are undefined, so we need modify the initialViewState instead viewState
+            if (!deckgl.props.hasOwnProperty('viewState')) {
+              changeStateProps('initialViewState', true)
+            } else {
+              changeStateProps('viewState', true)
+            }
+          }
+
+          function decreaseZoom() {
+            if (!deckgl.props.hasOwnProperty('viewState')) {
+              changeStateProps('initialViewState', false)
+            } else {
+              changeStateProps('viewState', false)
+            }
+          }
+
+          function changeStateProps(value, increase) {
+            var increaseDecrease = increase === true ? + 1 : - 1
+            deckgl.setProps({
+              viewState: {
+                zoom: deckgl.props[value].zoom + increaseDecrease,
+                latitude: deckgl.props[value].latitude,
+                longitude: deckgl.props[value].longitude,
+                maxZoom: deckgl.props[value].maxZoom,
+                minZoom: deckgl.props[value].minZoom
+              }
+            })
+          }
+
+          selectMunicipalities.on('change', function() {
+            //Get the selected municipality
+            var value = d3
+              .select(this)
+              .property('value')
+
+            //Filter municipalities with the selected value
+            var selectElement = data.filter(function (el) {
+              return el.nombre === value
+            });
+
+            //Pass coordinates to deck.gl
+            deckgl.setProps({
+              viewState: {
+                longitude: +selectElement[0].lat,
+                latitude: +selectElement[0].lon,
+                zoom: 9,
+                transitionInterpolator: new deck.FlyToInterpolator(),
+                transitionDuration: 1500
+              }
+            })
+
+            //Clone MUNICIPALITIES object
+            var strokeDATA = JSON.parse(JSON.stringify(MUNICIPALITIES));
+
+            var strokeDATAFILTER = strokeDATA.features
+
+            //Filter by selected municipality
+            var strokeSelected = strokeDATAFILTER.filter(function (el) {
+              return el.properties.name === value
+            });
+
+            //Replace object features
+            strokeDATA.features = strokeSelected
+
+            //Create a new layer that contains only the selected municipality
+            var selectedMunicipality = [new deck.GeoJsonLayer({
+              id: 'map',
+              data: strokeDATA,
+              stroked: true,
+              filled: true,
+              lineWidthMinPixels: 1,
+              opacity: 1,
+              getFillColor: function (d) {
+                return COLOR_SCALE(d.budget = mapMunicipalities.get(d.properties.cp));
+              },
+              pickable: true
+            })];
+
+            //Update deck.gl with the old and new layer.
+            deckgl.setProps({layers: [geojsonLayer, selectedMunicipality]});
+          });
+        });
       });
-    });
-  });
+    })
+
+  }
+  initMap(urlData, indicatorValue)
+  getValuesIndicators()
 });
 
 /* function placesScopeCondition(){
