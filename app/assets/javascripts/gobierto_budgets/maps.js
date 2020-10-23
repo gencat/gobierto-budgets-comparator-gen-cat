@@ -1,5 +1,6 @@
 $(document).on('turbolinks:load', function () {
 
+  var deckgl
   new SlimSelect({
     select: '#municipalities-flyTO',
     placeholder: 'Introduce un municipio'
@@ -73,8 +74,6 @@ $(document).on('turbolinks:load', function () {
   }
 
   function initMap(queryData, indicator) {
-    console.log("queryData", queryData);
-    console.log("indicator", indicator);
     d3.csv(queryData).then(function (data) {
       data.forEach(function (d) {
         d.place_id = +d.place_id
@@ -110,7 +109,7 @@ $(document).on('turbolinks:load', function () {
           pickable: true
         });
 
-        var deckgl = new deck.Deck({
+        deckgl = new deck.Deck({
           canvas: 'map',
           initialViewState: INITIAL_VIEW_STATE,
           controller: true,
@@ -130,6 +129,9 @@ $(document).on('turbolinks:load', function () {
                 }
               };
             }
+          },
+          updateTriggers: {
+            getFillColor: indicator
           },
           onViewStateChange: ({viewState}) => deckgl.setProps({viewState})
         });
@@ -227,14 +229,14 @@ $(document).on('turbolinks:load', function () {
 
             //Create a new layer that contains only the selected municipality
             var selectedMunicipality = [new deck.GeoJsonLayer({
-              id: 'map',
+              id: 'map-stroke',
               data: strokeDATA,
               stroked: true,
               filled: true,
               lineWidthMinPixels: 1,
               opacity: 1,
               getFillColor: function (d) {
-                return COLOR_SCALE(d.budget = mapMunicipalities.get(d.properties.cp));
+                return COLOR_SCALE(mapMunicipalities.get(d.properties.cp));
               },
               pickable: true
             })];
