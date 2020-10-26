@@ -106,7 +106,7 @@ $(document).on('turbolinks:load', function() {
           stroked: false,
           filled: true,
           opacity: 1,
-          getFillColor,
+          getFillColor: getFillColor,
           pickable: true
         });
 
@@ -211,7 +211,7 @@ $(document).on('turbolinks:load', function() {
               filled: true,
               lineWidthMinPixels: 1,
               opacity: 1,
-              getFillColor,
+              getFillColor: getFillColor,
               pickable: true
             })];
 
