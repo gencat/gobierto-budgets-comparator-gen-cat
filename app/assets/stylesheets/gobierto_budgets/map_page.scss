@@ -34,16 +34,15 @@ body[data-action="map"] .main_metrics .metric:hover {
   float: right;
   margin: 0 20px 0 0;
 }
-#map .overlay {
+.container-map #overlay {
   pointer-events: none;
   position: absolute;
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, 0.25);
-  display: none;
   z-index: 1;
 }
-#map .fa-spin {
+.container-map .fa-spin {
   position: absolute;
   top: 45%;
   margin-left: auto;
@@ -211,6 +210,7 @@ body[data-action="map"] .main_metrics .metric:hover {
   font-weight: bold;
   display: inline-block;
   width: 50%;
+  text-transform: uppercase;
   &:last-child {
     text-align: right;
   }
@@ -265,8 +265,23 @@ body[data-action="map"] .main_metrics .metric:hover {
   color: #554E41;
 }
 
-.tooltip-value {
+.tooltip-value,
+.tooltip-indicator {
   display: block;
   margin-top: .25rem;
   color: #000;
+  font-size: 0.875rem;
+}
+
+.tooltip-value {
+  text-align: right;
+  font-weight: 700;
+  b {
+    text-transform: uppercase;
+  }
+}
+
+.deck-tooltip {
+  min-width: 250px;
+  max-width: 275px;
 }
