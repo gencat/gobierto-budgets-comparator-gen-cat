@@ -14,9 +14,9 @@ $(document).on('turbolinks:load', function() {
   var endPoint = "https://datos.gobierto.es/api/v1/data/data.csv?sql="
   var indicator = 'gasto_por_habitante'
   var year = document.getElementsByTagName('body')[0].getAttribute('data-year')
-  var queryData = `SELECT+${indicator}+,place_id+FROM+indicadores_presupuestos_municipales+WHERE+year=${year}AND+${indicator}+IS+NOT+NULL`;
+  var queryData = "SELECT+".concat(indicator, "+,place_id+FROM+indicadores_presupuestos_municipales+WHERE+year=").concat(year, "AND+").concat(indicator, "+IS+NOT+NULL");
 
-  var urlData = `${endPoint}${queryData}`
+  var urlData = "".concat(endPoint).concat(queryData);
 
   var indicators = document.querySelectorAll('[data-indicator]')
 
@@ -48,8 +48,13 @@ $(document).on('turbolinks:load', function() {
     canvas: 'map',
     initialViewState: INITIAL_VIEW_STATE,
     controller: true,
-    getTooltip,
-    onViewStateChange: ({ viewState }) => deckgl.setProps({ viewState })
+    getTooltip: getTooltip,
+    onViewStateChange: function onViewStateChange(_ref) {
+      var viewState = _ref.viewState;
+      return deckgl.setProps({
+        viewState: viewState
+      });
+    }
   });
 
   function getTooltip(_ref) {
@@ -226,31 +231,26 @@ $(document).on('turbolinks:load', function() {
   }
 
   function getValuesIndicators() {
-    var populationAndCostQuery = `SELECT+SUM%28population%29+AS+population%2C+SUM%28gasto_total%29+AS+gasto_total+FROM+indicadores_presupuestos_municipales+WHERE+year=${year}`
-    var populationAndCostData = `${endPoint}${populationAndCostQuery}`
-
-    d3.csv(populationAndCostData).then(function(data) {
-      var totalCost = +data[0].gasto_total
-      var totalPopulation = +data[0].population
-      var costPerHabitant = (totalCost / totalPopulation)
-    })
-
-    var debtQuery = `SELECT+sum%28debt%29+AS+debt+FROM+indicadores_presupuestos_municipales+WHERE+year=${year}`
-    var debtData = `${endPoint}${debtQuery}`
-
-    d3.csv(debtData).then(function(data) {
-      var totalDebt = +data[0].debt
-    })
+    var populationAndCostQuery = "SELECT+SUM%28population%29+AS+population%2C+SUM%28gasto_total%29+AS+gasto_total+FROM+indicadores_presupuestos_municipales+WHERE+year=".concat(year);
+    var populationAndCostData = "".concat(endPoint).concat(populationAndCostQuery);
+    d3.csv(populationAndCostData).then(function (data) {
+      var totalCost = +data[0].gasto_total;
+      var totalPopulation = +data[0].population;
+      var costPerHabitant = totalCost / totalPopulation;
+    });
+    var debtQuery = "SELECT+sum%28debt%29+AS+debt+FROM+indicadores_presupuestos_municipales+WHERE+year=".concat(year);
+    var debtData = "".concat(endPoint).concat(debtQuery);
+    d3.csv(debtData).then(function (data) {
+      var totalDebt = +data[0].debt;
+    });
   }
 
   function loadIndicators(e) {
-    var year = document.getElementsByTagName('body')[0].getAttribute('data-year')
-    indicator = e.originalTarget.attributes["data-indicator"].nodeValue
-    var queryData = `SELECT+${indicator}+,place_id+FROM+indicadores_presupuestos_municipales+WHERE+year=${year}AND+${indicator}+IS+NOT+NULL`;
-
-    urlData = `${endPoint}${queryData}`
-
-    redraw()
+    var year = document.getElementsByTagName('body')[0].getAttribute('data-year');
+    indicator = e.originalTarget.attributes["data-indicator"].nodeValue;
+    var queryData = "SELECT+".concat(indicator, "+,place_id+FROM+indicadores_presupuestos_municipales+WHERE+year=").concat(year, "AND+").concat(indicator, "+IS+NOT+NULL");
+    urlData = "".concat(endPoint).concat(queryData);
+    redraw();
   }
 
   redraw()
