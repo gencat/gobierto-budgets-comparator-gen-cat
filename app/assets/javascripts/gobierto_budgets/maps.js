@@ -8,8 +8,10 @@ $(document).on('turbolinks:load', function() {
     placeholder: 'Introduce un municipio'
   })
 
+  var minValue
+  var maxValue
   var spinner = document.getElementById('overlay')
-  var mapMunicipalities = d3.map();
+  var mapMunicipalities
   var dataTOPOJSON = "https://gist.githubusercontent.com/jorgeatgu/dcb73825b02af45250c4dfa66aa0f94f/raw/86098e0372670238b03ccb46f7d9454bdc9f9d7b/municipalities_topojson.json";
   var dataMunicipalities = "https://datos.gobierto.es/api/v1/data/data.csv?sql=SELECT+*+FROM+municipios"
   var endPoint = "https://datos.gobierto.es/api/v1/data/data.csv?sql="
@@ -20,6 +22,35 @@ $(document).on('turbolinks:load', function() {
   var urlData = "".concat(endPoint).concat(queryData);
 
   var indicators = document.querySelectorAll('[data-indicator]')
+/*  var indicatorsTable = document.getElementsByClassName('.js-ranking-link')
+
+  indicatorsTable.addEventListener("click", loadIndicatorsTest);
+
+  function loadIndicatorsTest() {
+  }*/
+
+  var indicatorsValue = {
+    gasto_por_habitante: {
+      name: I18n.t('gobierto_budgets.pages.map.expense_per_inhabitant'),
+      unit: '€/hab',
+    },
+    gasto_total: {
+      name: I18n.t('gobierto_budgets.pages.map.expense'),
+      unit: '€',
+    },
+    planned_vs_executed: {
+      name: I18n.t('gobierto_budgets.pages.map.planned_vs_executed'),
+      unit: '%',
+    },
+    debt: {
+      name: I18n.t('gobierto_budgets.pages.map.debt'),
+      unit: '€',
+    },
+    population: {
+      name: I18n.t('gobierto_budgets.pages.map.population'),
+      unit: ' ' + I18n.t('gobierto_budgets.pages.map.people'),
+    }
+  };
 
   var completeIndicator = '€/Hab'
   var tooltipString = 'Gasto por habitante'
@@ -66,27 +97,29 @@ $(document).on('turbolinks:load', function() {
   function onClick(info, event) {
     var municipality = info.object.properties.name
     var replaced = municipality.replace(/ /g, '-');
-    accentsTidy = function(s){
-          var r = s.toLowerCase();
-          r = r.replace(/ /g, '-');
-          r = r.replace(new RegExp("[àáâãäå]", 'g'),"a");
-          r = r.replace(new RegExp("æ", 'g'),"ae");
-          r = r.replace(new RegExp("ç", 'g'),"c");
-          r = r.replace(new RegExp("[èéêë]", 'g'),"e");
-          r = r.replace(new RegExp("[ìíîï]", 'g'),"i");
-          r = r.replace(new RegExp("ñ", 'g'),"n");
-          r = r.replace(new RegExp("[òóôõö]", 'g'),"o");
-          r = r.replace(new RegExp("œ", 'g'),"oe");
-          r = r.replace(new RegExp("[ùúûü]", 'g'),"u");
-          r = r.replace(new RegExp("[ýÿ]", 'g'),"y");
-          return r;
-  };
     window.location.href = "/places/" + accentsTidy(replaced) + "/" + year;
   }
 
+  //Replace characters from the names of municipalities to build URL's
+  accentsTidy = function(s){
+    var r = s.toLowerCase();
+    r = r.replace(/ /g, '-');
+    r = r.replace(new RegExp("[àáâãäå]", 'g'),"a");
+    r = r.replace(new RegExp("æ", 'g'),"ae");
+    r = r.replace(new RegExp("ç", 'g'),"c");
+    r = r.replace(new RegExp("[èéêë]", 'g'),"e");
+    r = r.replace(new RegExp("[ìíîï]", 'g'),"i");
+    r = r.replace(new RegExp("ñ", 'g'),"n");
+    r = r.replace(new RegExp("[òóôõö]", 'g'),"o");
+    r = r.replace(new RegExp("œ", 'g'),"oe");
+    r = r.replace(new RegExp("[ùúûü]", 'g'),"u");
+    r = r.replace(new RegExp("[ýÿ]", 'g'),"y");
+    return r;
+  };
+
   function getTooltip(_ref) {
     var object = _ref.object;
-    if (object && object[indicator] !== undefined) {
+    if (object && object[indicator] !== undefined || NaN) {
       return {
         html: "<h3 class=tooltip-name>".concat(object.properties.name, "</h3><div class=\"pure-g\"><div class=\"pure-u-1 pure-u-md-3-5\"><span class=\"tooltip-indicator\">").concat(tooltipString, "</div> <div class=\"pure-u-1 pure-u-md-2-5\"><span class=\"tooltip-value\">").concat(object[indicator]).concat(completeIndicator, "</span></div></span></div>"),
         style: {
@@ -106,15 +139,19 @@ $(document).on('turbolinks:load', function() {
   }
 
   function redraw() {
+    mapMunicipalities = d3.map();
     d3.csv(urlData, function(data) {
+
       data.forEach(function(d) {
         d.place_id = +d.place_id
         d[indicator] = +d[indicator]
         mapMunicipalities.set(d.place_id, d[indicator]);
       })
 
-      var minValue = d3.min(data, function(d) { return d[indicator] })
-      var maxValue = d3.max(data, function(d) { return d[indicator] })
+      var dataDuplicates = data
+
+      minValue = d3.min(data, function(d) { return d[indicator] })
+      maxValue = d3.max(data, function(d) { return d[indicator] })
 
       var dataForDomainScale
 
@@ -131,8 +168,21 @@ $(document).on('turbolinks:load', function() {
       textMaxValue.textContent = "".concat(maxValue).concat(completeIndicator);
 
       d3.json(dataTOPOJSON, function(data) {
+        var MUNICIPALITIES = {}
+        MUNICIPALITIES = topojson.feature(data, data.objects.municipalities);
 
-        var MUNICIPALITIES = topojson.feature(data, data.objects.municipalities);
+        if (indicator === 'amount_per_inhabitant') {
+
+          var budgetTableFilter = MUNICIPALITIES.features;
+          var budgetTableFiltered = budgetTableFilter.filter(function (el) {
+            return dataDuplicates.some(function (f) {
+              return f.place_id === el.properties.cp;
+            });
+          });
+          //Replace object features
+          MUNICIPALITIES.features = budgetTableFiltered
+        }
+
         var geojsonLayer = new deck.GeoJsonLayer({
           id: 'map',
           data: MUNICIPALITIES,
@@ -262,6 +312,7 @@ $(document).on('turbolinks:load', function() {
   }
 
   function getLineColor(d) {
+    //Only changes the color of the Canarian Islands border
     if (Object.keys(d.properties).length === 0) {
       return [0,0,0]
     } else {
@@ -279,40 +330,26 @@ $(document).on('turbolinks:load', function() {
     return COLOR_SCALE(d[indicator] = mapMunicipalities.get(d.properties.cp));
   }
 
-  function getValuesIndicators() {
-    var populationAndCostQuery = "SELECT+SUM%28population%29+AS+population%2C+SUM%28gasto_total%29+AS+gasto_total+FROM+indicadores_presupuestos_municipales+WHERE+year=".concat(year);
-    var populationAndCostData = "".concat(endPoint).concat(populationAndCostQuery);
-    d3.csv(populationAndCostData, function (data) {
-      var totalCost = +data[0].gasto_total;
-      var totalPopulation = +data[0].population;
-      var costPerHabitant = totalCost / totalPopulation;
-    });
-    var debtQuery = "SELECT+sum%28debt%29+AS+debt+FROM+indicadores_presupuestos_municipales+WHERE+year=".concat(year);
-    var debtData = "".concat(endPoint).concat(debtQuery);
-    d3.csv(debtData, function (data) {
-      var totalDebt = +data[0].debt;
-    });
-  }
-
   function loadIndicators(e) {
     spinner.style.display = 'block'
     indicator = $('.metric.selected').data('indicator');
     if(indicator === 'gasto_por_habitante') {
-      completeIndicator = '€/Hab'
-      tooltipString = 'Gasto por habitante'
+      completeIndicator = indicatorsValue.gasto_por_habitante.unit
+      tooltipString = indicatorsValue.gasto_por_habitante.name
     } else if (indicator === 'gasto_total') {
-      completeIndicator = '€'
-      tooltipString = 'Gasto total'
+      completeIndicator = indicatorsValue.gasto_total.unit
+      tooltipString = indicatorsValue.gasto_total.name
     } else if (indicator === 'planned_vs_executed') {
-      completeIndicator = '%'
-      tooltipString = 'Planeado vs Ejecutado'
+      completeIndicator = indicatorsValue.planned_vs_executed.unit
+      tooltipString = indicatorsValue.planned_vs_executed.name
     } else if (indicator === 'population') {
-      completeIndicator = ' personas'
-      tooltipString = 'Población'
+      completeIndicator = indicatorsValue.population.unit
+      tooltipString = indicatorsValue.population.name
     } else if (indicator === 'debt') {
-      completeIndicator = '€'
-      tooltipString = 'Deuda'
+      completeIndicator = indicatorsValue.debt.unit
+      tooltipString = indicatorsValue.debt.name
     }
+
     var year = document.getElementsByTagName('body')[0].getAttribute('data-year');
     
     var queryData = "SELECT+".concat(indicator, "+,place_id+FROM+indicadores_presupuestos_municipales+WHERE+year=").concat(year, "AND+").concat(indicator, "+IS+NOT+NULL");
@@ -321,7 +358,24 @@ $(document).on('turbolinks:load', function() {
   }
 
   redraw()
-  getValuesIndicators()
+
+  $(document).on('renderBudgetLineCategory', function(e){
+    var element = e.target.activeElement.dataset
+
+    var year = document.getElementsByTagName('body')[0].getAttribute('data-year');
+    var area = element.area === 'economic' ? 'e' : 'f'
+    var kind = element.kind
+    var code = element.categoryCode
+    indicator = 'amount_per_inhabitant'
+
+    var queryData = "SELECT+amount_per_inhabitant,place_id+FROM+presupuestos_municipales+WHERE+year%3D%27".concat(year, "%27+AND+code%3D%27").concat(code, "%27+AND+kind%3D%27").concat(kind, "%27+and+area%3D%27").concat(area, "%27");
+    urlData = "".concat(endPoint).concat(queryData);
+    redraw();
+
+    completeIndicator = indicatorsValue.gasto_por_habitante.unit
+    tooltipString = indicatorsValue.gasto_por_habitante.name
+
+  });
 
   $('.metric').on('click', function(e){
     e.preventDefault();
