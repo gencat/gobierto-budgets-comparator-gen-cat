@@ -10,7 +10,7 @@ $(document).on('turbolinks:load', function() {
 
   var spinner = document.getElementById('overlay')
   var mapMunicipalities = d3.map();
-  var dataTOPOJSON = "https://gist.githubusercontent.com/jorgeatgu/dcb73825b02af45250c4dfa66aa0f94f/raw/18a9f2fa108c56454556abc7e08b64eb2a0dc4d8/municipalities_topojson.json";
+  var dataTOPOJSON = "https://gist.githubusercontent.com/jorgeatgu/dcb73825b02af45250c4dfa66aa0f94f/raw/86098e0372670238b03ccb46f7d9454bdc9f9d7b/municipalities_topojson.json";
   var dataMunicipalities = "https://datos.gobierto.es/api/v1/data/data.csv?sql=SELECT+*+FROM+municipios"
   var endPoint = "https://datos.gobierto.es/api/v1/data/data.csv?sql="
   var indicator = 'gasto_por_habitante'
@@ -86,7 +86,7 @@ $(document).on('turbolinks:load', function() {
 
   function getTooltip(_ref) {
     var object = _ref.object;
-    if (object) {
+    if (object && object[indicator] !== undefined) {
       return {
         html: "<h3 class=tooltip-name>".concat(object.properties.name, "</h3><div class=\"pure-g\"><div class=\"pure-u-1 pure-u-md-3-5\"><span class=\"tooltip-indicator\">").concat(tooltipString, "</div> <div class=\"pure-u-1 pure-u-md-2-5\"><span class=\"tooltip-value\">").concat(object[indicator]).concat(completeIndicator, "</span></div></span></div>"),
         style: {
@@ -137,8 +137,8 @@ $(document).on('turbolinks:load', function() {
           id: 'map',
           data: MUNICIPALITIES,
           stroked: true,
-          lineWidthMinPixels: 0.4,
-          getLineColor: [255,255,255],
+          lineWidthMinPixels: 0.6,
+          getLineColor: getLineColor,
           filled: true,
           opacity: 1,
           getFillColor: getFillColor,
@@ -261,7 +261,18 @@ $(document).on('turbolinks:load', function() {
     })
   }
 
+  function getLineColor(d) {
+    if (Object.keys(d.properties).length === 0) {
+      return [0,0,0]
+    } else {
+      return [255,255,255]
+    }
+  }
+
   function getFillColor(d) {
+    if (Object.keys(d.properties).length === 0) {
+      return [255,255,255,0]
+    }
     var COLOR_SCALE = d3.scaleThreshold()
       .domain(CUSTOM_DOMAIN)
       .range(CHOROPLET_SCALE);

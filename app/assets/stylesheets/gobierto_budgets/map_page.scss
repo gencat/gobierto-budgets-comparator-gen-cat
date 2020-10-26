@@ -169,7 +169,7 @@ body[data-action="map"] .main_metrics .metric:hover {
   background: #fff;
   width: 2rem;
   position: absolute;
-  right: 1rem;
+  right: 0;
   bottom: 1rem;
 }
 
@@ -190,7 +190,7 @@ body[data-action="map"] .main_metrics .metric:hover {
 .container-map {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 78vh;
 }
 
 .map_legend {
