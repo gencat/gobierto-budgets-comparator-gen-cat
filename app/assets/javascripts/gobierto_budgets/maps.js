@@ -106,7 +106,7 @@ $(document).on('turbolinks:load', function() {
   }
 
   function redraw() {
-    d3.csv(urlData).then(function(data) {
+    d3.csv(urlData, function(data) {
       data.forEach(function(d) {
         d.place_id = +d.place_id
         d[indicator] = +d[indicator]
@@ -130,7 +130,7 @@ $(document).on('turbolinks:load', function() {
       textMinValue.textContent = "".concat(minValue).concat(completeIndicator);
       textMaxValue.textContent = "".concat(maxValue).concat(completeIndicator);
 
-      d3.json(dataTOPOJSON).then(function(data) {
+      d3.json(dataTOPOJSON, function(data) {
 
         var MUNICIPALITIES = topojson.feature(data, data.objects.municipalities);
         var geojsonLayer = new deck.GeoJsonLayer({
@@ -149,7 +149,8 @@ $(document).on('turbolinks:load', function() {
 
         spinner.style.display = 'none'
 
-        d3.csv(dataMunicipalities).then(function(data) {
+
+        d3.csv(dataMunicipalities,function(data) {
           var nest = d3
             .nest()
             .key(function(d) { return d.nombre })
@@ -270,14 +271,14 @@ $(document).on('turbolinks:load', function() {
   function getValuesIndicators() {
     var populationAndCostQuery = "SELECT+SUM%28population%29+AS+population%2C+SUM%28gasto_total%29+AS+gasto_total+FROM+indicadores_presupuestos_municipales+WHERE+year=".concat(year);
     var populationAndCostData = "".concat(endPoint).concat(populationAndCostQuery);
-    d3.csv(populationAndCostData).then(function (data) {
+    d3.csv(populationAndCostData, function (data) {
       var totalCost = +data[0].gasto_total;
       var totalPopulation = +data[0].population;
       var costPerHabitant = totalCost / totalPopulation;
     });
     var debtQuery = "SELECT+sum%28debt%29+AS+debt+FROM+indicadores_presupuestos_municipales+WHERE+year=".concat(year);
     var debtData = "".concat(endPoint).concat(debtQuery);
-    d3.csv(debtData).then(function (data) {
+    d3.csv(debtData, function (data) {
       var totalDebt = +data[0].debt;
     });
   }
