@@ -1,8 +1,7 @@
 $(document).on('turbolinks:load', function() {
   new SlimSelect({
     select: '#municipalities-flyTO',
-    placeholder: false,
-    text: 'placeholder text'
+    placeholder: false
   })
 
   var locale = d3.formatDefaultLocale({
@@ -147,6 +146,9 @@ $(document).on('turbolinks:load', function() {
 
   function onLoad() {
     spinner.style.display = 'none'
+    var placeholder = document.querySelector('.placeholder')
+    placeholder.textContent = I18n.t('gobierto_budgets.places.place_header.search_municipality')
+    $('.ss-disabled.ss-option-selected').removeClass('ss-option-selected ss-disabled')
   }
 
   function redraw() {
