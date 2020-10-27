@@ -46,8 +46,8 @@ $(document).on('turbolinks:load', function() {
     }
   };
 
-  var completeIndicator = indicatorsValue.gasto_por_habitante.name
-  var tooltipString = indicatorsValue.gasto_por_habitante.unit
+  var completeIndicator = indicatorsValue.gasto_por_habitante.unit
+  var tooltipString = indicatorsValue.gasto_por_habitante.name
 
   indicators.forEach(
     function(indicator) {
@@ -167,29 +167,63 @@ $(document).on('turbolinks:load', function() {
 
         if (indicator === 'amount_per_inhabitant') {
 
+          var MUNICIPALITIES_CLONE = JSON.parse(JSON.stringify(MUNICIPALITIES));
+
           var budgetTableFilter = MUNICIPALITIES.features;
           var budgetTableFiltered = budgetTableFilter.filter(function (el) {
             return dataDuplicates.some(function (f) {
               return f.place_id === el.properties.cp;
             });
           });
+
+          var budgetMunicipalitiesWithoutData = dataDuplicates.filter(function (el) {
+            return budgetTableFilter.some(function (f) {
+              return f.properties.cp === el.place_id;
+            });
+          });
+
           //Replace object features
           MUNICIPALITIES.features = budgetTableFiltered
+          var geojsonLayer = new deck.GeoJsonLayer({
+            id: 'map',
+            data: MUNICIPALITIES,
+            stroked: true,
+            lineWidthMinPixels: 0.6,
+            getLineColor: getLineColor,
+            filled: true,
+            opacity: 1,
+            getFillColor: getFillColor,
+            pickable: true
+          });
+
+          var geojsonLayerWithoutData = new deck.GeoJsonLayer({
+            id: 'map',
+            data: MUNICIPALITIES_CLONE,
+            stroked: true,
+            lineWidthMinPixels: 0.6,
+            getLineColor: getLineColor,
+            filled: true,
+            opacity: 0.1,
+            pickable: true
+          });
+          deckgl.setProps({layers: [geojsonLayerWithoutData, geojsonLayer]});
+        } else {
+          var geojsonLayer = new deck.GeoJsonLayer({
+            id: 'map',
+            data: MUNICIPALITIES,
+            stroked: true,
+            lineWidthMinPixels: 0.6,
+            getLineColor: getLineColor,
+            filled: true,
+            opacity: 1,
+            getFillColor: getFillColor,
+            pickable: true
+          });
+
+          deckgl.setProps({layers: [geojsonLayer]});
         }
 
-        var geojsonLayer = new deck.GeoJsonLayer({
-          id: 'map',
-          data: MUNICIPALITIES,
-          stroked: true,
-          lineWidthMinPixels: 0.6,
-          getLineColor: getLineColor,
-          filled: true,
-          opacity: 1,
-          getFillColor: getFillColor,
-          pickable: true
-        });
-
-        deckgl.setProps({layers: [geojsonLayer]});
+        
 
         spinner.style.display = 'none'
 
