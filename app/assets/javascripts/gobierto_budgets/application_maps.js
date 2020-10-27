@@ -11,8 +11,15 @@
 //= require gobierto_budgets/vendor/js.cookie
 //= require mustache.min
 //= require flight-for-rails
-/* TODO: replace by d3.v4.min */
-//= require d3.v3.min
+//= require velocity.min
+//= require velocity.ui.min
+//= require velocity_settings
+//= require jquery.sticky
+//= require deck.gl.min
+//= require topojson-client.min
+//= require d3.v4.min
+//= require slimselect.min
+//= require chroma.min
 //= require d3-legend.min
 //= require d3-jetpack
 //= require gobierto_budgets/vendor/select2.min

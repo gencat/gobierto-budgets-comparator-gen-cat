@@ -22,12 +22,6 @@ $(document).on('turbolinks:load', function() {
   var urlData = "".concat(endPoint).concat(queryData);
 
   var indicators = document.querySelectorAll('[data-indicator]')
-/*  var indicatorsTable = document.getElementsByClassName('.js-ranking-link')
-
-  indicatorsTable.addEventListener("click", loadIndicatorsTest);
-
-  function loadIndicatorsTest() {
-  }*/
 
   var indicatorsValue = {
     gasto_por_habitante: {
@@ -52,8 +46,8 @@ $(document).on('turbolinks:load', function() {
     }
   };
 
-  var completeIndicator = '€/Hab'
-  var tooltipString = 'Gasto por habitante'
+  var completeIndicator = indicatorsValue.gasto_por_habitante.name
+  var tooltipString = indicatorsValue.gasto_por_habitante.unit
 
   indicators.forEach(
     function(indicator) {
@@ -198,7 +192,6 @@ $(document).on('turbolinks:load', function() {
         deckgl.setProps({layers: [geojsonLayer]});
 
         spinner.style.display = 'none'
-
 
         d3.csv(dataMunicipalities,function(data) {
           var nest = d3
