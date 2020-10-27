@@ -22,6 +22,7 @@ $(document).on('turbolinks:load', function() {
   var mapMunicipalities
   var dataTOPOJSON
   var dataMunicipalities
+  var geojsonLayerWithoutData
 
   var spinner = document.getElementById('overlay')
   var urlTOPOJSON = "https://gist.githubusercontent.com/jorgeatgu/dcb73825b02af45250c4dfa66aa0f94f/raw/86098e0372670238b03ccb46f7d9454bdc9f9d7b/municipalities_topojson.json";
@@ -335,6 +336,8 @@ $(document).on('turbolinks:load', function() {
             longitude: +selectElement[0].lat,
             latitude: +selectElement[0].lon,
             zoom: 9,
+            minZoom: 5,
+            maxZoom: 9,
             transitionInterpolator: new deck.FlyToInterpolator(),
             transitionDuration: 1500
           }
@@ -365,8 +368,13 @@ $(document).on('turbolinks:load', function() {
           pickable: true
         })];
 
-        //Update deck.gl with the old and new layer.
-        deckgl.setProps({ layers: [geojsonLayer, selectedMunicipality] });
+        if(indicator === 'amount_per_inhabitant') {
+          //Update deck.gl with the old and new layer.
+          deckgl.setProps({ layers: [geojsonLayerWithoutData, geojsonLayer] });
+        } else {
+          deckgl.setProps({ layers: [geojsonLayer, selectedMunicipality] });
+        }
+
       });
     })
   }
