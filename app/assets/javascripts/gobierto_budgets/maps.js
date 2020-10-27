@@ -1,7 +1,7 @@
 $(document).on('turbolinks:load', function() {
   new SlimSelect({
     select: '#municipalities-flyTO',
-    placeholder: false
+    placeholder: I18n.t('gobierto_budgets.places.place_header.search_municipality')
   })
 
   var locale = d3.formatDefaultLocale({
@@ -22,10 +22,12 @@ $(document).on('turbolinks:load', function() {
   var dataTOPOJSON
   var dataMunicipalities
   var geojsonLayerWithoutData
+  var dataMunicipalitiesLATLONG
 
   var spinner = document.getElementById('overlay')
   var urlTOPOJSON = "https://gist.githubusercontent.com/jorgeatgu/dcb73825b02af45250c4dfa66aa0f94f/raw/86098e0372670238b03ccb46f7d9454bdc9f9d7b/municipalities_topojson.json";
   var urlMunicipalities = "https://datos.gobierto.es/api/v1/data/data.csv?sql=SELECT+*+FROM+municipios"
+  var urlMunicipalitiesLATLONG = 'https://gist.githubusercontent.com/jorgeatgu/976a692c198c4a7d96f266fc6e66b0fd/raw/70a39641f0c04131e1aee215a1790e99e0d8eeaa/lat-long-municipalities-translate.csv'
   var endPoint = "https://datos.gobierto.es/api/v1/data/data.csv?sql="
   var indicator = 'gasto_por_habitante'
   var year = document.getElementsByTagName('body')[0].getAttribute('data-year')
@@ -328,15 +330,14 @@ $(document).on('turbolinks:load', function() {
           .property('value')
 
         //Filter municipalities with the selected value
-        var selectElement = dataMunicipalities.filter(function(el) {
-          return el.nombre === value
+        var selectElement = dataMunicipalitiesLATLONG.filter(function(el) {
+          return el.name === value
         });
-
         //Pass coordinates to deck.gl
         deckgl.setProps({
           viewState: {
-            longitude: +selectElement[0].lat,
-            latitude: +selectElement[0].lon,
+            longitude: +selectElement[0].X,
+            latitude: +selectElement[0].Y,
             zoom: 9,
             minZoom: 5,
             maxZoom: 9,
@@ -462,6 +463,10 @@ $(document).on('turbolinks:load', function() {
       dataTOPOJSON = data
       d3.csv(urlMunicipalities, function(dataFROMMunicipalities) {
         dataMunicipalities = dataFROMMunicipalities
+      })
+
+      d3.csv(urlMunicipalitiesLATLONG, function(dataFROMMunicipalitiesLATLONG) {
+        dataMunicipalitiesLATLONG = dataFROMMunicipalitiesLATLONG
         redraw()
       })
     })
