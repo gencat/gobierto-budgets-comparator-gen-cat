@@ -118,6 +118,7 @@ es:
         expense_per_inhabitant: Gasto por habitante
         for_what: Para qué se gasta
         in_what: En qué se gasta
+        income_per_inhabitant: Ingreso por habitante
         incomes: Ingresos
         meta_description: Visualiza y explora el mapa de presupuestos en %{year}
         municipality_maps: Mapas por municipios

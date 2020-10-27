@@ -115,6 +115,7 @@ ca:
         expense_per_inhabitant: Despesa per habitant
         for_what: Per a què es gasta
         in_what: En què es gasta
+        income_per_inhabitant: Ingrés per habitant
         incomes: Ingressos
         meta_description: Visualitzeu i exploreu el mapa de pressupostos el %{year}
         municipality_maps: Mapes per municipis

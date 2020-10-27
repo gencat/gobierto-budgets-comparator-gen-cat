@@ -18,6 +18,7 @@ en:
         in_what: In what is spent
         for_what: For what is spent
         expense_per_inhabitant: Expenses per person
+        income_per_inhabitant: Income per inhabitant
         expense: Total expense
         planned_vs_executed: Planned vs Executed
         debt: Debt

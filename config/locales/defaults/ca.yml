@@ -83,12 +83,12 @@ ca:
       not_a_number: no és un número
       not_an_integer: ha de ser un enter
       odd: ha de ser senar
-      other_than: 
-      present: 
-      record_invalid: 
+      other_than:
+      present:
+      record_invalid:
       restrict_dependent_destroy:
-        many: 
-        one: 
+        many:
+        one:
       taken: no està disponible
       too_long: és massa llarg (%{count} caràcters màxim)
       too_short: és massa curt (%{count} caràcters mínim)
@@ -130,9 +130,9 @@ ca:
           quadrillion: quadrilió
           thousand: mil
           trillion: trilió
-          unit: 
+          unit:
       format:
-        delimiter: 
+        delimiter:
         precision: '1'
         significant: 'true'
         strip_insignificant_zeros: 'true'
@@ -148,10 +148,10 @@ ca:
           tb: TB
     percentage:
       format:
-        delimiter: 
+        delimiter:
     precision:
       format:
-        delimiter: 
+        delimiter:
   support:
     array:
       last_word_connector: ", i "

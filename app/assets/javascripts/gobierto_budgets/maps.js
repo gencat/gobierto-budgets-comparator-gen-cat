@@ -23,6 +23,7 @@ $(document).on('turbolinks:load', function() {
   var dataMunicipalities
   var geojsonLayerWithoutData
   var dataMunicipalitiesLATLONG
+  var isHovering = false;
 
   var spinner = document.getElementById('overlay')
   var urlTOPOJSON = "https://gist.githubusercontent.com/jorgeatgu/dcb73825b02af45250c4dfa66aa0f94f/raw/86098e0372670238b03ccb46f7d9454bdc9f9d7b/municipalities_topojson.json";
@@ -59,6 +60,9 @@ $(document).on('turbolinks:load', function() {
     population: {
       name: I18n.t('gobierto_budgets.pages.map.population'),
       unit: ' ' + I18n.t('gobierto_budgets.pages.map.people'),
+    },
+    ingreso_habitante: {
+      name: I18n.t('gobierto_budgets.pages.map.income_per_inhabitant')
     }
   };
 
@@ -96,6 +100,14 @@ $(document).on('turbolinks:load', function() {
     getTooltip: getTooltip,
     onClick: onClick,
     onLoad: onLoad,
+    onHover: function onHover(_ref2) {
+      var object = _ref2.object;
+      return isHovering = Boolean(object);
+    },
+    getCursor: function getCursor(_ref3) {
+      var isDragging = _ref3.isDragging;
+      return isDragging ? 'grabbing' : isHovering ? 'pointer' : 'grab';
+    },
     onViewStateChange: function onViewStateChange(_ref) {
       var viewState = _ref.viewState;
       return deckgl.setProps({
@@ -440,12 +452,17 @@ $(document).on('turbolinks:load', function() {
     indicator = 'amount_per_inhabitant'
 
     var queryData = "SELECT+amount_per_inhabitant,place_id+FROM+presupuestos_municipales+WHERE+year%3D%27".concat(year, "%27+AND+code%3D%27").concat(code, "%27+AND+kind%3D%27").concat(kind, "%27+and+area%3D%27").concat(area, "%27");
+
     urlData = "".concat(endPoint).concat(queryData);
-    redraw();
+    if (kind === 'I') {
+      tooltipString = indicatorsValue.ingreso_habitante.name
+    } else if(kind === 'G') {
+      tooltipString = indicatorsValue.gasto_por_habitante.name
+    }
 
     completeIndicator = indicatorsValue.gasto_por_habitante.unit
-    tooltipString = indicatorsValue.gasto_por_habitante.name
 
+    redraw();
   });
 
   $('.metric').on('click', function(e){
