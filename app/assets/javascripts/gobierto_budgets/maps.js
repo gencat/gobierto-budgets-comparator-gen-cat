@@ -1,19 +1,31 @@
 $(document).on('turbolinks:load', function() {
+  new SlimSelect({
+    select: '#municipalities-flyTO',
+    placeholder: false,
+    text: 'placeholder text'
+  })
+
+  var locale = d3.formatDefaultLocale({
+    decimal: ',',
+    thousands: '.',
+    grouping: [3],
+    currency: ["", "€"]
+  });
+
+  fomartAmounts = locale.format(",")
 
   var deckgl
   var geojsonLayer
   var CUSTOM_DOMAIN
-  new SlimSelect({
-    select: '#municipalities-flyTO',
-    placeholder: 'Introduce un municipio'
-  })
-
   var minValue
   var maxValue
-  var spinner = document.getElementById('overlay')
   var mapMunicipalities
-  var dataTOPOJSON = "https://gist.githubusercontent.com/jorgeatgu/dcb73825b02af45250c4dfa66aa0f94f/raw/86098e0372670238b03ccb46f7d9454bdc9f9d7b/municipalities_topojson.json";
-  var dataMunicipalities = "https://datos.gobierto.es/api/v1/data/data.csv?sql=SELECT+*+FROM+municipios"
+  var dataTOPOJSON
+  var dataMunicipalities
+
+  var spinner = document.getElementById('overlay')
+  var urlTOPOJSON = "https://gist.githubusercontent.com/jorgeatgu/dcb73825b02af45250c4dfa66aa0f94f/raw/86098e0372670238b03ccb46f7d9454bdc9f9d7b/municipalities_topojson.json";
+  var urlMunicipalities = "https://datos.gobierto.es/api/v1/data/data.csv?sql=SELECT+*+FROM+municipios"
   var endPoint = "https://datos.gobierto.es/api/v1/data/data.csv?sql="
   var indicator = 'gasto_por_habitante'
   var year = document.getElementsByTagName('body')[0].getAttribute('data-year')
@@ -22,6 +34,8 @@ $(document).on('turbolinks:load', function() {
   var urlData = "".concat(endPoint).concat(queryData);
 
   var indicators = document.querySelectorAll('[data-indicator]')
+
+  var searchLocale = I18n.t('gobierto_budgets.pages.map.expense_per_inhabitant')
 
   var indicatorsValue = {
     gasto_por_habitante: {
@@ -88,6 +102,7 @@ $(document).on('turbolinks:load', function() {
     }
   });
 
+
   function onClick(info, event) {
     var municipality = info.object.properties.name
     var replaced = municipality.replace(/ /g, '-');
@@ -113,9 +128,10 @@ $(document).on('turbolinks:load', function() {
 
   function getTooltip(_ref) {
     var object = _ref.object;
+    //Don't show the tooltip when the data is NaN or undefined
     if (object && object[indicator] !== undefined || NaN) {
       return {
-        html: "<h3 class=tooltip-name>".concat(object.properties.name, "</h3><div class=\"pure-g\"><div class=\"pure-u-1 pure-u-md-3-5\"><span class=\"tooltip-indicator\">").concat(tooltipString, "</div> <div class=\"pure-u-1 pure-u-md-2-5\"><span class=\"tooltip-value\">").concat(object[indicator]).concat(completeIndicator, "</span></div></span></div>"),
+        html: "<h3 class=tooltip-name>".concat(object.properties.name, "</h3><div class=\"pure-g\"><div class=\"pure-u-1 pure-u-md-3-5\"><span class=\"tooltip-indicator\">").concat(tooltipString, "</div> <div class=\"pure-u-1 pure-u-md-2-5\"><span class=\"tooltip-value\">").concat(fomartAmounts(object[indicator])).concat(completeIndicator, "</span></div></span></div>"),
         style: {
           backgroundColor: '#FFF',
           fontFamily: 'BlinkMacSystemFont, -apple-system',
@@ -147,6 +163,18 @@ $(document).on('turbolinks:load', function() {
       minValue = d3.min(data, function(d) { return d[indicator] })
       maxValue = d3.max(data, function(d) { return d[indicator] })
 
+      if(indicator === 'gasto_por_habitante' || 'gasto_total') {
+        minValue = fomartAmounts(minValue)
+
+        if(maxValue > 1000000) {
+          maxValue = maxValue / 1000000
+          maxValue = maxValue.toFixed(0)
+          maxValue = fomartAmounts(maxValue)
+          maxValue = maxValue + ' M'
+        } else {
+          maxValue = fomartAmounts(maxValue)
+        }
+      }
       var dataForDomainScale
 
       dataForDomainScale = data.map(function (obj) {
@@ -156,184 +184,189 @@ $(document).on('turbolinks:load', function() {
       //Create a dynamic domain for every value
       CUSTOM_DOMAIN = chroma.limits(dataForDomainScale, 'q', 6);
 
+      if(indicator === 'debt') {
+        CUSTOM_DOMAIN.forEach(function(d, index) {
+          if (d === 0) {
+            CUSTOM_DOMAIN[index] = index + 1
+          }
+        })
+      }
+
       var textMinValue = document.getElementById('map_legend_min_value')
       var textMaxValue = document.getElementById('map_legend_max_value')
       textMinValue.textContent = "".concat(minValue).concat(completeIndicator);
       textMaxValue.textContent = "".concat(maxValue).concat(completeIndicator);
 
-      d3.json(dataTOPOJSON, function(data) {
-        var MUNICIPALITIES = {}
-        MUNICIPALITIES = topojson.feature(data, data.objects.municipalities);
+      var MUNICIPALITIES = {}
+      MUNICIPALITIES = topojson.feature(dataTOPOJSON, dataTOPOJSON.objects.municipalities);
 
-        if (indicator === 'amount_per_inhabitant') {
+      //Draw municipalities from budgtes table
+      if (indicator === 'amount_per_inhabitant') {
 
-          var MUNICIPALITIES_CLONE = JSON.parse(JSON.stringify(MUNICIPALITIES));
+        //All municipalities
+        var MUNICIPALITIES_CLONE = JSON.parse(JSON.stringify(MUNICIPALITIES));
 
-          var budgetTableFilter = MUNICIPALITIES.features;
-          var budgetTableFiltered = budgetTableFilter.filter(function (el) {
-            return dataDuplicates.some(function (f) {
-              return f.place_id === el.properties.cp;
-            });
-          });
-
-          var budgetMunicipalitiesWithoutData = dataDuplicates.filter(function (el) {
-            return budgetTableFilter.some(function (f) {
-              return f.properties.cp === el.place_id;
-            });
-          });
-
-          //Replace object features
-          MUNICIPALITIES.features = budgetTableFiltered
-          var geojsonLayer = new deck.GeoJsonLayer({
-            id: 'map',
-            data: MUNICIPALITIES,
-            stroked: true,
-            lineWidthMinPixels: 0.6,
-            getLineColor: getLineColor,
-            filled: true,
-            opacity: 1,
-            getFillColor: getFillColor,
-            pickable: true
-          });
-
-          var geojsonLayerWithoutData = new deck.GeoJsonLayer({
-            id: 'map',
-            data: MUNICIPALITIES_CLONE,
-            stroked: true,
-            lineWidthMinPixels: 0.6,
-            getLineColor: getLineColor,
-            filled: true,
-            opacity: 0.1,
-            pickable: true
-          });
-          deckgl.setProps({layers: [geojsonLayerWithoutData, geojsonLayer]});
-        } else {
-          var geojsonLayer = new deck.GeoJsonLayer({
-            id: 'map',
-            data: MUNICIPALITIES,
-            stroked: true,
-            lineWidthMinPixels: 0.6,
-            getLineColor: getLineColor,
-            filled: true,
-            opacity: 1,
-            getFillColor: getFillColor,
-            pickable: true
-          });
-
-          deckgl.setProps({layers: [geojsonLayer]});
-        }
-
-        
-
-        spinner.style.display = 'none'
-
-        d3.csv(dataMunicipalities,function(data) {
-          var nest = d3
-            .nest()
-            .key(function(d) { return d.nombre })
-            .entries(data);
-
-          nest.sort(function(a, b) {
-            return d3.ascending(a.key, b.key);
-          })
-
-          var selectMunicipalities = d3.select('#municipalities-flyTO');
-
-          selectMunicipalities
-            .selectAll('option')
-            .data(nest)
-            .enter()
-            .append('option')
-            .attr('value', function(d) { return d.key })
-            .text(function(d) { return d.key })
-
-          var increaseButton = document.getElementById('increaseZoom')
-          var decreaseButton = document.getElementById('decreaseZoom')
-
-          increaseButton.addEventListener("click", increaseZoom, false)
-          decreaseButton.addEventListener("click", decreaseZoom, false)
-
-          function increaseZoom() {
-            //In the first render props.viewState are undefined, so we need modify the initialViewState instead viewState
-            if (!deckgl.props.hasOwnProperty('viewState')) {
-              changeStateProps('initialViewState', true)
-            } else {
-              changeStateProps('viewState', true)
-            }
-          }
-
-          function decreaseZoom() {
-            if (!deckgl.props.hasOwnProperty('viewState')) {
-              changeStateProps('initialViewState', false)
-            } else {
-              changeStateProps('viewState', false)
-            }
-          }
-
-          function changeStateProps(value, increase) {
-            var increaseDecrease = increase === true ? +1 : -1
-            deckgl.setProps({
-              viewState: {
-                zoom: deckgl.props[value].zoom + increaseDecrease,
-                latitude: deckgl.props[value].latitude,
-                longitude: deckgl.props[value].longitude,
-                maxZoom: deckgl.props[value].maxZoom,
-                minZoom: deckgl.props[value].minZoom
-              }
-            })
-          }
-
-          selectMunicipalities.on('change', function() {
-            //Get the selected municipality
-            var value = d3
-              .select(this)
-              .property('value')
-
-            //Filter municipalities with the selected value
-            var selectElement = data.filter(function(el) {
-              return el.nombre === value
-            });
-
-            //Pass coordinates to deck.gl
-            deckgl.setProps({
-              viewState: {
-                longitude: +selectElement[0].lat,
-                latitude: +selectElement[0].lon,
-                zoom: 9,
-                transitionInterpolator: new deck.FlyToInterpolator(),
-                transitionDuration: 1500
-              }
-            })
-
-            //Clone MUNICIPALITIES object
-            var strokeDATA = JSON.parse(JSON.stringify(MUNICIPALITIES));
-
-            var strokeDATAFILTER = strokeDATA.features
-
-            //Filter by selected municipality
-            var strokeSelected = strokeDATAFILTER.filter(function(el) {
-              return el.properties.name === value
-            });
-
-            //Replace object features
-            strokeDATA.features = strokeSelected
-
-            //Create a new layer that contains only the selected municipality
-            var selectedMunicipality = [new deck.GeoJsonLayer({
-              id: 'map-stroke',
-              data: strokeDATA,
-              stroked: true,
-              filled: true,
-              lineWidthMinPixels: 2,
-              opacity: 1,
-              getFillColor: getFillColor,
-              pickable: true
-            })];
-
-            //Update deck.gl with the old and new layer.
-            deckgl.setProps({ layers: [geojsonLayer, selectedMunicipality] });
+        //Remove the municipalities without data
+        var budgetTableFilter = MUNICIPALITIES.features;
+        var budgetTableFiltered = budgetTableFilter.filter(function (el) {
+          return dataDuplicates.some(function (f) {
+            return f.place_id === el.properties.cp;
           });
         });
+
+        MUNICIPALITIES.features = budgetTableFiltered
+
+        var geojsonLayer = new deck.GeoJsonLayer({
+          id: 'map',
+          data: MUNICIPALITIES,
+          stroked: true,
+          lineWidthMinPixels: 0.6,
+          getLineColor: getLineColor,
+          filled: true,
+          opacity: 1,
+          getFillColor: getFillColor,
+          pickable: true
+        });
+
+        var geojsonLayerWithoutData = new deck.GeoJsonLayer({
+          id: 'map-grey',
+          data: MUNICIPALITIES_CLONE,
+          stroked: true,
+          lineWidthMinPixels: 0.6,
+          getLineColor: getLineColor,
+          filled: true,
+          opacity: 0.1,
+          pickable: true
+        });
+
+        deckgl.setProps({layers: [geojsonLayerWithoutData, geojsonLayer]});
+
+      } else {
+        var geojsonLayer = new deck.GeoJsonLayer({
+          id: 'map',
+          data: MUNICIPALITIES,
+          stroked: true,
+          lineWidthMinPixels: 0.6,
+          getLineColor: getLineColor,
+          filled: true,
+          opacity: 1,
+          getFillColor: getFillColor,
+          pickable: true
+        });
+
+        deckgl.setProps({layers: [geojsonLayer]});
+      }
+
+      spinner.style.display = 'none'
+
+      var nest = d3
+        .nest()
+        .key(function(d) { return d.nombre })
+        .entries(dataMunicipalities);
+
+      nest.sort(function(a, b) {
+        return d3.ascending(a.key, b.key);
+      })
+
+      var selectMunicipalities = d3.select('#municipalities-flyTO');
+
+      selectMunicipalities
+        .selectAll('option')
+        .data(nest)
+        .enter()
+        .append('option')
+        .attr('value', function(d) { return d.key })
+        .text(function(d) { return d.key })
+
+      var increaseButton = document.getElementById('increaseZoom')
+      var decreaseButton = document.getElementById('decreaseZoom')
+
+      increaseButton.addEventListener("click", increaseZoom, false)
+      decreaseButton.addEventListener("click", decreaseZoom, false)
+
+      function increaseZoom() {
+        //In the first render props.viewState are undefined, so we need modify the initialViewState instead viewState
+        if (!deckgl.props.hasOwnProperty('viewState')) {
+          changeStateProps('initialViewState', true)
+        } else {
+          changeStateProps('viewState', true)
+        }
+      }
+
+      function decreaseZoom() {
+        if (!deckgl.props.hasOwnProperty('viewState')) {
+          changeStateProps('initialViewState', false)
+        } else {
+          changeStateProps('viewState', false)
+        }
+      }
+
+      function changeStateProps(value, increase) {
+        var increaseDecrease = increase === true ? +1 : -1
+        var valueZoom = deckgl.props[value].zoom + increaseDecrease
+        if (valueZoom < 5 || valueZoom > 8) {
+          valueZoom = deckgl.props[value].zoom
+        }
+        deckgl.setProps({
+          viewState: {
+            zoom: valueZoom,
+            latitude: deckgl.props[value].latitude,
+            longitude: deckgl.props[value].longitude,
+            maxZoom: deckgl.props[value].maxZoom,
+            minZoom: deckgl.props[value].minZoom
+          }
+        })
+      }
+
+      selectMunicipalities.on('change', function() {
+        //Get the selected municipality
+        var value = d3
+          .select(this)
+          .property('value')
+
+        //Filter municipalities with the selected value
+        var selectElement = dataMunicipalities.filter(function(el) {
+          return el.nombre === value
+        });
+
+        //Pass coordinates to deck.gl
+        deckgl.setProps({
+          viewState: {
+            longitude: +selectElement[0].lat,
+            latitude: +selectElement[0].lon,
+            zoom: 9,
+            transitionInterpolator: new deck.FlyToInterpolator(),
+            transitionDuration: 1500
+          }
+        })
+
+        //Clone MUNICIPALITIES object
+        var strokeDATA = JSON.parse(JSON.stringify(MUNICIPALITIES));
+
+        var strokeDATAFILTER = strokeDATA.features
+
+        //Filter by selected municipality
+        var strokeSelected = strokeDATAFILTER.filter(function(el) {
+          return el.properties.name === value
+        });
+
+        //Replace object features
+        strokeDATA.features = strokeSelected
+
+        //Create a new layer that contains only the selected municipality
+        var selectedMunicipality = [new deck.GeoJsonLayer({
+          id: 'map-stroke',
+          data: strokeDATA,
+          stroked: true,
+          filled: true,
+          lineWidthMinPixels: 2,
+          opacity: 1,
+          getFillColor: getFillColor,
+          pickable: true
+        })];
+
+        //Update deck.gl with the old and new layer.
+        deckgl.setProps({ layers: [geojsonLayer, selectedMunicipality] });
       });
     })
   }
@@ -378,15 +411,15 @@ $(document).on('turbolinks:load', function() {
     }
 
     var year = document.getElementsByTagName('body')[0].getAttribute('data-year');
-    
     var queryData = "SELECT+".concat(indicator, "+,place_id+FROM+indicadores_presupuestos_municipales+WHERE+year=").concat(year, "AND+").concat(indicator, "+IS+NOT+NULL");
     urlData = "".concat(endPoint).concat(queryData);
     redraw();
   }
 
-  redraw()
 
   $(document).on('renderBudgetLineCategory', function(e){
+
+    spinner.style.display = 'block'
     var element = e.target.activeElement.dataset
 
     var year = document.getElementsByTagName('body')[0].getAttribute('data-year');
@@ -409,5 +442,21 @@ $(document).on('turbolinks:load', function() {
     $('.metric').removeClass('selected');
     $('[data-category-code]').removeClass('active');
     $(this).addClass('selected');
+    $('.icon_sidebar').removeClass('fa-caret-square-o-up').addClass('fa-caret-square-o-down');
+    $('.items').css({ display: "none" });
+    $('[data-search-box]').attr('value', '');
   });
+
+  function getData() {
+    d3.json(urlTOPOJSON, function(data) {
+      dataTOPOJSON = data
+      d3.csv(urlMunicipalities, function(dataFROMMunicipalities) {
+        dataMunicipalities = dataFROMMunicipalities
+        redraw()
+      })
+    })
+  }
+
+  getData()
+
 });
