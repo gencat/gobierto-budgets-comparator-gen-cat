@@ -15,7 +15,6 @@
 //= require velocity.ui.min
 //= require velocity_settings
 //= require jquery.sticky
-//= require deck.gl.min
 //= require topojson-client.min
 //= require d3.v4.min
 //= require slimselect.min
