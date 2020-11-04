@@ -120,27 +120,13 @@ $(document).on('turbolinks:load', function() {
 
 
     function onClick(info, event) {
-      var municipality = info.object.properties.name
-      var replaced = municipality.replace(/ /g, '-');
-      window.location.href = "/places/" + accentsTidy(replaced) + "/" + year;
+      var municipalityInfo = info.object.properties.name
+      var municipalityFilter = dataMunicipalities.filter(function(municipality) {
+        return municipality.nombre === municipalityInfo
+      })
+      var municipalitySlug = municipalityFilter[0].slug
+      window.location.href = "/places/" + municipalitySlug + "/" + year;
     }
-
-    //Replace characters from the names of municipalities to build URL's
-    accentsTidy = function(s){
-      var r = s.toLowerCase();
-      r = r.replace(/ /g, '-');
-      r = r.replace(new RegExp("[àáâãäå]", 'g'),"a");
-      r = r.replace(new RegExp("æ", 'g'),"ae");
-      r = r.replace(new RegExp("ç", 'g'),"c");
-      r = r.replace(new RegExp("[èéêë]", 'g'),"e");
-      r = r.replace(new RegExp("[ìíîï]", 'g'),"i");
-      r = r.replace(new RegExp("ñ", 'g'),"n");
-      r = r.replace(new RegExp("[òóôõö]", 'g'),"o");
-      r = r.replace(new RegExp("œ", 'g'),"oe");
-      r = r.replace(new RegExp("[ùúûü]", 'g'),"u");
-      r = r.replace(new RegExp("[ýÿ]", 'g'),"y");
-      return r;
-    };
 
     function getTooltip(_ref) {
       var object = _ref.object;
