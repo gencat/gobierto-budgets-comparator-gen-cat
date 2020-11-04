@@ -208,15 +208,26 @@ $(document).on('turbolinks:load', function() {
 
         var MUNICIPALITIES = {}
         MUNICIPALITIES = topojson.feature(dataTOPOJSON, dataTOPOJSON.objects.municipalities);
-        console.log("MUNICIPALITIES", MUNICIPALITIES);
 
+        //In some cases, we need to filter the map with a series of specific municipalities.
         var arrayMunicipalitiesScope = window.placesScope
 
+        //If it contains codes we will filter through them.
         if (typeof arrayMunicipalitiesScope != "undefined" && arrayMunicipalitiesScope != null && arrayMunicipalitiesScope.length != null && arrayMunicipalitiesScope.length > 0) {
-            // array exists and is not empty
-           console.log('full')
-        } else {
-          console.log('empty')
+          //Filter the geometries of topojson with ine codes
+          MUNICIPALITIES.features = filterMunicipalitiesByScope(arrayMunicipalitiesScope)
+          //Filter the select only with the municipalities filtered
+          dataMunicipalities = filterSelectMunicipalities(arrayMunicipalitiesScope)
+        }
+
+        function filterMunicipalitiesByScope(ineCodes) {
+          var filteredMunicipalities = MUNICIPALITIES.features.filter((municipality) => ineCodes.includes(municipality.properties.cp))
+          return filteredMunicipalities
+        }
+
+        function filterSelectMunicipalities(ineCodes) {
+          var filteredMunicipalities = dataMunicipalities.filter((municipality) => ineCodes.includes(municipality.codigo_ine))
+          return filteredMunicipalities
         }
 
         //Draw municipalities from budgtes table
@@ -481,6 +492,9 @@ $(document).on('turbolinks:load', function() {
       d3.json(urlTOPOJSON, function(data) {
         dataTOPOJSON = data
         d3.csv(urlMunicipalities, function(dataFROMMunicipalities) {
+          dataFROMMunicipalities.forEach(function(d) {
+            d.codigo_ine = +d.codigo_ine
+          })
           dataMunicipalities = dataFROMMunicipalities
         })
 
