@@ -13,6 +13,10 @@ $(document).on('turbolinks:load', function() {
       currency: ["", "€"]
     });
 
+    var mapPropertiesLat = window.mapSettings.centerLat || 40.416775
+    var mapPropertiesLon = window.mapSettings.centerLon || -3.703790
+    var mapPropertiesZoom = window.mapSettings.zoomLevel || 5
+
     fomartAmounts = locale.format(",")
 
     var deckgl
@@ -88,9 +92,9 @@ $(document).on('turbolinks:load', function() {
     ]
 
     var INITIAL_VIEW_STATE = {
-      latitude: 40.416775,
-      longitude: -3.703790,
-      zoom: 5,
+      latitude: mapPropertiesLat,
+      longitude: mapPropertiesLon,
+      zoom: mapPropertiesZoom,
       minZoom: 5,
       maxZoom: 8
     };
@@ -204,6 +208,16 @@ $(document).on('turbolinks:load', function() {
 
         var MUNICIPALITIES = {}
         MUNICIPALITIES = topojson.feature(dataTOPOJSON, dataTOPOJSON.objects.municipalities);
+        console.log("MUNICIPALITIES", MUNICIPALITIES);
+
+        var arrayMunicipalitiesScope = window.placesScope
+
+        if (typeof arrayMunicipalitiesScope != "undefined" && arrayMunicipalitiesScope != null && arrayMunicipalitiesScope.length != null && arrayMunicipalitiesScope.length > 0) {
+            // array exists and is not empty
+           console.log('full')
+        } else {
+          console.log('empty')
+        }
 
         //Draw municipalities from budgtes table
         if (indicator === 'amount_per_inhabitant') {
