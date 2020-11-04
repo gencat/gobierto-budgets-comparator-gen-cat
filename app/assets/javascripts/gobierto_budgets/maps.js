@@ -221,12 +221,16 @@ $(document).on('turbolinks:load', function() {
         }
 
         function filterMunicipalitiesByScope(ineCodes) {
-          var filteredMunicipalities = MUNICIPALITIES.features.filter((municipality) => ineCodes.includes(municipality.properties.cp))
+          var filteredMunicipalities = MUNICIPALITIES.features.filter(function(municipality) {
+            return ineCodes.includes(municipality.properties.cp)
+          })
           return filteredMunicipalities
         }
 
         function filterSelectMunicipalities(ineCodes) {
-          var filteredMunicipalities = dataMunicipalities.filter((municipality) => ineCodes.includes(municipality.codigo_ine))
+          var filteredMunicipalities = dataMunicipalities.filter(function(municipality) {
+            return ineCodes.includes(municipality.codigo_ine)
+          })
           return filteredMunicipalities
         }
 
