@@ -1,3 +1,5 @@
+@import "slimselect.min";
+
 // Year switcher
 header .year_switcher ul {
   z-index: 1000002;
@@ -34,16 +36,15 @@ body[data-action="map"] .main_metrics .metric:hover {
   float: right;
   margin: 0 20px 0 0;
 }
-#map .overlay {
+.container-map #overlay {
   pointer-events: none;
   position: absolute;
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, 0.25);
-  display: none;
   z-index: 1;
 }
-#map .fa-spin {
+.container-map .fa-spin {
   position: absolute;
   top: 45%;
   margin-left: auto;
@@ -142,4 +143,147 @@ body[data-action="map"] .main_metrics .metric:hover {
   .map_sidebar {
     width: 300px;
   }
+}
+
+
+.map_select_municipalities {
+  width: 300px;
+  padding: 1rem;
+  position: absolute;
+  right: 1rem;
+  background-color: rgba(255, 255, 255, .95);
+  box-shadow: 5px 5px 5px -5px rgba(0, 0, 0, .2);
+  z-index: 1000001;
+  margin-top: .5em;
+}
+
+.ss-main .ss-single-selected .placeholder {
+  height: auto;
+  min-width: 200px;
+  background-color: transparent;
+}
+
+.map_container_zoom {
+  border-radius: 4px;
+  border: 1px solid #999;
+  z-index: 105;
+  box-shadow: rgba(0,0,0,.2) 0 0 4px 2px;
+  background: #fff;
+  width: 2rem;
+  position: absolute;
+  right: 0;
+  bottom: 1rem;
+}
+
+.map_container_zoom_button {
+  background-color: none;
+  border: 0;
+  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+  padding: .25rem;
+  &:first-child {
+    border-bottom: 1px solid #999;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+
+.container-map {
+  position: relative;
+  width: 100%;
+  height: 78vh;
+}
+
+.map_legend {
+  position: absolute;
+  width: 230px;
+  z-index: 100001;
+  bottom: 1rem;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, .1);
+  padding: 1rem;
+  font-size: 0;
+}
+
+.map_legend_value_text {
+  font-size: 14px;
+  font-weight: bold;
+  display: inline-block;
+  width: 50%;
+  text-transform: uppercase;
+  &:last-child {
+    text-align: right;
+  }
+}
+
+.map_select_title {
+  margin: 0;
+  margin-bottom: 0.5em;
+  font-weight: normal;
+  color: #999;
+}
+
+.map_legend_chrolopleth {
+  font-size: 0;
+  border: 1px solid #999;
+  border-radius: 4px;
+  height: 28px;
+}
+
+.map_legend_chrolopleth_element {
+  width: calc(100% / 7);
+  display: inline-block;
+  height: 100%;
+}
+
+.chrolopleth_element_first {
+  background-color: rgba(255, 255, 201, 1);
+}
+.chrolopleth_element_second {
+  background-color: rgba(192, 229, 174, 1);
+}
+.chrolopleth_element_third {
+  background-color: rgba(117, 198, 179, 1);
+}
+.chrolopleth_element_fourth {
+  background-color: rgba(59, 173, 187, 1);
+}
+.chrolopleth_element_fifth {
+  background-color: rgba(30, 134, 181, 1);
+}
+.chrolopleth_element_sixth {
+  background-color: rgba(31, 83, 155, 1);
+}
+.chrolopleth_element_seventh {
+  background-color: rgba(14, 39, 118, 1);
+}
+
+.tooltip-name {
+  margin:0;
+  padding-bottom: .25rem;
+  border-bottom: 1px solid #111;
+  color: #554E41;
+}
+
+.tooltip-value,
+.tooltip-indicator {
+  display: block;
+  margin-top: .25rem;
+  color: #000;
+  font-size: 0.875rem;
+}
+
+.tooltip-value {
+  text-align: right;
+  font-weight: 700;
+  b {
+    text-transform: uppercase;
+  }
+}
+
+.deck-tooltip {
+  min-width: 250px;
+  max-width: 275px;
 }

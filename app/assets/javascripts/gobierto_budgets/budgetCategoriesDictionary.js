@@ -4,6 +4,7 @@ window.budgetCategoriesDictionary = function(code, kind, type){
   code = parseInt(code);
 
   if(window.categoriesDictionary[type] && window.categoriesDictionary[type][kind] && window.categoriesDictionary[type][kind][code]) {
+    console.log("window.categoriesDictionary[type][kind][code]", window.categoriesDictionary[type][kind][code]);
     return window.categoriesDictionary[type][kind][code];
   } else {
     return type + ' - ' + kind + ' - ' + code;
