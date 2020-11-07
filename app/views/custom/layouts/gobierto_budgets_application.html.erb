@@ -2,7 +2,12 @@
 <html>
 <head>
   <%= stylesheet_link_tag    'gobierto_budgets/application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'gobierto_budgets/application', 'data-turbolinks-track' => true %>
+  <% if action_name == 'map' %>
+    <%= javascript_include_tag 'gobierto_budgets/application_maps', 'data-turbolinks-track' => true %>
+  <% else %>
+    <%= javascript_include_tag 'gobierto_budgets/application', 'data-turbolinks-track' => true %>
+  <% end %>
+
   <%= csrf_meta_tags %>
 
   <meta name="google-site-verification" content="ecNoEaligHFBWMfXXqbQAQYu7_XlW2vZtDuvom7c5DA" />
