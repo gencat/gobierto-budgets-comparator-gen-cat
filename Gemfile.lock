@@ -99,7 +99,7 @@ GEM
     childprocess (3.0.0)
     cocoon (1.2.15)
     concurrent-ruby (1.1.7)
-    config (2.2.2)
+    config (2.2.3)
       deep_merge (~> 1.2, >= 1.2.1)
       dry-validation (~> 1.0, >= 1.0.0)
     cookies_eu (1.7.7)
