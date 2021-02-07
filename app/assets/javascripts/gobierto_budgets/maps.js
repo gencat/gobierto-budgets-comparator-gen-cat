@@ -33,14 +33,15 @@ $(document).on('turbolinks:load', function() {
 
     var spinner = document.getElementById('overlay')
     var urlTOPOJSON = "/municipalities_topojson.json";
-    var urlMunicipalities = "https://datos.gobierto.es/api/v1/data/data.csv?sql=SELECT+*+FROM+municipios"
     var urlMunicipalitiesLATLONG = '/lat-long-municipalities-translate.csv'
     var endPoint = "https://datos.gobierto.es/api/v1/data/data.csv?sql="
+    var token = window.token
+    var urlMunicipalities = "".concat(endPoint, "select+*+from+municipios&token=").concat(token)
     var indicator = 'gasto_por_habitante'
     var year = document.getElementsByTagName('body')[0].getAttribute('data-year')
     var queryData = "SELECT+".concat(indicator, "+,place_id+FROM+indicadores_presupuestos_municipales+WHERE+year=").concat(year, "AND+").concat(indicator, "+IS+NOT+NULL");
 
-    var urlData = "".concat(endPoint).concat(queryData);
+    var urlData = "".concat(endPoint).concat(queryData, "&token=").concat(token);
 
     var indicators = document.querySelectorAll('[data-indicator]')
 

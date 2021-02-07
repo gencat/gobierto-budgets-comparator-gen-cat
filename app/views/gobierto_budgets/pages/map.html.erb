@@ -110,7 +110,6 @@
   </ul>
 </div>
 </script>
-
 <% content_for(:javascript) do %>
   <% if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope? %>
     window.placesScope = [<%= GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope.join(',') %>];
@@ -122,4 +121,8 @@
     centerLon: <%= Settings.map_center_lon %>,
     zoomLevel: <%= Settings.map_zoom_level %>
   };
+  window.token = '<%= ENV.fetch("GOBIERTO_DATA_TOKEN") %>'
+
 <% end %>
+
+
