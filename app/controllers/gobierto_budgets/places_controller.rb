@@ -25,7 +25,7 @@ module GobiertoBudgets
         level: 1,
         year: @year,
         kind: BudgetLine::INCOME,
-        type: 'economic'
+        type: GobiertoBudgets::BudgetLine::ECONOMIC
       )
 
       @expense_lines = BudgetLine.search(organization_id: current_organization.id, level: 1, year: @year, kind: BudgetLine::EXPENSE, type: @area_name, recalculate_aggregations: true)
@@ -50,7 +50,7 @@ module GobiertoBudgets
         organization_id: current_organization.id,
         year: @year,
         kind: GobiertoBudgets::BudgetLine::INCOME,
-        type: 'economic'
+        type: GobiertoBudgets::BudgetLine::ECONOMIC
       )
 
       if @top_possitive_difference_income.empty?
@@ -62,13 +62,13 @@ module GobiertoBudgets
         organization_id: current_organization.id,
         year: @year,
         kind: GobiertoBudgets::BudgetLine::EXPENSE,
-        type: 'economic'
+        type: GobiertoBudgets::BudgetLine::ECONOMIC
       )
       @top_possitive_difference_expending_functional, @top_negative_difference_expending_functional = GobiertoBudgets::BudgetLine.top_differences(
         organization_id: current_organization.id,
         year: @year,
         kind: GobiertoBudgets::BudgetLine::EXPENSE,
-        type: 'functional'
+        type: GobiertoBudgets::BudgetLine::FUNCTIONAL
       )
     end
 
