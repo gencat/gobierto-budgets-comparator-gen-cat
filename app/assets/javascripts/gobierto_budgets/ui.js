@@ -271,11 +271,17 @@ $(document).on('turbolinks:load', function() {
   });
 
   function parent_treemap_url(parent_url) {
-    var pattern = /parent\/\d+/;
-    parent_url = parent_url.replace(pattern, function(match) {
-      return match.substring(0,match.length - 1)
+    var pattern = /\/parent\/(\d+)$/;
+    parent_url = parent_url.replace(pattern, function(match, p1) {
+      if(p1.length > 1) {
+        // Inside a category, the parent is obtained by removing the last digit of the category code
+        return '/' + match.substring(1,match.length - 1);
+      } else {
+        // Else, the first level needs to be loaded, so /parent segment is removed
+        return '';
+      }
     });
-    return parent_url + '.json';
+    return parent_url + ".json";
   }
 
   /* Tree navigation */

@@ -111,9 +111,13 @@ module GobiertoBudgets
 
       def total_budget_execution
         year = params[:year].to_i
-        year -= 1 if GobiertoBudgets::SearchEngineConfiguration::Year.fallback_year?(year)
         total_budget_data_planned = total_budget_data(year, 'total_budget')
         total_budget_data_executed = total_budget_data_executed(year, 'total_budget')
+        if total_budget_data_executed.nil? || total_budget_data_planned.nil?
+          year -= 1
+          total_budget_data_planned = total_budget_data(year, 'total_budget')
+          total_budget_data_executed = total_budget_data_executed(year, 'total_budget')
+        end
         diff = total_budget_data_executed - total_budget_data_planned rescue ""
         sign = sign(total_budget_data_executed, total_budget_data_planned)
         diff = format_currency(diff) if diff.is_a?(Float)

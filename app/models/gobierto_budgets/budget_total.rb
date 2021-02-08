@@ -99,8 +99,13 @@ module GobiertoBudgets
       if response.empty?
         return [], 0
       end
-      results = response['hits']['hits'].map{|h| h['_source']}
       total_elements = response['hits']['total']
+      results = response['hits']['hits']
+      if results && results.any?
+        results = results.map{|h| h['_source']}
+      else
+        results = []
+      end
       return results, total_elements
     end
 

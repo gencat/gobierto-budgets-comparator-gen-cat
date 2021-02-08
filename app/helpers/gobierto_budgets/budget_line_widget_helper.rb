@@ -15,8 +15,8 @@ module GobiertoBudgets
     end
 
     def load_featured_budget_line(params = {})
-      @area_name = "functional"
-      @kind = GobiertoBudgets::BudgetLine::EXPENSE
+      @area_name ||= GobiertoBudgets::BudgetLine::FUNCTIONAL
+      @kind ||= GobiertoBudgets::BudgetLine::EXPENSE
 
       results = featured_budget_line_candidates
 

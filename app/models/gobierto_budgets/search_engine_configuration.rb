@@ -6,9 +6,6 @@ module GobiertoBudgets
       def self.all
         @all ||= (first..last).to_a.reverse
       end
-      def self.fallback_year?(year)
-        self.last < Date.today.year ? year == self.last + 1 : year == self.last
-      end
     end
 
     class BudgetCategories

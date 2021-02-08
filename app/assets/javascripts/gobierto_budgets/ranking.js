@@ -46,15 +46,15 @@ $(document).on('turbolinks:load', function() {
     function updateRanking(push_the_state) {
       var ranking_url = $('[data-ranking-url]').data('ranking-url');
       var params = (ranking_url.indexOf('?') > 0) ? '' : '?';
+      if ($('#aarr').val() != '') {
+        params+= "&f[aarr]=" + $('#aarr').val();
+      }
       $('#filter_population, #filter_total, #filter_per_inhabitant').each(function() {
         var values = this.noUiSlider.get();
         var filter_name = this.id.replace('filter_','');
         params+= "&f[" + filter_name + "][from]=" + parseInt(values[0]);
         params+= "&f[" + filter_name + "][to]=" + parseInt(values[1]);
       })
-      if ($('#aarr').val() != '') {
-        params+= "&f[aarr]=" + $('#aarr').val();
-      }
       ranking_url += params;
 
       $.ajax(ranking_url, {
