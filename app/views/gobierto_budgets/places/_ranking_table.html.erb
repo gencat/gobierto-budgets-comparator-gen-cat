@@ -33,7 +33,7 @@
 
     <tbody>
       <% @ranking_items.each_with_index do |ranking_item, i| %>
-        <tr <%= 'class="selected"'.html_safe if ranking_item.place == @place %> id='place_<%= ranking_item.place.id %>'>
+        <tr <%= 'class="selected"'.html_safe if ranking_item.place == @selected_place %> id='place_<%= ranking_item.place.id %>'>
           <td class="r_pos"><%= GobiertoBudgets::Ranking.position(i, @page) %>.</td>
           <td class="location"><%= link_to ranking_item.place.name, gobierto_budgets_place_path(ranking_item.place.slug, @year) %> (<%= ranking_item.place.province.name %>)</td>
           <td class="expense <%= class_if('selected', filter_selected?('population')) %>"><%= number_with_precision ranking_item.population, precision: 0, delimiter: '.' %></td>
