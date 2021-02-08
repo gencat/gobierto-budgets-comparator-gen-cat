@@ -145,6 +145,11 @@ module GobiertoBudgets
         format.html
         format.js
       end
+    rescue GobiertoBudgets::Ranking::OutOfBounds
+      respond_to do |format|
+        format.html { render_404 }
+        format.js { render json: {}, status: :missing }
+      end
     end
 
     def intelligence
@@ -166,6 +171,7 @@ module GobiertoBudgets
       @area_name = params[:area] || 'functional'
       @year = params[:year].present? ? params[:year].to_i : nil
       @code = params[:code]
+      @selected_place = INE::Places::Place.find(params[:ine_code]) if params[:ine_code]
       if params[:variable].present?
         @variable = params[:variable]
         render_404 and return unless valid_variables.include?(@variable)
