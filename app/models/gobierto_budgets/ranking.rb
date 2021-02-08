@@ -1,5 +1,7 @@
 module GobiertoBudgets
   class Ranking
+    class OutOfBounds < StandardError; end
+
     # This class is used in the ranking table to provide the information for each row
     class Item < OpenStruct
     end
@@ -89,6 +91,9 @@ module GobiertoBudgets
                  end
 
       results, total_elements = BudgetTotal.for_ranking(year, variable, kind, offset, self.per_page, filters)
+      if (results.nil? || results.empty?) && total_elements > 0
+        raise OutOfBounds
+      end
 
       places_ids = results.map {|h| h['ine_code']}
       population_results = Population.for_places(places_ids, year)

@@ -145,6 +145,11 @@ module GobiertoBudgets
         format.html
         format.js
       end
+    rescue GobiertoBudgets::Ranking::OutOfBounds
+      respond_to do |format|
+        format.html { render_404 }
+        format.js { render json: {}, status: :missing }
+      end
     end
 
     def intelligence
