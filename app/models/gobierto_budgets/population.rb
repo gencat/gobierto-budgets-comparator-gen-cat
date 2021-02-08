@@ -7,29 +7,37 @@ module GobiertoBudgets
     FILTER_MAX = 5000000
 
     def self.for(ine_code, year)
-      year = year - 1 if GobiertoBudgets::SearchEngineConfiguration::Year.fallback_year?(year)
-
       return for_places(ine_code, year) if ine_code.is_a?(Array)
-      population_query_results(ine_code: ine_code, year: year).first['value'].to_f
+      result = population_query_results(ine_code: ine_code, year: year)
+      if result.empty?
+        result = population_query_results(ine_code: ine_code, year: year-1)
+      end
+      result.first['value'].to_f
     end
 
     def self.for_places(ine_codes, year)
-      year = year - 1 if GobiertoBudgets::SearchEngineConfiguration::Year.fallback_year?(year)
-
-      population_query_results(ine_codes: ine_codes, year: year)
+      results = population_query_results(ine_codes: ine_codes, year: year)
+      if results.empty?
+        results = population_query_results(ine_codes: ine_codes, year: year - 1)
+      end
+      results
     end
 
     def self.for_year(year)
-      year = year - 1 if GobiertoBudgets::SearchEngineConfiguration::Year.fallback_year?(year)
-
-      population_query_results(year: year)
+      results = population_query_results(year: year)
+      if results.empty?
+        results = population_query_results(year: year - 1)
+      end
+      results
     end
 
     def self.for_ranking(year, offset, per_page, filters)
-      year = year - 1 if GobiertoBudgets::SearchEngineConfiguration::Year.fallback_year?(year)
-
       response = population_query(year: year, offset: offset, per_page: per_page, filters: filters)
       total_elements = response['hits']['total']
+      if total_elements == 0
+        response = population_query(year: year-1, offset: offset, per_page: per_page, filters: filters)
+        total_elements = response['hits']['total']
+      end
       if result = response['hits']['hits']
         return result.map{|h| h['_source']}, total_elements
       else
@@ -38,8 +46,6 @@ module GobiertoBudgets
     end
 
     def self.ranking_hash_for(ine_code, year)
-      year = year - 1 if GobiertoBudgets::SearchEngineConfiguration::Year.fallback_year?(year)
-
       buckets = for_year year
 
       if row = buckets.detect{|v| v['ine_code'] == ine_code }
@@ -56,10 +62,13 @@ module GobiertoBudgets
     end
 
     def self.place_position_in_ranking(year, ine_code, filters)
-      year = year - 1 if GobiertoBudgets::SearchEngineConfiguration::Year.fallback_year?(year)
-
       id = [ine_code, year].join('/')
       response = population_query({year: year, to_rank: true, filters: filters})
+      total_elements = response['hits']['total']
+      if total_elements == 0
+        response = population_query({year: year-1, to_rank: true, filters: filters})
+        total_elements = response['hits']['total']
+      end
       buckets = response['hits']['hits'].map{|h| h['_id']}
       position = buckets.index(id) ? buckets.index(id) + 1 : 0;
       return position + 1
