@@ -453,7 +453,7 @@ $(document).on('turbolinks:load', function() {
 
       var year = document.getElementsByTagName('body')[0].getAttribute('data-year');
       var queryData = "SELECT+".concat(indicator, "+,place_id+FROM+indicadores_presupuestos_municipales+WHERE+year=").concat(year, "AND+").concat(indicator, "+IS+NOT+NULL");
-      urlData = "".concat(endPoint).concat(queryData);
+      urlData = "".concat(endPoint).concat(queryData, "&token=").concat(token);
       redraw();
     }
 
@@ -471,7 +471,7 @@ $(document).on('turbolinks:load', function() {
 
       var queryData = "SELECT+amount_per_inhabitant,place_id+FROM+presupuestos_municipales+WHERE+year%3D%27".concat(year, "%27+AND+code%3D%27").concat(code, "%27+AND+kind%3D%27").concat(kind, "%27+and+area%3D%27").concat(area, "%27");
 
-      urlData = "".concat(endPoint).concat(queryData);
+      urlData = "".concat(endPoint).concat(queryData, "&token=").concat(token);
       if (kind === 'I') {
         tooltipString = indicatorsValue.ingreso_habitante.name
       } else if(kind === 'G') {
