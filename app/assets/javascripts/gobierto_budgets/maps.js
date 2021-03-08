@@ -493,9 +493,9 @@ $(document).on('turbolinks:load', function() {
     $('.search_items').on('input', function() {
         var elementValue = $(this).val().length
         if (elementValue === 0) {
-          $('.items table.table tr').not('[data-search-box]').css({ display: "none" });
+          $('.items table tr').not('[data-search-box]').css({ display: "none" });
         } else {
-          $('.items table.table tr').css({ display: "block" });
+          $('.items table tr').css({ display: "block" });
         }
     });
 
