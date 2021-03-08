@@ -16,6 +16,8 @@ $(document).on('turbolinks:load', function() {
     var mapPropertiesLat = window.mapSettings.centerLat || 40.416775
     var mapPropertiesLon = window.mapSettings.centerLon || -3.703790
     var mapPropertiesZoom = window.mapSettings.zoomLevel || 5
+    var mapPlaceScope = typeof window.placesScope != "undefined" && window.placesScope != null && window.placesScope.length != null && window.placesScope.length > 0
+    var urlTOPOJSON = mapPlaceScope ? "/cat-municipis.json" : "/municipalities_topojson.json"
 
     fomartAmounts = locale.format(",")
 
@@ -32,7 +34,6 @@ $(document).on('turbolinks:load', function() {
     var isHovering = false;
 
     var spinner = document.getElementById('overlay')
-    var urlTOPOJSON = "/municipalities_topojson.json";
     var urlMunicipalitiesLATLONG = '/lat-long-municipalities-translate.csv'
     var endPoint = "https://datos.gobierto.es/api/v1/data/data.csv?sql="
     var token = window.token
@@ -192,7 +193,9 @@ $(document).on('turbolinks:load', function() {
         });
 
         //Create a dynamic domain for every value
-        CUSTOM_DOMAIN = chroma.limits(dataForDomainScale, 'q', 6);
+        CUSTOM_DOMAIN = chroma.limits(dataForDomainScale, 'q', 7);
+        //It creates an array with eight values. The first value is the min value which affects the color scale because only one municipality will match that value, so let's remove it.
+        CUSTOM_DOMAIN.shift()
 
         if(indicator === 'debt') {
           CUSTOM_DOMAIN.forEach(function(d, index) {
@@ -210,25 +213,17 @@ $(document).on('turbolinks:load', function() {
         var MUNICIPALITIES = {}
         MUNICIPALITIES = topojson.feature(dataTOPOJSON, dataTOPOJSON.objects.municipalities);
 
-        //In some cases, we need to filter the map with a series of specific municipalities.
-        var arrayMunicipalitiesScope = window.placesScope
-
         //If it contains codes we will filter through them.
-        if (typeof arrayMunicipalitiesScope != "undefined" && arrayMunicipalitiesScope != null && arrayMunicipalitiesScope.length != null && arrayMunicipalitiesScope.length > 0) {
-          //Filter the geometries of topojson with ine codes
-          MUNICIPALITIES.features = filterMunicipalitiesByScope(arrayMunicipalitiesScope)
+        if (mapPlaceScope) {
           //Filter the select only with the municipalities filtered
-          dataMunicipalities = filterSelectMunicipalities(arrayMunicipalitiesScope)
+          dataMunicipalities = filterSelectMunicipalities()
         }
 
-        function filterMunicipalitiesByScope(ineCodes) {
-          var filteredMunicipalities = MUNICIPALITIES.features.filter(function(municipality) {
-            return ineCodes.includes(municipality.properties.cp)
+        function filterSelectMunicipalities() {
+          var dataMunicipalitiesIne = MUNICIPALITIES.features
+          var ineCodes = dataMunicipalitiesIne.map(function(element) {
+            return element.properties.cp
           })
-          return filteredMunicipalities
-        }
-
-        function filterSelectMunicipalities(ineCodes) {
           var filteredMunicipalities = dataMunicipalities.filter(function(municipality) {
             return ineCodes.includes(municipality.codigo_ine)
           })
@@ -360,14 +355,14 @@ $(document).on('turbolinks:load', function() {
             .property('value')
 
           //Filter municipalities with the selected value
-          var selectElement = dataMunicipalitiesLATLONG.filter(function(el) {
-            return el.name === value
+          var selectElement = dataMunicipalities.filter(function(el) {
+            return el.nombre === value
           });
           //Pass coordinates to deck.gl
           deckgl.setProps({
             viewState: {
-              longitude: +selectElement[0].X,
-              latitude: +selectElement[0].Y,
+              longitude: +selectElement[0].lat,
+              latitude: +selectElement[0].lon,
               zoom: 9,
               minZoom: 5,
               maxZoom: 9,
@@ -383,7 +378,7 @@ $(document).on('turbolinks:load', function() {
 
           //Filter by selected municipality
           var strokeSelected = strokeDATAFILTER.filter(function(el) {
-            return el.properties.name === value
+            return el.properties.cp === selectElement[0].codigo_ine
           });
 
           //Replace object features
@@ -425,10 +420,11 @@ $(document).on('turbolinks:load', function() {
       if (Object.keys(d.properties).length === 0) {
         return [255,255,255,0]
       }
-      var COLOR_SCALE = d3.scaleThreshold()
-        .domain(CUSTOM_DOMAIN)
-        .range(CHOROPLET_SCALE);
-      return COLOR_SCALE(d[indicator] = mapMunicipalities.get(d.properties.cp));
+      var quantiles = d3.scaleQuantile()
+          .range(CHOROPLET_SCALE)
+          .domain(CUSTOM_DOMAIN)
+
+      return quantiles(d[indicator] = mapMunicipalities.get(d.properties.cp));
     }
 
     function loadIndicators(e) {
@@ -491,6 +487,16 @@ $(document).on('turbolinks:load', function() {
       $('.icon_sidebar').removeClass('fa-caret-square-o-up').addClass('fa-caret-square-o-down');
       $('.items').css({ display: "none" });
       $('[data-search-box]').attr('value', '');
+    });
+
+    //If the input is empty, the results of the previous search are removed
+    $('.search_items').on('input', function() {
+        var elementValue = $(this).val().length
+        if (elementValue === 0) {
+          $('.items table.table tr').not('[data-search-box]').css({ display: "none" });
+        } else {
+          $('.items table.table tr').css({ display: "block" });
+        }
     });
 
     function getData() {
