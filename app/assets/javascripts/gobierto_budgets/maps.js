@@ -16,8 +16,7 @@ $(document).on('turbolinks:load', function() {
     var mapPropertiesLat = window.mapSettings.centerLat || 40.416775
     var mapPropertiesLon = window.mapSettings.centerLon || -3.703790
     var mapPropertiesZoom = window.mapSettings.zoomLevel || 5
-    var mapPlaceScope = typeof window.placesScope != "undefined" && window.placesScope != null && window.placesScope.length != null && window.placesScope.length > 0
-    var urlTOPOJSON = mapPlaceScope ? "/cat-municipis.json" : "/municipalities_topojson.json"
+    var urlTOPOJSON = window.mapSettings.map_topojson || "/municipalities_topojson.json"
 
     fomartAmounts = locale.format(",")
 
@@ -214,7 +213,7 @@ $(document).on('turbolinks:load', function() {
         MUNICIPALITIES = topojson.feature(dataTOPOJSON, dataTOPOJSON.objects.municipalities);
 
         //If it contains codes we will filter through them.
-        if (mapPlaceScope) {
+        if (typeof window.placesScope != "undefined" && window.placesScope != null && window.placesScope.length != null && window.placesScope.length > 0) {
           //Filter the select only with the municipalities filtered
           dataMunicipalities = filterSelectMunicipalities()
         }

@@ -8,4 +8,5 @@ users_enabled: false
 map_center_lat: 39.3
 map_center_lon: -5.6
 map_zoom_level: 6
+map_topojson: false
 twitter_account: '@gobierto'
