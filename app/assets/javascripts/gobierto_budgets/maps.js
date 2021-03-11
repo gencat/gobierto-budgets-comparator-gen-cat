@@ -16,7 +16,7 @@ $(document).on('turbolinks:load', function() {
     var mapPropertiesLat = window.mapSettings.centerLat || 40.416775
     var mapPropertiesLon = window.mapSettings.centerLon || -3.703790
     var mapPropertiesZoom = window.mapSettings.zoomLevel || 5
-    var urlTOPOJSON = window.mapSettings.map_topojson || "/municipalities_topojson.json"
+    var urlTOPOJSON = window.mapSettings.topojson || "/municipalities_topojson.json"
 
     fomartAmounts = locale.format(",")
 
