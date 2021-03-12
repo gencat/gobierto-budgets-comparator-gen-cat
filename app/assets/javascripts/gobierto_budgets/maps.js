@@ -97,7 +97,7 @@ $(document).on('turbolinks:load', function() {
       longitude: mapPropertiesLon,
       zoom: mapPropertiesZoom,
       minZoom: 5,
-      maxZoom: 8
+      maxZoom: 9
     };
 
     deckgl = new deck.Deck({
@@ -364,7 +364,7 @@ $(document).on('turbolinks:load', function() {
               latitude: +selectElement[0].lon,
               zoom: 9,
               minZoom: 5,
-              maxZoom: 9,
+              maxZoom: 10,
               transitionInterpolator: new deck.FlyToInterpolator(),
               transitionDuration: 1500
             }
