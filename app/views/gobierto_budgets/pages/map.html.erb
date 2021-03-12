@@ -119,6 +119,7 @@
   window.mapSettings = {
     centerLat: <%= Settings.map_center_lat %>,
     centerLon: <%= Settings.map_center_lon %>,
+    topojson: "<%= Settings.map_topojson %>",
     zoomLevel: <%= Settings.map_zoom_level %>
   };
   window.token = '<%= ENV.fetch("GOBIERTO_DATA_TOKEN") %>'
