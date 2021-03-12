@@ -23,7 +23,6 @@
 //= require d3-jetpack
 //= require gobierto_budgets/vendor/select2.min
 //= require underscore-min
-//= require simple-statistics.min
 //= require klass
 //= require gobierto_budgets/vendor/jquery.inview
 //= require jquery.magnific-popup.min
