@@ -1,8 +1,8 @@
 GIT
-  remote: https://github.com/PopulateTools/gobierto_data.git
-  revision: 814933d614c7fe05ffac21e838d6cf8d0f9531d6
+  remote: https://github.com/PopulateTools/gobierto_budgets_data.git
+  revision: 17761ea394fdb07418ee89a751482da4c6ebdaaf
   specs:
-    gobierto_data (0.1.0)
+    gobierto_budgets_data (0.1.0)
       actionpack (>= 5.0.0.1)
       activesupport (>= 5.0.0)
       aws-sdk (~> 2.11, >= 2.11.45)
@@ -394,7 +394,7 @@ DEPENDENCIES
   elasticsearch-extensions
   email_spec
   flight-for-rails
-  gobierto_data!
+  gobierto_budgets_data!
   hashie
   i18n-js (>= 3.0.0.rc11)
   ine-places

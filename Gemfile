@@ -20,7 +20,7 @@ gem 'aws-ses'
 gem 'cocoon'
 gem 'nokogiri', '~> 1.12'
 gem 'json', '~> 2.1'
-gem "gobierto_data", git: "https://github.com/PopulateTools/gobierto_data.git"
+gem "gobierto_budgets_data", git: "https://github.com/PopulateTools/gobierto_budgets_data.git"
 gem "bootsnap"
 gem 'sprockets', '~> 3.7.2'
 
