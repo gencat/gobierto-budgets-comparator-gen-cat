@@ -18,9 +18,9 @@ gem 'config'
 gem 'dalli'
 gem 'aws-ses'
 gem 'cocoon'
-gem 'nokogiri', '~> 1.8', '>= 1.8.1'
+gem 'nokogiri', '~> 1.12'
 gem 'json', '~> 2.1'
-gem "gobierto_data", git: "https://github.com/PopulateTools/gobierto_data.git"
+gem "gobierto_budgets_data", git: "https://github.com/PopulateTools/gobierto_budgets_data.git"
 gem "bootsnap"
 gem 'sprockets', '~> 3.7.2'
 
@@ -35,7 +35,7 @@ gem 'turbolinks'
 gem 'therubyracer'
 gem 'cookies_eu'
 gem 'flight-for-rails'
-gem "i18n-js", ">= 3.0.0.rc11"
+gem "i18n-js", "~> 3.8.3"
 
 # Elastic search
 gem 'elasticsearch'
