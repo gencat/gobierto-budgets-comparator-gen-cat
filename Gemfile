@@ -35,7 +35,7 @@ gem 'turbolinks'
 gem 'therubyracer'
 gem 'cookies_eu'
 gem 'flight-for-rails'
-gem "i18n-js", ">= 3.0.0.rc11"
+gem "i18n-js", "~> 3.8.3"
 
 # Elastic search
 gem 'elasticsearch'
