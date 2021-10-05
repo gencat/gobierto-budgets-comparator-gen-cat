@@ -192,16 +192,14 @@ GEM
     flight-for-rails (1.5.1)
       jquery-rails (>= 2.1.4)
       rails (>= 3.1.0)
-    glob (0.2.0)
     globalid (0.5.2)
       activesupport (>= 5.0)
     hashie (3.6.0)
     htmlentities (4.3.4)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
-    i18n-js (4.0.0.alpha1)
-      glob
-      i18n
+    i18n-js (3.8.4)
+      i18n (>= 0.6.6)
     ine-places (0.3.0)
       activesupport (>= 4.2)
     jmespath (1.4.0)
@@ -415,7 +413,7 @@ DEPENDENCIES
   flight-for-rails
   gobierto_budgets_data!
   hashie
-  i18n-js (>= 3.0.0.rc11)
+  i18n-js (~> 3.8.3)
   ine-places
   jquery-rails
   jquery-turbolinks
