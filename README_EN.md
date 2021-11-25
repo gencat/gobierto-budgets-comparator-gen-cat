@@ -32,7 +32,7 @@ The application is written in the Ruby programming language and uses the Ruby on
 ### Software Requirements
 
 - Git
-- Ruby 2.7.1
+- Ruby 2.7.4
 - Rubygems
 - PostgreSQL
 - Elastic Search
