@@ -43,6 +43,9 @@ gem 'elasticsearch-extensions'
 gem 'oj'
 gem 'hashie'
 
+# Log
+gem "lograge"
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "spring"

@@ -231,6 +231,11 @@ GEM
     listen (3.7.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
+    lograge (0.11.2)
+      actionpack (>= 4)
+      activesupport (>= 4)
+      railties (>= 4)
+      request_store (~> 1.0)
     loofah (2.12.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -298,6 +303,8 @@ GEM
     redcarpet (3.5.1)
     ref (2.0.0)
     regexp_parser (2.1.1)
+    request_store (1.5.0)
+      rack (>= 1.4)
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
@@ -420,6 +427,7 @@ DEPENDENCIES
   json (~> 2.1)
   kaminari (~> 1.0)
   launchy
+  lograge
   meta-tags
   nokogiri (~> 1.12)
   oj
