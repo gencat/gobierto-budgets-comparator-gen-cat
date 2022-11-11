@@ -16,7 +16,7 @@ gem "kaminari", "~> 1.0"
 gem 'responders'
 gem 'config'
 gem 'dalli'
-gem 'aws-ses'
+gem "aws-ses", git: "https://github.com/zebitex/aws-ses.git", ref: "78-sigv4-problem"
 gem 'cocoon'
 gem 'nokogiri', '~> 1.13'
 gem 'json', '~> 2.1'
