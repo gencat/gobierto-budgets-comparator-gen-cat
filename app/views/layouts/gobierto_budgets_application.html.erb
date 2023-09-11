@@ -117,7 +117,10 @@
 <footer>
   <div class="gobierto_ref">
     <p><%= link_to image_tag('GobiertoFooter@2x.png', size: '401x18'), 'https://' + Settings.gobierto_host, target: 'blank' %></p>
-    <p>Conoce otros productos en <a href="https://gobierto.es">gobierto.es</a></p>
+    <% if gobierto_contratos_place_url.present? %>
+      <p>Consulta los <%= link_to "contratos del Ayuntamiento de #{current_organization.place.name}", gobierto_contratos_place_url, target: "blank" %></p>
+    <% end %>
+    <p><a href="https://gobierto.es">gobierto.es</a>: experiencia ciudadana, buen gobierno, y contratación.</p>
   </div>
 
   <menu>

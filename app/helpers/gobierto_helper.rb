@@ -1,5 +1,17 @@
 module GobiertoHelper
 
+  def gobierto_contratos_place_url
+    if @current_organization.present?
+      if current_organization.place.present?
+        if current_organization.place.provice.autonomous_region.slug == "catalunya"
+          "https://contratos.gobierto.es/adjudicadores/ajuntament-de-#{current_organization.place.slug}"
+        else
+          "https://contratos.gobierto.es/adjudicadores/ayuntamiento-de-#{current_organization.place.slug}"
+        end
+      end
+    end
+  end
+
   def flush_the_flash(entity = nil)
     if flash[:notice]
       css_class = 'notice success'
