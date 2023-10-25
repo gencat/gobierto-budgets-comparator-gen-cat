@@ -16,9 +16,9 @@ gem "kaminari", "~> 1.0"
 gem 'responders'
 gem 'config'
 gem 'dalli'
-gem 'aws-ses'
+gem "aws-ses", git: "https://github.com/zebitex/aws-ses.git", ref: "78-sigv4-problem"
 gem 'cocoon'
-gem 'nokogiri', '~> 1.12'
+gem 'nokogiri', '~> 1.14'
 gem 'json', '~> 2.1'
 gem "gobierto_budgets_data", git: "https://github.com/PopulateTools/gobierto_budgets_data.git"
 gem "bootsnap"
