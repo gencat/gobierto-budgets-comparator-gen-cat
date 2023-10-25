@@ -39,7 +39,7 @@ $(document).on('turbolinks:load', function() {
     var urlMunicipalities = "".concat(endPoint, "select+*+from+municipios&token=").concat(token)
     var indicator = 'gasto_por_habitante'
     var year = document.getElementsByTagName('body')[0].getAttribute('data-year')
-    var queryData = "SELECT+".concat(indicator, "+,place_id+FROM+indicadores_presupuestos_municipales+WHERE+year=").concat(year, "AND+").concat(indicator, "+IS+NOT+NULL");
+    var queryData = "SELECT+".concat(indicator, "+,place_id+FROM+indicadores_presupuestos_municipales+WHERE+year=").concat(year, "+AND+").concat(indicator, "+IS+NOT+NULL");
 
     var urlData = "".concat(endPoint).concat(queryData, "&token=").concat(token);
 
@@ -447,7 +447,7 @@ $(document).on('turbolinks:load', function() {
       }
 
       var year = document.getElementsByTagName('body')[0].getAttribute('data-year');
-      var queryData = "SELECT+".concat(indicator, "+,place_id+FROM+indicadores_presupuestos_municipales+WHERE+year=").concat(year, "AND+").concat(indicator, "+IS+NOT+NULL");
+      var queryData = "SELECT+".concat(indicator, "+,place_id+FROM+indicadores_presupuestos_municipales+WHERE+year=").concat(year, "+AND+").concat(indicator, "+IS+NOT+NULL");
       urlData = "".concat(endPoint).concat(queryData, "&token=").concat(token);
       redraw();
     }

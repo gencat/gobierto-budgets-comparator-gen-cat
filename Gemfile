@@ -16,11 +16,11 @@ gem "kaminari", "~> 1.0"
 gem 'responders'
 gem 'config'
 gem 'dalli'
-gem 'aws-ses'
+gem "aws-ses", git: "https://github.com/zebitex/aws-ses.git", ref: "78-sigv4-problem"
 gem 'cocoon'
-gem 'nokogiri', '~> 1.8', '>= 1.8.1'
+gem 'nokogiri', '~> 1.14'
 gem 'json', '~> 2.1'
-gem "gobierto_data", git: "https://github.com/PopulateTools/gobierto_data.git"
+gem "gobierto_budgets_data", git: "https://github.com/PopulateTools/gobierto_budgets_data.git"
 gem "bootsnap"
 gem 'sprockets', '~> 3.7.2'
 
@@ -35,13 +35,16 @@ gem 'turbolinks'
 gem 'therubyracer'
 gem 'cookies_eu'
 gem 'flight-for-rails'
-gem "i18n-js", ">= 3.0.0.rc11"
+gem "i18n-js", "~> 3.8.3"
 
 # Elastic search
 gem 'elasticsearch'
 gem 'elasticsearch-extensions'
 gem 'oj'
 gem 'hashie'
+
+# Log
+gem "lograge"
 
 group :development, :test do
   gem "byebug", platform: :mri

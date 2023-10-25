@@ -5,10 +5,10 @@ namespace :gobierto_budgets do
     desc "Check missing categories"
     task check: :environment do
       missing = []
-      ::GobiertoData::GobiertoBudgets::ALL_KINDS.each do |kind|
-        [::GobiertoData::GobiertoBudgets::ECONOMIC_AREA_NAME, ::GobiertoData::GobiertoBudgets::FUNCTIONAL_AREA_NAME].each do |area_name|
+      ::GobiertoBudgetsData::GobiertoBudgets::ALL_KINDS.each do |kind|
+        [::GobiertoBudgetsData::GobiertoBudgets::ECONOMIC_AREA_NAME, ::GobiertoBudgetsData::GobiertoBudgets::FUNCTIONAL_AREA_NAME].each do |area_name|
 
-          missing_names = ::GobiertoData::GobiertoBudgets::BudgetLine.all(
+          missing_names = ::GobiertoBudgetsData::GobiertoBudgets::BudgetLine.all(
             kind: kind,
             area_name: area_name
           ).select do |bl|
