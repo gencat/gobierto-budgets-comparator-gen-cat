@@ -306,7 +306,7 @@ SQL
     end
 
     desc "Import budgets from database into ElasticSearch. Example bin/rails gobierto_budgets:budgets:import['budgets-dbname','budgets-execution','economic',2015] place_id=28079 province_id=3 autonomous_region_id=5"
-    task :import, [:db_name, :index, :type, :year, :destination_year] => :environment do |t, args|
+    task :import, [:db_name, :index, :type, :year, :destination_year, :place_type] => :environment do |t, args|
       db_name = args[:db_name]
       index = args[:index] if BUDGETS_INDEXES.include?(args[:index])
       raise "Invalid index #{args[:index]}" if index.blank?
@@ -323,7 +323,15 @@ SQL
         destination_year = year
       end
 
-      self.send("import_#{type}_budgets", db_name, index, year, destination_year)
+      opts = if (place_type = args[:place_type]&.to_sym).present?
+               raise "Invalid place_type #{place_type}. Valid place types: #{PLACES_SETS.keys.join(", ")} " unless PLACES_SETS.keys.include?(place_type)
+
+               { place_type: place_type }
+             else
+               {}
+             end
+
+      self.send("import_#{type}_budgets", db_name, index, year, destination_year, **opts)
     end
   end
 end
