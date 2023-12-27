@@ -3,14 +3,6 @@ namespace :gobierto_budgets do
     BUDGETS_INDEXES = [GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed,
                        GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed_series, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated]
     BUDGETS_TYPES = ['economic', 'functional', 'custom']
-    PLACES_SETS = {
-      ine: INE::Places::Place.all,
-      deputation_eu: [
-        OpenStruct.new(id: "48000DD000", province_id: 48, autonomous_region_id: 16, name: "Diputación Foral de Vizcaya", custom_id: "deputation_eu"),
-        OpenStruct.new(id: "01000DD000", province_id: 1, autonomous_region_id: 16, name: "Diputación Foral de Alava", custom_id: "deputation_eu"),
-        OpenStruct.new(id: "20000DD000", province_id: 20, autonomous_region_id: 16, name: "Diputación Foral de Guipúzcoa", custom_id: "deputation_eu")
-      ]
-    }
 
     def create_budgets_mapping(index, type)
       m = GobiertoBudgets::SearchEngine.client.indices.get_mapping index: index, type: type
@@ -89,32 +81,30 @@ namespace :gobierto_budgets do
       db = create_db_connection(db_name)
 
       places_key = opts.fetch(:place_type, :ine)
-      places = PLACES_SETS[places_key]
+      places = PlaceDecorator.collection(places_key)
 
       places.each do |place|
-        place_attrs = place_attributes(place)
-
-        place_attrs.each do |key, value|
+        place.attributes.each do |key, value|
           next if ENV[key].present? && value != ENV[key].to_i
         end
 
-        next if ENV["custom_place_id"].present? && place.try(:custom_place_id) != ENV["custom_place_id"]
+        next if ENV["custom_place_id"].present? && place.custom_place_id != ENV["custom_place_id"]
 
-        pop = if place_attrs["place_id"].present?
+        pop = if place.population?
                 population(place.id, destination_year) || population(place.id, destination_year - 1) || population(place.id, destination_year - 2)
               else
                 nil
               end
 
-        if place_attrs["place_id"].present? && pop.nil?
+        if place.population? && pop.nil?
           puts "- Skipping #{place.id} #{place.name} because population data is missing for #{destination_year} and #{destination_year-1}"
           next
         end
 
         base_data = {
-          ine_code: place_attrs["place_id"],
-          province_id: place_attrs["province_id"],
-          autonomy_id: place_attrs["autonomous_region_id"],
+          ine_code: place.attributes["place_id"],
+          province_id: place.attributes["province_id"],
+          autonomy_id: place.attributes["autonomous_region_id"],
           organization_id: place.id.to_s,
           year: destination_year,
           population: pop
@@ -123,7 +113,7 @@ namespace :gobierto_budgets do
         sql = <<-SQL
 SELECT tb_funcional_#{year}.cdfgr as code, sum(tb_funcional_#{year}.importe) as amount
 FROM tb_funcional_#{year}
-INNER JOIN "tb_inventario_#{year}" ON tb_inventario_#{year}.idente = tb_funcional_#{year}.idente AND tb_inventario_#{year}.codente = '#{place_code(place)}'
+INNER JOIN "tb_inventario_#{year}" ON tb_inventario_#{year}.idente = tb_funcional_#{year}.idente AND tb_inventario_#{year}.codente = '#{place.code}'
 GROUP BY tb_funcional_#{year}.cdfgr
 SQL
 
@@ -155,7 +145,7 @@ SQL
         sql = <<-SQL
 SELECT tb_funcional_#{year}.cdcta as code, tb_funcional_#{year}.cdfgr as functional_code, tb_funcional_#{year}.importe as amount
 FROM tb_funcional_#{year}
-INNER JOIN "tb_inventario_#{year}" ON tb_inventario_#{year}.idente = tb_funcional_#{year}.idente AND tb_inventario_#{year}.codente = '#{place_code(place)}'
+INNER JOIN "tb_inventario_#{year}" ON tb_inventario_#{year}.idente = tb_funcional_#{year}.idente AND tb_inventario_#{year}.codente = '#{place.code}'
 SQL
 
         index_request_body = []
@@ -184,32 +174,30 @@ SQL
       db = create_db_connection(db_name)
 
       places_key = opts.fetch(:place_type, :ine)
-      places = PLACES_SETS[places_key]
+      places = PlaceDecorator.collection(places_key)
 
       places.each do |place|
-        place_attrs = place_attributes(place)
-
-        place_attrs.each do |key, value|
+        place.attributes.each do |key, value|
           next if ENV[key].present? && value != ENV[key].to_i
         end
 
-        next if ENV["custom_place_id"].present? && place.try(:custom_place_id) != ENV["custom_place_id"]
+        next if ENV["custom_place_id"].present? && place.custom_place_id != ENV["custom_place_id"]
 
-        pop = if place_attrs["place_id"].present?
+        pop = if place.population?
                 population(place.id, destination_year) || population(place.id, destination_year - 1) || population(place.id, destination_year - 2)
               else
                 nil
               end
 
-        if place_attrs["place_id"].present? && pop.nil?
+        if place.population? && pop.nil?
           puts "- Skipping #{place.id} #{place.name} because population data is missing for #{destination_year} and #{destination_year-1}"
           next
         end
 
         base_data = {
-          ine_code: place_attrs["place_id"],
-          province_id: place_attrs["province_id"],
-          autonomy_id: place_attrs["autonomous_region_id"],
+          ine_code: place.attributes["place_id"],
+          province_id: place.attributes["province_id"],
+          autonomy_id: place.attributes["autonomous_region_id"],
           organization_id: place.id.to_s,
           year: destination_year,
           population: pop
@@ -224,7 +212,7 @@ SQL
         sql = <<-SQL
 SELECT tb_economica_#{year}.cdcta as code, tb_economica_#{year}.tipreig AS kind, tb_economica_#{year}.#{amount_column} as amount
 FROM tb_economica_#{year}
-INNER JOIN "tb_inventario_#{year}" ON tb_inventario_#{year}.idente = tb_economica_#{year}.idente AND tb_inventario_#{year}.codente = '#{place_code(place)}'
+INNER JOIN "tb_inventario_#{year}" ON tb_inventario_#{year}.idente = tb_economica_#{year}.idente AND tb_inventario_#{year}.codente = '#{place.code}'
 SQL
 
         index_request_body = []
@@ -252,24 +240,6 @@ SQL
 
         GobiertoBudgets::SearchEngine.client.bulk index: index, type: 'economic', body: index_request_body
       end
-    end
-
-    def place_attributes(place)
-      {
-        "place_id" => numeric?(place.id) ? place.id.to_i : nil,
-        "province_id" => place.try(:province_id) || place.province.id.to_i,
-        "autonomous_region_id" => place.try(:autonomous_region_id) || place.province.autonomous_region.id.to_i
-      }
-    end
-
-    def place_code(place)
-      return place.id unless numeric?(place.id)
-
-      "#{format("%.5i", place.id)}AA000"
-    end
-
-    def numeric?(value)
-      value.is_a?(Numeric) || /\A\d+\z/.match?(value.to_s.strip)
     end
 
     desc 'Reset ElasticSearch'
@@ -323,13 +293,7 @@ SQL
         destination_year = year
       end
 
-      opts = if (place_type = args[:place_type]&.to_sym).present?
-               raise "Invalid place_type #{place_type}. Valid place types: #{PLACES_SETS.keys.join(", ")} " unless PLACES_SETS.keys.include?(place_type)
-
-               { place_type: place_type }
-             else
-               {}
-             end
+      opts = args.to_h.slice(:place_type)
 
       self.send("import_#{type}_budgets", db_name, index, year, destination_year, **opts)
     end
