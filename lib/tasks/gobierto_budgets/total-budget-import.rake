@@ -46,7 +46,7 @@ namespace :gobierto_budgets do
                   {term: { organization_id: place.id.to_s }},
                   {missing: { field: 'functional_code'}},
                   {missing: { field: 'custom_code'}}
-                ]
+                ].select { |condition| condition.values.all? { |val| val.values.all?(&:present?) } }
               }
             }
           }
