@@ -168,7 +168,7 @@ SQL
           data = base_data.merge({
             amount: row['amount'].to_f.round(2), code: code,
             functional_code: functional_code, kind: 'G',
-            amount_per_inhabitant: (row['amount'].to_f / pop).round(2)
+            amount_per_inhabitant:  pop.presence && (row['amount'].to_f / pop).round(2)
           })
 
           id = [place.id,destination_year,"#{code}-#{functional_code}",'G'].join("/")
@@ -241,7 +241,7 @@ SQL
           data = base_data.merge({
             amount: row['amount'].to_f.round(2), code: code,
             level: level, kind: row['kind'],
-            amount_per_inhabitant: (row['amount'].to_f / pop).round(2),
+            amount_per_inhabitant:  pop.presence && (row['amount'].to_f / pop).round(2),
             parent_code: parent_code
           })
 
