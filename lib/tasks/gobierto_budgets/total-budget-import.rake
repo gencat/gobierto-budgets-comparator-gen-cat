@@ -39,10 +39,11 @@ namespace :gobierto_budgets do
             filter: {
               bool: {
                 must: [
-                  {term: { ine_code: place.id }},
+                  {term: { ine_code: place.attributes["place_id"] }},
                   {term: { level: 1 }},
                   {term: { kind: kind }},
                   {term: { year: year }},
+                  {term: { organization_id: place.id.to_s }},
                   {missing: { field: 'functional_code'}},
                   {missing: { field: 'custom_code'}}
                 ]
