@@ -77,6 +77,11 @@ namespace :gobierto_budgets do
       nil
     end
 
+    def check_column_presence(connection, table_name, column_name)
+      query = "SELECT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='#{table_name}' AND column_name='#{column_name}')"
+      connection.execute(query).to_a.map(&:values).flatten.all?
+    end
+
     def import_functional_budgets(db_name, index, year, destination_year, opts = {})
       db = create_db_connection(db_name)
 
@@ -203,14 +208,14 @@ SQL
           population: pop
         }
 
-        amount_column = if index == GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
-                          'importe'
-                        elsif index == GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed
-                          'importer'
-                        end
+        amount_expression = if check_column_presence(db, "tb_economica_#{year}", "importe")
+                              "tb_economica_#{year}.importe"
+                            else
+                              "COALESCE(NULLIF(tb_economica_#{year}.importer, 0), tb_economica_#{year}.imported)"
+                            end
 
         sql = <<-SQL
-SELECT tb_economica_#{year}.cdcta as code, tb_economica_#{year}.tipreig AS kind, tb_economica_#{year}.#{amount_column} as amount
+SELECT tb_economica_#{year}.cdcta as code, tb_economica_#{year}.tipreig AS kind, #{amount_expression} as amount
 FROM tb_economica_#{year}
 INNER JOIN "tb_inventario_#{year}" ON tb_inventario_#{year}.idente = tb_economica_#{year}.idente AND tb_inventario_#{year}.codente = '#{place.code}'
 SQL
