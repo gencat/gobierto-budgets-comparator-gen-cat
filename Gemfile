@@ -30,7 +30,7 @@ gem 'soda-ruby', '~> 0.2.24', require: 'soda'
 # Frontend
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
-gem "bourbon", "~> 4.3.4"
+gem "bourbon"
 gem 'turbolinks'
 gem 'cookies_eu'
 gem 'flight-for-rails'
