@@ -1,4 +1,5 @@
 require "csv"
+require "i18n/tasks/commands"
 
 module I18nCsvTasks
   include ::I18n::Tasks::Command::Collection
