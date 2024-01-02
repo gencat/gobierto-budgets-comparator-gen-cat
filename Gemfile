@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem "rails", "~> 6.1"
-gem "pg", "~> 0.19"
+gem "pg", "~> 1.1"
 gem 'sass-rails', '~> 5.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'redcarpet', require: true
@@ -12,7 +12,7 @@ gem 'ine-places'
 gem 'actionpack-action_caching'
 gem "actionpack-page_caching"
 gem 'ruby_px'
-gem "kaminari", "~> 1.0"
+gem "kaminari", "~> 1.2"
 gem 'responders'
 gem 'config'
 gem 'dalli'
