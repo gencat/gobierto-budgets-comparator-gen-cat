@@ -36,6 +36,9 @@ gem 'cookies_eu'
 gem 'flight-for-rails'
 gem "i18n-js", "~> 3.8.3"
 
+# Webpack
+gem "webpacker"
+
 # Elastic search
 gem 'elasticsearch'
 gem 'elasticsearch-extensions'
