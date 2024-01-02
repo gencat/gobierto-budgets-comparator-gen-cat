@@ -32,7 +32,6 @@ gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem "bourbon", "~> 4.3.4"
 gem 'turbolinks'
-gem 'therubyracer'
 gem 'cookies_eu'
 gem 'flight-for-rails'
 gem "i18n-js", "~> 3.8.3"
