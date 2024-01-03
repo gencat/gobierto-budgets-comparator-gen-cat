@@ -19,6 +19,7 @@ RSpec.configure do |config|
   config.include(Paths)
   config.include(EmailSpec::Helpers)
   config.include(EmailSpec::Matchers)
+  config.include ActiveSupport::Testing::TimeHelpers
 
   Capybara.javascript_driver = :selenium
   Capybara.default_max_wait_time = 5
@@ -38,7 +39,7 @@ RSpec.configure do |config|
   end
 
   config.after(:each) do
-    Timecop.return
+    travel_back
     reset_mailer
   end
 end
