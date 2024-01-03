@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   before_action :set_locale, :set_cache_headers
 
   def render_404
-    render file: "public/404", status: 404, layout: false, handlers: [:erb], formats: [:html]
+    render file: Rails.root.join("public/404.html"), status: 404, layout: false, handlers: [:erb], formats: [:html]
   end
 
   def helpers
