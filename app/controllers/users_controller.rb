@@ -56,7 +56,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update_attributes(update_user_params)
+    if @user.update(update_user_params)
       if @user.pending_confirmation?
         @user.clear_verification_token
         @user.update_pending_answers(session.id)
