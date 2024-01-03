@@ -136,7 +136,7 @@ describe "Data API" do
   describe 'Deviation Widget' do
     describe 'Expenditure' do
       it 'returns a dev. heading, summary, percentage, total budgeted and total executed' do
-        get '/api/data/widget/budget_execution_deviation/39075/2015/G.json'
+        get '/api/data/widget/budget_execution_deviation/santander/2015/G.json'
 
         json = JSON.parse(response.body)
 
@@ -165,7 +165,7 @@ describe "Data API" do
 
     describe 'Income' do
       it 'returns a dev. heading, summary, percentage, total budgeted and total executed' do
-        get '/api/data/widget/budget_execution_deviation/39075/2014/I.json'
+        get '/api/data/widget/budget_execution_deviation/santander/2014/I.json'
 
         json = JSON.parse(response.body)
 
