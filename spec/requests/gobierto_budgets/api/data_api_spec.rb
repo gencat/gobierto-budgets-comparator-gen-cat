@@ -14,7 +14,7 @@ describe "Data API" do
         json = JSON.parse(response.body)
 
         # test for the 200 status-code
-        expect(response).to be_success
+        expect(response).to be_successful
 
         expect(json['title']).to eq('Top gastos totales en el 2015')
         expect(json['top_place_name']).to eq("Madrid")
@@ -37,7 +37,7 @@ describe "Data API" do
         json = JSON.parse(response.body)
 
         # test for the 200 status-code
-        expect(response).to be_success
+        expect(response).to be_successful
 
         expect(json['title']).to eq('Top gastos por habitante en el 2013')
         expect(json['top_place_name']).to eq("Segura de los Baños")
@@ -57,7 +57,7 @@ describe "Data API" do
         json = JSON.parse(response.body)
 
         # test for the 200 status-code
-        expect(response).to be_success
+        expect(response).to be_successful
 
         expect(json['title']).to eq('Top gastos por habitante en Cultura en el 2011')
         expect(json['top_place_name']).to eq("Daroca de Rioja")
@@ -75,7 +75,7 @@ describe "Data API" do
         json = JSON.parse(response.body)
 
         # test for the 200 status-code
-        expect(response).to be_success
+        expect(response).to be_successful
 
         expect(json['title']).to eq('Top ingresos por habitante en Impuesto sobre la Renta en el 2015')
         expect(json['top_place_name']).to eq("Pozuelo de Alarcón")
@@ -97,7 +97,7 @@ describe "Data API" do
         json = JSON.parse(response.body)
 
         # test for the 200 status-code
-        expect(response).to be_success
+        expect(response).to be_successful
 
         expect(json['title']).to eq('Top gastos totales en Cultura en el 2015')
         expect(json['top_place_name']).to eq("Madrid")
@@ -117,7 +117,7 @@ describe "Data API" do
         json = JSON.parse(response.body)
 
         # test for the 200 status-code
-        expect(response).to be_success
+        expect(response).to be_successful
 
         expect(json['title']).to eq('Top ingresos totales en Impuesto sobre la Renta en el 2015')
         expect(json['top_place_name']).to eq("Madrid")
@@ -141,7 +141,7 @@ describe "Data API" do
         json = JSON.parse(response.body)
 
         # test for the 200 status-code
-        expect(response).to be_success
+        expect(response).to be_successful
 
         expect(json['deviation_heading']).to eq('Desviación de los gastos en 2015')
         expect(json['deviation_summary']).to eq('Se ha gastado un 7,87% (14,8M€) menos de lo planeado')
@@ -170,7 +170,7 @@ describe "Data API" do
         json = JSON.parse(response.body)
 
         # test for the 200 status-code
-        expect(response).to be_success
+        expect(response).to be_successful
 
         expect(json['deviation_heading']).to eq('Desviación de los ingresos en 2014')
         expect(json['deviation_summary']).to eq('Se ha ingresado un 14,66% (27,4M€) más de lo planeado')
