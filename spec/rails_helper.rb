@@ -5,6 +5,7 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'email_spec'
 require 'rack/test'
+require "database_cleaner"
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
