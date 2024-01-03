@@ -62,7 +62,6 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'email_spec'
-  gem 'timecop'
   gem 'selenium-webdriver'
   gem 'rack-test', require: "rack/test"
 end
