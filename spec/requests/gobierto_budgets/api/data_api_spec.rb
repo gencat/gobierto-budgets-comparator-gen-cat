@@ -16,7 +16,7 @@ describe "Data API" do
         # test for the 200 status-code
         expect(response).to be_successful
 
-        expect(json['title']).to eq('Top gastos totales en el 2015')
+        expect(json['title']).to eq('Top gastos totales en 2015')
         expect(json['top_place_name']).to eq("Madrid")
         expect(json['top_amount']).to eq("4.382.585.028 €")
         expect(json['ranking_path']).to eq("/ranking/2015/G/economic/amount")
@@ -39,7 +39,7 @@ describe "Data API" do
         # test for the 200 status-code
         expect(response).to be_successful
 
-        expect(json['title']).to eq('Top gastos por habitante en el 2013')
+        expect(json['title']).to eq('Top gastos por habitante en 2013')
         expect(json['top_place_name']).to eq("Segura de los Baños")
         expect(json['top_amount']).to eq("32.250 €")
         expect(json['ranking_path']).to eq("/ranking/2013/G/functional/amount_per_inhabitant")
@@ -59,7 +59,7 @@ describe "Data API" do
         # test for the 200 status-code
         expect(response).to be_successful
 
-        expect(json['title']).to eq('Top gastos por habitante en Cultura en el 2011')
+        expect(json['title']).to eq('Top gastos por habitante en Cultura en 2011')
         expect(json['top_place_name']).to eq("Daroca de Rioja")
         expect(json['top_amount']).to eq("8.815 €")
         expect(json['ranking_path']).to eq("/ranking/2011/G/functional/amount_per_inhabitant/33")
@@ -77,7 +77,7 @@ describe "Data API" do
         # test for the 200 status-code
         expect(response).to be_successful
 
-        expect(json['title']).to eq('Top ingresos por habitante en Impuesto sobre la Renta en el 2015')
+        expect(json['title']).to eq('Top ingresos por habitante en Impuesto sobre la Renta en 2015')
         expect(json['top_place_name']).to eq("Pozuelo de Alarcón")
         expect(json['top_amount']).to eq("72 €")
         expect(json['ranking_path']).to eq("/ranking/2015/I/economic/amount_per_inhabitant/10")
@@ -99,7 +99,7 @@ describe "Data API" do
         # test for the 200 status-code
         expect(response).to be_successful
 
-        expect(json['title']).to eq('Top gastos totales en Cultura en el 2015')
+        expect(json['title']).to eq('Top gastos totales en Cultura en 2015')
         expect(json['top_place_name']).to eq("Madrid")
         expect(json['top_amount']).to eq("138.075.088 €")
         expect(json['ranking_path']).to eq("/ranking/2015/G/functional/amount/33")
@@ -119,7 +119,7 @@ describe "Data API" do
         # test for the 200 status-code
         expect(response).to be_successful
 
-        expect(json['title']).to eq('Top ingresos totales en Impuesto sobre la Renta en el 2015')
+        expect(json['title']).to eq('Top ingresos totales en Impuesto sobre la Renta en 2015')
         expect(json['top_place_name']).to eq("Madrid")
         expect(json['top_amount']).to eq("110.575.079 €")
         expect(json['ranking_path']).to eq("/ranking/2015/I/economic/amount/10")
