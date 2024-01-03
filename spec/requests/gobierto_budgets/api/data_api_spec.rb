@@ -144,10 +144,10 @@ describe "Data API" do
         expect(response).to be_successful
 
         expect(json['deviation_heading']).to eq('Desviación de los gastos en 2015')
-        expect(json['deviation_summary']).to eq('Se ha gastado un 7,87% (14,8M€) menos de lo planeado')
+        expect(json['deviation_summary']).to eq('Se ha gastado un 7,87% (15M€) menos de lo planeado')
         expect(json['deviation_percentage']).to eq('-7,87')
-        expect(json['G']['total_budgeted']).to eq('188,1M€')
-        expect(json['G']['total_executed']).to eq('173,2M€')
+        expect(json['G']['total_budgeted']).to eq('188M€')
+        expect(json['G']['total_executed']).to eq('173M€')
         expect(json['G']['evolution'][0]['year']).to eq(2010)
         expect(json['G']['evolution'][0]['deviation']).to eq(-2.88)
         expect(json['G']['evolution'][1]['year']).to eq(2011)
@@ -173,10 +173,10 @@ describe "Data API" do
         expect(response).to be_successful
 
         expect(json['deviation_heading']).to eq('Desviación de los ingresos en 2014')
-        expect(json['deviation_summary']).to eq('Se ha ingresado un 14,66% (27,4M€) más de lo planeado')
+        expect(json['deviation_summary']).to eq('Se ha ingresado un 14,66% (27M€) más de lo planeado')
         expect(json['deviation_percentage']).to eq('14,66')
-        expect(json['I']['total_budgeted']).to eq('187,1M€')
-        expect(json['I']['total_executed']).to eq('214,5M€')
+        expect(json['I']['total_budgeted']).to eq('187M€')
+        expect(json['I']['total_executed']).to eq('215M€')
         expect(json['I']['evolution'][0]['year']).to eq(2010)
         expect(json['I']['evolution'][0]['deviation']).to eq(-5.79)
         expect(json['I']['evolution'][4]['year']).to eq(2014)
