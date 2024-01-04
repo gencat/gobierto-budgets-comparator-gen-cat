@@ -37,7 +37,7 @@ class UsersController < ApplicationController
         if created
           redirect_to root_path, notice: 'Por favor, confirma tu email'
         else
-          redirect_to :back
+          redirect_back fallback_location: root_path
         end
       end
       format.js do
