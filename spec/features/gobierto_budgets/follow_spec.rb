@@ -12,6 +12,7 @@ RSpec.feature 'Follow place spec' do
     visit '/places/santander/2015'
     expect(page).to have_link('0')
     page.execute_script %{ $('#follow_link').click() }
+    visit '/places/santander/2015'
     expect(page).to have_link('1')
   end
 
