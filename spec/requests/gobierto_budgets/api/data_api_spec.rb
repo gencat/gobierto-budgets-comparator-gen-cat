@@ -92,7 +92,7 @@ describe "Data API" do
 
     describe 'Budget Line Total Rankings' do
       it 'returns a title, top_city, top_amount, ranking_path and the names of the 5 top places' do
-        get '/api/data/widget/ranking/2015/G/functional/amount/33.json'
+        get '/api/data/widget/ranking/2015/G/functional/amount/33.json?only_municipalities=true'
 
         json = JSON.parse(response.body)
 
@@ -112,7 +112,7 @@ describe "Data API" do
       end
 
       it 'works also for Income' do
-        get '/api/data/widget/ranking/2015/I/economic/amount/10.json'
+        get '/api/data/widget/ranking/2015/I/economic/amount/10.json?only_municipalities=true'
 
         json = JSON.parse(response.body)
 
