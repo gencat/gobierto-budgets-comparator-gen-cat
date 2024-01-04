@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   end
 
   def update_pending_answers(session_id)
-    GobiertoBudgets::Answer.where({temporary_user_id: session_id}).update_all({user_id: self.id, temporary_user_id: nil})
+    GobiertoBudgets::Answer.where(temporary_user_id: session_id.to_s).update_all(user_id: self.id, temporary_user_id: nil)
   end
 
   def has_replied?(options)
