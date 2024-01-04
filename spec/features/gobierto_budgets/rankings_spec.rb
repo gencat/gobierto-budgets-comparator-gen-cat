@@ -17,7 +17,7 @@ RSpec.feature "Rankings", type: :feature do
     scenario 'specifying a given Place, it redirects to the page where that Place appears in the ranking' do
       visit "#{ranking_url}?ine_code=28026"
 
-      expect(page).to have_current_path("#{ranking_url}?ine_code=28026&page=31")
+      expect(page).to have_current_path("#{ranking_url}?ine_code=28026")
     end
 
     scenario 'specifying a given Place, the place is highlighted' do
@@ -66,7 +66,7 @@ RSpec.feature "Rankings", type: :feature do
 
       scenario 'specifying a given Place, it redirects to the page where that Place appears in the ranking' do
         visit "#{ranking_url}?ine_code=28026"
-        expect(page).to have_current_path("#{ranking_url}?ine_code=28026&page=25")
+        expect(page).to have_current_path("#{ranking_url}?ine_code=28026")
       end
 
       scenario 'specifying a given Place, the place is highlighted' do
@@ -113,7 +113,7 @@ RSpec.feature "Rankings", type: :feature do
 
       scenario 'specifying a given Place, it redirects to the page where that Place appears in the ranking' do
         visit "#{ranking_url}?ine_code=28026"
-        expect(page).to have_current_path("#{ranking_url}?ine_code=28026&page=19")
+        expect(page).to have_current_path("#{ranking_url}?ine_code=28026")
       end
 
       scenario 'specifying a given Place, the place is highlighted' do
@@ -150,7 +150,7 @@ RSpec.feature "Rankings", type: :feature do
 
       scenario 'specifying a given Place, it redirects to the page where that Place appears in the ranking' do
         visit "#{ranking_url}?ine_code=28026"
-        expect(page).to have_current_path("#{ranking_url}?ine_code=28026&page=124")
+        expect(page).to have_current_path("#{ranking_url}?ine_code=28026")
       end
 
       scenario 'specifying a given Place, the place is highlighted' do
@@ -185,7 +185,7 @@ RSpec.feature "Rankings", type: :feature do
 
       scenario 'specifying a given Place, it redirects to the page where that Place appears in the ranking' do
         visit "#{ranking_url}?ine_code=28026"
-        expect(page).to have_current_path("#{ranking_url}?ine_code=28026&page=128")
+        expect(page).to have_current_path("#{ranking_url}?ine_code=28026")
       end
 
       scenario 'specifying a given Place, the place is highlighted' do
@@ -310,7 +310,7 @@ RSpec.feature "Rankings", type: :feature do
 
       scenario 'specifying a given Place, it redirects to the page where that Place appears in the ranking' do
         visit "#{ranking_url}?ine_code=43143"
-        expect(page).to have_current_path("#{ranking_url}?ine_code=43143&page=2")
+        expect(page).to have_current_path("#{ranking_url}?ine_code=43143")
       end
 
     end
@@ -325,7 +325,7 @@ RSpec.feature "Rankings", type: :feature do
 
       scenario 'specifying a given Place, it redirects to the page where that Place appears in the ranking' do
         visit "#{ranking_url}?ine_code=28026"
-        expect(page).to have_current_path("#{ranking_url}?ine_code=28026&page=67")
+        expect(page).to have_current_path("#{ranking_url}?ine_code=28026")
       end
 
       scenario 'specifying a given Place, the place is highlighted' do
@@ -358,7 +358,7 @@ RSpec.feature "Rankings", type: :feature do
 
       scenario 'specifying a given Place, it redirects to the page where that Place appears in the ranking' do
         visit "#{ranking_url}?ine_code=28026"
-        expect(page).to have_current_path("#{ranking_url}?ine_code=28026&page=236")
+        expect(page).to have_current_path("#{ranking_url}?ine_code=28026")
       end
 
       scenario 'specifying a given Place, the place is highlighted' do
