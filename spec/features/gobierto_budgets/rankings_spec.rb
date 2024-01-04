@@ -357,7 +357,6 @@ RSpec.feature "Rankings", type: :feature do
       end
 
       scenario 'specifying a given Place, it redirects to the page where that Place appears in the ranking' do
-        byebug
         visit "#{ranking_url}?ine_code=28026"
         expect(page).to have_current_path("#{ranking_url}?ine_code=28026")
       end
