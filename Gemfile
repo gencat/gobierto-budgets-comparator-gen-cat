@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem "rails", "~> 7.0.0"
+gem "rails", "~> 7.1.0"
 gem "pg", "~> 1.1"
 gem 'sass-rails', '~> 5.0.0'
 gem 'uglifier', '>= 1.3.0'
@@ -35,9 +35,6 @@ gem 'turbolinks'
 gem 'cookies_eu'
 gem 'flight-for-rails'
 gem "i18n-js", "~> 3.8.3"
-
-# Webpack
-gem "webpacker"
 
 # Elastic search
 gem 'elasticsearch'

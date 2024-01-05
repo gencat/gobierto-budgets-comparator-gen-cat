@@ -37,12 +37,11 @@ module GobiertoBudgetsComparator
     config.action_mailer.default_url_options = { host: Settings.gobierto_host, protocol: "https" }
 
     # Autoloading
-    required_paths = [
-      "#{config.root}/lib",
+    eager_load_paths = [
       "#{config.root}/lib/validators"
     ]
-    config.autoload_paths += required_paths
-    config.eager_load_paths += required_paths
+    config.eager_load_paths += eager_load_paths
+    config.autoload_lib(ignore: %w[scripts])
 
     # Load custom views from app/views/custom
     config.paths["app/views"].unshift(Rails.root.join("app", "views", "custom"))
