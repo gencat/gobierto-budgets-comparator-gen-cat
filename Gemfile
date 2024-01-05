@@ -23,6 +23,7 @@ gem 'json', '~> 2.1'
 gem "gobierto_budgets_data", git: "https://github.com/PopulateTools/gobierto_budgets_data.git"
 gem "bootsnap"
 gem 'sprockets', '~> 3.7.2'
+gem "i18n-tasks"
 
 # Socrata integration
 gem 'soda-ruby', '~> 0.2.24', require: 'soda'
@@ -50,7 +51,6 @@ group :development, :test do
   gem "spring"
   gem "spring-watcher-listen", "~> 2.0.0"
   gem "rb-readline"
-  gem "i18n-tasks"
 end
 
 group :test do
