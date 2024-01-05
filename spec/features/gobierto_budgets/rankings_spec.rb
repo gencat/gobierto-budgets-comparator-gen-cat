@@ -15,8 +15,8 @@ RSpec.feature "Rankings", type: :feature do
     end
 
     scenario 'specifying a given Place, the place is highlighted' do
-      visit "#{ranking_url}?ine_code=28026"
-      expect(page).to have_css('tr#place_28026.selected')
+      visit "#{ranking_url}?ine_code=28079"
+      expect(page).to have_css('tr#place_28079.selected')
     end
 
     scenario 'with mixed filters' do
@@ -59,8 +59,8 @@ RSpec.feature "Rankings", type: :feature do
       end
 
       scenario 'specifying a given Place, the place is highlighted' do
-        visit "#{ranking_url}?ine_code=28026"
-        expect(page).to have_css('tr#place_28026.selected')
+        visit "#{ranking_url}?ine_code=28079"
+        expect(page).to have_css('tr#place_28079.selected')
       end
 
       scenario 'with mixed filters' do
@@ -101,8 +101,8 @@ RSpec.feature "Rankings", type: :feature do
       end
 
       scenario 'specifying a given Place, the place is highlighted' do
-        visit "#{ranking_url}?ine_code=28026"
-        expect(page).to have_css('tr#place_28026.selected')
+        visit "#{ranking_url}?ine_code=28079"
+        expect(page).to have_css('tr#place_28079.selected')
       end
 
       scenario 'with mixed filters' do
@@ -133,8 +133,8 @@ RSpec.feature "Rankings", type: :feature do
       end
 
       scenario 'specifying a given Place, the place is highlighted' do
-        visit "#{ranking_url}?ine_code=28026"
-        expect(page).to have_css('tr#place_28026.selected')
+        visit "#{ranking_url}?ine_code=43019"
+        expect(page).to have_css('tr#place_43019.selected')
       end
 
       scenario 'with mixed filters' do
@@ -163,56 +163,52 @@ RSpec.feature "Rankings", type: :feature do
       end
 
       scenario 'specifying a given Place, the place is highlighted' do
-        visit "#{ranking_url}?ine_code=28026"
-        expect(page).to have_css('tr#place_28026.selected')
+        visit "#{ranking_url}?ine_code=17048"
+        expect(page).to have_css('tr#place_17048.selected')
       end
 
       scenario 'with autonomous region filters' do
         params = {
-          ine_code: 28026,
           f: {
             aarr: 13
           }
         }
 
         visit "#{ranking_url}?#{params.to_query}"
-        expect(page).to have_selector('tr:nth-child(7) td', :text => 'Brunete')
+        expect(page).to have_selector('tr:nth-child(57) td', :text => 'Brunete')
       end
 
       scenario 'with population filters' do
         params = {
-          ine_code: 28026,
           f: {
             population:     { from: 5_000, to: 500_000}
           }
         }
 
         visit "#{ranking_url}?#{params.to_query}"
-        expect(page).to have_selector('tr:nth-child(15) td', :text => 'Brunete')
+        expect(page).to have_selector('tr:nth-child(15) td', :text => 'Allariz')
       end
 
       scenario 'with total_budget filters' do
         params = {
-          ine_code: 28026,
           f: {
             total: { from: 100_000, to: 200_000 }
           }
         }
 
         visit "#{ranking_url}?#{params.to_query}"
-        expect(page).to have_selector('tr:nth-child(14) td', :text => 'Brunete')
+        expect(page).to have_selector('tr:nth-child(14) td', :text => 'San Martín de Boniches')
       end
 
       scenario 'with per_inhabitant filters' do
         params = {
-          ine_code: 28026,
           f: {
             per_inhabitant: { from: 0, to: 500}
           }
         }
 
         visit "#{ranking_url}?#{params.to_query}"
-        expect(page).to have_selector('tr:nth-child(16) td', :text => 'Brunete')
+        expect(page).to have_selector('tr:nth-child(95) td', :text => 'Nerva')
       end
 
       scenario 'with mixed filters' do
@@ -245,12 +241,12 @@ RSpec.feature "Rankings", type: :feature do
 
       scenario 'shows (and filters by) the values of the budget line, not the total values for the place' do
 
-        bl_ranking_url = "/ranking/2015/G/functional/amount_per_inhabitant/162?ine_code=28079"
+        bl_ranking_url = "/ranking/2015/G/functional/amount_per_inhabitant/162?ine_code=3031"
 
         visit bl_ranking_url
 
-        expect(page).to have_selector('tr.selected td.location', :text => 'Madrid')
-        expect(page).to have_selector('tr.selected td.expense_per', :text => '76,11 €')
+        expect(page).to have_selector('tr.selected td.location', :text => 'Benidorm')
+        expect(page).to have_selector('tr.selected td.expense_per', :text => '250,45 €')
         expect(page).to have_selector(".filters[data-ranking-url='#{bl_ranking_url}']")
 
         params = {
@@ -259,6 +255,7 @@ RSpec.feature "Rankings", type: :feature do
           }
         }
 
+        bl_ranking_url = "/ranking/2015/G/functional/amount_per_inhabitant/162?ine_code=28079"
         visit "#{bl_ranking_url}&#{params.to_query}"
 
         expect(page).to have_selector('tr.selected td.location', :text => 'Madrid')
@@ -292,8 +289,8 @@ RSpec.feature "Rankings", type: :feature do
       end
 
       scenario 'specifying a given Place, the place is highlighted' do
-        visit "#{ranking_url}?ine_code=28026"
-        expect(page).to have_css('tr#place_28026.selected')
+        visit "#{ranking_url}?ine_code=32052"
+        expect(page).to have_css('tr#place_32052.selected')
       end
 
       scenario 'with mixed filters' do
@@ -320,8 +317,8 @@ RSpec.feature "Rankings", type: :feature do
       end
 
       scenario 'specifying a given Place, the place is highlighted' do
-        visit "#{ranking_url}?ine_code=28026"
-        expect(page).to have_css('tr#place_28026.selected')
+        visit "#{ranking_url}?ine_code=8176"
+        expect(page).to have_css('tr#place_8176.selected')
       end
 
       scenario 'with mixed filters' do
