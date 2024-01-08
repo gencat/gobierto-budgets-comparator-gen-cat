@@ -47,3 +47,9 @@ node_modules
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+/config/credentials/staging.key
+
+/config/credentials/production.key
+
+/config/credentials/development.key
