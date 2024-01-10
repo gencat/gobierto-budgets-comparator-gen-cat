@@ -29,7 +29,13 @@ module GobiertoBudgets
         type: GobiertoBudgets::BudgetLine::ECONOMIC
       )
 
-      @expense_lines = BudgetLine.search(organization_id: current_organization.id, level: 1, year: @year, kind: BudgetLine::EXPENSE, type: @area_name, recalculate_aggregations: true)
+      @expense_lines = GobiertoBudgets::BudgetLine::AREA_NAMES.each_with_object({}) do |type, data|
+        data[type] = GobiertoBudgets::BudgetLine.search(organization_id: current_organization.id, level: 1, year: @year, kind: BudgetLine::EXPENSE, type:, recalculate_aggregations: true)
+      end
+
+      @area_names_with_expense_data = @expense_lines.select  { |_name, data| data["hits"].present? }.keys
+      @expense_area_name = @area_names_with_expense_data.include?(@area_name) ? @area_name : @area_names_with_expense_data.first
+
       @no_data = @income_lines['hits'].empty?
 
       if featured_budget_line?

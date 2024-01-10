@@ -7,6 +7,7 @@ module GobiertoBudgets
     EXPENSE = 'G'
     ECONOMIC = 'economic'
     FUNCTIONAL = 'functional'
+    AREA_NAMES = [ECONOMIC, FUNCTIONAL].freeze
 
     @sort_attribute ||= 'code'
     @sort_order ||= 'asc'

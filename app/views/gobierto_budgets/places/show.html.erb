@@ -68,25 +68,31 @@
 
       <div class="form_filters">
         <ul>
-          <li><%= link_to t('common.economic').capitalize, gobierto_budgets_place_path(current_organization.combined_slug, @year, {area: 'economic'}), remote: true, class: 'toggle', id: 'Economica' %></li>
-          <li><%= link_to t('common.functional').capitalize, gobierto_budgets_place_path(current_organization.combined_slug, @year, {area: 'functional'}), remote: true, class: 'toggle buttonSelected', id: 'Funcional' %></li>
+          <% @area_names_with_expense_data.each do |area_name| %>
+            <li><%= link_to t(area_name, scope: "common").capitalize, gobierto_budgets_place_path(current_organization.combined_slug, @year, { area: area_name }), remote: true, class: "toggle #{"buttonSelected" if area_name == @expense_area_name}", id: area_name.capitalize %></li>
+          <% end %>
         </ul>
       </div>
 
-      <div id="total_expense_budget" class="qty"><%= number_to_currency @expense_lines['aggregations']['total_budget']['value'], precision: 0 %></div>
+      <% if @expense_area_name.present? %>
+        <div id="total_expense_budget" class="qty"><%= number_to_currency @expense_lines[@expense_area_name]['aggregations']['total_budget']['value'], precision: 0 %></div>
+      <% end %>
     </header>
 
-    <div class="graph" id="expense-treemap"
-                       data-functional-url="<%= gobierto_budgets_place_budget_path(current_organization.combined_slug, @year, GobiertoBudgets::BudgetLine::EXPENSE, 'functional', nil, format: :json) %>"
-                       data-economic-url="<%= gobierto_budgets_place_budget_path(current_organization.combined_slug, @year, GobiertoBudgets::BudgetLine::EXPENSE, 'economic', nil, format: :json) %>">
-    </div>
+    <% if @expense_area_name.present? %>
+      <div class="graph" id="expense-treemap"
+                         data-available-area-name="<%= @expense_area_name %>"
+                         data-functional-url="<%= gobierto_budgets_place_budget_path(current_organization.combined_slug, @year, GobiertoBudgets::BudgetLine::EXPENSE, 'functional', nil, format: :json) %>"
+                         data-economic-url="<%= gobierto_budgets_place_budget_path(current_organization.combined_slug, @year, GobiertoBudgets::BudgetLine::EXPENSE, 'economic', nil, format: :json) %>">
+      </div>
 
-    <div class="items">
-      <table id="expense_lines">
-        <%= render partial: 'gobierto_budgets/places/expense_lines', locals: { area_name: @area_name } %>
-      </table>
+      <div class="items">
+        <table id="expense_lines">
+          <%= render partial: 'gobierto_budgets/places/expense_lines', locals: { area_name: @expense_area_name } %>
+        </table>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <div class="cont-income hidden">
     <header class="cat incomes">

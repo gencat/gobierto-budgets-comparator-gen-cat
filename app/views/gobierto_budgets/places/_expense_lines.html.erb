@@ -10,6 +10,6 @@
   <th class="bar_cont"></th>
 </tr>
 <%= render partial: 'gobierto_budgets/places/budget_lines',
-           collection: @expense_lines['hits'],
+           collection: @expense_lines[area_name]['hits'],
            as: 'budget_line',
-           locals: { total_budget: @expense_lines['aggregations']['total_budget']['value'], kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: area_name } %>
+           locals: { total_budget: @expense_lines[area_name]['aggregations']['total_budget']['value'], kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: area_name } %>
