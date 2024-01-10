@@ -327,7 +327,7 @@ $(document).on('turbolinks:load', function() {
 
   if($('#expense-treemap').length > 0){
     window.expenseTreemap = new TreemapVis('#expense-treemap', 'big', true);
-    var dataUrl = $('#expense-treemap').data(`${$('#expense-treemap').data('available-area-name')}-url`);
+    var dataUrl = $('#expense-treemap').data($('#expense-treemap').data('available-area-name') + '-url');
     window.expenseTreemap.render(dataUrl);
   }
 
