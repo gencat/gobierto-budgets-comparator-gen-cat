@@ -481,7 +481,8 @@ $(document).on('turbolinks:load', function() {
                 window.incomeTreemap.render($('#income-treemap').data('economic-url'));
               }
               else {
-                window.expenseTreemap.render($('#expense-treemap').data('functional-url'));
+                var dataUrl = $('#expense-treemap').data($('#expense-treemap').data('available-area-name') + '-url');
+                window.expenseTreemap.render(dataUrl);
               }
             }});
         }
