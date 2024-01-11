@@ -14,18 +14,43 @@ module GobiertoBudgets
       @code.present?
     end
 
-    def load_featured_budget_line(params = {})
+    def load_budget_lines(params = {})
+      calculate_lines
+
+      if params[:allow_year_fallback]
+        while @no_data && (@year >= Date.today.year - MAX_FEATURED_BUDGET_LINE_YEAR_FALLBACK)
+          @year -= 1
+          calculate_lines
+        end
+      end
+
+      load_featured_budget_line
+    end
+
+    def calculate_lines
+      @income_lines = BudgetLine.search(
+        organization_id: current_organization.id,
+        level: 1,
+        year: @year,
+        kind: BudgetLine::INCOME,
+        type: GobiertoBudgets::BudgetLine::ECONOMIC
+      )
+
+      @expense_lines = GobiertoBudgets::BudgetLine::AREA_NAMES.each_with_object({}) do |type, data|
+        data[type] = GobiertoBudgets::BudgetLine.search(organization_id: current_organization.id, level: 1, year: @year, kind: BudgetLine::EXPENSE, type:, recalculate_aggregations: true)
+      end
+
+      @area_names_with_expense_data = @expense_lines.select  { |_name, data| data["hits"].present? }.keys
+      @expense_area_name = @area_names_with_expense_data.include?(@area_name) ? @area_name : @area_names_with_expense_data.first
+
+      @no_data = @income_lines['hits'].empty? && @expense_area_name.blank?
+    end
+
+    def load_featured_budget_line
       @area_name ||= GobiertoBudgets::BudgetLine::FUNCTIONAL
       @kind ||= GobiertoBudgets::BudgetLine::EXPENSE
 
       results = featured_budget_line_candidates
-
-      if params[:allow_year_fallback]
-        until results.any? || (@year < Date.today.year - MAX_FEATURED_BUDGET_LINE_YEAR_FALLBACK)
-          @year -= 1
-          results = featured_budget_line_candidates
-        end
-      end
 
       @code = results.any? ? results.sample["code"] : nil
     end
