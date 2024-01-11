@@ -84,6 +84,7 @@ var VisBubbles = Class.extend({
           values: d.values,
           pct_diffs: d.pct_diff,
           id: d.id,
+          area_name: d.area_name,
           values_per_inhabitant: d.values_per_inhabitant,
           radius: d.values[year] ? this.radiusScale(d.values[year]) : 0,
           value: d.values[year],
@@ -149,7 +150,9 @@ var VisBubbles = Class.extend({
         var currentPath = window.location.pathname;
         var pathSegment = currentPath.match(/places.*\/\d{4}/)[0];
         var placeSlug = pathSegment.replace("places/", "").replace(/\/\d{4}/, "");
-        return this.budget_category === 'income' ? '/budget_lines/' + placeSlug + '/' + d.year + '/' + d.id  + '/I/economic' : '/budget_lines/' + placeSlug  + '/' + d.year + '/' + d.id + '/G/functional';
+        var areaName = d.area_name || this.budget_category === 'income' ? 'economic' : 'functional';
+        var budgetCategory = this.budget_category === 'income' ? 'I' : 'G';
+        return '/budget_lines/' + placeSlug + '/' + d.year + '/' + d.id  + '/' + budgetCategory + '/' + areaName;
       }.bind(this))
       .attr('target', '_top')
       .append('circle')
