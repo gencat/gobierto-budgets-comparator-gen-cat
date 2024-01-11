@@ -39,7 +39,7 @@ module GobiertoBudgets
 
       begin
         retries ||= 0
-        load_featured_budget_line(allow_year_fallback: true)
+        load_featured_budget_line
 
         if featured_budget_line?
           @amount_per_inhabitant_summary = budget_per_inhabitant_summary(default_budget_line_params)
