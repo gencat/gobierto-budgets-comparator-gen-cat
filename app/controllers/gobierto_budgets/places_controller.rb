@@ -19,7 +19,7 @@ module GobiertoBudgets
       if @year.nil?
         redirect_to gobierto_budgets_place_path(current_organization.combined_slug, SearchEngineConfiguration::Year.last) and return
       end
-      load_budget_lines(allow_year_fallback: true)
+      load_budget_lines(allow_year_fallback: true, start_year: @year)
 
       if featured_budget_line?
         @amount_per_inhabitant_summary = budget_per_inhabitant_summary(default_budget_line_params)
