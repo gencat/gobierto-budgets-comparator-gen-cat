@@ -22,8 +22,11 @@ module GobiertoBudgets
           @year -= 1
           calculate_lines
         end
-      end
 
+        if params[:start_year].present? && params[:start_year] != @year
+          redirect_to gobierto_budgets_place_path(current_organization.combined_slug, @year) and return
+        end
+      end
       load_featured_budget_line
     end
 
