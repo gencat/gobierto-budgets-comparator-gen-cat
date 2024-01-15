@@ -77,6 +77,30 @@ module GobiertoBudgets
       end
     end
 
+    def location_budget_path(*args)
+      if params[:places_collection] == "deputation_eu"
+        gobierto_budgets_deputation_budget_path(*args)
+      else
+        gobierto_budgets_place_budget_path(*args)
+      end
+    end
+
+    def location_execution_path(*args)
+      if params[:places_collection] == "deputation_eu"
+        gobierto_budgets_deputation_execution_path(*args)
+      else
+        gobierto_budgets_place_execution_path(*args)
+      end
+    end
+
+    def location_path(*args)
+      if params[:places_collection] == "deputation_eu"
+        gobierto_budgets_deputation_path(*args)
+      else
+        gobierto_budgets_place_path(*args)
+      end
+    end
+
     def kind_literal(kind, plural = true)
       if kind == 'I'
         plural ? t('common.incomes') : t('common.income')
