@@ -3,15 +3,15 @@
 PLACES_COLLECTIONS = {
   ine: INE::Places::Place.all,
   deputation_eu: [
-    OpenStruct.new(id: "48000DD000", province_id: 48, autonomous_region_id: 16, name: "Diputación Foral de Vizcaya", custom_place_id: "deputation_eu"),
-    OpenStruct.new(id: "01000DD000", province_id: 1, autonomous_region_id: 16, name: "Diputación Foral de Alava", custom_place_id: "deputation_eu"),
-    OpenStruct.new(id: "20000DD000", province_id: 20, autonomous_region_id: 16, name: "Diputación Foral de Guipúzcoa", custom_place_id: "deputation_eu")
+    OpenStruct.new(id: "48000DD000", province_id: 48, autonomous_region_id: 16, name: "Diputación Foral de Vizcaya", custom_place_id: "deputation_eu", slug: "dip-bizkaia"),
+    OpenStruct.new(id: "01000DD000", province_id: 1, autonomous_region_id: 16, name: "Diputación Foral de Alava", custom_place_id: "deputation_eu", slug: "dip-alava"),
+    OpenStruct.new(id: "20000DD000", province_id: 20, autonomous_region_id: 16, name: "Diputación Foral de Guipúzcoa", custom_place_id: "deputation_eu", slug: "dip-gipuzkoa")
   ]
 }
 
 class PlaceDecorator
   attr_reader :id, :place
-  delegate :name, to: :place
+  delegate :name, :slug, to: :place
 
   def self.collection(key)
     key = key.to_sym
@@ -33,6 +33,11 @@ class PlaceDecorator
       "province_id" => (place.try(:province_id) || place.province.id)&.to_i,
       "autonomous_region_id" => (place.try(:autonomous_region_id) || place.province.autonomous_region.id)&.to_i
     }
+  end
+
+  def province
+    return place.province if place.respond_to?(:province)
+    INE::Places::Province.find(@place.province_id) if place.respond_to?(:province_id)
   end
 
   def custom_place_id
