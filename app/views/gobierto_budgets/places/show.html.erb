@@ -69,7 +69,7 @@
       <div class="form_filters">
         <ul>
           <% @area_names_with_expense_data.each do |area_name| %>
-            <li><%= link_to t(area_name, scope: "common").capitalize, gobierto_budgets_place_path(current_organization.combined_slug, @year, { area: area_name }), remote: true, class: "toggle #{"buttonSelected" if area_name == @expense_area_name}", id: area_name.capitalize %></li>
+            <li><%= link_to t(area_name, scope: "common").capitalize, location_path(current_organization.combined_slug, @year, { area: area_name }), remote: true, class: "toggle #{"buttonSelected" if area_name == @expense_area_name}", id: area_name.capitalize %></li>
           <% end %>
         </ul>
       </div>
@@ -82,8 +82,8 @@
     <% if @expense_area_name.present? %>
       <div class="graph" id="expense-treemap"
                          data-available-area-name="<%= @expense_area_name %>"
-                         data-functional-url="<%= gobierto_budgets_place_budget_path(current_organization.combined_slug, @year, GobiertoBudgets::BudgetLine::EXPENSE, 'functional', nil, format: :json) %>"
-                         data-economic-url="<%= gobierto_budgets_place_budget_path(current_organization.combined_slug, @year, GobiertoBudgets::BudgetLine::EXPENSE, 'economic', nil, format: :json) %>">
+                         data-functional-url="<%= location_budget_path(current_organization.combined_slug, @year, GobiertoBudgets::BudgetLine::EXPENSE, 'functional', nil, format: :json) %>"
+                         data-economic-url="<%= location_budget_path(current_organization.combined_slug, @year, GobiertoBudgets::BudgetLine::EXPENSE, 'economic', nil, format: :json) %>">
       </div>
 
       <div class="items">
@@ -102,7 +102,7 @@
       <div class="qty"><%= number_to_currency @income_lines['aggregations']['total_budget']['value'], precision: 0 %></div>
     </header>
 
-    <div class="graph" id="income-treemap" data-economic-url="<%= gobierto_budgets_place_budget_path(current_organization.combined_slug, @year, GobiertoBudgets::BudgetLine::INCOME, 'economic', nil, format: :json) %>">
+    <div class="graph" id="income-treemap" data-economic-url="<%= location_budget_path(current_organization.combined_slug, @year, GobiertoBudgets::BudgetLine::INCOME, 'economic', nil, format: :json) %>">
     </div>
 
     <div class="items">
@@ -112,7 +112,7 @@
           <input type="text"
                  placeholder="<%= t('.search_budget_lines_income') %>"
                  class="search_items search_categories_budget-income"
-                 data-search-url="<%= gobierto_budgets_search_categories_path(current_organization.combined_slug, @year, 'economic', GobiertoBudgets::BudgetLine::INCOME) %>">
+                 data-search-url="<%= gobierto_budgets_search_categories_path(current_organization.combined_slug, @year, 'economic', GobiertoBudgets::BudgetLine::INCOME, places_collection: params[:places_collection]) %>">
         </th>
         <th class="right "><%= kind_literal(GobiertoBudgets::BudgetLine::INCOME, false) %> <%= t('.total') %></th>
         <th class="right "><%= kind_literal(GobiertoBudgets::BudgetLine::INCOME, false) %> <%= t('.per_inhabitant') %></th>
