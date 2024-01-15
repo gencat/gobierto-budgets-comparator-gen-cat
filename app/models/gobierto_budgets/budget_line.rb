@@ -205,7 +205,7 @@ module GobiertoBudgets
       # HACK: aggregation values returned by ES are wrong. This option recalculates them.
       if options[:recalculate_aggregations] == true
         total_budget = response["hits"]["hits"].map { |h| h["_source"]["amount"] }.sum
-        total_budget_per_inhabitant = response["hits"]["hits"].map { |h| h["_source"]["amount_per_inhabitant"] }.sum
+        total_budget_per_inhabitant = response["hits"]["hits"].map { |h| h["_source"]["amount_per_inhabitant"] }.compact.sum
         response["aggregations"]["total_budget"]["value"] = total_budget
         response["aggregations"]["total_budget_per_inhabitant"]["value"] = total_budget_per_inhabitant
       end

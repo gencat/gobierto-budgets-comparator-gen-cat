@@ -17,7 +17,7 @@ module GobiertoBudgets
 
     def show
       if @year.nil?
-        redirect_to gobierto_budgets_place_path(current_organization.combined_slug, SearchEngineConfiguration::Year.last) and return
+        redirect_to location_path(current_organization.combined_slug, SearchEngineConfiguration::Year.last) and return
       end
       load_budget_lines(allow_year_fallback: true, start_year: @year)
 
@@ -147,7 +147,7 @@ module GobiertoBudgets
       @current_organization = Organization.new(organization_id: params[:ine_code])
       year = params[:year] || ::GobiertoBudgets::SearchEngineConfiguration::Year.last
       if current_organization.present?
-        redirect_to gobierto_budgets_place_path(current_organization.combined_slug, year)
+        redirect_to location_path(current_organization.combined_slug, year)
       end
     end
 
@@ -184,9 +184,9 @@ module GobiertoBudgets
 
     def set_current_organization
       @current_organization = if params[:slug]
-                                Organization.new(slug: params[:slug])
+                                Organization.new(slug: params[:slug], places_collection: params[:places_collection])
                               elsif params[:organization_id]
-                                Organization.new(id: params[:organization_id])
+                                Organization.new(id: params[:organization_id], places_collection: params[:places_collection])
                               end
       render_404 and return if @current_organization.nil? || (@current_organization.place.nil? && @current_organization.associated_entity.nil?)
     end

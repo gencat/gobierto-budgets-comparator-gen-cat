@@ -23,7 +23,7 @@ module GobiertoBudgets
     private
 
     def set_current_organization
-      @current_organization = Organization.new(slug: params[:slug])
+      @current_organization = Organization.new(slug: params[:slug], places_collection: params[:places_collection])
       render_404 and return if @current_organization.nil? || (@current_organization.place.nil? && @current_organization.associated_entity.nil?)
     end
 
