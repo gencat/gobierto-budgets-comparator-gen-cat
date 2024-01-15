@@ -184,9 +184,9 @@ module GobiertoBudgets
 
     def set_current_organization
       @current_organization = if params[:slug]
-                                Organization.new(slug: params[:slug])
+                                Organization.new(slug: params[:slug], places_collection: params[:places_collection])
                               elsif params[:organization_id]
-                                Organization.new(id: params[:organization_id])
+                                Organization.new(id: params[:organization_id], places_collection: params[:places_collection])
                               end
       render_404 and return if @current_organization.nil? || (@current_organization.place.nil? && @current_organization.associated_entity.nil?)
     end
