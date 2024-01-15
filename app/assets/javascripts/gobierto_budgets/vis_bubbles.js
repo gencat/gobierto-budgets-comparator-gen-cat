@@ -115,7 +115,7 @@ var VisBubbles = Class.extend({
     var currentPath = window.location.pathname;
     var pathSegment = currentPath.match(/places.*\/\d{4}/)[0];
     var placeSlug = pathSegment.replace("places/", "").replace(/\/\d{4}/, "");
-    var areaName = d.area_name || this.budget_category === 'income' ? 'economic' : 'functional';
+    var areaName = d.area_name || (this.budget_category === 'income' ? 'economic' : 'functional');
     var budgetCategory = this.budget_category === 'income' ? 'I' : 'G';
     return '/budget_lines/' + placeSlug + '/' + d.year + '/' + d.id  + '/' + budgetCategory + '/' + areaName;
   },
