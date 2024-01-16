@@ -10,7 +10,9 @@
           gobierto_budgets_budget_line_path(current_organization.combined_slug, budget_line['year'], budget_line['code'].parameterize, budget_line['kind'], area_name, places_collection: params[:places_collection])  %>
   </td>
   <td class="right total"><%= number_to_currency budget_line['amount'], precision: 0 %></td>
-  <td class="right per_hab"><%= number_to_currency budget_line['amount_per_inhabitant'], precision: 0 %></td>
+  <% if current_organization.population? %>
+    <td class="right per_hab"><%= number_to_currency budget_line['amount_per_inhabitant'], precision: 0 %></td>
+  <% end %>
   <td class="right percentage"><strong><%= percentage_of_total budget_line['amount'], total_budget %></strong></td>
   <td class="bar_cont"><div class="bar" style="width:<%= percentage_of_total(budget_line['amount'], total_budget).tr(',','.') %>"></div></td>
 </tr>
