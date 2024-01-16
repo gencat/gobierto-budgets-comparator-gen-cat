@@ -66,7 +66,7 @@ namespace :gobierto_budgets do
     end
 
     def create_db_connection(db_name)
-      ActiveRecord::Base.establish_connection ActiveRecord::Base.configurations[Rails.env].merge('database' => db_name)
+      ActiveRecord::Base.establish_connection ActiveRecord::Base.configurations.find_db_config(Rails.env).configuration_hash.merge(database: db_name)
       ActiveRecord::Base.connection
     end
 
