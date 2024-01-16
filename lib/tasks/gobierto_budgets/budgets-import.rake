@@ -70,6 +70,12 @@ namespace :gobierto_budgets do
       ActiveRecord::Base.connection
     end
 
+    def population_sum(ids, year)
+      sum = ids.map { |id| population(id, year) }.compact.sum
+
+      return sum if sum.positive?
+    end
+
     def population(id, year)
       response = GobiertoBudgets::SearchEngine.client.get index: 'data', type: 'population', id: "#{id}/#{year}"
       response['_source']['value']
@@ -96,7 +102,8 @@ namespace :gobierto_budgets do
         next if ENV["custom_place_id"].present? && place.custom_place_id != ENV["custom_place_id"]
 
         pop = if place.population?
-                population(place.id, destination_year) || population(place.id, destination_year - 1) || population(place.id, destination_year - 2)
+                place_ids = place.population_place_ids
+                population_sum(place_ids, destination_year) || population_sum(place_ids, destination_year - 1) || population_sum(place_ids, destination_year - 2)
               else
                 nil
               end
@@ -189,7 +196,8 @@ SQL
         next if ENV["custom_place_id"].present? && place.custom_place_id != ENV["custom_place_id"]
 
         pop = if place.population?
-                population(place.id, destination_year) || population(place.id, destination_year - 1) || population(place.id, destination_year - 2)
+                place_ids = place.population_place_ids
+                population_sum(place_ids, destination_year) || population_sum(place_ids, destination_year - 1) || population_sum(place_ids, destination_year - 2)
               else
                 nil
               end

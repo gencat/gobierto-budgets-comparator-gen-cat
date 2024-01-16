@@ -55,6 +55,23 @@ class PlaceDecorator
   end
 
   def population?
-    attributes["place_id"].present?
+    population_key.present?
+  end
+
+  def population_key
+    @population_key ||= %w(place_id province_id autonomous_region_id).find { |key| attributes[key].present? }
+  end
+
+  def population_place_ids
+    case population_key
+    when "place_id"
+      [attributes[population_key]&.to_s || place.id]
+    when "province_id"
+      province.places.map(&:id)
+    when "autonomous_region_id"
+      autonomous_region.provinces.map { |province| province.places.map(&:id) }.flatten
+    else
+      []
+    end
   end
 end
