@@ -49,7 +49,8 @@ module GobiertoBudgets
             name: areas.all_items[@kind][h['_source']['code']],
             code: h['_source']['code'],
             budget: h['_source']['amount'],
-            budget_per_inhabitant: h['_source']['amount_per_inhabitant']
+            budget_per_inhabitant: h['_source']['amount_per_inhabitant'],
+            population: @place.population?
           }
         end
 
