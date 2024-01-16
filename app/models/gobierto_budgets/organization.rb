@@ -25,6 +25,10 @@ module GobiertoBudgets
       @ine_place ||= @places_collection_key == :ine
     end
 
+    def population?
+      ine_place? || place.population?
+    end
+
     def name
       city_council? ? @place.name : @associated_entity.name
     end
