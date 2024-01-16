@@ -5,7 +5,9 @@
            data-search-url="<%= gobierto_budgets_search_categories_path(current_organization.combined_slug, @year, area_name, GobiertoBudgets::BudgetLine::EXPENSE, places_collection: params[:places_collection]) %>">
   </th>
   <th class="right "><%= kind_literal(GobiertoBudgets::BudgetLine::EXPENSE, false) %> <%= t('.total') %></th>
-  <th class="right "><%= kind_literal(GobiertoBudgets::BudgetLine::EXPENSE, false) %> <%= t('.per_inhabitant') %></th>
+  <% if current_organization.population? %>
+    <th class="right "><%= kind_literal(GobiertoBudgets::BudgetLine::EXPENSE, false) %> <%= t('.per_inhabitant') %></th>
+  <% end %>
   <th class="right ">% <%= t('.percentage_over_total') %></th>
   <th class="bar_cont"></th>
 </tr>
