@@ -49,7 +49,10 @@ yarn-debug.log*
 .yarn-integrity
 
 /config/credentials/staging.key
+/config/credentials/staging.yml.enc
 
 /config/credentials/production.key
+/config/credentials/production.yml.enc
 
 /config/credentials/development.key
+/config/credentials/development.yml.enc
