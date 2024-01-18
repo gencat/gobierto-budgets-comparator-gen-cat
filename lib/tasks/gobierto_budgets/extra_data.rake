@@ -31,6 +31,8 @@ namespace :gobierto_budgets do
         place_id = row["place_id"].to_i
         id = [place_id, year].join('/')
         place = INE::Places::Place.find(place_id)
+        next if place.blank?
+
         province_id = place.province.id.to_i
         autonomous_region_id = place.province.autonomous_region.id.to_i
 
