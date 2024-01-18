@@ -195,6 +195,8 @@ module GobiertoBudgets
     end
 
     def place_name(ine_code)
+      return if ine_code.blank?
+
       INE::Places::Place.find(ine_code).try(:name)
     end
 

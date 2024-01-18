@@ -28,9 +28,9 @@ RSpec.feature 'User feedback' do
     click_link 'Me parece POCO'
 
     expect(page).to have_content('Gracias por tu opinión')
-    expect(page).to have_content('100.0% POCO')
-    expect(page).to have_content('0% APROPIADO')
-    expect(page).to have_content('0% MUCHO')
+    expect(page).to have_content("100.0%\nPOCO")
+    expect(page).to have_content("0%\nAPROPIADO")
+    expect(page).to have_content("0%\nMUCHO")
 
     fill_in 'user_email', with: 'bar@example.com'
     click_button 'Seguir'
@@ -47,9 +47,9 @@ RSpec.feature 'User feedback' do
     click_link 'Me parece POCO'
 
     expect(page).to have_content('Gracias por tu opinión')
-    expect(page).to have_content('100.0% POCO')
-    expect(page).to have_content('0% APROPIADO')
-    expect(page).to have_content('0% MUCHO')
+    expect(page).to have_content("100.0%\nPOCO")
+    expect(page).to have_content("0%\nAPROPIADO")
+    expect(page).to have_content("0%\nMUCHO")
 
     expect(page).to_not have_css('#new_user')
     expect(GobiertoBudgets::Answer.last.user_id).to eq(@user.id)
@@ -68,9 +68,9 @@ RSpec.feature 'User feedback' do
     click_link 'Levanta la mano'
 
     expect(page).to have_content('Gracias por tu opinión')
-    expect(page).to have_content('0% POCO')
-    expect(page).to have_content('100.0% APROPIADO')
-    expect(page).to have_content('0% MUCHO')
+    expect(page).to have_content("0%\nPOCO")
+    expect(page).to have_content("100.0%\nAPROPIADO")
+    expect(page).to have_content("0%\nMUCHO")
 
     expect(page).to_not have_css('#new_user')
   end

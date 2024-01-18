@@ -1,6 +1,6 @@
 class Mailchimp
   LIST_URL = Settings.mailchimp_list
-  API_KEY = Rails.application.secrets.mailchimp_api_key
+  API_KEY = Rails.application.credentials.mailchimp_api_key
 
   def self.is_member?(user)
     return if LIST_URL.blank?
