@@ -40,6 +40,13 @@ module GobiertoBudgets
     class Data
       def self.index; 'data' end
       def self.type_population; 'population' end
+
+      # Pending to add GobiertoBudgetsData::GobiertoBudgets::POPULATION_PROVINCE_TYPE
+      # and GobiertoBudgetsData::GobiertoBudgets::POPULATION_AUTONOMY_TYPE
+      # to gobierto_budgets_data
+      def self.type_population_province; 'population-province' end
+      def self.type_population_autonomy; 'population-autonomy' end
+
       def self.type_places; 'places-v2' end
       def self.type_debt; 'debt' end
     end

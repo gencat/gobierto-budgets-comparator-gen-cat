@@ -22,6 +22,12 @@ class PlaceDecorator
     end
   end
 
+  def self.population_type_index(places_collection_key)
+    return GobiertoBudgets::SearchEngineConfiguration::Data.type_population_province if places_collection_key&.to_sym == :deputation_eu
+
+    GobiertoBudgets::SearchEngineConfiguration::Data.type_population
+  end
+
   def initialize(place)
     @place = place
     @id = place.id
