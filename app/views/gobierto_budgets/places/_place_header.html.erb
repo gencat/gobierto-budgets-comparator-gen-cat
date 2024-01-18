@@ -51,7 +51,7 @@
 
   <h1 title="<%= t('.local_budgets_from', name: current_organization.name) %>">
 
-    <%= render partial: 'gobierto_budgets/places/year_switcher' %>
+    <%= render partial: 'gobierto_budgets/places/year_switcher', locals: { path_helper: :location_path }%>
 
     <% if current_organization.city_council? %>
       <%= link_to_unless_current current_organization.name, location_path(current_organization.combined_slug, @year) %>

@@ -29,6 +29,10 @@ module GobiertoBudgets
       ine_place? || place.population?
     end
 
+    def debt?
+      ine_place? || place.debt?
+    end
+
     def name
       city_council? ? @place.name : @associated_entity.name
     end

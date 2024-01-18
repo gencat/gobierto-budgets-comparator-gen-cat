@@ -72,6 +72,10 @@ class PlaceDecorator
     population_key.present?
   end
 
+  def debt?
+    @place.debt
+  end
+
   def population_key
     @population_key ||= %w(place_id province_id autonomous_region_id).find { |key| attributes[key].present? }
   end

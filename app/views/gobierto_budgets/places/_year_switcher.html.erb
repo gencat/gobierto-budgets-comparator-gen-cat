@@ -2,7 +2,9 @@
     <%= link_to "#{@year} <i class='fa fa-angle-down'></i>".html_safe, '', class: 'current' %>
     <ul>
       <% GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |y| %>
-        <li><%= link_to y.to_s, url_for(params.reject {|k,v| k == 'page' }.merge(year: y)) %></li>
+          <% url_params = params.except(:page).merge(year: y) %>
+          <% url = local_assigns[:path_helper].present? ? send(path_helper, url_params.to_h.symbolize_keys) : url_for(url_params) %>
+        <li><%= link_to y.to_s, url %></li>
       <% end %>
     </ul>
 </div>
