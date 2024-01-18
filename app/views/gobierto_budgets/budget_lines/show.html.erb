@@ -102,8 +102,10 @@ set_meta_tags description: t('.description', kind: kind_literal(@kind).singulari
   <div class="tabs">
     <ul>
       <li><%= link_to t('.description'), '', class: 'active', data: { "tab-target": 'description' } %></li>
-      <li><%= link_to t('.council_comment'), '', data: { "tab-target": 'comment' } %></li>
-      <li><%= link_to t('.contracts'), '', data: { "tab-target": 'contracts' } %></li>
+      <% if current_organization.ine_place? %>
+        <li><%= link_to t('.council_comment'), '', data: { "tab-target": 'comment' } %></li>
+        <li><%= link_to t('.contracts'), '', data: { "tab-target": 'contracts' } %></li>
+      <% end %>
       <li><%= link_to t('.qa'), '', data: { "tab-target": 'q&a' } %></li>
     </ul>
   </div>
@@ -117,13 +119,15 @@ set_meta_tags description: t('.description', kind: kind_literal(@kind).singulari
     <% end %>
   </div>
 
-  <div class="tab_content" data-tab="comment" style="display: none;">
-    <p class="placeholder_no_info"><%= t('.ask_for_it') %></p>
-  </div>
+  <% if current_organization.ine_place? %>
+    <div class="tab_content" data-tab="comment" style="display: none;">
+      <p class="placeholder_no_info"><%= t('.ask_for_it') %></p>
+    </div>
 
-  <div class="tab_content" data-tab="contracts" style="display: none;">
-    <p class="placeholder_no_info"><%= t('.ask_for_it') %></p>
-  </div>
+    <div class="tab_content" data-tab="contracts" style="display: none;">
+      <p class="placeholder_no_info"><%= t('.ask_for_it') %></p>
+    </div>
+  <% end %>
 
   <div class="tab_content" data-tab="q&a" style="display: none;">
     <p class="placeholder_no_info"><%= t('.coming_soon') %></p>
