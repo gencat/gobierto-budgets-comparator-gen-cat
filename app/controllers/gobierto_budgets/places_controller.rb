@@ -43,7 +43,7 @@ module GobiertoBudgets
 
       if @top_possitive_difference_income.empty?
         flash[:alert] = t('.no_data', year: @year)
-        redirect_to gobierto_budgets_place_execution_path(current_organization.combined_slug, @year.to_i - 1) and return
+        redirect_to location_execution_path(current_organization.combined_slug, @year.to_i - 1) and return
       end
 
       @top_possitive_difference_expending_economic, @top_negative_difference_expending_economic = GobiertoBudgets::BudgetLine.top_differences(
