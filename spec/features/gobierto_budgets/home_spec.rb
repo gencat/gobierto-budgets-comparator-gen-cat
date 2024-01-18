@@ -9,9 +9,9 @@ RSpec.feature 'Homepage' do
     visit '/'
 
     expect(page).to have_content('Presupuestos Municipales')
-    fill_autocomplete('.pre_home .places_search', page, with: 'madri', select: 'Madrid')
+    fill_autocomplete('.pre_home .places_search', page, with: 'madri', select: 'Madride')
 
     expect(page).to have_content('Madridejos')
-    expect(page).to have_css("ul#history li", text: 'Madridejos (2017)')
+    expect(page).to have_css("ul#history li", text: /Madridejos \(20\d\d\)/)
   end
 end

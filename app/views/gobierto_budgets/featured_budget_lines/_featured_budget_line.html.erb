@@ -14,17 +14,17 @@
       <div class="main_metrics clearfix">
         <div class="metric tipsit"
              title="<%= kind_literal(@kind, false).humanize %> <%= t('gobierto_budgets.featured_budget_lines.show.per_inhabitant') %>">
-          <%= render(partial: "shared/widget_template.new", locals: @amount_per_inhabitant_summary)  %>
+          <%= render(partial: "shared/widget_template_new", locals: @amount_per_inhabitant_summary)  %>
         </div>
 
         <div class="metric tipsit"
              title="<%= kind_literal(@kind, false).humanize %>">
-          <%= render(partial: "shared/widget_template.new", locals: @amount_summary)  %>
+          <%= render(partial: "shared/widget_template_new", locals: @amount_summary)  %>
         </div>
 
         <div class="metric tipsit"
              title="<%= t('gobierto_budgets.featured_budget_lines.show..percentage_over_total') %>">
-            <%= render(partial: "shared/widget_template_lite.new", locals: @percentage_over_total_summary)  %>
+            <%= render(partial: "shared/widget_template_lite_new", locals: @percentage_over_total_summary)  %>
         </div>
       </div>
     </div>

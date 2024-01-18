@@ -27,7 +27,7 @@ class SessionsController < ApplicationController
           if params[:back_url].present?
             redirect_to params[:back_url]
           else
-            redirect_to :back
+            redirect_back fallback_location: root_path
           end
         else
           render 'new'

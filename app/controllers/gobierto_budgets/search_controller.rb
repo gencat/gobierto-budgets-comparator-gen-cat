@@ -15,7 +15,7 @@ module GobiertoBudgets
       year = params[:year].to_i
       area = params[:area]
       kind = params[:kind]
-      place = INE::Places::Place.find_by_slug(params[:slug])
+      place = place_from_params
 
       this_year_codes = get_year_codes(place, area, kind, year)
 
@@ -30,7 +30,7 @@ module GobiertoBudgets
               {
                 value: v,
                 data: {
-                  url: gobierto_budgets_budget_line_path(place.slug, year, k, kind, area)
+                  url: gobierto_budgets_budget_line_path(place.slug, year, k, kind, area, places_collection: params[:places_collection])
                 }
               }
             end
@@ -41,6 +41,12 @@ module GobiertoBudgets
 
     private
 
+    def place_from_params
+      collection_key = params[:places_collection]&.to_sym || :ine
+
+      collection_key == :ine ? INE::Places::Place.find_by_slug(params[:slug]) : PlaceDecorator.collection(collection_key).find { |place| place.slug == params[:slug] }
+    end
+
     def get_year_codes(place, area, kind, year)
       query = {
         query: {
@@ -48,7 +54,7 @@ module GobiertoBudgets
             filter: {
               bool: {
                 must: [
-                  {term: { ine_code: place.id }},
+                  {term: { organization_id: place.id }},
                   {term: { kind: kind}},
                   {term: { year: year }},
                 ]

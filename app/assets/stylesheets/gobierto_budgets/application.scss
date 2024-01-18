@@ -51,7 +51,7 @@ body {
 }
 a {
   color: $color_1_dark;
-  @include transition;
+  // @include transition;
 }
 a:hover {
   text-decoration: underline;
@@ -1275,7 +1275,7 @@ header.sub {
     float: left;
     margin: 0 1.2% 0 0;
     min-height: 66px;
-    @include transition;
+    // @include transition;
 
     .label {
       font-weight: 600;
@@ -2305,7 +2305,7 @@ input[type=submit]:disabled:hover {
 }
 .button_light {
   background: rgba($color_1, .2);
-  @include transition;
+  // @include transition;
   font-size: .75em;
   text-decoration: none;
   padding: .5em 1.5em;
@@ -2929,7 +2929,7 @@ header.ranking {
 .ranking_card {
   text-align: left;
   background: $color_1_soft;
-  @include transition;
+  // @include transition;
   padding: 1.5em;
   @include border-radius(6px);
   width: 48%;

@@ -10,11 +10,14 @@ var VisSlider = Class.extend({
     // var slideYear = currentYear;
     var maxYear = parseInt(d3.select('body').attr('data-max-year'));
     var years = [];
-    d3.keys(this.data[0].values).forEach(function(year) {
-      year = parseInt(year);
-      if (year <= maxYear)
-        years.push(year);
+    this.data.forEach(function(item) {
+      d3.keys(item.values).forEach(function(year) {
+        year = parseInt(year);
+        if (year <= maxYear && !years.includes(year))
+          years.push(year);
+      })
     });
+    years = years.sort(d3.ascending);
     // var parseYear = d3.timeParse('%Y');
     // var formatYear = d3.timeFormat('%Y');
 

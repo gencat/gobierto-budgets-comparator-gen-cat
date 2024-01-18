@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-gem "rails", "~> 5.2.0"
-gem "pg", "~> 0.19"
+gem "rails", "~> 7.1.0"
+gem "pg", "~> 1.1"
 gem 'sass-rails', '~> 5.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'redcarpet', require: true
@@ -12,7 +12,7 @@ gem 'ine-places'
 gem 'actionpack-action_caching'
 gem "actionpack-page_caching"
 gem 'ruby_px'
-gem "kaminari", "~> 1.0"
+gem "kaminari", "~> 1.2"
 gem 'responders'
 gem 'config'
 gem 'dalli'
@@ -23,6 +23,7 @@ gem 'json', '~> 2.1'
 gem "gobierto_budgets_data", git: "https://github.com/PopulateTools/gobierto_budgets_data.git"
 gem "bootsnap"
 gem 'sprockets', '~> 3.7.2'
+gem "i18n-tasks"
 
 # Socrata integration
 gem 'soda-ruby', '~> 0.2.24', require: 'soda'
@@ -30,9 +31,8 @@ gem 'soda-ruby', '~> 0.2.24', require: 'soda'
 # Frontend
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
-gem "bourbon", "~> 4.3.4"
+gem "bourbon"
 gem 'turbolinks'
-gem 'therubyracer'
 gem 'cookies_eu'
 gem 'flight-for-rails'
 gem "i18n-js", "~> 3.8.3"
@@ -59,7 +59,6 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'email_spec'
-  gem 'timecop'
   gem 'selenium-webdriver'
   gem 'rack-test', require: "rack/test"
 end

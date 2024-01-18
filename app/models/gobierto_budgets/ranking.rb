@@ -37,7 +37,7 @@ module GobiertoBudgets
         self.total_budget_ranking(variable, year, kind, offset, filters)
       end
 
-      Kaminari.paginate_array(results, {limit: self.per_page, offset: offset, total_count: total_results})
+      Kaminari.paginate_array(results, limit: self.per_page, offset: offset, total_count: total_results)
     end
 
     ## Private

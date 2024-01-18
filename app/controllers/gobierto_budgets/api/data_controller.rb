@@ -703,9 +703,9 @@ module GobiertoBudgets
         return unless params[:ine_code] || params[:organization_slug]
 
         @current_organization = if params[:ine_code]
-                                  Organization.new(organization_id: params[:ine_code])
+                                  Organization.new(organization_id: params[:ine_code], places_collection: params[:places_collection])
                                 else
-                                  Organization.new(slug: params[:organization_slug])
+                                  Organization.new(slug: params[:organization_slug], places_collection: params[:places_collection])
                                 end
         render_404 and return if @current_organization.nil? || (@current_organization.place.nil? && @current_organization.associated_entity.nil?)
       end

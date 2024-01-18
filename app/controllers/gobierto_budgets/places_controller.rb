@@ -17,21 +17,9 @@ module GobiertoBudgets
 
     def show
       if @year.nil?
-        redirect_to gobierto_budgets_place_path(current_organization.combined_slug, SearchEngineConfiguration::Year.last) and return
+        redirect_to location_path(current_organization.combined_slug, SearchEngineConfiguration::Year.last) and return
       end
-
-      @income_lines = BudgetLine.search(
-        organization_id: current_organization.id,
-        level: 1,
-        year: @year,
-        kind: BudgetLine::INCOME,
-        type: GobiertoBudgets::BudgetLine::ECONOMIC
-      )
-
-      @expense_lines = BudgetLine.search(organization_id: current_organization.id, level: 1, year: @year, kind: BudgetLine::EXPENSE, type: @area_name, recalculate_aggregations: true)
-      @no_data = @income_lines['hits'].empty?
-
-      load_featured_budget_line(allow_year_fallback: true)
+      load_budget_lines(allow_year_fallback: true, start_year: @year)
 
       if featured_budget_line?
         @amount_per_inhabitant_summary = budget_per_inhabitant_summary(default_budget_line_params)
@@ -159,7 +147,7 @@ module GobiertoBudgets
       @current_organization = Organization.new(organization_id: params[:ine_code])
       year = params[:year] || ::GobiertoBudgets::SearchEngineConfiguration::Year.last
       if current_organization.present?
-        redirect_to gobierto_budgets_place_path(current_organization.combined_slug, year)
+        redirect_to location_path(current_organization.combined_slug, year)
       end
     end
 
@@ -196,9 +184,9 @@ module GobiertoBudgets
 
     def set_current_organization
       @current_organization = if params[:slug]
-                                Organization.new(slug: params[:slug])
+                                Organization.new(slug: params[:slug], places_collection: params[:places_collection])
                               elsif params[:organization_id]
-                                Organization.new(id: params[:organization_id])
+                                Organization.new(id: params[:organization_id], places_collection: params[:places_collection])
                               end
       render_404 and return if @current_organization.nil? || (@current_organization.place.nil? && @current_organization.associated_entity.nil?)
     end

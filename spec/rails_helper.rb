@@ -5,10 +5,20 @@ require 'rspec/rails'
 require 'capybara/rspec'
 require 'email_spec'
 require 'rack/test'
+require "database_cleaner"
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 ActiveRecord::Migration.maintain_test_schema!
+
+Capybara.register_driver :headless_chrome do |app|
+  options = Selenium::WebDriver::Chrome::Options.new
+  options.args << "--headless"
+  options.args << "--no-sandbox"
+  options.args << "--window-size=1920,1080"
+
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options:)
+end
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
@@ -19,8 +29,9 @@ RSpec.configure do |config|
   config.include(Paths)
   config.include(EmailSpec::Helpers)
   config.include(EmailSpec::Matchers)
+  config.include ActiveSupport::Testing::TimeHelpers
 
-  Capybara.javascript_driver = :selenium
+  Capybara.javascript_driver = :headless_chrome
   Capybara.default_max_wait_time = 5
   Capybara.server_port = 31337
 
@@ -38,7 +49,7 @@ RSpec.configure do |config|
   end
 
   config.after(:each) do
-    Timecop.return
+    travel_back
     reset_mailer
   end
 end

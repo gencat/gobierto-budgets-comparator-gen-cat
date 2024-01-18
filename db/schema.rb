@@ -2,16 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_28_083158) do
-
+ActiveRecord::Schema[7.0].define(version: 2018_05_28_083158) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,8 +24,8 @@ ActiveRecord::Schema.define(version: 2018_05_28_083158) do
     t.string "recipient_type"
     t.integer "recipient_id"
     t.inet "ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type"
     t.index ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type"
     t.index ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type"
@@ -37,8 +36,8 @@ ActiveRecord::Schema.define(version: 2018_05_28_083158) do
     t.string "temporary_user_id"
     t.string "answer_text"
     t.integer "question_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "place_id"
     t.string "kind"
     t.integer "year"
@@ -51,13 +50,13 @@ ActiveRecord::Schema.define(version: 2018_05_28_083158) do
     t.integer "attempts", default: 0, null: false
     t.text "handler", null: false
     t.text "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
+    t.datetime "run_at", precision: nil
+    t.datetime "locked_at", precision: nil
+    t.datetime "failed_at", precision: nil
     t.string "locked_by"
     t.string "queue"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
@@ -66,7 +65,7 @@ ActiveRecord::Schema.define(version: 2018_05_28_083158) do
     t.integer "sluggable_id", null: false
     t.string "sluggable_type", limit: 50
     t.string "scope"
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
@@ -87,10 +86,10 @@ ActiveRecord::Schema.define(version: 2018_05_28_083158) do
     t.string "attachment_file_name"
     t.string "attachment_content_type"
     t.integer "attachment_file_size"
-    t.datetime "attachment_updated_at"
+    t.datetime "attachment_updated_at", precision: nil
     t.integer "gobierto_cms_page_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "site_id", null: false
   end
 
@@ -101,9 +100,9 @@ ActiveRecord::Schema.define(version: 2018_05_28_083158) do
     t.integer "attachments_count", default: 0
     t.integer "parent_id"
     t.integer "position"
-    t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "deleted_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "site_id", null: false
     t.index ["deleted_at"], name: "index_gobierto_cms_pages_on_deleted_at"
     t.index ["parent_id"], name: "index_gobierto_cms_pages_on_parent_id"
@@ -117,9 +116,9 @@ ActiveRecord::Schema.define(version: 2018_05_28_083158) do
     t.integer "commentable_id", null: false
     t.string "commentable_type", null: false
     t.integer "site_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "deleted_at", precision: nil
     t.index ["commentable_id"], name: "index_gobierto_participation_comments_on_commentable_id"
     t.index ["commentable_type"], name: "index_gobierto_participation_comments_on_commentable_type"
     t.index ["created_at"], name: "index_gobierto_participation_comments_on_created_at"
@@ -133,10 +132,10 @@ ActiveRecord::Schema.define(version: 2018_05_28_083158) do
     t.text "comment"
     t.integer "user_id", null: false
     t.integer "consultation_option_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "site_id", null: false
-    t.datetime "deleted_at"
+    t.datetime "deleted_at", precision: nil
     t.index ["consultation_id", "user_id"], name: "gp_consultation_answers_unique_consultation_user", unique: true
     t.index ["consultation_id"], name: "gp_consultation_answers_consultation_id"
     t.index ["deleted_at"], name: "index_gobierto_participation_consultation_answers_on_deleted_at"
@@ -147,10 +146,10 @@ ActiveRecord::Schema.define(version: 2018_05_28_083158) do
     t.integer "consultation_id", null: false
     t.string "option"
     t.integer "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "site_id", null: false
-    t.datetime "deleted_at"
+    t.datetime "deleted_at", precision: nil
     t.index ["consultation_id"], name: "gp_consultation_options_consultation_id"
     t.index ["deleted_at"], name: "index_gobierto_participation_consultation_options_on_deleted_at"
   end
@@ -161,11 +160,11 @@ ActiveRecord::Schema.define(version: 2018_05_28_083158) do
     t.text "body"
     t.string "slug"
     t.integer "kind", null: false
-    t.datetime "open_until"
+    t.datetime "open_until", precision: nil
     t.integer "site_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "deleted_at", precision: nil
     t.index ["deleted_at"], name: "index_gobierto_participation_consultations_on_deleted_at"
     t.index ["user_id"], name: "index_gobierto_participation_consultations_on_user_id"
   end
@@ -176,9 +175,9 @@ ActiveRecord::Schema.define(version: 2018_05_28_083158) do
     t.text "body"
     t.string "slug"
     t.integer "site_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "deleted_at", precision: nil
     t.index ["created_at"], name: "index_gobierto_participation_ideas_on_created_at"
     t.index ["deleted_at"], name: "index_gobierto_participation_ideas_on_deleted_at"
     t.index ["user_id"], name: "index_gobierto_participation_ideas_on_user_id"
@@ -196,15 +195,15 @@ ActiveRecord::Schema.define(version: 2018_05_28_083158) do
     t.string "institution_email"
     t.string "institution_address"
     t.string "institution_document_number"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "subscriptions", id: :serial, force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "place_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["place_id"], name: "index_subscriptions_on_place_id"
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
@@ -219,9 +218,9 @@ ActiveRecord::Schema.define(version: 2018_05_28_083158) do
     t.integer "place_id"
     t.string "document_type"
     t.string "document_number"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "deleted_at", precision: nil
     t.string "verification_token"
     t.boolean "pro", default: false
     t.boolean "terms_of_service", default: false

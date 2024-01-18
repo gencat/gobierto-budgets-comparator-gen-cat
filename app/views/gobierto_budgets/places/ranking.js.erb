@@ -14,7 +14,7 @@ function updateExistingLinksWithNewFilters() {
     var auxLink = document.createElement("a");
     auxLink.href = this.href;
 
-    var newParams = '<%= URI.decode({ f: params[:f] }.to_query).html_safe %>';
+    var newParams = '<%= URI.decode_uri_component({ f: params[:f] }.to_query).html_safe %>';
 
     this.href = auxLink.origin + auxLink.pathname + '?' + newParams;
   });
@@ -29,7 +29,7 @@ function updateExistingLinksWithNewVariableType() {
     var newVariableType = '<%= request.path.split("/")[5] %>';
 
     if (oldVariableType !== newVariableType) {
-      var newParams = '<%= URI.decode({ f: params[:f] }.to_query).html_safe %>';
+      var newParams = '<%= URI.decode_uri_component({ f: params[:f] }.to_query).html_safe %>';
       this.href = (auxLink.origin + auxLink.pathname).replace(oldVariableType, newVariableType) + '?' + newParams;
     }
   });

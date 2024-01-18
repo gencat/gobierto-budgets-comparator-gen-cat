@@ -27,7 +27,7 @@ class PasswordResetsController < ApplicationController
   end
 
   def update
-    if @user.update_attributes(user_params)
+    if @user.update(user_params)
       @user.update_column :password_reset_token, nil
       log_in @user
       redirect_to edit_user_path, notice: 'Contraseña actualizada correctamente'
