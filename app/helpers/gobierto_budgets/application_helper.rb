@@ -101,6 +101,22 @@ module GobiertoBudgets
       end
     end
 
+    def locations_ranking_path(*args)
+      if params[:places_collection] == "deputation_eu"
+        gobierto_budgets_deputations_ranking_path(*args)
+      else
+        gobierto_budgets_places_ranking_path(*args)
+      end
+    end
+
+    def locations_ranking_url(*args)
+      if params[:places_collection] == "deputation_eu"
+        gobierto_budgets_deputations_ranking_url(*args)
+      else
+        gobierto_budgets_places_ranking_url(*args)
+      end
+    end
+
     def kind_literal(kind, plural = true)
       if kind == 'I'
         plural ? t('common.incomes') : t('common.income')
