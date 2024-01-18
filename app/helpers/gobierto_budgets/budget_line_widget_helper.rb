@@ -107,7 +107,7 @@ module GobiertoBudgets
           delta_percentage: delta_percentage,
           ranking_position: position,
           ranking_total_elements: helpers.number_with_precision(budget_data[:total_elements], precision: 0),
-          ranking_url: gobierto_budgets_places_ranking_path(
+          ranking_url: locations_ranking_path(
             year,
             kind,
             area,
@@ -148,7 +148,7 @@ module GobiertoBudgets
           delta_percentage: delta_percentage,
           ranking_position: position,
           ranking_total_elements: helpers.number_with_precision(budget_data[:total_elements], precision: 0),
-          ranking_url: gobierto_budgets_places_ranking_path(
+          ranking_url: locations_ranking_path(
             year,
             kind,
             area,
