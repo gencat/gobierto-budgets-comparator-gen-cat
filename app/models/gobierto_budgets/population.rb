@@ -23,10 +23,10 @@ module GobiertoBudgets
       results
     end
 
-    def self.for_year(year)
-      results = population_query_results(year: year)
+    def self.for_year(year, opts = {})
+      results = population_query_results(opts.merge(year: year))
       if results.empty?
-        results = population_query_results(year: year - 1)
+        results = population_query_results(opts.merge(year: year - 1))
       end
       results
     end
@@ -45,10 +45,13 @@ module GobiertoBudgets
       end
     end
 
-    def self.ranking_hash_for(ine_code, year)
-      buckets = for_year year
+    def self.ranking_hash_for(organization_id, year, opts = {})
 
-      if row = buckets.detect{|v| v['ine_code'] == ine_code }
+      buckets = for_year year, opts
+
+      place = PlaceDecorator.find(organization_id, **opts.slice(:places_collection))
+      population_organization_id = place.population_organization_id
+      if row = buckets.detect{|v| v['organization_id'] == population_organization_id }
         value = row['value']
       end
 
@@ -79,6 +82,8 @@ module GobiertoBudgets
     def self.population_query(options)
       terms = []
       ine_codes = []
+      type = PlaceDecorator.population_type_index(options[:places_collection])
+
       if options[:ine_codes].present?
         ine_codes.concat(options[:ine_codes])
       end
@@ -148,10 +153,10 @@ module GobiertoBudgets
 
       SearchEngine.client.search(
         index: SearchEngineConfiguration::Data.index,
-        type: SearchEngineConfiguration::Data.type_population,
+        type: type,
         body: query,
         filter_path: options[:to_rank] ? "hits.total" : "hits.hits._source,hits.total",
-        _source: ["value", "ine_code"]
+        _source: ["value", "ine_code", "organization_id"]
       )
     end
 
