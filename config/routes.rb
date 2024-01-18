@@ -113,6 +113,10 @@ Rails.application.routes.draw do
     get "/diputaciones/*slug/:year/:kind/:area(/parent/:parent_code)" => "places#budget", as: :deputation_budget, constraints: BUDGET_LINE_CONSTRAINTS, defaults: { places_collection: "deputation_eu" }
     get "/diputaciones/*slug" => "places#show", defaults: { places_collection: "deputation_eu" }
 
+    # deputations compare
+
+    get "/ranking/diputaciones/:year/:kind/:area/:variable(/:code)(/p/:page)" => "places#ranking", as: :deputations_ranking, defaults: { places_collection: "deputation_eu" }
+
     # feedback
     resources :answers, only: [:create]
 
