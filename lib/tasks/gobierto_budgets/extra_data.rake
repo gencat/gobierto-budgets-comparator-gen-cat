@@ -25,7 +25,6 @@ namespace :gobierto_budgets do
       CSV.read(csv_path, headers: true).each do |row|
         year = row["year"].to_s
         population = row["habitantes"].to_i
-        debt = row["deuda"].to_f.round(2)
 
         place_id = row["place_id"].to_i
         id = [place_id, year].join('/')
@@ -33,28 +32,31 @@ namespace :gobierto_budgets do
         province_id = place.province.id.to_i
         autonomous_region_id = place.province.autonomous_region.id.to_i
 
-        item = {
-          "organization_id" => place_id,
-          "ine_code" => place_id,
-          "year" => year,
-          "value" => debt,
-          "province_id" => province_id,
-          "autonomy_id" => autonomous_region_id
-        }
-
-        debt_data = [
-          {
-            index: {
-              _index: GobiertoBudgetsData::GobiertoBudgets::ES_INDEX_DATA,
-              _type: GobiertoBudgetsData::GobiertoBudgets::DEBT_TYPE,
-              _id: id,
-              data: item
-            }
+        if row.headers.include?("deuda")
+          debt = row["deuda"].to_f.round(2)
+          item = {
+            "organization_id" => place_id,
+            "ine_code" => place_id,
+            "year" => year,
+            "value" => debt,
+            "province_id" => province_id,
+            "autonomy_id" => autonomous_region_id
           }
-        ]
 
-        GobiertoBudgetsData::GobiertoBudgets::SearchEngineWriting.client.bulk(body: debt_data)
-        puts "[SUCCESS] Debt #{debt} for #{year}"
+          debt_data = [
+            {
+              index: {
+                _index: GobiertoBudgetsData::GobiertoBudgets::ES_INDEX_DATA,
+                _type: GobiertoBudgetsData::GobiertoBudgets::DEBT_TYPE,
+                _id: id,
+                data: item
+              }
+            }
+          ]
+
+          GobiertoBudgetsData::GobiertoBudgets::SearchEngineWriting.client.bulk(body: debt_data)
+          puts "[SUCCESS] Debt #{debt} for #{year} and place #{place.name}"
+        end
 
         item = {
           "organization_id" => place_id,
