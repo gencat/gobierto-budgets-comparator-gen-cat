@@ -34,7 +34,7 @@ module GobiertoBudgets
       nil
     end
 
-    def self.budget_evolution_for(ine_code, b_or_e = BudgetTotal::BUDGETED, kind = BudgetLine::EXPENSE)
+    def self.budget_evolution_for(organization_id, b_or_e = BudgetTotal::BUDGETED, kind = BudgetLine::EXPENSE)
       query = {
         sort: [
           { year: { order: 'asc' } }
@@ -44,7 +44,7 @@ module GobiertoBudgets
             filter: {
               bool: {
                 must: [
-                  {term: {ine_code: ine_code}},
+                  {term: {organization_id: organization_id}},
                   {term: {kind: kind}}
                 ]
               }
