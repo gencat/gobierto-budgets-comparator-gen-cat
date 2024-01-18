@@ -1,5 +1,5 @@
 $('.toggle').toggleClass('buttonSelected');
-$('#total_expense_budget').text("<%= number_to_currency @expense_lines['aggregations']['total_budget']['value'], precision: 0 %>")
+$('#total_expense_budget').text("<%= number_to_currency @expense_lines[@area_name]['aggregations']['total_budget']['value'], precision: 0 %>")
 $('#expense_lines').html("<%= j render(partial: 'gobierto_budgets/places/expense_lines', locals: { area_name: @area_name }) %>");
 
 $('#show_expenses_link').replaceWith("<%= j link_to 'Ver desglose de gastos',

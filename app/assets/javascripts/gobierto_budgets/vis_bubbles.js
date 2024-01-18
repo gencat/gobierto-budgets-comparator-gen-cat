@@ -84,6 +84,7 @@ var VisBubbles = Class.extend({
           values: d.values,
           pct_diffs: d.pct_diff,
           id: d.id,
+          area_name: d.area_name,
           values_per_inhabitant: d.values_per_inhabitant,
           radius: d.values[year] ? this.radiusScale(d.values[year]) : 0,
           value: d.values[year],
@@ -110,6 +111,14 @@ var VisBubbles = Class.extend({
 
     return this.nodes;
   },
+  setLink: function(d) {
+    var currentPath = window.location.pathname;
+    var pathSegment = currentPath.match(/places.*\/\d{4}/)[0];
+    var placeSlug = pathSegment.replace("places/", "").replace(/\/\d{4}/, "");
+    var areaName = d.area_name || (this.budget_category === 'income' ? 'economic' : 'functional');
+    var budgetCategory = this.budget_category === 'income' ? 'I' : 'G';
+    return '/budget_lines/' + placeSlug + '/' + d.year + '/' + d.id  + '/' + budgetCategory + '/' + areaName;
+  },
   update: function(year) {
     var t = d3.transition()
       .duration(500);
@@ -124,6 +133,9 @@ var VisBubbles = Class.extend({
       .attr('r', function (d) { return d.radius; })
       .attr('fill', function(d) { return this.budgetColor(d.pct_diff)}.bind(this))
 
+    d3.selectAll('.bubble-g a')
+      .attr('xlink:href', function(d) { return this.setLink(d); }.bind(this))
+
     d3.selectAll('.bubble-g text')
       .data(this.nodes, function (d) { return d.name; })
       .transition(t)
@@ -133,6 +145,7 @@ var VisBubbles = Class.extend({
     this.simulation.nodes(this.nodes)
     this.simulation.alpha(1).restart();
   },
+
   updateRender: function() {
 
     // var budgetCategory = this.budget_category;
@@ -145,12 +158,7 @@ var VisBubbles = Class.extend({
       .attr('class', 'bubble-g');
 
     var bubblesG = this.bubbles.append('a')
-      .attr('xlink:href', function(d) {
-        var currentPath = window.location.pathname;
-        var pathSegment = currentPath.match(/places.*\/\d{4}/)[0];
-        var placeSlug = pathSegment.replace("places/", "").replace(/\/\d{4}/, "");
-        return this.budget_category === 'income' ? '/budget_lines/' + placeSlug + '/' + d.year + '/' + d.id  + '/I/economic' : '/budget_lines/' + placeSlug  + '/' + d.year + '/' + d.id + '/G/functional';
-      }.bind(this))
+      .attr('xlink:href', function(d) { return this.setLink(d); }.bind(this))
       .attr('target', '_top')
       .append('circle')
       .attr('class', function(d) { return d.year + ' bubble'})
