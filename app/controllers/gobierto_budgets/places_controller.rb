@@ -19,19 +19,7 @@ module GobiertoBudgets
       if @year.nil?
         redirect_to gobierto_budgets_place_path(current_organization.combined_slug, SearchEngineConfiguration::Year.last) and return
       end
-
-      @income_lines = BudgetLine.search(
-        organization_id: current_organization.id,
-        level: 1,
-        year: @year,
-        kind: BudgetLine::INCOME,
-        type: GobiertoBudgets::BudgetLine::ECONOMIC
-      )
-
-      @expense_lines = BudgetLine.search(organization_id: current_organization.id, level: 1, year: @year, kind: BudgetLine::EXPENSE, type: @area_name, recalculate_aggregations: true)
-      @no_data = @income_lines['hits'].empty?
-
-      load_featured_budget_line(allow_year_fallback: true)
+      load_budget_lines(allow_year_fallback: true, start_year: @year)
 
       if featured_budget_line?
         @amount_per_inhabitant_summary = budget_per_inhabitant_summary(default_budget_line_params)

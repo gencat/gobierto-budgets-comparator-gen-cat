@@ -37,3 +37,22 @@ config/settings/production.yml
 # Environment
 .env
 .rbenv-vars
+
+# Javascripts
+node_modules
+/public/packs
+/public/packs-test
+/public/assets
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+
+/config/credentials/staging.key
+/config/credentials/staging.yml.enc
+
+/config/credentials/production.key
+/config/credentials/production.yml.enc
+
+/config/credentials/development.key
+/config/credentials/development.yml.enc

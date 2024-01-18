@@ -77,37 +77,48 @@ namespace :gobierto_budgets do
       nil
     end
 
-    def import_functional_budgets(db_name, index, year, destination_year)
+    def check_column_presence(connection, table_name, column_name)
+      query = "SELECT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='#{table_name}' AND column_name='#{column_name}')"
+      connection.execute(query).to_a.map(&:values).flatten.all?
+    end
+
+    def import_functional_budgets(db_name, index, year, destination_year, opts = {})
       db = create_db_connection(db_name)
 
-      INE::Places::Place.all.each do |place|
-        if ENV['place_id'].present?
-          next if place.id.to_i != ENV['place_id'].to_i
-        end
-        if ENV['province_id'].present?
-          next if place.province.id.to_i != ENV['province_id'].to_i
-        end
-        if ENV['autonomous_region_id'].present?
-          next if place.province.autonomous_region.id.to_i != ENV['autonomous_region_id'].to_i
+      places_key = opts.fetch(:place_type, :ine)
+      places = PlaceDecorator.collection(places_key)
+
+      places.each do |place|
+        place.attributes.each do |key, value|
+          next if ENV[key].present? && value != ENV[key].to_i
         end
 
-        pop = population(place.id, destination_year) || population(place.id, destination_year - 1) || population(place.id, destination_year - 2)
+        next if ENV["custom_place_id"].present? && place.custom_place_id != ENV["custom_place_id"]
 
-        if pop.nil?
+        pop = if place.population?
+                population(place.id, destination_year) || population(place.id, destination_year - 1) || population(place.id, destination_year - 2)
+              else
+                nil
+              end
+
+        if place.population? && pop.nil?
           puts "- Skipping #{place.id} #{place.name} because population data is missing for #{destination_year} and #{destination_year-1}"
           next
         end
 
         base_data = {
-          ine_code: place.id.to_i, province_id: place.province.id.to_i, organization_id: place.id.to_s,
-          autonomy_id: place.province.autonomous_region.id.to_i, year: destination_year,
+          ine_code: place.attributes["place_id"],
+          province_id: place.attributes["province_id"],
+          autonomy_id: place.attributes["autonomous_region_id"],
+          organization_id: place.id.to_s,
+          year: destination_year,
           population: pop
         }
 
         sql = <<-SQL
 SELECT tb_funcional_#{year}.cdfgr as code, sum(tb_funcional_#{year}.importe) as amount
 FROM tb_funcional_#{year}
-INNER JOIN "tb_inventario_#{year}" ON tb_inventario_#{year}.idente = tb_funcional_#{year}.idente AND tb_inventario_#{year}.codente = '#{format("%.5i", place.id)}AA000'
+INNER JOIN "tb_inventario_#{year}" ON tb_inventario_#{year}.idente = tb_funcional_#{year}.idente AND tb_inventario_#{year}.codente = '#{place.code}'
 GROUP BY tb_funcional_#{year}.cdfgr
 SQL
 
@@ -124,7 +135,7 @@ SQL
           data = base_data.merge({
             amount: row['amount'].to_f.round(2), code: code,
             level: level, kind: 'G',
-            amount_per_inhabitant: (row['amount'].to_f / pop).round(2),
+            amount_per_inhabitant: pop.presence && (row['amount'].to_f / pop).round(2),
             parent_code: parent_code
           })
 
@@ -139,7 +150,7 @@ SQL
         sql = <<-SQL
 SELECT tb_funcional_#{year}.cdcta as code, tb_funcional_#{year}.cdfgr as functional_code, tb_funcional_#{year}.importe as amount
 FROM tb_funcional_#{year}
-INNER JOIN "tb_inventario_#{year}" ON tb_inventario_#{year}.idente = tb_funcional_#{year}.idente AND tb_inventario_#{year}.codente = '#{format("%.5i", place.id)}AA000'
+INNER JOIN "tb_inventario_#{year}" ON tb_inventario_#{year}.idente = tb_funcional_#{year}.idente AND tb_inventario_#{year}.codente = '#{place.code}'
 SQL
 
         index_request_body = []
@@ -152,7 +163,7 @@ SQL
           data = base_data.merge({
             amount: row['amount'].to_f.round(2), code: code,
             functional_code: functional_code, kind: 'G',
-            amount_per_inhabitant: (row['amount'].to_f / pop).round(2)
+            amount_per_inhabitant:  pop.presence && (row['amount'].to_f / pop).round(2)
           })
 
           id = [place.id,destination_year,"#{code}-#{functional_code}",'G'].join("/")
@@ -164,42 +175,49 @@ SQL
       end
     end
 
-    def import_economic_budgets(db_name, index, year, destination_year)
+    def import_economic_budgets(db_name, index, year, destination_year, opts = {})
       db = create_db_connection(db_name)
 
-      INE::Places::Place.all.each do |place|
-        if ENV['place_id'].present?
-          next if place.id.to_i != ENV['place_id'].to_i
-        end
-        if ENV['province_id'].present?
-          next if place.province.id.to_i != ENV['province_id'].to_i
-        end
-        if ENV['autonomous_region_id'].present?
-          next if place.province.autonomous_region.id.to_i != ENV['autonomous_region_id'].to_i
+      places_key = opts.fetch(:place_type, :ine)
+      places = PlaceDecorator.collection(places_key)
+
+      places.each do |place|
+        place.attributes.each do |key, value|
+          next if ENV[key].present? && value != ENV[key].to_i
         end
 
-        pop = population(place.id, destination_year) || population(place.id, destination_year - 1) || population(place.id, destination_year - 2)
-        if pop.nil?
+        next if ENV["custom_place_id"].present? && place.custom_place_id != ENV["custom_place_id"]
+
+        pop = if place.population?
+                population(place.id, destination_year) || population(place.id, destination_year - 1) || population(place.id, destination_year - 2)
+              else
+                nil
+              end
+
+        if place.population? && pop.nil?
           puts "- Skipping #{place.id} #{place.name} because population data is missing for #{destination_year} and #{destination_year-1}"
           next
         end
 
         base_data = {
-          ine_code: place.id.to_i, province_id: place.province.id.to_i, organization_id: place.id.to_s,
-          autonomy_id: place.province.autonomous_region.id.to_i, year: destination_year,
+          ine_code: place.attributes["place_id"],
+          province_id: place.attributes["province_id"],
+          autonomy_id: place.attributes["autonomous_region_id"],
+          organization_id: place.id.to_s,
+          year: destination_year,
           population: pop
         }
 
-        amount_column = if index == GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
-                          'importe'
-                        elsif index == GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed
-                          'importer'
-                        end
+        amount_expression = if check_column_presence(db, "tb_economica_#{year}", "importe")
+                              "tb_economica_#{year}.importe"
+                            else
+                              "COALESCE(NULLIF(tb_economica_#{year}.importer, 0), tb_economica_#{year}.imported)"
+                            end
 
         sql = <<-SQL
-SELECT tb_economica_#{year}.cdcta as code, tb_economica_#{year}.tipreig AS kind, tb_economica_#{year}.#{amount_column} as amount
+SELECT tb_economica_#{year}.cdcta as code, tb_economica_#{year}.tipreig AS kind, #{amount_expression} as amount
 FROM tb_economica_#{year}
-INNER JOIN "tb_inventario_#{year}" ON tb_inventario_#{year}.idente = tb_economica_#{year}.idente AND tb_inventario_#{year}.codente = '#{format("%.5i", place.id)}AA000'
+INNER JOIN "tb_inventario_#{year}" ON tb_inventario_#{year}.idente = tb_economica_#{year}.idente AND tb_inventario_#{year}.codente = '#{place.code}'
 SQL
 
         index_request_body = []
@@ -216,7 +234,7 @@ SQL
           data = base_data.merge({
             amount: row['amount'].to_f.round(2), code: code,
             level: level, kind: row['kind'],
-            amount_per_inhabitant: (row['amount'].to_f / pop).round(2),
+            amount_per_inhabitant:  pop.presence && (row['amount'].to_f / pop).round(2),
             parent_code: parent_code
           })
 
@@ -263,7 +281,7 @@ SQL
     end
 
     desc "Import budgets from database into ElasticSearch. Example bin/rails gobierto_budgets:budgets:import['budgets-dbname','budgets-execution','economic',2015] place_id=28079 province_id=3 autonomous_region_id=5"
-    task :import, [:db_name, :index, :type, :year, :destination_year] => :environment do |t, args|
+    task :import, [:db_name, :index, :type, :year, :destination_year, :place_type] => :environment do |t, args|
       db_name = args[:db_name]
       index = args[:index] if BUDGETS_INDEXES.include?(args[:index])
       raise "Invalid index #{args[:index]}" if index.blank?
@@ -280,7 +298,9 @@ SQL
         destination_year = year
       end
 
-      self.send("import_#{type}_budgets", db_name, index, year, destination_year)
+      opts = args.to_h.slice(:place_type)
+
+      self.send("import_#{type}_budgets", db_name, index, year, destination_year, **opts)
     end
   end
 end
