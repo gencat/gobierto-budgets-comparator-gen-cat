@@ -75,11 +75,11 @@ module GobiertoBudgets
       { year: @year, kind: @kind, area: @area_name, code: @code }
     end
 
-    def budget_per_inhabitant_summary(params)
-      year = params[:year]
-      kind = params[:kind]
-      area = params[:area]
-      code = params[:code]
+    def budget_per_inhabitant_summary(options)
+      year = options[:year]
+      kind = options[:kind]
+      area = options[:area]
+      code = options[:code]
 
       title = if kind == "G"
                 I18n.t("gobierto_budgets.api.data.budget_per_inhabitant.expenses_per_inhabitant")
@@ -87,9 +87,9 @@ module GobiertoBudgets
                 I18n.t("gobierto_budgets.api.data.budget_per_inhabitant.income_per_inhabitant")
               end
 
-      Rails.cache.fetch(elasticsearch_query_cache_key(__method__, params)) do
-        budget_data = budget_data(params.merge(field: "amount_per_inhabitant"))
-        budget_data_previous_year = budget_data_previous_year(params.merge(field: "amount_per_inhabitant"))
+      Rails.cache.fetch(elasticsearch_query_cache_key(__method__, options)) do
+        budget_data = budget_data(options.merge(field: "amount_per_inhabitant"))
+        budget_data_previous_year = budget_data_previous_year(options.merge(field: "amount_per_inhabitant"))
         position = budget_data[:position].to_i
 
         if budget_data_previous_year
@@ -120,17 +120,17 @@ module GobiertoBudgets
       end
     end
 
-    def amount_summary(params)
-      year = params[:year]
-      kind = params[:kind]
-      area = params[:area]
-      code = params[:code]
+    def amount_summary(options)
+      year = options[:year]
+      kind = options[:kind]
+      area = options[:area]
+      code = options[:code]
 
       category_name = kind == 'G' ? I18n.t('common.expense').capitalize : I18n.t('common.income').capitalize
 
-      Rails.cache.fetch(elasticsearch_query_cache_key(__method__, params)) do
-        budget_data = budget_data(params.merge(field: "amount"))
-        budget_data_previous_year = budget_data_previous_year(params.merge(field: "amount"))
+      Rails.cache.fetch(elasticsearch_query_cache_key(__method__, options)) do
+        budget_data = budget_data(options.merge(field: "amount"))
+        budget_data_previous_year = budget_data_previous_year(options.merge(field: "amount"))
         position = budget_data[:position].to_i
 
         if budget_data_previous_year
@@ -161,13 +161,13 @@ module GobiertoBudgets
       end
     end
 
-    def percentage_over_total_summary(params)
-      year = params[:year]
-      kind = params[:kind]
-      area = params[:area]
-      code = params[:code]
+    def percentage_over_total_summary(options)
+      year = options[:year]
+      kind = options[:kind]
+      area = options[:area]
+      code = options[:code]
 
-      Rails.cache.fetch(elasticsearch_query_cache_key(__method__, params)) do
+      Rails.cache.fetch(elasticsearch_query_cache_key(__method__, options)) do
         begin
           result = GobiertoBudgets::SearchEngine.client.get(
             index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
@@ -198,19 +198,19 @@ module GobiertoBudgets
       end
     end
 
-    def budget_data_previous_year(params)
-      budget_data(params.merge(year: params[:year] - 1, ranking: false))
+    def budget_data_previous_year(options)
+      budget_data(options.merge(year: options[:year] - 1, ranking: false))
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       nil
     end
 
-    def budget_data(params = {})
-      year = params[:year]
-      kind = params[:kind]
-      area = params[:area]
-      code = params[:code]
-      field = params[:field]
-      ranking = params[:ranking] != false
+    def budget_data(options = {})
+      year = options[:year]
+      kind = options[:kind]
+      area = options[:area]
+      code = options[:code]
+      field = options[:field]
+      ranking = options[:ranking] != false
 
       result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: area, id: [current_organization.id, year, code, kind].join('/')
       value = result['_source'][field]
@@ -236,8 +236,8 @@ module GobiertoBudgets
       ((value.to_f - old_value.to_f)/old_value.to_f) * 100
     end
 
-    def elasticsearch_query_cache_key(method_name, params)
-      "#{method_name}-#{current_organization.id}-#{params[:year]}-#{params[:kind]}-#{params[:area]}-#{params[:code]}"
+    def elasticsearch_query_cache_key(method_name, options)
+      "#{method_name}-#{current_organization.id}-#{options[:year]}-#{options[:kind]}-#{options[:area]}-#{options[:code]}"
     end
 
   end
