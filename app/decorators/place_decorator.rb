@@ -23,12 +23,10 @@ class PlaceDecorator
   end
 
   def self.find(id, places_collection: :ine)
-    key = places_collection.to_sym
+    key = places_collection&.to_sym || :ine
     raise "Invalid place_type #{key}. Valid place types: #{PLACES_COLLECTIONS.keys.join(", ")} " unless PLACES_COLLECTIONS.keys.include?(key)
 
-    return INE::Places::Place.find(id) if key == :ine
-
-    place = PLACES_COLLECTIONS[key].find { |item| item.id == id }
+    place = key == :ine ? INE::Places::Place.find(id) : PLACES_COLLECTIONS[key].find { |item| item.id == id }
     new(place)
   end
 
