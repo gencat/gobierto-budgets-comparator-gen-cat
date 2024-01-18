@@ -22,6 +22,22 @@ class PlaceDecorator
     end
   end
 
+  def self.find(id, places_collection: :ine)
+    key = places_collection.to_sym
+    raise "Invalid place_type #{key}. Valid place types: #{PLACES_COLLECTIONS.keys.join(", ")} " unless PLACES_COLLECTIONS.keys.include?(key)
+
+    return INE::Places::Place.find(id) if key == :ine
+
+    place = PLACES_COLLECTIONS[key].find { |item| item.id == id }
+    new(place)
+  end
+
+  def self.population_type_index(places_collection_key)
+    return GobiertoBudgets::SearchEngineConfiguration::Data.type_population_province if places_collection_key&.to_sym == :deputation_eu
+
+    GobiertoBudgets::SearchEngineConfiguration::Data.type_population
+  end
+
   def initialize(place)
     @place = place
     @id = place.id
@@ -60,6 +76,17 @@ class PlaceDecorator
 
   def population_key
     @population_key ||= %w(place_id province_id autonomous_region_id).find { |key| attributes[key].present? }
+  end
+
+  def population_organization_id
+    case population_key
+    when "place_id"
+      attributes[population_key]&.to_i || place.id.to_i
+    when "province_id"
+      "province-#{province.id}"
+    when "autonomous_region_id"
+      "autonomy-#{autonomous_region.id}"
+    end
   end
 
   def population_place_ids
