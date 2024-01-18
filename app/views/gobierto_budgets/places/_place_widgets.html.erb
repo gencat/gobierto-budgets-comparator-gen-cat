@@ -26,7 +26,7 @@
     data-widget-template="#widget-template-execution"
     data-widget-type="total_budget_execution"
     data-widget-data-url="<%= gobierto_budgets_api_data_total_budget_execution_path(organization_slug: current_organization.combined_slug, places_collection: params[:places_collection], year: @year, format: :json) %>"
-    data-page-href="<%= gobierto_budgets_place_execution_path(slug: current_organization.combined_slug, year: @year, anchor: 'total_budget_execution')%>">
+    data-page-href="<%= location_execution_path(slug: current_organization.combined_slug, year: @year, anchor: 'total_budget_execution')%>">
   </div>
 
   <% if current_organization.population? %>
