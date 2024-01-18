@@ -76,13 +76,13 @@ module GobiertoBudgets
       def population
         year = params[:year].to_i
         no_data_this_year = nil
-        population_data = GobiertoBudgets::Population.ranking_hash_for(params[:ine_code].to_i,year)
+        population_data = GobiertoBudgets::Population.ranking_hash_for(params[:ine_code], year, places_collection: params[:places_collection])
         if population_data[:value].nil?
           year -= 1
-          population_data = GobiertoBudgets::Population.ranking_hash_for(params[:ine_code].to_i,year)
+          population_data = GobiertoBudgets::Population.ranking_hash_for(params[:ine_code], year, places_collection: params[:places_collection])
           no_data_this_year = year
         end
-        population_data_previous_year = GobiertoBudgets::Population.ranking_hash_for(params[:ine_code].to_i,year - 1)
+        population_data_previous_year = GobiertoBudgets::Population.ranking_hash_for(params[:ine_code], year - 1, places_collection: params[:places_collection])
         position = population_data[:position]
         sign = sign(population_data[:value], population_data_previous_year[:value])
 
