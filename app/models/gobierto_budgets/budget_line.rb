@@ -429,7 +429,7 @@ module GobiertoBudgets
 
       results = {}
       planned_results.each do |p|
-        if e = executed_results.detect{|e| e['code'] == p['code']}
+        if p["amount"].to_f.positive? && (e = executed_results.detect{|e| e['code'] == p['code']})
           results[p['code']] = [p['amount'], e['amount'], ((e['amount'].to_f - p['amount'].to_f)/p['amount'].to_f) * 100]
         end
       end
