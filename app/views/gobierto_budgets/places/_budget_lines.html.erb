@@ -7,7 +7,7 @@
       <i class="fa fa-plus-square-o invisible"></i>
     <% end %>
     <%= link_to budget_line_denomination(area_name, budget_line['code'], kind),
-          gobierto_budgets_budget_line_path(current_organization.combined_slug, budget_line['year'], budget_line['code'].parameterize, budget_line['kind'], area_name, places_collection: params[:places_collection])  %>
+          location_budget_line_path(current_organization.combined_slug, budget_line['year'], budget_line['code'].parameterize, budget_line['kind'], area_name)  %>
   </td>
   <td class="right total"><%= number_to_currency budget_line['amount'], precision: 0 %></td>
   <% if current_organization.population? %>

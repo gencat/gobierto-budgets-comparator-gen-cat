@@ -71,7 +71,7 @@ module GobiertoBudgets
           description: description.downcase,
           link: link_to(
             budget_line_denomination(area_name, code[0..-2], kind),
-            gobierto_budgets_budget_line_path(current_organization_slug, params[:year], code[0..-2], kind, area_name)
+            location_budget_line_path(current_organization_slug, params[:year], code[0..-2], kind, area_name)
           )
         ).html_safe
       end
@@ -117,12 +117,36 @@ module GobiertoBudgets
       end
     end
 
-    def kind_literal(kind, plural = true)
-      if kind == 'I'
-        plural ? t('common.incomes') : t('common.income')
+    def location_budget_line_path(*args)
+      if params[:places_collection] == "deputation_eu"
+        gobierto_budgets_deputation_budget_line_path(*args)
       else
-        plural ? t('common.expenses') : t('common.expense')
+        gobierto_budgets_budget_line_path(*args)
       end
+    end
+
+    def locations_ranking_path(*args)
+      if params[:places_collection] == "deputation_eu"
+        gobierto_budgets_deputations_ranking_path(*args)
+      else
+        gobierto_budgets_places_ranking_path(*args)
+      end
+    end
+
+    def locations_population_ranking_path(*args)
+      if params[:places_collection] == "deputation_eu"
+        gobierto_budgets_deputations_population_ranking_path(*args)
+      else
+        gobierto_budgets_population_ranking_path(*args)
+      end
+    end
+
+    def kind_literal(kind, plural = true)
+      t("#{kind_key(kind)}#{plural ? "s" : ""}", scope: "common")
+    end
+
+    def kind_key(kind)
+      kind == "I" ? "income" : "expense"
     end
 
     def area_literal(area)
