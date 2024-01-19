@@ -71,7 +71,7 @@ module GobiertoBudgets
           description: description.downcase,
           link: link_to(
             budget_line_denomination(area_name, code[0..-2], kind),
-            gobierto_budgets_budget_line_path(current_organization_slug, params[:year], code[0..-2], kind, area_name)
+            location_budget_line_path(current_organization_slug, params[:year], code[0..-2], kind, area_name)
           )
         ).html_safe
       end
@@ -114,6 +114,14 @@ module GobiertoBudgets
         gobierto_budgets_deputations_ranking_url(*args)
       else
         gobierto_budgets_places_ranking_url(*args)
+      end
+    end
+
+    def location_budget_line_path(*args)
+      if params[:places_collection] == "deputation_eu"
+        gobierto_budgets_deputation_budget_line_path(*args)
+      else
+        gobierto_budgets_budget_line_path(*args)
       end
     end
 
