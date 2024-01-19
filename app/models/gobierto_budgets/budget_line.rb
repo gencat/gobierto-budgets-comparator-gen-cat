@@ -493,7 +493,7 @@ module GobiertoBudgets
 
     def place
       if place_id
-        INE::Places::Place.find(place_id)
+        PlaceDecorator.find_in_all_collections(place_id)
       end
     end
 
