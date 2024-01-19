@@ -125,12 +125,28 @@ module GobiertoBudgets
       end
     end
 
-    def kind_literal(kind, plural = true)
-      if kind == 'I'
-        plural ? t('common.incomes') : t('common.income')
+    def locations_ranking_path(*args)
+      if params[:places_collection] == "deputation_eu"
+        gobierto_budgets_deputations_ranking_path(*args)
       else
-        plural ? t('common.expenses') : t('common.expense')
+        gobierto_budgets_places_ranking_path(*args)
       end
+    end
+
+    def locations_population_ranking_path(*args)
+      if params[:places_collection] == "deputation_eu"
+        gobierto_budgets_deputations_population_ranking_path(*args)
+      else
+        gobierto_budgets_population_ranking_path(*args)
+      end
+    end
+
+    def kind_literal(kind, plural = true)
+      t("#{kind_key(kind)}#{plural ? "s" : ""}", scope: "common")
+    end
+
+    def kind_key(kind)
+      kind == "I" ? "income" : "expense"
     end
 
     def area_literal(area)

@@ -77,7 +77,7 @@ set_meta_tags description: t('.description', kind: kind_literal(@kind).singulari
   <table>
     <tr>
       <th>
-        <input type="text" placeholder="<%= t('.search', kind: kind_literal(@kind, true)) %>" class="search_items" id="search_categories_budget" data-search-url="<%= gobierto_budgets_search_categories_path(current_organization.combined_slug,@year,@area_name, @kind, places_collection: params[:places_collection]) %>">
+        <input type="text" placeholder="<%= t('.search', kind: kind_literal(@kind, true)) %>" class="search_items <%= "search_categories_budget-#{kind_key(@kind)}" %> id="search_categories_budget" data-search-url="<%= gobierto_budgets_search_categories_path(current_organization.combined_slug,@year,@area_name, @kind, places_collection: params[:places_collection]) %>">
       </th>
       <th class="right "><%= kind_literal(@kind, false) %> <%= t('gobierto_budgets.places.show.total') %></th>
       <th class="right "><%= kind_literal(@kind, false) %> <%= t('gobierto_budgets.places.show.per_inhabitant') %></th>
