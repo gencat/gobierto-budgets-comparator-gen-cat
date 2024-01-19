@@ -1,5 +1,6 @@
 module GobiertoBudgets
     class SearchController < GobiertoBudgets::ApplicationController
+    include GobiertoBudgets::ApplicationHelper
 
     def index
       respond_to do |format|
@@ -30,7 +31,7 @@ module GobiertoBudgets
               {
                 value: v,
                 data: {
-                  url: gobierto_budgets_budget_line_path(place.slug, year, k, kind, area, places_collection: params[:places_collection])
+                  url: location_budget_line_path(place.slug, year, k, kind, area)
                 }
               }
             end

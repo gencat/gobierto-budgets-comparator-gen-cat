@@ -107,6 +107,9 @@ Rails.application.routes.draw do
     get '/ranking/:year/population(/:page)' => 'places#ranking', as: :population_ranking, defaults: {variable: 'population'}
 
     # deputations
+    # deputations budget lines
+    get "/diputaciones/*slug/partida/:year/:code/:kind/:area" => "budget_lines#show", as: :deputation_budget_line, constraints: BUDGET_LINE_CONSTRAINTS, defaults: { places_collection: "deputation_eu" }
+
     get "/diputaciones/*slug/:year/execution" => "places#execution", as: :deputation_execution, constraints: YEAR_CONTRAINTS, defaults: { places_collection: "deputation_eu" }
 
     get "/diputaciones/*slug/:year" => "places#show", as: :deputation, constraints: YEAR_CONTRAINTS, defaults: { places_collection: "deputation_eu" }
