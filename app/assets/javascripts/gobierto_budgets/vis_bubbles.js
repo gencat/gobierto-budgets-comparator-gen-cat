@@ -114,12 +114,15 @@ var VisBubbles = Class.extend({
   setLink: function(d) {
     var currentPath = window.location.pathname;
     var locationSegment = currentPath.split("/").filter(function(fragment) { return fragment.length > 0 })[0]
-    var placesCollectionQuery = locationSegment === 'diputaciones' ? "?places_collection=deputation_eu" : "";
     var pathSegment = currentPath.match(new RegExp(locationSegment + ".*\/\\d{4}"))[0];
     var placeSlug = pathSegment.replace(locationSegment + "/", "").replace(/\/\d{4}/, "");
     var areaName = d.area_name || (this.budget_category === 'income' ? 'economic' : 'functional');
     var budgetCategory = this.budget_category === 'income' ? 'I' : 'G';
-    return '/budget_lines/' + placeSlug + '/' + d.year + '/' + d.id  + '/' + budgetCategory + '/' + areaName + placesCollectionQuery;
+    if (locationSegment === 'diputaciones') {
+      return "/" + locationSegment + "/" + placeSlug + "/partida/" + d.year + '/' + d.id  + '/' + budgetCategory + '/' + areaName;
+    } else {
+      return '/budget_lines/' + placeSlug + '/' + d.year + '/' + d.id  + '/' + budgetCategory + '/' + areaName;
+    }
   },
   update: function(year) {
     var t = d3.transition()
