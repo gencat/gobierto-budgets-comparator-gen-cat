@@ -154,7 +154,7 @@ module GobiertoBudgets
         index: SearchEngineConfiguration::Data.index,
         type: type,
         body: query,
-        filter_path: options[:to_rank] ? "hits.total" : "hits.hits._source,hits.total",
+        filter_path: options[:to_rank] ? "hits.total" : "hits.hits._source,hits.hits._id,hits.total",
         _source: ["value", "ine_code", "organization_id"]
       )
     end
