@@ -159,6 +159,7 @@ module GobiertoBudgets
       @area_name = params[:area] || 'functional'
       @year = params[:year].present? ? params[:year].to_i : nil
       @code = params[:code]
+      @places_collection = params[:places_collection]
       @selected_place = INE::Places::Place.find(params[:ine_code]) if params[:ine_code]
       if params[:variable].present?
         @variable = params[:variable]
