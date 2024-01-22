@@ -4,7 +4,7 @@
       <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe,
             location_budget_path(current_organization.combined_slug, budget_line['year'], budget_line['kind'], area_name, budget_line['code']), remote: true %>
     <% else %>
-      <i class="fa fa-plus-square-o invisible"></i>
+      <i class="fa fa-square-o invisible"></i>
     <% end %>
     <%= link_to budget_line_denomination(area_name, budget_line['code'], kind),
           location_budget_line_path(current_organization.combined_slug, budget_line['year'], budget_line['code'].parameterize, budget_line['kind'], area_name)  %>
