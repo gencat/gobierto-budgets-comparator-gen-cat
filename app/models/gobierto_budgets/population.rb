@@ -6,19 +6,19 @@ module GobiertoBudgets
     FILTER_MIN = 0
     FILTER_MAX = 5000000
 
-    def self.for(ine_code, year)
-      return for_places(ine_code, year) if ine_code.is_a?(Array)
-      result = population_query_results(ine_code: ine_code, year: year)
+    def self.for(organization_id, year)
+      return for_places(organization_id, year) if organization_id.is_a?(Array)
+      result = population_query_results(organization_id: organization_id, year: year)
       if result.empty?
-        result = population_query_results(ine_code: ine_code, year: year-1)
+        result = population_query_results(organization_id: organization_id, year: year-1)
       end
       result.first['value'].to_f
     end
 
-    def self.for_places(ine_codes, year)
-      results = population_query_results(ine_codes: ine_codes, year: year)
+    def self.for_places(organization_ids, year)
+      results = population_query_results(organization_ids: organization_ids, year: year)
       if results.empty?
-        results = population_query_results(ine_codes: ine_codes, year: year - 1)
+        results = population_query_results(organization_ids: organization_ids, year: year - 1)
       end
       results
     end
@@ -81,23 +81,20 @@ module GobiertoBudgets
 
     def self.population_query(options)
       terms = []
-      ine_codes = []
+      ine_codes = options[:ine_codes] || []
+      organization_ids = options[:organization_ids] || []
+
       type = PlaceDecorator.population_type_index(options[:places_collection])
 
-      if options[:ine_codes].present?
-        ine_codes.concat(options[:ine_codes])
-      end
-
       if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
-        if ine_codes.any?
-          ine_codes = ine_codes & GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
-        else
-          ine_codes = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
-        end
+        ine_codes.concat(GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope)
+        organization_ids.concat(GobiertoBudgets::SearchEngineConfiguration::Scopes.organization_ids)
       end
 
       append_ine_codes(terms, ine_codes)
+      append_organization_ids(terms, organization_ids)
       terms << {term: { ine_code: options[:ine_code] }} if options[:ine_code].present?
+      terms << {term: { organization_id: options[:organization_id] }} if options[:organization_id].present?
       terms << {term: { year: options[:year] }}
 
       if options[:filters].present?
@@ -121,8 +118,10 @@ module GobiertoBudgets
         budget_filters.merge!(aarr: aarr_filter) if aarr_filter
 
         results, total_elements = BudgetTotal.for_ranking(options[:year], 'total_budget', GobiertoBudgets::BudgetLine::EXPENSE, 0, nil, budget_filters)
-        ine_codes = results.map{|p| p['ine_code']}
+        ine_codes = results.map{ |p| p["ine_code"] }.compact_blank
+        organization_ids = results.map{ |p| p["organization_id"] }.compact_blank
         append_ine_codes(terms, ine_codes)
+        append_organization_ids(terms, organization_ids)
       end
 
       if (population_filter && (population_filter[:from].to_i > Population::FILTER_MIN || population_filter[:to].to_i < Population::FILTER_MAX))
