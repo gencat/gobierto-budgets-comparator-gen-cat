@@ -301,7 +301,7 @@ module GobiertoBudgets
         type: options[:area_name],
         body: query,
         filter_path: options[:to_rank] ? "hits.total" : "hits.hits._source,hits.total",
-        _source: ["population", "ine_code", "amount", "amount_per_inhabitant"]
+        _source: ["population", "ine_code", "organization_id", "amount", "amount_per_inhabitant"]
       )
     end
 
@@ -392,7 +392,7 @@ module GobiertoBudgets
     def self.has_children?(options)
       options.symbolize_keys!
       conditions = { parent_code: options[:code], level: options[:level].to_i + 1, type: options[:area] }
-      conditions.merge! options.slice(:ine_code,:kind,:year)
+      conditions.merge! options.slice(:ine_code, :kind, :year, :organization_id).compact_blank
 
       return search(conditions)['hits'].length > 0
     end

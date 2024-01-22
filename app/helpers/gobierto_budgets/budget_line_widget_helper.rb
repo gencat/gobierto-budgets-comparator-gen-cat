@@ -72,7 +72,7 @@ module GobiertoBudgets
     end
 
     def default_budget_line_params
-      { year: @year, kind: @kind, area: @area_name, code: @code }
+      { year: @year, kind: @kind, area: @area_name, code: @code, places_collection: @places_collection }
     end
 
     def budget_per_inhabitant_summary(options)

@@ -53,15 +53,20 @@ module GobiertoBudgets
 
     class Scopes
       def self.set_places_scope(places)
-        @places_ids ||= places.map{|i| i.id.to_i }
+        @organization_ids ||= places.map(&:id).compact_blank
+        @places_ids ||= places.map { |i| i.id.to_i }
       end
 
       def self.places_scope?
-        @places_ids.present?
+        @places_ids.present? || @organization_ids.present?
       end
 
       def self.places_scope
         @places_ids
+      end
+
+      def self.organizations_scope
+        @organization_ids
       end
     end
   end
