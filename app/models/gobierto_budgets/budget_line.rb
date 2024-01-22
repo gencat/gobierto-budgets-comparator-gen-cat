@@ -301,7 +301,7 @@ module GobiertoBudgets
         type: options[:area_name],
         body: query,
         filter_path: options[:to_rank] ? "hits.total" : "hits.hits._source,hits.total",
-        _source: ["population", "ine_code", "amount", "amount_per_inhabitant"]
+        _source: ["population", "ine_code", "organization_id", "amount", "amount_per_inhabitant"]
       )
     end
 
