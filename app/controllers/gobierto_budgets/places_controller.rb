@@ -126,6 +126,7 @@ module GobiertoBudgets
         code: @code,
         kind: @kind,
         area_name: @area_name,
+        places_collection: @places_collection,
         filters: @filters
       })
 
