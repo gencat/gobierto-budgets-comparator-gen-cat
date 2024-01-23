@@ -22,6 +22,13 @@ class PlaceDecorator
     end
   end
 
+  def self.collection_organization_ids(key)
+    key = key.to_sym
+    raise "Invalid place_type #{key}. Valid place types: #{PLACES_COLLECTIONS.keys.join(", ")} " unless PLACES_COLLECTIONS.keys.include?(key)
+
+    PLACES_COLLECTIONS[key].map(&:id)
+  end
+
   def self.find(id, places_collection: :ine)
     key = places_collection&.to_sym || :ine
     raise "Invalid place_type #{key}. Valid place types: #{PLACES_COLLECTIONS.keys.join(", ")} " unless PLACES_COLLECTIONS.keys.include?(key)

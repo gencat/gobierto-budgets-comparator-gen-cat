@@ -15,10 +15,10 @@ module GobiertoBudgets
       result.first['value'].to_f
     end
 
-    def self.for_places(organization_ids, year)
-      results = population_query_results(organization_ids: organization_ids, year: year)
+    def self.for_places(organization_ids, year, places_collection = :ine)
+      results = population_query_results(organization_ids: organization_ids, year: year, places_collection: places_collection)
       if results.empty?
-        results = population_query_results(organization_ids: organization_ids, year: year - 1)
+        results = population_query_results(organization_ids: organization_ids, year: year - 1, places_collection: places_collection)
       end
       results
     end
@@ -31,11 +31,11 @@ module GobiertoBudgets
       results
     end
 
-    def self.for_ranking(year, offset, per_page, filters)
-      response = population_query(year: year, offset: offset, per_page: per_page, filters: filters)
+    def self.for_ranking(year, offset, per_page, places_collection, filters)
+      response = population_query(year: year, offset: offset, per_page: per_page, places_collection: places_collection, filters: filters)
       total_elements = response['hits']['total']
       if total_elements == 0
-        response = population_query(year: year-1, offset: offset, per_page: per_page, filters: filters)
+        response = population_query(year: year-1, offset: offset, per_page: per_page, places_collection: places_collection, filters: filters)
         total_elements = response['hits']['total']
       end
       if result = response['hits']['hits']
@@ -64,6 +64,7 @@ module GobiertoBudgets
       }
     end
 
+    # TODO - Deprecated Remove
     def self.place_position_in_ranking(year, ine_code, filters)
       id = [ine_code, year].join('/')
       response = population_query({year: year, to_rank: true, filters: filters})
@@ -81,18 +82,14 @@ module GobiertoBudgets
 
     def self.population_query(options)
       terms = []
-      ine_codes = options[:ine_codes] || []
-      organization_ids = options[:organization_ids] || []
 
+      places_restriction = GobiertoBudgets::PlaceSet.new(options)
+      organization_id_conversions = places_restriction.population_organization_id_conversions
       type = PlaceDecorator.population_type_index(options[:places_collection])
 
-      if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
-        ine_codes.concat(GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope)
-        organization_ids.concat(GobiertoBudgets::SearchEngineConfiguration::Scopes.organization_ids)
-      end
+      append_ine_codes(terms, places_restriction.ine_codes)
+      append_organization_ids(terms, organization_id_conversions.values) if organization_id_conversions.present?
 
-      append_ine_codes(terms, ine_codes)
-      append_organization_ids(terms, organization_ids)
       terms << {term: { ine_code: options[:ine_code] }} if options[:ine_code].present?
       terms << {term: { organization_id: options[:organization_id] }} if options[:organization_id].present?
       terms << {term: { year: options[:year] }}
@@ -117,7 +114,7 @@ module GobiertoBudgets
 
         budget_filters.merge!(aarr: aarr_filter) if aarr_filter
 
-        results, total_elements = BudgetTotal.for_ranking(options[:year], 'total_budget', GobiertoBudgets::BudgetLine::EXPENSE, 0, nil, budget_filters)
+        results, total_elements = BudgetTotal.for_ranking(options[:year], 'total_budget', GobiertoBudgets::BudgetLine::EXPENSE, 0, nil, options[:places_collection], budget_filters)
         ine_codes = results.map{ |p| p["ine_code"] }.compact_blank
         organization_ids = results.map{ |p| p["organization_id"] }.compact_blank
         append_ine_codes(terms, ine_codes)
@@ -150,13 +147,24 @@ module GobiertoBudgets
       query.merge!(from: options[:offset]) if options[:offset].present?
       query.merge!(_source: false) if options[:to_rank]
 
-      SearchEngine.client.search(
+      results = SearchEngine.client.search(
         index: SearchEngineConfiguration::Data.index,
         type: type,
         body: query,
         filter_path: options[:to_rank] ? "hits.total" : "hits.hits._source,hits.hits._id,hits.total",
         _source: ["value", "ine_code", "organization_id"]
       )
+
+      if organization_id_conversions.present?
+        inverted_organization_id_conversions = organization_id_conversions.invert
+        results["hits"]["hits"].each do |hit|
+          population_organization_id = hit["_source"]["organization_id"]
+          next if population_organization_id.blank?
+
+          hit.deep_merge!("_source" => { "organization_id" => inverted_organization_id_conversions[population_organization_id] })
+        end
+      end
+      results
     end
 
     def self.population_query_results(options)
