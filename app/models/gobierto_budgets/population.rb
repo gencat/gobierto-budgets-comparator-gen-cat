@@ -64,6 +64,7 @@ module GobiertoBudgets
       }
     end
 
+    # TODO - Deprecated Remove
     def self.place_position_in_ranking(year, ine_code, filters)
       id = [ine_code, year].join('/')
       response = population_query({year: year, to_rank: true, filters: filters})
