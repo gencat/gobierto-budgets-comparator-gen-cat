@@ -155,7 +155,7 @@ module GobiertoBudgets
         _source: ["value", "ine_code", "organization_id"]
       )
 
-      if organization_id_conversions.present?
+      if organization_id_conversions.present? && results["hits"]["hits"].present?
         inverted_organization_id_conversions = organization_id_conversions.invert
         results["hits"]["hits"].each do |hit|
           population_organization_id = hit["_source"]["organization_id"]
