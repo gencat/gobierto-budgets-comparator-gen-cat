@@ -10,7 +10,7 @@ module GobiertoBudgets
     end
 
     def filter_link_path(filter_kind)
-      gobierto_budgets_places_ranking_path(
+      locations_ranking_path(
         @year,
         @kind,
         @area_name,
