@@ -103,8 +103,6 @@ Rails.application.routes.draw do
     get '/compare/:slug_list/:year/:kind/:area' => 'places#compare', as: :places_compare
 
     get 'ranking' => 'pages#ranking'
-    get '/ranking/:year/:kind/:area/:variable(/:code)(/p/:page)' => 'places#ranking', as: :places_ranking
-    get '/ranking/:year/population(/:page)' => 'places#ranking', as: :population_ranking, defaults: {variable: 'population'}
 
     # deputations
     # deputations budget lines
@@ -119,7 +117,10 @@ Rails.application.routes.draw do
     # deputations compare
 
     get "/ranking/diputaciones/:year/:kind/:area/:variable(/:code)(/p/:page)" => "places#ranking", as: :deputations_ranking, defaults: { places_collection: "deputation_eu" }
+    get "/ranking/diputaciones/:year/population(/:page)" => "places#ranking", as: :deputations_population_ranking, defaults: { places_collection: "deputation_eu" }
 
+    get '/ranking/:year/:kind/:area/:variable(/:code)(/p/:page)' => 'places#ranking', as: :places_ranking
+    get '/ranking/:year/population(/:page)' => 'places#ranking', as: :population_ranking, defaults: {variable: 'population'}
     # feedback
     resources :answers, only: [:create]
 
