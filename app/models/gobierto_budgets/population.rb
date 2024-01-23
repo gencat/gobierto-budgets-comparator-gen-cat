@@ -81,18 +81,14 @@ module GobiertoBudgets
 
     def self.population_query(options)
       terms = []
-      ine_codes = options[:ine_codes] || []
-      organization_ids = options[:organization_ids] || []
 
+      places_restriction = GobiertoBudgets::PlaceSet.new(options)
+      organization_id_conversions = places_restriction.population_organization_id_conversions
       type = PlaceDecorator.population_type_index(options[:places_collection])
 
-      if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
-        ine_codes.concat(GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope)
-        organization_ids.concat(GobiertoBudgets::SearchEngineConfiguration::Scopes.organization_ids)
-      end
+      append_ine_codes(terms, places_restriction.ine_codes)
+      append_organization_ids(terms, organization_id_conversions.values) if organization_id_conversions.present?
 
-      append_ine_codes(terms, ine_codes)
-      append_organization_ids(terms, organization_ids)
       terms << {term: { ine_code: options[:ine_code] }} if options[:ine_code].present?
       terms << {term: { organization_id: options[:organization_id] }} if options[:organization_id].present?
       terms << {term: { year: options[:year] }}
@@ -150,13 +146,24 @@ module GobiertoBudgets
       query.merge!(from: options[:offset]) if options[:offset].present?
       query.merge!(_source: false) if options[:to_rank]
 
-      SearchEngine.client.search(
+      results = SearchEngine.client.search(
         index: SearchEngineConfiguration::Data.index,
         type: type,
         body: query,
         filter_path: options[:to_rank] ? "hits.total" : "hits.hits._source,hits.hits._id,hits.total",
         _source: ["value", "ine_code", "organization_id"]
       )
+
+      if organization_id_conversions.present?
+        inverted_organization_id_conversions = organization_id_conversions.invert
+        results["hits"]["hits"].each do |hit|
+          population_organization_id = hit["_source"]["organization_id"]
+          next if population_organization_id.blank?
+
+          hit.deep_merge!("_source" => { "organization_id" => inverted_organization_id_conversions[population_organization_id] })
+        end
+      end
+      results
     end
 
     def self.population_query_results(options)

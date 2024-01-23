@@ -85,7 +85,8 @@ module GobiertoBudgets
         { term: { code: options[:code] } }
       ]
 
-      ine_codes = []
+      places_restriction = GobiertoBudgets::PlaceSet.new(places_collection: options[:places_collection])
+
       permitted_organizations = []
 
       if options[:filters].present?
@@ -99,19 +100,14 @@ module GobiertoBudgets
         reduced_filter = { population: population_filter }
         reduced_filter.merge!(aarr: aarr_filter) if aarr_filter
         results, total_elements = GobiertoBudgets::Population.for_ranking(options[:year], 0, nil, reduced_filter)
-        results_ine_codes = results.map{|p| p['ine_code']}
-        ine_codes.concat(results_ine_codes) if results_ine_codes.any?
+        places_restriction.restrict(
+          ine_codes: results.map { |r| r["ine_code"] }.compact_blank,
+          organization_ids: results.map { |r| r["organization_id"] }.compact_blank
+        )
       end
 
-      append_ine_codes(terms, ine_codes)
-
-      if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
-        permitted_municipalities = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
-        (permitted_municipalities &= ine_codes) if ine_codes.any?
-        permitted_organizations = permitted_municipalities + AssociatedEntity.where(ine_code: permitted_municipalities).pluck(:entity_id)
-      end
-
-      terms << { terms: { organization_id: permitted_organizations.compact } } if permitted_organizations.any?
+      append_ine_codes(terms, places_restriction.ine_codes)
+      append_organization_ids(terms, places_restriction.organization_ids + places_restriction.associated_entity_ids)
 
       if total_filter && (
         total_filter[:from].to_i > GobiertoBudgets::BudgetTotal::TOTAL_FILTER_MIN ||

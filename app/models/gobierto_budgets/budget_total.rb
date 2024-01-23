@@ -123,7 +123,7 @@ module GobiertoBudgets
       terms << {term: { kind: options[:kind]}} if options[:kind].present?
       terms << { exists: { field: "ine_code" } }  # Ensure only city councils appear
 
-      ine_codes = []
+      places_restriction = GobiertoBudgets::PlaceSet.new(places_collection: options[:places_collection])
 
       if options[:filters].present?
         population_filter =  options[:filters][:population]
@@ -136,19 +136,15 @@ module GobiertoBudgets
         reduced_filter = {population: population_filter}
         reduced_filter.merge!(aarr: aarr_filter) if aarr_filter
         results,total_elements = Population.for_ranking(options[:year], 0, nil, reduced_filter)
-        results_ine_codes = results.map{|p| p['ine_code']}
-        ine_codes.concat(results_ine_codes) if results_ine_codes.any?
+
+        places_restriction.restrict(
+          ine_codes: results.map { |r| r["ine_code"] }.compact_blank,
+          organization_ids: results.map { |r| r["organization_id"] }.compact_blank
+        )
       end
 
-      if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
-        if ine_codes.any?
-          ine_codes = ine_codes & GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
-        else
-          ine_codes = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
-        end
-      end
-
-      append_ine_codes(terms, ine_codes)
+      append_ine_codes(terms, places_restriction.ine_codes)
+      append_organization_ids(terms, places_restriction.organization_ids)
 
       if (total_filter && (total_filter[:from].to_i > BudgetTotal::TOTAL_FILTER_MIN || total_filter[:to].to_i < BudgetTotal::TOTAL_FILTER_MAX))
         terms << {range: { total_budget: { gte: total_filter[:from].to_i, lte: total_filter[:to].to_i} }}
