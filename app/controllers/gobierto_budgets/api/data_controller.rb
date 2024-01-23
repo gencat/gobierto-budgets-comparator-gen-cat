@@ -265,6 +265,7 @@ module GobiertoBudgets
         @kind = params[:kind]
         @var = params[:variable]
         @code = params[:code]
+        @places_collection = params[:places_collection] || :ine
 
         only_municipalities = (params[:only_municipalities] == "true")
 
@@ -280,6 +281,7 @@ module GobiertoBudgets
             kind: @kind,
             code: @code,
             variable: @variable,
+            places_collection: @places_collection,
             offset: 0,
             per_page: 5
           }
@@ -287,7 +289,7 @@ module GobiertoBudgets
           results, _total_elements = GobiertoBudgets::BudgetLine.for_ranking(opts, only_municipalities)
         else
           @variable = (@var == 'amount') ? 'total_budget' : 'total_budget_per_inhabitant'
-          results, _total_elements = GobiertoBudgets::BudgetTotal.for_ranking(@year, @variable, @kind, offset, max_results)
+          results, _total_elements = GobiertoBudgets::BudgetTotal.for_ranking(@year, @variable, @kind, offset, max_results, @places_collection)
         end
 
         top = results.first

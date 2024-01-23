@@ -94,8 +94,8 @@ module GobiertoBudgets
       end
     end
 
-    def self.for_ranking(year, variable, kind, offset, per_page, filters = {})
-      response = budget_total_ranking_query(year: year, variable: variable, kind: kind, filters: filters, offset: offset, per_page: per_page)
+    def self.for_ranking(year, variable, kind, offset, per_page, places_collection, filters = {})
+      response = budget_total_ranking_query(year: year, variable: variable, kind: kind, filters: filters, offset: offset, per_page: per_page, places_collection: places_collection)
       if response.empty?
         return [], 0
       end
@@ -135,7 +135,7 @@ module GobiertoBudgets
       if (population_filter && (population_filter[:from].to_i > Population::FILTER_MIN || population_filter[:to].to_i < Population::FILTER_MAX))
         reduced_filter = {population: population_filter}
         reduced_filter.merge!(aarr: aarr_filter) if aarr_filter
-        results,total_elements = Population.for_ranking(options[:year], 0, nil, reduced_filter)
+        results,total_elements = Population.for_ranking(options[:year], 0, nil, options[:places_collection], reduced_filter)
 
         places_restriction.restrict(
           ine_codes: results.map { |r| r["ine_code"] }.compact_blank,

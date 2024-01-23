@@ -99,7 +99,7 @@ module GobiertoBudgets
       if (population_filter && (population_filter[:from].to_i > GobiertoBudgets::Population::FILTER_MIN || population_filter[:to].to_i < GobiertoBudgets::Population::FILTER_MAX))
         reduced_filter = { population: population_filter }
         reduced_filter.merge!(aarr: aarr_filter) if aarr_filter
-        results, total_elements = GobiertoBudgets::Population.for_ranking(options[:year], 0, nil, reduced_filter)
+        results, total_elements = GobiertoBudgets::Population.for_ranking(options[:year], 0, nil, options[:places_collection], reduced_filter)
         places_restriction.restrict(
           ine_codes: results.map { |r| r["ine_code"] }.compact_blank,
           organization_ids: results.map { |r| r["organization_id"] }.compact_blank

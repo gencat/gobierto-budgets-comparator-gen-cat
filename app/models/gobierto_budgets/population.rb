@@ -15,10 +15,10 @@ module GobiertoBudgets
       result.first['value'].to_f
     end
 
-    def self.for_places(organization_ids, year)
-      results = population_query_results(organization_ids: organization_ids, year: year)
+    def self.for_places(organization_ids, year, places_collection = :ine)
+      results = population_query_results(organization_ids: organization_ids, year: year, places_collection: places_collection)
       if results.empty?
-        results = population_query_results(organization_ids: organization_ids, year: year - 1)
+        results = population_query_results(organization_ids: organization_ids, year: year - 1, places_collection: places_collection)
       end
       results
     end
@@ -31,11 +31,11 @@ module GobiertoBudgets
       results
     end
 
-    def self.for_ranking(year, offset, per_page, filters)
-      response = population_query(year: year, offset: offset, per_page: per_page, filters: filters)
+    def self.for_ranking(year, offset, per_page, places_collection, filters)
+      response = population_query(year: year, offset: offset, per_page: per_page, places_collection: places_collection, filters: filters)
       total_elements = response['hits']['total']
       if total_elements == 0
-        response = population_query(year: year-1, offset: offset, per_page: per_page, filters: filters)
+        response = population_query(year: year-1, offset: offset, per_page: per_page, places_collection: places_collection, filters: filters)
         total_elements = response['hits']['total']
       end
       if result = response['hits']['hits']
@@ -113,7 +113,7 @@ module GobiertoBudgets
 
         budget_filters.merge!(aarr: aarr_filter) if aarr_filter
 
-        results, total_elements = BudgetTotal.for_ranking(options[:year], 'total_budget', GobiertoBudgets::BudgetLine::EXPENSE, 0, nil, budget_filters)
+        results, total_elements = BudgetTotal.for_ranking(options[:year], 'total_budget', GobiertoBudgets::BudgetLine::EXPENSE, 0, nil, options[:places_collection], budget_filters)
         ine_codes = results.map{ |p| p["ine_code"] }.compact_blank
         organization_ids = results.map{ |p| p["organization_id"] }.compact_blank
         append_ine_codes(terms, ine_codes)
