@@ -46,19 +46,19 @@ module GobiertoBudgets
       results, total_elements = BudgetLine.for_ranking(options.merge(offset: offset, per_page: self.per_page), true)
 
       places_collection = options[:places_collection]
-      places_ids = results.map{|h| h['ine_code']}
-      total_results = BudgetTotal.for_places(places_ids, options[:year])
-      total_results = Hash[total_results.map{ |i| [i["ine_code"], i["total_budget"]]}]
+      organization_ids = results.map { |h| h["organization_id"] }
+      total_results = BudgetTotal.for_places(organization_ids, options[:year])
+      total_results = Hash[total_results.map{ |i| [i["organization_id"].to_s, i["total_budget"]]}]
 
       return results.map do |h|
-        id = h['ine_code'].to_i
+        id = h["organization_id"]
 
         Item.new({
-          place: INE::Places::Place.find(id),
+          place: PlaceDecorator.find(id, places_collection:),
           population: h['population'],
           amount_per_inhabitant: h['amount_per_inhabitant'],
           amount: h['amount'],
-          total: total_results[id]
+          total: total_results[id.to_s]
         })
       end, total_elements
     end
@@ -66,19 +66,19 @@ module GobiertoBudgets
     def self.population_ranking(variable, year, offset, places_collection, filters)
       results, total_elements = Population.for_ranking(year, offset, self.per_page, places_collection, filters)
 
-      places_ids = results.map{|h| h['ine_code']}
-      total_results = BudgetTotal.for_places(places_ids, year)
-      total_results = Hash[total_results.map{ |i| [i["ine_code"], {total_budget: i["total_budget"], total_budget_per_inhabitant: i["total_budget_per_inhabitant"]}]}]
+      organization_ids = results.map { |h| h["organization_id"] }
+      total_results = BudgetTotal.for_places(organization_ids, year)
+      total_results = Hash[total_results.map{ |i| [i["organization_id"].to_s, {total_budget: i["total_budget"], total_budget_per_inhabitant: i["total_budget_per_inhabitant"]}]}]
 
       return results.map do |h|
-        id = h['ine_code'].to_i
+        id = h["organization_id"]
 
         Item.new({
-          place: INE::Places::Place.find(id),
+          place: PlaceDecorator.find(id, places_collection: places_collection),
           population: h["value"],
           amount_per_inhabitant: total_results[id][:total_budget_per_inhabitant],
-          amount: total_results[id][:total_budget],
-          total: total_results[id][:total_budget]
+          amount: total_results[id.to_s][:total_budget],
+          total: total_results[id.to_s][:total_budget]
         })
       end, total_elements
     end
@@ -97,16 +97,16 @@ module GobiertoBudgets
         raise OutOfBounds
       end
 
-      places_ids = results.map {|h| h['ine_code']}
-      population_results = Population.for_places(places_ids, year)
-      population_results = Hash[population_results.map{ |i| [i["ine_code"], i["value"]] }]
+      organization_ids = results.map { |h| h["organization_id"] }
+      population_results = Population.for_places(organization_ids, year, places_collection)
+      population_results = Hash[population_results.map{ |i| [i["organization_id"].to_s, i["value"]] }]
 
       return results.map do |h|
-        id = h['ine_code'].to_i
+        id = h["organization_id"]
 
         Item.new({
-          place: INE::Places::Place.find(id),
-          population: population_results[id],
+          place: PlaceDecorator.find(id, places_collection: places_collection),
+          population: population_results[id.to_s],
           amount_per_inhabitant: h['total_budget_per_inhabitant'],
           amount: h['total_budget'],
           total: h['total_budget']
