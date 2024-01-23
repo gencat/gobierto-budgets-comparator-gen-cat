@@ -160,8 +160,9 @@ module GobiertoBudgets
       @area_name = params[:area] || 'functional'
       @year = params[:year].present? ? params[:year].to_i : nil
       @code = params[:code]
-      @places_collection = params[:places_collection]
-      @selected_place = INE::Places::Place.find(params[:ine_code]) if params[:ine_code]
+      @places_collection = params[:places_collection]&.to_sym || :ine
+      @selected_place = PlaceDecorator.find(params[:ine_code], places_collection: @places_collection) if params[:ine_code]
+
       if params[:variable].present?
         @variable = params[:variable]
         render_404 and return unless valid_variables.include?(@variable)
