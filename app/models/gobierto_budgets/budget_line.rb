@@ -131,8 +131,8 @@ module GobiertoBudgets
         }
       end
 
-      terms << {term: { autonomy_id: aarr_filter }}  unless aarr_filter.blank?
-      terms << { exists: { field: "ine_code" } } if only_municipalities
+      terms << { term: { autonomy_id: aarr_filter } }  unless aarr_filter.blank?
+      terms << { exists: { field: "ine_code" } } unless !only_municipalities || options[:places_collection].present? && options[:places_collection] != :ine
       terms << { missing: { field: "custom_code" } }
       terms << { missing: { field: "functional_code" } }
 

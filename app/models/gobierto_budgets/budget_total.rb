@@ -121,7 +121,7 @@ module GobiertoBudgets
     def self.budget_total_ranking_query(options)
       terms =  [{term: { year: options[:year]}}]
       terms << {term: { kind: options[:kind]}} if options[:kind].present?
-      terms << { exists: { field: "ine_code" } }  # Ensure only city councils appear
+      terms << { exists: { field: "ine_code" } } unless options[:places_collection].present? && options[:places_collection] != :ine # Ensure only city councils appear
 
       places_restriction = GobiertoBudgets::PlaceSet.new(places_collection: options[:places_collection])
 
