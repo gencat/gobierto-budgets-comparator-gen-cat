@@ -84,7 +84,7 @@ module GobiertoBudgets
         type: SearchEngineConfiguration::TotalBudget.type,
         body: query,
         filter_path: "hits.hits._source",
-        _source: ["total_budget", "ine_code", "total_budget_per_inhabitant"]
+        _source: ["total_budget", "ine_code", "organization_id", "total_budget_per_inhabitant"]
       )
 
       if response.empty?
@@ -184,7 +184,7 @@ module GobiertoBudgets
         type: SearchEngineConfiguration::TotalBudget.type,
         body: query,
         filter_path: "hits.hits._source,hits.total",
-        _source: ["total_budget", "ine_code", "total_budget_per_inhabitant"]
+        _source: ["total_budget", "ine_code", "organization_id", "total_budget_per_inhabitant"]
     end
   end
 end
