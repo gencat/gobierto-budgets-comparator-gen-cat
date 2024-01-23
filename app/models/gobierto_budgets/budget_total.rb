@@ -109,6 +109,7 @@ module GobiertoBudgets
       return results, total_elements
     end
 
+    # TODO - Deprecated Remove
     def self.place_position_in_ranking(year, variable, ine_code, kind, filters)
       response = budget_total_ranking_query(year: year, variable: variable, kind: kind, filters: filters, to_rank: true)
 
