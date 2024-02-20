@@ -125,7 +125,7 @@ module GobiertoBudgets
         terms << {range: { value: { gte: population_filter[:from].to_i, lte: population_filter[:to].to_i} }}
       end
 
-      terms << { term: { autonomous_region_id: aarr_filter } } unless aarr_filter.blank?
+      terms << { term: { autonomy_id: aarr_filter } } unless aarr_filter.blank?
 
       query = {
         sort: [
