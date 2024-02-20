@@ -158,7 +158,9 @@
   </div>
 
   <%= render partial: 'ranking_table' %>
-  <%= paginate @ranking_items, remote: true %>
+  <div id="pagination">
+    <%= paginate @ranking_items, remote: true %>
+  </div>
 
   <div class="disclaimer">
     <div class="sep"></div>
