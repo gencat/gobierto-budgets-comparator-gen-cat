@@ -52,6 +52,8 @@ module GobiertoBudgets
     end
 
     class Scopes
+      cattr_reader :organization_ids
+
       def self.set_places_scope(places)
         @organization_ids ||= places.map(&:id).compact_blank
         @places_ids ||= places.map { |i| i.id.to_i }
