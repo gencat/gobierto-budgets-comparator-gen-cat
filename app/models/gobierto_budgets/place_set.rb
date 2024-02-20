@@ -5,17 +5,17 @@ module GobiertoBudgets
     def initialize(options = {})
       @places_collection = options[:places_collection] || :ine
       @ine_codes = options[:ine_codes] || []
-      @organization_ids = options[:organization_ids] || default_organization_ids
+      @organization_ids = (options[:organization_ids] || default_organization_ids).map(&:to_s)
 
       if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
         @places_scope = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
-        @organizations_scope = GobiertoBudgets::SearchEngineConfiguration::Scopes.organization_ids
+        @organizations_scope = GobiertoBudgets::SearchEngineConfiguration::Scopes.organization_ids&.map(&:to_s)
       end
     end
 
     def restrict(options = {})
       @ine_codes = @ine_codes & options[:ine_codes] if options[:ine_codes].present?
-      @organization_ids = @organization_ids & options[:organization_ids] if options[:organization_ids].present?
+      @organization_ids = @organization_ids & options[:organization_ids].map(&:to_s) if options[:organization_ids].present?
     end
 
     def ine_codes
