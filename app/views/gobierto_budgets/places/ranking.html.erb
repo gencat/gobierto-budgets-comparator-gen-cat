@@ -125,7 +125,7 @@
 </header>
 
 <div class="rankings">
-  <div class="filters " data-ranking-url="<%= url_for(params.except(:f,:page,:offset)) %>">
+  <div class="filters " data-ranking-url="<%= locations_ranking_path(params.except(:f,:page,:offset)) %>">
     <ul>
       <li>
         <h4><%= t('.size') %></h4>
