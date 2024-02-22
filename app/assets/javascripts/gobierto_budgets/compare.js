@@ -1,12 +1,14 @@
 $(document).on('turbolinks:load', function() {
   'use strict';
 
+  var placesFile = window.placesFile || '/places.json';
+
   Cookies.json = true;
   Cookies.defaults.path = '/';
 
   var addPlaceOptions = {
     lookup: function (query, done) {
-      $.ajax('/places.json', {
+      $.ajax(placesFile, {
         complete: function(data) {
           var suggestions = data.responseJSON.filter(function(result){
             return result.value.indexOf(query) !== -1 || result.data.slug.indexOf(query) !== -1 ||

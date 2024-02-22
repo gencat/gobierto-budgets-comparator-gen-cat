@@ -11,3 +11,4 @@ map_zoom_level: 6
 map_topojson: '/municipalities_topojson.json'
 places_file: '/cat_places.json'
 twitter_account: '@gobierto'
+places_file: '/places.json'

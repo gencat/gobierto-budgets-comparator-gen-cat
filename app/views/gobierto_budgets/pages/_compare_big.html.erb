@@ -48,7 +48,7 @@ function extractFormParameters($sel){
 
 var searchOptions = {
   lookup: function (query, done) {
-    $.ajax('/places.json', {
+    $.ajax('<%= Settings.places_file || "/places.json" %>', {
       complete: function(data) {
         var suggestions = data.responseJSON.filter(function(result){
           return result.value.indexOf(query) !== -1 || result.data.slug.indexOf(query) !== -1 ||
