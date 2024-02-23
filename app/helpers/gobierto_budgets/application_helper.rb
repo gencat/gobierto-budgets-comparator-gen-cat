@@ -275,10 +275,14 @@ module GobiertoBudgets
       "#{place.name}|#{gobierto_budgets_place_path(place, year)}|#{place.slug}"
     end
 
-    def place_name(ine_code)
-      return if ine_code.blank?
+    def place_name(organization_id, places_collection: :ine)
+      return if organization_id.blank?
 
-      INE::Places::Place.find(ine_code).try(:name)
+      if places_collection.to_sym == :ine
+        INE::Places::Place.find(organization_id).try(:name)
+      else
+        PlaceDecorator.find(organization_id, places_collection:).try(:name)
+      end
     end
 
     def places_for_select
