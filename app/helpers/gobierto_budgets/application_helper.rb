@@ -101,9 +101,17 @@ module GobiertoBudgets
       end
     end
 
-    def locations_ranking_path(*args)
+    def locations_global_ranking_path(*args)
       if params[:places_collection] == "deputation_eu"
         gobierto_budgets_deputations_ranking_path(*args)
+      else
+        gobierto_budgets_ranking_path(*args)
+      end
+    end
+
+    def locations_ranking_path(*args)
+      if params[:places_collection] == "deputation_eu"
+        gobierto_budgets_deputations_places_ranking_path(*args)
       else
         gobierto_budgets_places_ranking_path(*args)
       end
@@ -111,7 +119,7 @@ module GobiertoBudgets
 
     def locations_ranking_url(*args)
       if params[:places_collection] == "deputation_eu"
-        gobierto_budgets_deputations_ranking_url(*args)
+        gobierto_budgets_deputations_places_ranking_url(*args)
       else
         gobierto_budgets_places_ranking_url(*args)
       end
@@ -125,19 +133,27 @@ module GobiertoBudgets
       end
     end
 
-    def locations_ranking_path(*args)
-      if params[:places_collection] == "deputation_eu"
-        gobierto_budgets_deputations_ranking_path(*args)
-      else
-        gobierto_budgets_places_ranking_path(*args)
-      end
-    end
-
     def locations_population_ranking_path(*args)
       if params[:places_collection] == "deputation_eu"
         gobierto_budgets_deputations_population_ranking_path(*args)
       else
         gobierto_budgets_population_ranking_path(*args)
+      end
+    end
+
+    def locations_compare_path(*args)
+      if params[:places_collection] == "deputation_eu"
+        gobierto_budgets_deputations_compare_path(*args)
+      else
+        gobierto_budgets_compare_path(*args)
+      end
+    end
+
+    def locations_places_compare_path(*args)
+      if params[:places_collection] == "deputation_eu"
+        gobierto_budgets_deputations_places_compare_path(*args)
+      else
+        gobierto_budgets_places_compare_path(*args)
       end
     end
 
@@ -174,7 +190,7 @@ module GobiertoBudgets
     def link_to_parent_comparison(places, year, kind, area_name, parent_code)
       options = {}
       options[:parent_code] = parent_code[0..-2] if parent_code.length > 1
-      link_to('« anterior', gobierto_budgets_places_compare_path(places.map(&:slug).join(':'),year,kind,area_name, options))
+      link_to('« anterior', locations_places_compare_path(places.map(&:slug).join(':'),year,kind,area_name, options))
     end
 
     def lines_chart_api_path(what, compared_level, places, year, kind, parent_code = nil, area_name = 'economic')
@@ -187,10 +203,11 @@ module GobiertoBudgets
           kind,
           parent_code,
           area_name,
-          format: :json
+          format: :json,
+          places_collection: params[:places_collection]
         )
       else
-        gobierto_budgets_api_data_compare_path(place_ids, year, what, kind: kind, format: :json)
+        gobierto_budgets_api_data_compare_path(place_ids, year, what, kind: kind, format: :json, places_collection: params[:places_collection])
       end
       path
     end
