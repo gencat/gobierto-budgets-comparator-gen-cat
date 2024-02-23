@@ -178,7 +178,7 @@ module GobiertoBudgets
     end
 
     def get_places(slug_list)
-      slug_list.split(':').map {|slug| INE::Places::Place.find_by_slug slug}.compact
+      slug_list.split(':').map { |slug| PlaceDecorator.find_by_slug(slug, places_collection: @places_collection) }.compact
     end
 
     def valid_variables
