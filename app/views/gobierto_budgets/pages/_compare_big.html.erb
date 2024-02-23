@@ -88,7 +88,7 @@ $('#compare_form').on('submit', function(e){
   e.preventDefault();
   var slugs = extractFormParameters($(this));
   if(slugs.length > 0) {
-    Turbolinks.visit('/compare/' + slugs.join(':') + '/<%= Date.today.year - 1 %>/G/functional');
+    Turbolinks.visit('<%= locations_compare_path %>/' + slugs.join(':') + '/<%= Date.today.year - 1 %>/G/functional');
   }
 });
 
