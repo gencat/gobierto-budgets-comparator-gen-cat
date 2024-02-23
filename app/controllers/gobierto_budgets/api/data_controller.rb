@@ -294,17 +294,24 @@ module GobiertoBudgets
 
         top = results.first
         title = ranking_title(@variable, @year, @kind, @code, @area)
+
+        data = if results.blank?
+                {}
+              else
+                {
+                  title: title,
+                  top_place_name: place_name(top["organization_id"], places_collection: @places_collection),
+                  top_amount: helpers.number_to_currency(top[@variable], precision: 0, strip_insignificant_zeros: true),
+                  ranking_path: locations_ranking_path(@year, @kind, @area, @var, @code),
+                  ranking_url: locations_ranking_url(@year, @kind, @area, @var, @code),
+                  twitter_share: ERB::Util.url_encode(twitter_share(title, locations_ranking_url(@year, @kind, @area, @var, @code))),
+                  top_5: results.map { |r| { place_name: place_name(r["organization_id"], places_collection: @places_collection) } }
+                }
+              end
+
         respond_to do |format|
           format.json do
-            render json: {
-              title: title,
-              top_place_name: place_name(top['ine_code']),
-              top_amount: helpers.number_to_currency(top[@variable], precision: 0, strip_insignificant_zeros: true),
-              ranking_path: locations_ranking_path(@year, @kind, @area, @var, @code),
-              ranking_url: locations_ranking_url(@year, @kind, @area, @var, @code),
-              twitter_share: ERB::Util.url_encode(twitter_share(title, locations_ranking_url(@year, @kind, @area, @var, @code))),
-              top_5: results.map { |r| { place_name: place_name(r['ine_code']) } }
-            }.to_json
+            render json: data.to_json
           end
         end
       end
