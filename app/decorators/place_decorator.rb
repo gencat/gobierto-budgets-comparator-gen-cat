@@ -44,6 +44,13 @@ class PlaceDecorator
     new(place)
   end
 
+  def self.find_by_slug(slug, places_collection: :ine)
+    key = places_collection&.to_sym || :ine
+    return unless PLACES_COLLECTIONS.keys.include?(key)
+
+    place = key == :ine ? INE::Places::Place.find_by_slug(slug) : PLACES_COLLECTIONS[key].find { |item| item.slug == slug }
+  end
+
   def self.find_in_all_collections(id)
     PLACES_COLLECTIONS.keys.map do |places_collection|
       find(id, places_collection:)
