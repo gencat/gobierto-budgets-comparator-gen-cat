@@ -90,7 +90,7 @@ module GobiertoBudgets
     # /places/compare/:slug_list/:year/:kind/:area
     def compare
       @places = get_places params[:slug_list]
-      redirect_to gobierto_budgets_compare_path if @places.empty?
+      redirect_to locations_compare_path if @places.empty?
 
       ids = @places.map(&:id)
       @totals = GobiertoBudgets::BudgetTotal.for ids, @year

@@ -1,7 +1,7 @@
 <% records.group_by {|bl| bl['code'] }.each do |code, budget_lines| %>
   <tr>
     <td class="budget_line"><%= link_to_unless_current budget_line_denomination(@area_name, code, @kind),
-                                        gobierto_budgets_places_compare_path(@places.map(&:slug).join(':'),@year,@kind,@area_name, {parent_code: code }) %></td>
+                                        locations_places_compare_path(@places.map(&:slug).join(':'),@year,@kind,@area_name, {parent_code: code }) %></td>
     <% @places.each do |place|
         budget_line = budget_lines.select {|bl| bl["organization_id"] == place.id.to_s }.first %>
 
