@@ -184,11 +184,12 @@ module GobiertoBudgets
     end
 
     def self.compare(options)
-      terms = [{terms: { ine_code: options[:ine_codes] }},
-               {term: { level: options[:level] }},
+      terms = [{term: { level: options[:level] }},
                {term: { kind: options[:kind] }},
                {term: { year: options[:year] }}]
 
+      terms << {terms: { organization_id: options[:organization_ids] }} if options[:organization_ids].present?
+      terms << {terms: { ine_code: options[:ine_codes] }} if options[:ine_codes].present?
       terms << {term: { parent_code: options[:parent_code] }} if options[:parent_code].present?
       terms << {term: { code: options[:code] }} if options[:code].present?
 
@@ -214,8 +215,7 @@ module GobiertoBudgets
     end
 
     def self.compare_with_ancestors(options)
-      terms = [{terms: { ine_code: options[:ine_codes] }},
-                {term: { kind: options[:kind] }},
+      terms = [{term: { kind: options[:kind] }},
                 {term: { year: options[:year] }},
                 {range: { level: { lte: options[:level].to_i } }},
                 {bool: {
@@ -226,10 +226,12 @@ module GobiertoBudgets
                   }
                 }]
 
+      terms << {terms: { organization_id: options[:organization_ids] }} if options[:organization_ids].present?
+      terms << {terms: { ine_code: options[:ine_codes] }} if options[:ine_codes].present?
       query = {
         sort: [
           { code: { order: 'asc' } },
-          { ine_code: { order: 'asc' }}
+          { organization_id: { order: 'asc' }}
         ],
         query: {
           filtered: {
