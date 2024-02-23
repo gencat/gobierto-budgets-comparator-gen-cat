@@ -7,6 +7,7 @@ BUDGET_LINE_CONSTRAINTS = { year: YEAR_REGEX, kind: KIND_REGEX, area: AREA_REGEX
 
 Rails.application.routes.draw do
   root 'gobierto_budgets/pages#home'
+  get "diputaciones" => "gobierto_budgets/pages#home", as: :deputation_root, defaults: { places_collection: "deputation_eu" }
 
   if Rails.env.development?
     get '/sandbox' => 'sandbox#index'
