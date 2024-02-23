@@ -94,9 +94,9 @@ module GobiertoBudgets
 
       ids = @places.map(&:id)
       @totals = GobiertoBudgets::BudgetTotal.for ids, @year
-      @population = GobiertoBudgets::Population.for ids, @year
+      @population = GobiertoBudgets::Population.for ids, @year, @places_collection
       if @population.empty?
-        @population = GobiertoBudgets::Population.for ids, @year - 1
+        @population = GobiertoBudgets::Population.for ids, @year - 1, @places_collection
       end
 
       @compared_level = (params[:parent_code].present? ? params[:parent_code].length + 1 : 1)
