@@ -23,79 +23,12 @@
   <div class="sep"></div>
 
   <h4><%= t('.highlights') %></h4>
-
-  <div class="ranking_card clearfix"
-      data-widget-type="ranking_1"
-      data-widget-template="#widget-template"
-      data-widget-data-url="<%= gobierto_budgets_api_data_ranking_path(
-        GobiertoBudgets::SearchEngineConfiguration::Year.last,
-        'I',
-        'economic',
-        'amount',
-        344,
-        format: :json,
-        only_municipalities: true
-      ) %>">
-  </div>
-
-  <div class="ranking_card clearfix"
-      data-widget-type="ranking_2"
-      data-widget-template="#widget-template"
-      data-widget-data-url="<%= gobierto_budgets_api_data_ranking_path(
-        GobiertoBudgets::SearchEngineConfiguration::Year.last,
-        'G',
-        'functional',
-        'amount_per_inhabitant',
-        336,
-        format: :json,
-        only_municipalities: true
-      ) %>">
-  </div>
-
-  <div class="ranking_card clearfix"
-      data-widget-type="ranking_3"
-      data-widget-template="#widget-template"
-      data-widget-data-url="<%= gobierto_budgets_api_data_ranking_path(
-        GobiertoBudgets::SearchEngineConfiguration::Year.last,
-        'G',
-        'functional',
-        'amount',
-        342,
-        format: :json,
-        only_municipalities: true
-      ) %>">
-  </div>
-
-  <div class="ranking_card clearfix"
-      data-widget-type="ranking_4"
-      data-widget-template="#widget-template"
-      data-widget-data-url="/api/data/widget/ranking/<%= GobiertoBudgets::SearchEngineConfiguration::Year.last %>/G/functional/amount_per_inhabitant/165.json">
-  </div>
-
-  <div class="ranking_card clearfix"
-      data-widget-type="ranking_5"
-      data-widget-template="#widget-template"
-      data-widget-data-url="/api/data/widget/ranking/<%= GobiertoBudgets::SearchEngineConfiguration::Year.last %>/G/functional/amount/162.json">
-  </div>
-
-  <div class="ranking_card clearfix"
-      data-widget-type="ranking_6"
-      data-widget-template="#widget-template"
-      data-widget-data-url="/api/data/widget/ranking/<%= GobiertoBudgets::SearchEngineConfiguration::Year.last %>/G/functional/amount_per_inhabitant/44.json">
-  </div>
-
-  <div class="ranking_card clearfix"
-      data-widget-type="ranking_7"
-      data-widget-template="#widget-template"
-      data-widget-data-url="/api/data/widget/ranking/<%= GobiertoBudgets::SearchEngineConfiguration::Year.last %>/I/economic/amount/313.json">
-  </div>
-
-  <div class="ranking_card clearfix"
-      data-widget-type="ranking_8"
-      data-widget-template="#widget-template"
-      data-widget-data-url="/api/data/widget/ranking/<%= GobiertoBudgets::SearchEngineConfiguration::Year.last %>/G/functional/amount_per_inhabitant/171.json">
-  </div>
-
+  <% @ranking_paths.each_with_index do |path, i| %>
+    <div class="ranking_card clearfix"
+         data-widget-type="ranking_<%= i + 1 %>"
+         data-widget-template="#widget-template"
+         data-widget-data-url="<%= path %>">
+    </div>
+  <% end %>
   <%= render partial: 'gobierto_budgets/pages/ranking_card_template' %>
-
 </div>

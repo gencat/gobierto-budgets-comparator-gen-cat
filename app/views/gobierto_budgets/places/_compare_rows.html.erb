@@ -1,9 +1,9 @@
 <% records.group_by {|bl| bl['code'] }.each do |code, budget_lines| %>
   <tr>
     <td class="budget_line"><%= link_to_unless_current budget_line_denomination(@area_name, code, @kind),
-                                        gobierto_budgets_places_compare_path(@places.map(&:slug).join(':'),@year,@kind,@area_name, {parent_code: code }) %></td>
+                                        locations_places_compare_path(@places.map(&:slug).join(':'),@year,@kind,@area_name, {parent_code: code }) %></td>
     <% @places.each do |place|
-        budget_line = budget_lines.select {|bl| bl['ine_code'] == place.id.to_i }.first %>
+        budget_line = budget_lines.select {|bl| bl["organization_id"] == place.id.to_s }.first %>
 
       <td class="variable_values"
         data-link="<%= location_budget_line_path(place.slug, @year, code, @kind, @area_name) %>"
@@ -11,7 +11,7 @@
         data-per-person="<%= number_to_currency(budget_line['amount_per_inhabitant'], precision: 0) if budget_line %>">
         <span class='selected_indicator'></span>
         <% if budget_line %>
-        <span class='percentage_of_total'><%= percentage_of_total budget_line['amount'], @totals.detect {|t| t['ine_code'] == place.id.to_i }['total_budget'] %></span>
+        <span class='percentage_of_total'><%= percentage_of_total budget_line['amount'], @totals.detect {|t| t["organization_id"] == place.id.to_s }['total_budget'] %></span>
         <% end %>
       </td>
     <% end %>

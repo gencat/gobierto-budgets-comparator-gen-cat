@@ -9,6 +9,11 @@ PLACES_COLLECTIONS = {
   ]
 }
 
+PLACES_TYPES = {
+  ine: "Place",
+  deputation_eu: "Deputation"
+}
+
 class PlaceDecorator
   attr_reader :id, :place
   delegate :name, :slug, to: :place
@@ -39,6 +44,13 @@ class PlaceDecorator
     new(place)
   end
 
+  def self.find_by_slug(slug, places_collection: :ine)
+    key = places_collection&.to_sym || :ine
+    return unless PLACES_COLLECTIONS.keys.include?(key)
+
+    place = key == :ine ? INE::Places::Place.find_by_slug(slug) : PLACES_COLLECTIONS[key].find { |item| item.slug == slug }
+  end
+
   def self.find_in_all_collections(id)
     PLACES_COLLECTIONS.keys.map do |places_collection|
       find(id, places_collection:)
@@ -49,6 +61,10 @@ class PlaceDecorator
     return GobiertoBudgets::SearchEngineConfiguration::Data.type_population_province if places_collection_key&.to_sym == :deputation_eu
 
     GobiertoBudgets::SearchEngineConfiguration::Data.type_population
+  end
+
+  def self.place_type(key)
+    PLACES_TYPES[key.to_sym] || PLACES_TYPES[:ine]
   end
 
   def initialize(place)

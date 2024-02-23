@@ -90,17 +90,17 @@ module GobiertoBudgets
     # /places/compare/:slug_list/:year/:kind/:area
     def compare
       @places = get_places params[:slug_list]
-      redirect_to gobierto_budgets_compare_path if @places.empty?
+      redirect_to locations_compare_path if @places.empty?
 
       ids = @places.map(&:id)
       @totals = GobiertoBudgets::BudgetTotal.for ids, @year
-      @population = GobiertoBudgets::Population.for ids, @year
+      @population = GobiertoBudgets::Population.for ids, @year, @places_collection
       if @population.empty?
-        @population = GobiertoBudgets::Population.for ids, @year - 1
+        @population = GobiertoBudgets::Population.for ids, @year - 1, @places_collection
       end
 
       @compared_level = (params[:parent_code].present? ? params[:parent_code].length + 1 : 1)
-      options = { ine_codes: ids, year: @year, kind: @kind, level: @compared_level, type: @area_name }
+      options = { organization_ids: ids, year: @year, kind: @kind, level: @compared_level, type: @area_name }
 
       if @compared_level > 1
         @budgets_and_ancestors = GobiertoBudgets::BudgetLine.compare_with_ancestors(options.merge(parent_code: params[:parent_code]))
@@ -178,7 +178,7 @@ module GobiertoBudgets
     end
 
     def get_places(slug_list)
-      slug_list.split(':').map {|slug| INE::Places::Place.find_by_slug slug}.compact
+      slug_list.split(':').map { |slug| PlaceDecorator.find_by_slug(slug, places_collection: @places_collection) }.compact
     end
 
     def valid_variables
