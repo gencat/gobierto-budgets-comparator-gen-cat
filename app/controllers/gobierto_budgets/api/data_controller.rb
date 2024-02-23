@@ -146,7 +146,7 @@ module GobiertoBudgets
       end
 
       def compare
-        @organizations = get_places params[:ine_codes]
+        @organizations = get_places params[:ine_codes], places_collection: params[:places_collection]
 
         data_line = GobiertoBudgets::Data::Lines.new(
           organization: @organizations,
@@ -698,8 +698,8 @@ module GobiertoBudgets
         end.reject(&:nil?)
       end
 
-      def get_places(ine_codes)
-        ine_codes.split(":").map { |code| Organization.new(organization_id: code) }
+      def get_places(ine_codes, places_collection: :ine)
+        ine_codes.split(":").map { |code| Organization.new(organization_id: code, places_collection:) }
       end
 
       def respond_lines_to_json(data_line)
