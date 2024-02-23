@@ -100,7 +100,7 @@ module GobiertoBudgets
       end
 
       @compared_level = (params[:parent_code].present? ? params[:parent_code].length + 1 : 1)
-      options = { ine_codes: ids, year: @year, kind: @kind, level: @compared_level, type: @area_name }
+      options = { organization_ids: ids, year: @year, kind: @kind, level: @compared_level, type: @area_name }
 
       if @compared_level > 1
         @budgets_and_ancestors = GobiertoBudgets::BudgetLine.compare_with_ancestors(options.merge(parent_code: params[:parent_code]))
