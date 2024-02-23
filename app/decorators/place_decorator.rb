@@ -9,6 +9,11 @@ PLACES_COLLECTIONS = {
   ]
 }
 
+PLACES_TYPES = {
+  ine: "Place",
+  deputation_eu: "Deputation"
+}
+
 class PlaceDecorator
   attr_reader :id, :place
   delegate :name, :slug, to: :place
@@ -49,6 +54,10 @@ class PlaceDecorator
     return GobiertoBudgets::SearchEngineConfiguration::Data.type_population_province if places_collection_key&.to_sym == :deputation_eu
 
     GobiertoBudgets::SearchEngineConfiguration::Data.type_population
+  end
+
+  def self.place_type(key)
+    PLACES_TYPES[key.to_sym] || PLACES_TYPES[:ine]
   end
 
   def initialize(place)

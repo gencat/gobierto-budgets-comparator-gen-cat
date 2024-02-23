@@ -1,3 +1,4 @@
+<% place_type = PlaceDecorator.place_type(params[:places_collection] || :ine) %>
 <h2 class="section_heading"><%= t('.compare_municipalities') %></h2>
 
 <%= form_tag '#', id: 'compare_form' do %>
@@ -51,8 +52,11 @@ var searchOptions = {
     $.ajax('<%= Settings.places_file || "/places.json" %>', {
       complete: function(data) {
         var suggestions = data.responseJSON.filter(function(result){
-          return result.value.indexOf(query) !== -1 || result.data.slug.indexOf(query) !== -1 ||
-            result.value.toLowerCase().indexOf(query) !== -1
+        return result.data.type == '<%= place_type %>' && (
+          result.value.indexOf(query) !== -1 ||
+          result.data.slug.indexOf(query) !== -1 ||
+          result.value.toLowerCase().indexOf(query) !== -1
+        )
         });
         var result = {
           suggestions: suggestions
@@ -62,10 +66,10 @@ var searchOptions = {
     })
   },
   onSelect: function(suggestion) {
-    if(suggestion.data.type == 'Place') {
+    if(suggestion.data.type == '<%= place_type %>') {
       ga('send', 'event', 'Compare Search', 'Click', 'Search', {nonInteraction: true});
       if(mixpanel.length > 0) {
-        mixpanel.track('Compare Search', { 'Place': suggestion.data.slug});
+        mixpanel.track('Compare Search', { '<%= place_type %>': suggestion.data.slug});
       }
       $(this).val(suggestion.data.slug);
       $(this).nextAll('input[type!=hidden]').first().focus();
