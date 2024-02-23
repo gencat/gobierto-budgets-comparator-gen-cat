@@ -6,11 +6,11 @@ module GobiertoBudgets
     FILTER_MIN = 0
     FILTER_MAX = 5000000
 
-    def self.for(organization_id, year)
-      return for_places(organization_id, year) if organization_id.is_a?(Array)
-      result = population_query_results(organization_id: organization_id, year: year)
+    def self.for(organization_id, year, places_collection = :ine)
+      return for_places(organization_id, year, places_collection) if organization_id.is_a?(Array)
+      result = population_query_results(organization_id: organization_id, year: year, places_collection: places_collection)
       if result.empty?
-        result = population_query_results(organization_id: organization_id, year: year-1)
+        result = population_query_results(organization_id: organization_id, year: year - 1, places_collection: places_collection)
       end
       result.first['value'].to_f
     end
