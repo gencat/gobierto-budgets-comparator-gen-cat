@@ -2,6 +2,12 @@
 es:
   layouts:
     gobierto_budgets_application:
+      ine:
+        search_location: Busca municipio...
+        your_location: Tu municipio
+      deputation_eu:
+        search_location: Busca diputación...
+        your_location: Tu diputación
       about: Acerca de
       checkout_gobierto_blog: Consulta el blog de Gobierto
       close_session: Cerrar sesión
@@ -21,8 +27,6 @@ es:
       privacy: Política de privacidad
       rankings: Ránkings
       recent_comparisons: Comparaciones recientes
-      recent_municipalities: Municipios recientes
-      search_municipality: Busca municipio...
+      recent_locations: Lugares recientes
       services: Servicios
       site_title: Gobierto Presupuestos Municipales
-      your_municipality: Tu municipio

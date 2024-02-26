@@ -3,7 +3,7 @@ $(document).on('turbolinks:load', function() {
   if($('canvas').length){
     new SlimSelect({
       select: '#municipalities-flyTO',
-      placeholder: I18n.t('gobierto_budgets.places.place_header.search_municipality')
+      placeholder: I18n.t('gobierto_budgets.places.place_header.ine.search_location')
     })
 
     var locale = d3.formatDefaultLocale({
@@ -154,7 +154,7 @@ $(document).on('turbolinks:load', function() {
     function onLoad() {
       spinner.style.display = 'none'
       var placeholder = document.querySelector('.placeholder')
-      placeholder.textContent = I18n.t('gobierto_budgets.places.place_header.search_municipality')
+      placeholder.textContent = I18n.t('gobierto_budgets.places.place_header.ine.search_location')
       $('.ss-disabled.ss-option-selected').removeClass('ss-option-selected ss-disabled')
     }
 

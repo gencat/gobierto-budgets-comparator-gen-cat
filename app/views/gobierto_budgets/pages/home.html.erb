@@ -7,7 +7,7 @@
   <h1><%= image_tag('LogoGobierto.png', width: '180') %> <span><%= t('.local_budgets') %></span></h1>
   <h2><%= t('.subtitle') %></h2>
 
-  <input type="text" class="places_search search_auto" placeholder="<%= t('.search_municipality') %>" autofocus="true">
+  <input type="text" class="places_search search_auto" placeholder="<%= t(".#{places_collection_key}.search_location") %>" autofocus="true">
 
   <p class="example"><%= t('.for_example') %>:
 
