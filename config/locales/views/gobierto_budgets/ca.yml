@@ -108,6 +108,10 @@ ca:
           search: Busqueu una diputació %{n}
           select: 'Seleccioneu diverses diputacions per a comparar-ne els pressupostos:'
       home:
+        ine:
+          search_location: Busqueu municipi...
+        deputation_eu:
+          search_location: Busqueu diputació...
         explore: Explorar
         explore_rankings: Exploreu els rànquings
         explore_the_ranking_for: Exploreu el rànquing de
@@ -115,7 +119,6 @@ ca:
         for_municipalities_of: per municipis de
         local_budgets: Pressupostos municipals
         more_information: més informació
-        search_municipality: Busqueu municipi...
         some_examples: Alguns exemples per partides
         subtitle: Consulteu, analitzeu i compareu els pressupostos municipals de Catalunya
         whole_spain: Tot Espanya
@@ -140,14 +143,22 @@ ca:
           i el que finalment s'ha gastat (Executat). Feu clic per a veure el detall
           i l'execució dels ingressos.
       ranking:
+        ine:
+          subtitle: Consulteu els municipis que més ingressos i despeses, total i per
+            habitant, realitzen per cada partida.
+        deputation_eu:
+          subtitle: Consulteu les diputacions que més ingressos i despeses, total i per
+            habitant, realitzen per cada partida.
         highlights: Algunes xifres destacades
         rankings: Rànquing
-        subtitle: Consulteu els municipis que més ingressos i despeses, total i per
-          habitant, realitzen per cada partida.
     places:
       compare:
-        add: Afegir un altre municipi
-        add_another: Afegiu un altre municipi
+        ine:
+          add: Afegir un altre municipi
+          add_another: Afegiu un altre municipi
+        deputation_eu:
+          add: Afegir una altra diputació
+          add_another: Afegiu una altra diputació
         delete: Eliminar de la comparació
         per_inhabitant: Per habitant
         population: Població
@@ -181,10 +192,16 @@ ca:
         search_budget_lines_income: Busqueu partides d'ingressos
         total: total
       no_data:
-        no_data_this_year: Mmm... No tenim dades sobre aquest municipi per aquest
+        no_data_this_year: Mmm... No tenim dades sobre aquest lloc per aquest
           any. Trieu-ne un altre...
         why: Per què no hi ha dades?
       place_header:
+        ine:
+          location_responsible: Sou responsable d'aquest municipi?
+          search_location: Busqueu municipi...
+        deputation_eu:
+          location_responsible: Sou responsable d'aquesta diputació?
+          search_location: Busqueu diputació...
         add_to_comparing_list_html: Afegiu <strong>%{name}</strong> a la vostra llista
           i compareu
         ask_for_info: Sol·liciteu informació
@@ -193,13 +210,15 @@ ca:
           visualitzacions en el vostre web.
         in_your_web: Al vostre web
         local_budgets_from: Pressupostos municipals de %{name}
-        municipality_responsible: Sou responsable d'aquest municipi?
         planned: pressupostats
-        search_municipality: Busqueu municipi...
         view_comparison_html: Veure comparació
         without: sense %{name}
         your_comparison_list: La vostra llista de comparació
       ranking:
+        ine:
+          size: Grandària del municipi
+        deputation_eu:
+          size: Grandària de la diputació
         and: i
         autonomous_region: Comunitat autònoma
         between: Entre
@@ -213,13 +232,15 @@ ca:
         population: Població
         population_short_title: Rànquing d'habitants
         population_title: Rànquing d'habitants el %{year}
-        size: Grandària del municipi
         total: Total
         why: Per què no hi ha dades de tots els municipis?
       ranking_table:
+        ine:
+          location: Municipi
+        deputation_eu:
+          location: Diputació
         compare: Compareu
         inhabitants: Habitants
-        municipality: Municipi
       related_entities_budget:
         entity: Entitat
         expense: Despesa

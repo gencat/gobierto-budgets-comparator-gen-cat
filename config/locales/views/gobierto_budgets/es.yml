@@ -108,6 +108,10 @@ es:
           search: Busca diputación %{n}
           select: 'Selecciona varias diputaciones para comparar sus presupuestos:'
       home:
+        ine:
+          search_location: Busca municipio...
+        deputation_eu:
+          search_location: Busca diputación...
         checkout_gobierto_blog: Consulta el blog de Gobierto
         checkout_gobierto_blog_desc: Historias y análisis sobre gobierno abierto,
           transparencia y participación en
@@ -118,7 +122,6 @@ es:
         for_municipalities_of: para municipios de
         local_budgets: Presupuestos Municipales
         more_information: Más información
-        search_municipality: Busca municipio...
         some_examples: Algunos ejemplos por partidas
         subtitle: Consulta, analiza y compara los presupuestos municipales de España
         whole_spain: Toda España
@@ -143,14 +146,22 @@ es:
           y lo que finalmente se ha gastado (Ejecutado). Haz click para ver detalle
           y también la ejecución de los ingresos
       ranking:
+        ine:
+          subtitle: Consulta los municipios que más ingresos y gastos, total y por habitante,
+            realizan para cada partida.
+        deputation_eu:
+          subtitle: Consulta las diputaciones que más ingresos y gastos, total y por habitante,
+            realizan para cada partida.
         highlights: Algunas cifras destacadas
         rankings: Ránkings
-        subtitle: Consulta los municipios que más ingresos y gastos, total y por habitante,
-          realizan para cada partida.
     places:
       compare:
-        add: Añadir otro municipio
-        add_another: Añade otro municipio
+        ine:
+          add: Añadir otro municipio
+          add_another: Añade otro municipio
+        deputation_eu:
+          add: Añadir otra diputación
+          add_another: Añade otra diputación
         delete: Eliminar de la comparación
         per_inhabitant: Por Habitante
         population: Población
@@ -184,10 +195,16 @@ es:
         search_budget_lines_income: Busca partidas de ingresos
         total: total
       no_data:
-        no_data_this_year: Mmm... No tenemos datos sobre este municipio para este
+        no_data_this_year: Mmm... No tenemos datos sobre este lugar para este
           año. Prueba con otro año...
         why: "¿Por qué no hay datos?"
       place_header:
+        ine:
+          location_responsible: "¿Eres responsable de este municipio?"
+          search_location: Busca municipio...
+        deputation_eu:
+          location_responsible: "¿Eres responsable de esta diputación?"
+          search_location: Busca diputación...
         add_to_comparing_list_html: Añade <strong>%{name}</strong> a tu lista y compara
         ask_for_info: Solicita información
         compare: Compara
@@ -195,13 +212,15 @@ es:
           visualizaciones en tu web.
         in_your_web: En tu web
         local_budgets_from: Presupuestos Municipales de %{name}
-        municipality_responsible: "¿Eres responsable de este municipio?"
         planned: presupuestados
-        search_municipality: Busca municipio...
         view_comparison_html: Ver comparación
         without: sin %{name}
         your_comparison_list: Tu lista de comparación
       ranking:
+        ine:
+          size: Tamaño del municipio
+        deputation_eu:
+          size: Tamaño de la diputación
         and: y
         autonomous_region: Comunidad Autónoma
         between: Entre
@@ -216,13 +235,15 @@ es:
         population: Población
         population_short_title: Ránking de habitantes
         population_title: Ránking de habitantes en %{year}
-        size: Tamaño del municipio
         total: Total
         why: "¿Por qué no hay datos de todos los municipios?"
       ranking_table:
+        ine:
+          location: Municipio
+        deputation_eu:
+          location: Diputación
         compare: Compara
         inhabitants: Habitantes
-        municipality: Municipio
       related_entities_budget:
         entity: Entidad
         expense: Gasto
