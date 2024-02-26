@@ -67,6 +67,10 @@ class PlaceDecorator
     PLACES_TYPES[key.to_sym] || PLACES_TYPES[:ine]
   end
 
+  def self.places_keys
+    PLACES_COLLECTIONS.keys
+  end
+
   def initialize(place)
     @place = place
     @id = place.id
