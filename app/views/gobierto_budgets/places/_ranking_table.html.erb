@@ -11,7 +11,7 @@
   <table class="data_table" id="ranking-table">
     <thead>
       <th class="r_pos">#</th>
-      <th class="location"><%= t('.municipality') %></th>
+      <th class="location"><%= t(".#{places_collection_key}.location") %></th>
 
       <% column_filters.each do |column_filter| %>
         <th class="expense <%= class_if('selected', filter_selected?(column_filter[:key])) %>" title="<%= column_filter[:tooltip] %>">

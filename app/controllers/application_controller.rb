@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::UnknownFormat, with: :render_404
   rescue_from Elasticsearch::Transport::Transport::Errors::BadRequest, with: :render_404
 
-  helper_method :helpers, :users_enabled?
+  helper_method :helpers, :users_enabled?, :places_collection_key
 
   before_action :set_locale, :set_cache_headers
 
@@ -72,5 +72,12 @@ class ApplicationController < ActionController::Base
 
   def users_enabled?
     Settings.users_enabled
+  end
+
+  def places_collection_key
+    @places_collection_key ||= begin
+                                 keys = PlaceDecorator.places_keys
+                                 keys.include?(params[:places_collection]&.to_sym) ? params[:places_collection].to_sym : keys.first
+                               end
   end
 end

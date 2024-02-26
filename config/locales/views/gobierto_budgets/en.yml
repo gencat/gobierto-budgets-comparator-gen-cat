@@ -28,8 +28,11 @@ en:
       map_metrics:
         tipsit_planned_vs_executed: The difference between the planned (Budget) and the real expense (Execution). Click to explore all the executions from expenses and incomes.
       ranking:
+        ine:
+          subtitle: Check the municipalities with more income or expenses, total or per inhabitant, per budget line.
+        deputation_eu:
+          subtitle: Check the deputations with more income or expenses, total or per inhabitant, per budget line.
         rankings: Rankings
-        subtitle: Check the municipalities with more income or expenses, total or per inhabitant, per budget line.
         highlights: Some highlights
       compare_big:
         check_some_examples: Or check some examples
@@ -46,9 +49,12 @@ en:
           search: "Search deputation %{n}"
           select: "Select many deputations to compare their budgets:"
       home:
+        ine:
+          search_location: Search municipality...
+        deputation_eu:
+          search_location: Search deputation...
         local_budgets: Local budgets
         subtitle: Check, analyze and compare local budgets from Spain
-        search_municipality: Search municipality...
         for_example: For example
         explore_rankings: Explore rankings
         explore_the_ranking_for: Explore the Ranking for
@@ -66,18 +72,22 @@ en:
         income: Income
         table_title: Check the budget of the related entities of %{name}
       place_header:
+        ine:
+          location_responsible: Are you a worker from the municipality
+          search_location: Search municipality...
+        deputation_eu:
+          location_responsible: Are you a worker from the deputation
+          search_location: Search deputation...
         compare: Compare
         add_to_comparing_list_html: "Add <strong>%{name}</strong> to your list and compare"
         your_comparison_list: Your comparison list
         view_comparison_html: View comparison
         without: "without %{name}"
         in_your_web: In your web
-        municipality_responsible: Are you a worker from the municipality
         cta_desc: "Gobierto allows you to integrate this visualizations in your website."
         ask_for_info: 'Ask for information'
         local_budgets_from: "Local budgets from %{name}"
         planned: planned
-        search_municipality: Busca municipio...
       no_data:
         no_data_this_year: "Hmmm... We don't have data for this year. Try other year"
         why: 'Why there is no data?'
@@ -115,12 +125,16 @@ en:
         search_budget_lines_expense: Search budget lines for expense
         search_budget_lines_income: Search budget lines for income
       compare:
+        ine:
+          add: 'Add another municipality'
+          add_another: 'Add another municipality'
+        deputation_eu:
+          add: 'Add another deputation'
+          add_another: 'Add another deputation'
         title: "Compare local budgets from %{places}"
         total: Total
         per_inhabitant: Per inhabitant
         delete: 'Remove from comparison'
-        add: 'Add another municipality'
-        add_another: 'Add another municipality'
         totals: Totals
         population: Population
       execution:
@@ -140,6 +154,10 @@ en:
         view_more: View more
         view_less: View less
       ranking:
+        ine:
+          size: Municipality population
+        deputation_eu:
+          size: Deputation population
         budget_lines_title: "%{kind} ranking in %{year}"
         budget_lines_short_title: "%{kind} ranking"
         budget_line_title: "%{budget_line} %{kind} ranking in %{year}"
@@ -156,7 +174,10 @@ en:
         disclaimer: The database we use doesn't include data for the 100% of the municipalities, so only those with data will be included.
         why: 'Why there is no data for all the municipalities?'
       ranking_table:
-        municipality: Municipalities
+        ine:
+          location: Municipalities
+        deputation_eu:
+          location: Deputations
         inhabitants: Inhabitants
         compare: Compare
     budget_lines:

@@ -70,7 +70,7 @@
 
     <div class="desktop">
 
-      <input type="text" class="places_search search_auto" value="" placeholder="<%= t('.search_municipality') %>" >
+      <input type="text" class="places_search search_auto" value="" placeholder="<%= t(".#{places_collection_key}.search_location") %>" >
 
       <menu>
         <ul>
@@ -88,7 +88,7 @@
       <div class="links_list personal_links">
         <p><%= t('.hi') %> <strong><%= current_user.full_name %></strong></p>
         <% if current_user.place_id %>
-          <p><%= t('.your_municipality') %>: <%= link_to INE::Places::Place.find(current_user.place_id).name, gobierto_budgets_place_path(INE::Places::Place.find(current_user.place_id), year: GobiertoBudgets::SearchEngineConfiguration::Year.last) %></p>
+          <p><%= t(".#{places_collection_key}.your_location") %>: <%= link_to INE::Places::Place.find(current_user.place_id).name, gobierto_budgets_place_path(INE::Places::Place.find(current_user.place_id), year: GobiertoBudgets::SearchEngineConfiguration::Year.last) %></p>
         <% end %>
         <p><%= link_to t('.edit_your_personal_data'), edit_user_path %></p>
         <p><%= link_to t('.close_session'), logout_path, method: :delete, class: 'logout' %></p>
@@ -96,7 +96,7 @@
       <% end %>
 
       <div class="links_list">
-        <h3><%= t('.recent_municipalities') %></h3>
+        <h3><%= t('.recent_locations') %></h3>
         <ul id="history">
         </ul>
       </div>

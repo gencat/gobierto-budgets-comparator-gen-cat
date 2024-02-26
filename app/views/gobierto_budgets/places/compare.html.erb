@@ -98,9 +98,9 @@
         </th>
       <% end %>
       <th class="location add_location_cont">
-        <%= link_to '+', '', class: 'add', title: t('.add') %>
+        <%= link_to '+', '', class: 'add', title: t(".#{places_collection_key}.add") %>
         <div class="add_location">
-          <%= t('.add_another') %>:
+          <%= t(".#{places_collection_key}.add_another") %>:
           <input type="text" id="add_place">
         </div>
       </th>
