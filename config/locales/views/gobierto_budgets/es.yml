@@ -106,7 +106,7 @@ es:
             a la comparación. Desde la página de comparación también podrás añadir otras
             diputaciones o eliminar las que necesites de la comparación.
           search: Busca diputación %{n}
-          select: 'Seleccioneu diverses diputacions per comparar els vostres pressupostos:'
+          select: 'Selecciona varias diputaciones para comparar sus presupuestos:'
       home:
         checkout_gobierto_blog: Consulta el blog de Gobierto
         checkout_gobierto_blog_desc: Historias y análisis sobre gobierno abierto,

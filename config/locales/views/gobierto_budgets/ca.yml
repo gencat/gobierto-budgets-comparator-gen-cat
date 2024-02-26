@@ -106,7 +106,7 @@ ca:
             a la comparació. Des de la pàgina de comparació també podràs afegir altres
             diputacions o eliminar els que necessitis de la comparació.
           search: Busqueu una diputació %{n}
-          select: 'Seleccioneu diversos municipis per a comparar-ne els pressupostos:'
+          select: 'Seleccioneu diverses diputacions per a comparar-ne els pressupostos:'
       home:
         explore: Explorar
         explore_rankings: Exploreu els rànquings
