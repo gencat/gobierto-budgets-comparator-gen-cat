@@ -20,7 +20,7 @@ class PlaceDecorator
 
   def self.collection(key)
     key = key.to_sym
-    raise "Invalid place_type #{key}. Valid place types: #{PLACES_COLLECTIONS.keys.join(", ")} " unless PLACES_COLLECTIONS.keys.include?(key)
+    raise "Invalid place_type #{key}. Valid place types: #{places_keys.join(", ")} " unless places_keys.include?(key)
 
     PLACES_COLLECTIONS[key].map do |place|
       new(place)
@@ -29,14 +29,14 @@ class PlaceDecorator
 
   def self.collection_organization_ids(key)
     key = key.to_sym
-    raise "Invalid place_type #{key}. Valid place types: #{PLACES_COLLECTIONS.keys.join(", ")} " unless PLACES_COLLECTIONS.keys.include?(key)
+    raise "Invalid place_type #{key}. Valid place types: #{places_keys.join(", ")} " unless places_keys.include?(key)
 
     PLACES_COLLECTIONS[key].map(&:id)
   end
 
   def self.find(id, places_collection: :ine)
     key = places_collection&.to_sym || :ine
-    raise "Invalid place_type #{key}. Valid place types: #{PLACES_COLLECTIONS.keys.join(", ")} " unless PLACES_COLLECTIONS.keys.include?(key)
+    raise "Invalid place_type #{key}. Valid place types: #{places_keys.join(", ")} " unless places_keys.include?(key)
 
     place = key == :ine ? INE::Places::Place.find(id) : PLACES_COLLECTIONS[key].find { |item| item.id == id }
     return if place.blank?
@@ -46,13 +46,13 @@ class PlaceDecorator
 
   def self.find_by_slug(slug, places_collection: :ine)
     key = places_collection&.to_sym || :ine
-    return unless PLACES_COLLECTIONS.keys.include?(key)
+    return unless places_keys.include?(key)
 
     place = key == :ine ? INE::Places::Place.find_by_slug(slug) : PLACES_COLLECTIONS[key].find { |item| item.slug == slug }
   end
 
   def self.find_in_all_collections(id)
-    PLACES_COLLECTIONS.keys.map do |places_collection|
+    places_keys.map do |places_collection|
       find(id, places_collection:)
     end.compact.first
   end
@@ -64,7 +64,7 @@ class PlaceDecorator
   end
 
   def self.place_type(key)
-    PLACES_TYPES[key.to_sym] || PLACES_TYPES[:ine]
+    PLACES_TYPES[key&.to_sym] || PLACES_TYPES[:ine]
   end
 
   def self.places_keys

@@ -1,19 +1,15 @@
-<%
-  keys = PlaceDecorator.places_keys
-  place_key = keys.include?(params[:places_collection]&.to_sym) ? params[:places_collection].to_sym : keys.first
-  place_type = PlaceDecorator.place_type(place_key)
-%>
-<h2 class="section_heading"><%= t(".#{place_key}.compare") %></h2>
+<% place_type = PlaceDecorator.place_type(places_collection_key) %>
+<h2 class="section_heading"><%= t(".#{places_collection_key}.compare") %></h2>
 
 <%= form_tag '#', id: 'compare_form' do %>
 
   <%= image_tag('illustrations/integra.jpg') %>
 
-  <p class="center"><%= t(".#{place_key}.select") %></p>
+  <p class="center"><%= t(".#{places_collection_key}.select") %></p>
 
-  <input type="text" class="search_compare" value="" placeholder="<%= t(".#{place_key}.search", n: 1) %>" name="place1" />
-  <input type="text" class="search_compare" value="" placeholder="<%= t(".#{place_key}.search", n: 2) %>" name="place2" />
-  <input type="text" class="search_compare" value="" placeholder="<%= t(".#{place_key}.search", n: 3) %>" name="place3" />
+  <input type="text" class="search_compare" value="" placeholder="<%= t(".#{places_collection_key}.search", n: 1) %>" name="place1" />
+  <input type="text" class="search_compare" value="" placeholder="<%= t(".#{places_collection_key}.search", n: 2) %>" name="place2" />
+  <input type="text" class="search_compare" value="" placeholder="<%= t(".#{places_collection_key}.search", n: 3) %>" name="place3" />
 
   <%= submit_tag t('.compare'), disabled: "true" %>
 
@@ -35,7 +31,7 @@
         ]
       }
     %>
-    <% examples[place_key].each do |text, slugs| %>
+    <% examples[places_collection_key].each do |text, slugs| %>
       <li><%= link_to text, locations_places_compare_path(slugs, GobiertoBudgets::SearchEngineConfiguration::Year.last, "G", "economic"), class: "button" %></li>
     <% end %>
   </ul>
@@ -44,7 +40,7 @@
 
   <div class="how_it_works" style="display: none;">
 
-    <p><%= t(".#{place_key}.description") %></p>
+    <p><%= t(".#{places_collection_key}.description") %></p>
 
     <%= image_tag 'gobierto_compare_demo.gif', width: '100%' %>
 
