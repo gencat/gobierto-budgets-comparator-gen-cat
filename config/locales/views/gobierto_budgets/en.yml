@@ -32,13 +32,19 @@ en:
         subtitle: Check the municipalities with more income or expenses, total or per inhabitant, per budget line.
         highlights: Some highlights
       compare_big:
-        compare_municipalities: Compare municipalities
-        select_municipalities: "Select many municipalities to compare their budgets:"
-        search_municipality: "Search municipality %{n}"
-        compare: Compare
         check_some_examples: Or check some examples
+        compare: Compare
         how_it_works: 'How does it work?'
-        description: "Apart from using the search from the top of the page, you can add municipalities to your comparison list from the municipality page. Use the button 'Compare' to add it to the comparison. From the comparisons page you will be able to add new municipalities too."
+        ine:
+          compare: Compare municipalities
+          description: "Apart from using the search from the top of the page, you can add municipalities to your comparison list from the municipality page. Use the button 'Compare' to add it to the comparison. From the comparisons page you will be able to add new municipalities too."
+          search: "Search municipality %{n}"
+          select: "Select many municipalities to compare their budgets:"
+        deputation_eu:
+          compare: Compare deputations
+          description: "Apart from using the search from the top of the page, you can add deputations to your comparison list from the deputation page. Use the button 'Compare' to add it to the comparison. From the comparisons page you will be able to add new deputations too."
+          search: "Search deputation %{n}"
+          select: "Select many deputations to compare their budgets:"
       home:
         local_budgets: Local budgets
         subtitle: Check, analyze and compare local budgets from Spain
