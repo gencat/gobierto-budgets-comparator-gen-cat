@@ -1,15 +1,19 @@
-<% place_type = PlaceDecorator.place_type(params[:places_collection] || :ine) %>
-<h2 class="section_heading"><%= t('.compare_municipalities') %></h2>
+<%
+  keys = PlaceDecorator.places_keys
+  place_key = keys.include?(params[:places_collection]&.to_sym) ? params[:places_collection].to_sym : keys.first
+  place_type = PlaceDecorator.place_type(place_key)
+%>
+<h2 class="section_heading"><%= t(".#{place_key}.compare") %></h2>
 
 <%= form_tag '#', id: 'compare_form' do %>
 
   <%= image_tag('illustrations/integra.jpg') %>
 
-  <p class="center"><%= t('.select_municipalities') %></p>
+  <p class="center"><%= t(".#{place_key}.select") %></p>
 
-  <input type="text" class="search_compare" value="" placeholder="<%= t('.search_municipality', n: 1) %>" name="place1" />
-  <input type="text" class="search_compare" value="" placeholder="<%= t('.search_municipality', n: 2) %>" name="place2" />
-  <input type="text" class="search_compare" value="" placeholder="<%= t('.search_municipality', n: 3) %>" name="place3" />
+  <input type="text" class="search_compare" value="" placeholder="<%= t(".#{place_key}.search", n: 1) %>" name="place1" />
+  <input type="text" class="search_compare" value="" placeholder="<%= t(".#{place_key}.search", n: 2) %>" name="place2" />
+  <input type="text" class="search_compare" value="" placeholder="<%= t(".#{place_key}.search", n: 3) %>" name="place3" />
 
   <%= submit_tag t('.compare'), disabled: "true" %>
 
@@ -20,15 +24,27 @@
   <p><%= t('.check_some_examples') %></p>
 
   <ul>
-    <li><%= link_to 'Coruña + Pontevedra + Lugo + Ferrol', "/compare/coruna-a:pontevedra:lugo:ferrol/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/economic", class: 'button' %></li>
-    <li><%= link_to 'Madrid + Barcelona + Valencia + Sevilla', "/compare/madrid:barcelona:valencia:sevilla/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/economic", class: 'button' %></li>
+    <%
+      examples = {
+        ine: [
+          ["Coruña + Pontevedra + Lugo + Ferrol", "coruna-a:pontevedra:lugo:ferrol"],
+          ["Madrid + Barcelona + Valencia + Sevilla", "madrid:barcelona:valencia:sevilla"]
+        ],
+        deputation_eu: [
+          ["Vizcaya + Álava + Guipúzcoa", "dip-bizkaia:dip-alava:dip-gipuzkoa"]
+        ]
+      }
+    %>
+    <% examples[place_key].each do |text, slugs| %>
+      <li><%= link_to text, locations_places_compare_path(slugs, GobiertoBudgets::SearchEngineConfiguration::Year.last, "G", "economic"), class: "button" %></li>
+    <% end %>
   </ul>
 
   <p><%= link_to t('.how_it_works'), '', class: 'toggle_div', data: { target: 'how_it_works' } %></strong></p>
 
   <div class="how_it_works" style="display: none;">
 
-    <p><%= t('.description') %></p>
+    <p><%= t(".#{place_key}.description") %></p>
 
     <%= image_tag 'gobierto_compare_demo.gif', width: '100%' %>
 

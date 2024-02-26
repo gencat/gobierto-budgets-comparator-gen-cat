@@ -88,15 +88,25 @@ ca:
       compare_big:
         check_some_examples: O proveu amb alguns exemples
         compare: Comparar
-        compare_municipalities: Compareu municipis
-        description: A més d'usar el buscador a la part superior d'aquesta pàgina,
-          podeu afegir un municipi a la vostra llista de comparació des de la pàgina
-          del municipi en qüestió. Utilitzeu el botó 'Compareu' per a afegir i accedir
-          a la comparació. Des de la pàgina de comp
         how_it_works: Com funciona?
-        search_municipality: Busqueu un municipi %{n}
-        select_municipalities: 'Seleccioneu diversos municipis per a comparar-ne els
-          pressupostos:'
+        ine:
+          compare: Compareu municipis
+          description: A més d'usar el buscador a la part superior d'aquesta pàgina,
+            podeu afegir un municipi a la vostra llista de comparació des de la pàgina
+            del municipi en qüestió. Utilitzeu el botó 'Compareu' per a afegir i accedir
+            a la comparació. Des de la pàgina de comparació també podràs afegir altres
+            municipis o eliminar els que necessitis de la comparació.
+          search: Busqueu un municipi %{n}
+          select: 'Seleccioneu diversos municipis per a comparar-ne els pressupostos:'
+        deputation_eu:
+          compare: Compareu deputacions
+          description: A més d'usar el buscador a la part superior d'aquesta pàgina,
+            podeu afegir una diputació a la vostra llista de comparació des de la pàgina
+            de la diputació en qüestió. Utilitzeu el botó 'Compareu' per a afegir i accedir
+            a la comparació. Des de la pàgina de comparació també podràs afegir altres
+            diputacions o eliminar els que necessitis de la comparació.
+          search: Busqueu una diputació %{n}
+          select: 'Seleccioneu diversos municipis per a comparar-ne els pressupostos:'
       home:
         explore: Explorar
         explore_rankings: Exploreu els rànquings

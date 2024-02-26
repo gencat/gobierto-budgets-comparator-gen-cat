@@ -88,15 +88,25 @@ es:
       compare_big:
         check_some_examples: O prueba algunos ejemplos
         compare: Comparar
-        compare_municipalities: Compara municipios
-        description: Además de usar el buscador en la parte superior de esta página,
-          puedes añadir un municipio a tu lista de comparación desde la página del
-          municipio en cuestión. Utiliza el botón 'Compara' para añadir y acceder
-          a la comparación. Desde la página de comparación también podrás añadir otros
-          municipios o eliminar los que necesites de la comparación.
         how_it_works: "¿Cómo funciona?"
-        search_municipality: Busca municipio %{n}
-        select_municipalities: 'Selecciona varios municipios para comparar sus presupuestos:'
+        ine:
+          compare: Compara municipios
+          description: Además de usar el buscador en la parte superior de esta página,
+            puedes añadir un municipio a tu lista de comparación desde la página del
+            municipio en cuestión. Utiliza el botón 'Compara' para añadir y acceder
+            a la comparación. Desde la página de comparación también podrás añadir otros
+            municipios o eliminar los que necesites de la comparación.
+          search: Busca municipio %{n}
+          select: 'Selecciona varios municipios para comparar sus presupuestos:'
+        deputation_eu:
+          compare: Compara diputaciones
+          description: Además de usar el buscador en la parte superior de esta página,
+            puedes añadir una diputación a tu lista de comparación desde la página de la
+            diputación en cuestión. Utiliza el botón 'Compara' para añadir y acceder
+            a la comparación. Desde la página de comparación también podrás añadir otras
+            diputaciones o eliminar las que necesites de la comparación.
+          search: Busca diputación %{n}
+          select: 'Seleccioneu diverses diputacions per comparar els vostres pressupostos:'
       home:
         checkout_gobierto_blog: Consulta el blog de Gobierto
         checkout_gobierto_blog_desc: Historias y análisis sobre gobierno abierto,
