@@ -27,6 +27,8 @@
 
 <script type="text/javascript">
   window.placesFile = "<%= Settings.places_file || "/places.json" %>"
+  window.placesType = "<%= PlaceDecorator.place_type(places_collection_key) %>"
+  window.placesPath = "<%= location_root_path %>"
   $(function () {
     <%= yield :javascript %>
   });
