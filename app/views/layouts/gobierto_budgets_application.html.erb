@@ -90,7 +90,10 @@
       <div class="links_list personal_links">
         <p><%= t('.hi') %> <strong><%= current_user.full_name %></strong></p>
         <% if current_user.place_id %>
-          <p><%= t(".#{places_collection_key}.your_location") %>: <%= link_to INE::Places::Place.find(current_user.place_id).name, gobierto_budgets_place_path(INE::Places::Place.find(current_user.place_id), year: GobiertoBudgets::SearchEngineConfiguration::Year.last) %></p>
+          <p><%= t(".ine.your_location") %>: <%= link_to INE::Places::Place.find(current_user.place_id).name, gobierto_budgets_place_path(INE::Places::Place.find(current_user.place_id), year: GobiertoBudgets::SearchEngineConfiguration::Year.last) %></p>
+          <% if (location = current_user.location_by_collection(:deputation_eu)).present? %>
+            <p><%= t(".deputation_eu.your_location") %>: <%= link_to location.name, gobierto_budgets_deputation_path(location.slug, year: GobiertoBudgets::SearchEngineConfiguration::Year.last) %></p>
+          <% end %>
         <% end %>
         <p><%= link_to t('.edit_your_personal_data'), edit_user_path %></p>
         <p><%= link_to t('.close_session'), logout_path, method: :delete, class: 'logout' %></p>
