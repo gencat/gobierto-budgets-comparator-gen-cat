@@ -24,7 +24,7 @@ module GobiertoBudgets
         :budget_percentage_previous_year,
         :ranking,
         :budget_execution_deviation,
-        cache_path: ->(c) { { locale: I18n.locale, places_collection: places_collection_key } }
+        cache_path: ->(_c) { byebug && { locale: I18n.locale, places_collection: places_collection_key } }
       )
 
       caches_action(
@@ -41,7 +41,7 @@ module GobiertoBudgets
         :budget_percentage_previous_year,
         :ranking,
         :budget_execution_deviation,
-        cache_path: ->(c) { { locale: I18n.locale, places_collection: places_collection_key } }
+        cache_path: -> { { locale: I18n.locale, places_collection: places_collection_key } }
       )
 
       def total_budget
