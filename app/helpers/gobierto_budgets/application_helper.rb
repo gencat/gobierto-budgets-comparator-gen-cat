@@ -244,7 +244,7 @@ module GobiertoBudgets
         attrs << %Q{data-bubbles-data="https://gobierto-populate-#{Rails.env.development? ? 'dev' : Rails.env }.s3.eu-west-1.amazonaws.com/gobierto_budgets/#{current_organization.id}/data/bubbles.json"}
         attrs << %Q{data-max-year="#{GobiertoBudgets::SearchEngineConfiguration::Year.last}"}
         # TODO: End TODO
-        attrs << %Q{data-track-url="#{gobierto_budgets_place_path(target.slug, @year || GobiertoBudgets::SearchEngineConfiguration::Year.last)}"}
+        attrs << %Q{data-track-url="#{location_path(target.slug, @year || GobiertoBudgets::SearchEngineConfiguration::Year.last)}"}
         attrs << %Q{data-place-slug="#{target.slug}"}
         attrs << %Q{data-place-name="#{target.name}"}
       end

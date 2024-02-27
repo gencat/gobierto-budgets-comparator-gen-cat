@@ -40,7 +40,9 @@
   <script type="text/javascript">
     I18n.defaultLocale = "<%= I18n.default_locale %>";
     I18n.locale = "<%= I18n.locale %>";
-    window.placesFile = "<%= Settings.places_file || "/places.json" %>"
+    window.placesFile = "<%= Settings.places_file || "/places.json" %>";
+    window.placesType = "<%= PlaceDecorator.place_type(places_collection_key) %>";
+    window.placesPath = "<%= location_root_path %>";
   </script>
 </head>
 
@@ -61,7 +63,7 @@
   <header class="global">
 
     <div class="logo">
-      <%= link_to_unless_current image_tag('LogoGobiertoPresupuestos.png', width: '158'), root_path %>
+      <%= link_to_unless_current image_tag('LogoGobiertoPresupuestos.png', width: '158'), location_root_path %>
     </div>
 
     <div class="resp ham">
@@ -75,7 +77,7 @@
       <menu>
         <ul>
           <%# TODO REVIEW THE PATHS TO CONSIDER DEPUTATIONS %>
-          <li><%= link_to t('.municipalities'), root_path, class: class_if('selected', current_page?(root_path))  %></li>
+          <li><%= link_to t('.municipalities'), place_root_path, class: class_if('selected', current_page?(root_path) || current_page?(place_root_path))  %></li>
           <li><%= link_to t('.deputations'), deputation_root_path, class: class_if('selected', current_page?(deputation_root_path))  %></li>
           <li><%= link_to t('.compare'), locations_compare_path , class: class_if('selected', current_page?(gobierto_budgets_compare_path) || action_name == 'compare')%></li>
           <li><%= link_to t('.rankings'), locations_global_ranking_path , class: class_if('selected', current_page?(gobierto_budgets_ranking_path) || action_name == 'ranking')%></li>
@@ -88,7 +90,10 @@
       <div class="links_list personal_links">
         <p><%= t('.hi') %> <strong><%= current_user.full_name %></strong></p>
         <% if current_user.place_id %>
-          <p><%= t(".#{places_collection_key}.your_location") %>: <%= link_to INE::Places::Place.find(current_user.place_id).name, gobierto_budgets_place_path(INE::Places::Place.find(current_user.place_id), year: GobiertoBudgets::SearchEngineConfiguration::Year.last) %></p>
+          <p><%= t(".ine.your_location") %>: <%= link_to INE::Places::Place.find(current_user.place_id).name, gobierto_budgets_place_path(INE::Places::Place.find(current_user.place_id), year: GobiertoBudgets::SearchEngineConfiguration::Year.last) %></p>
+          <% if (location = current_user.location_by_collection(:deputation_eu)).present? %>
+            <p><%= t(".deputation_eu.your_location") %>: <%= link_to location.name, gobierto_budgets_deputation_path(location.slug, year: GobiertoBudgets::SearchEngineConfiguration::Year.last) %></p>
+          <% end %>
         <% end %>
         <p><%= link_to t('.edit_your_personal_data'), edit_user_path %></p>
         <p><%= link_to t('.close_session'), logout_path, method: :delete, class: 'logout' %></p>
