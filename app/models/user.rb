@@ -54,6 +54,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def location_by_collection(collection_key)
+    return if place_id.blank?
+
+    PlaceDecorator.collection(collection_key).find do |location|
+      location.population_place_ids.include? place_id.to_s
+    end
+  end
+
   def in_mailchimp?
     Mailchimp.is_member?(self)
   end
