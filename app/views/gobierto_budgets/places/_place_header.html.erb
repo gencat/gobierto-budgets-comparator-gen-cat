@@ -73,7 +73,7 @@
 </header>
 
 <header class="sticky_top">
-  <%= link_to image_tag('Gobierto-Avatar@2x.png', size: '30x30'), root_path %>
+  <%= link_to image_tag('Gobierto-Avatar@2x.png', size: '30x30'), location_root_path %>
   <input type="text" class="places_search search_auto" value="<%= current_organization.name %>" placeholder="<%= t(".#{places_collection_key}.search_location") %>" >
 
   <% if params['controller'] == 'budget_lines' %>

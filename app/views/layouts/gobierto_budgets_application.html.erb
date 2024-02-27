@@ -61,7 +61,7 @@
   <header class="global">
 
     <div class="logo">
-      <%= link_to_unless_current image_tag('LogoGobiertoPresupuestos.png', width: '158'), root_path %>
+      <%= link_to_unless_current image_tag('LogoGobiertoPresupuestos.png', width: '158'), location_root_path %>
     </div>
 
     <div class="resp ham">
@@ -75,7 +75,7 @@
       <menu>
         <ul>
           <%# TODO REVIEW THE PATHS TO CONSIDER DEPUTATIONS %>
-          <li><%= link_to t('.municipalities'), root_path, class: class_if('selected', current_page?(root_path))  %></li>
+          <li><%= link_to t('.municipalities'), place_root_path, class: class_if('selected', current_page?(root_path) || current_page?(place_root_path))  %></li>
           <li><%= link_to t('.deputations'), deputation_root_path, class: class_if('selected', current_page?(deputation_root_path))  %></li>
           <li><%= link_to t('.compare'), locations_compare_path , class: class_if('selected', current_page?(gobierto_budgets_compare_path) || action_name == 'compare')%></li>
           <li><%= link_to t('.rankings'), locations_global_ranking_path , class: class_if('selected', current_page?(gobierto_budgets_ranking_path) || action_name == 'ranking')%></li>
