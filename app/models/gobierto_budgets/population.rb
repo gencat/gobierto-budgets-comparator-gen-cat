@@ -49,9 +49,7 @@ module GobiertoBudgets
 
       buckets = for_year year, opts
 
-      place = PlaceDecorator.find(organization_id, **opts.slice(:places_collection))
-      population_organization_id = place.population_organization_id
-      if row = buckets.detect{|v| v['organization_id'].to_s == population_organization_id.to_s }
+      if row = buckets.detect{|v| v['organization_id'].to_s == organization_id.to_s }
         value = row['value']
       end
 
