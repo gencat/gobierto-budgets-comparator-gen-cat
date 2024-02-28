@@ -143,6 +143,7 @@ var VisLineasJ = Class.extend({
         "mean_national": I18n.t("gobierto_budgets.visualizations.mean_national"),
         "mean_autonomy": I18n.t("gobierto_budgets.visualizations.mean_autonomy"),
         "mean_province": I18n.t("gobierto_budgets.visualizations.mean_province"),
+        "mean_deputation_eu": I18n.t("gobierto_budgets.visualizations.mean_deputation_eu", {"defaultValue": "Media diputaciones"})
       }
 
       this.data.budgets[this.measure].forEach(function(d) {

@@ -252,6 +252,7 @@ es:
         title: Presupuestos municipales de %{name} del %{year}
         total: total
     visualizations:
+      mean_deputation_eu: Media diputaciones
       mean_autonomy: Media autonómica
       mean_national: Media nacional
       mean_province: Media provincial
