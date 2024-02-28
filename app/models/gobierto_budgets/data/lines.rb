@@ -32,6 +32,12 @@ module GobiertoBudgets
 
       private
 
+      def mean_places_collection(places_collection_key)
+        filters = [{ terms: { organization_id: PlaceDecorator.collection_organization_ids(places_collection_key) } }]
+
+        mean_results(filters)
+      end
+
       def mean_province(only_municipalities: false)
         filters = [ {term: { province_id: @organization.province_id }} ]
         filters << { exists: { field: "ine_code" } } if only_municipalities
@@ -153,12 +159,21 @@ module GobiertoBudgets
         values = [{ name: @organization.name, values: organizations_values }]
 
         if @organization.city_council?
-          values += [
-            { name: "mean_province", values: mean_province },
-            { name: "mean_autonomy", values: mean_autonomy }
-          ]
+          if (places_collection = @organization.place.custom_place_id).present?
+            values << { name: "mean_#{places_collection}", values: mean_places_collection(places_collection) }
 
-          values << { name: "mean_national", values: mean_national } unless GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
+            other_keys = @organization.place.attributes.compact.keys[1..] || []
+
+            values << { name: "mean_province", values: mean_province(only_municipalities: false) } if other_keys.include?("province_id")
+            values << { name: "mean_autonomy", values: mean_autonomy(only_municipalities: false) } if other_keys.include?("autonomous_region_id")
+          else
+            values += [
+              { name: "mean_province", values: mean_province(only_municipalities: false) },
+              { name: "mean_autonomy", values: mean_autonomy(only_municipalities: false) }
+            ]
+          end
+
+          values << { name: "mean_national", values: mean_national(only_municipalities: false) } unless GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
         end
 
         values
