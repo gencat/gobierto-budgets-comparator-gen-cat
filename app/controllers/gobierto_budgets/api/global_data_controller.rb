@@ -121,13 +121,14 @@ module GobiertoBudgets
         diff = total_budget_data_executed - total_budget_data_planned rescue ""
         sign = sign(total_budget_data_executed, total_budget_data_planned)
         diff = format_currency(diff) if diff.is_a?(Float)
+        delta_percentage = total_budget_data_executed.positive? ? helpers.number_with_precision(delta_percentage(total_budget_data_executed, total_budget_data_planned), precision: 2) : nil
 
         respond_to do |format|
           format.json do
             render json: {
               title: t('.planned_vs_executed'),
               sign: sign,
-              delta_percentage: helpers.number_with_precision(delta_percentage(total_budget_data_executed, total_budget_data_planned), precision: 2),
+              delta_percentage: delta_percentage,
               value: diff
             }.to_json
           end
