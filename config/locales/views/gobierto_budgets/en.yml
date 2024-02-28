@@ -257,6 +257,7 @@ en:
           percentage_over_total: "Percentage over total"
         deviation: "%{kind} deviation in %{year}"
     visualizations:
+      mean_deputation_eu: Deputations avg
       mean_national: National avg
       mean_autonomy: Autonomic avg
       mean_province: Provinces avg
