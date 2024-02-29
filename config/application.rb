@@ -64,6 +64,18 @@ module GobiertoBudgetsComparator
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Redirections
+    config.middleware.insert_before(Rack::Runtime, Rack::Rewrite) do
+      r301 "/", "/municipios"
+      r301 %r{\A\/places\/(.+)}, "/municipios/$1"
+      r301 %r{\A\/budget_lines\/([^\/]+)\/(.+)}, "/municipios/$1/partida/$2"
+      r301 "/compare", "/compara/municipios"
+      r301 %r{\A\/compare\/(.+)}, "/compara/municipios/$1"
+      r301 "/compare-new", "/compara/municipios/nueva"
+      r301 "/ranking", "/ranking/municipios"
+      r301 %r{\A\/ranking\/(.+)}, "/ranking/municipios/$1"
+    end
   end
 end
 
