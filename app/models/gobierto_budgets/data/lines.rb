@@ -161,19 +161,13 @@ module GobiertoBudgets
         if @organization.city_council?
           if (places_collection = @organization.place.custom_place_id).present?
             values << { name: "mean_#{places_collection}", values: mean_places_collection(places_collection) }
-
-            other_keys = @organization.place.attributes.compact.keys[1..] || []
-
-            values << { name: "mean_province", values: mean_province(only_municipalities: false) } if other_keys.include?("province_id")
-            values << { name: "mean_autonomy", values: mean_autonomy(only_municipalities: false) } if other_keys.include?("autonomous_region_id")
           else
             values += [
               { name: "mean_province", values: mean_province(only_municipalities: false) },
               { name: "mean_autonomy", values: mean_autonomy(only_municipalities: false) }
             ]
+            values << { name: "mean_national", values: mean_national(only_municipalities: false) } unless GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
           end
-
-          values << { name: "mean_national", values: mean_national(only_municipalities: false) } unless GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
         end
 
         values
