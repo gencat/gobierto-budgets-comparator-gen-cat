@@ -12,22 +12,8 @@
   <p class="example"><%= t('.for_example') %>:
 
     <span class="" id="suggested_location"></span>
-    <%
-      examples = {
-        ine: [
-          ["Santander", "santander"],
-          ["Talaván", "talavan"],
-          ["Órgiva", "orgiva"],
-          ["Zaragoza", "zaragoza"]
-        ],
-        deputation_eu: [
-          ["Diputación Foral de Vizcaya", "dip-bizkaia"],
-          ["Diputación Foral de Álava", "dip-alava"],
-          ["Diputación Foral de Guipúzcoa", "dip-gipuzkoa"]
-        ]
-      }
-    %>
-  <%= examples[places_collection_key].map { |text, slug| link_to(text, location_path(slug, GobiertoBudgets::SearchEngineConfiguration::Year.last)) }.join(", ").html_safe %>.
+
+  <%= search_examples[places_collection_key].map { |text, slug| link_to(text, location_path(slug, GobiertoBudgets::SearchEngineConfiguration::Year.last)) }.join(", ").html_safe %>.
   </p>
 
   <div class="home_section">
