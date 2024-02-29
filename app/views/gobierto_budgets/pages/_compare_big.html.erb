@@ -20,18 +20,7 @@
   <p><%= t('.check_some_examples') %></p>
 
   <ul>
-    <%
-      examples = {
-        ine: [
-          ["Coruña + Pontevedra + Lugo + Ferrol", "coruna-a:pontevedra:lugo:ferrol"],
-          ["Madrid + Barcelona + Valencia + Sevilla", "madrid:barcelona:valencia:sevilla"]
-        ],
-        deputation_eu: [
-          ["Vizcaya + Álava + Guipúzcoa", "dip-bizkaia:dip-alava:dip-gipuzkoa"]
-        ]
-      }
-    %>
-    <% examples[places_collection_key].each do |text, slugs| %>
+    <% compare_examples[places_collection_key].each do |text, slugs| %>
       <li><%= link_to text, locations_places_compare_path(slugs, GobiertoBudgets::SearchEngineConfiguration::Year.last, "G", "economic"), class: "button" %></li>
     <% end %>
   </ul>
