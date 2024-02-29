@@ -46,6 +46,9 @@ gem 'hashie'
 # Log
 gem "lograge"
 
+# Redirections
+gem 'rack-rewrite', '~> 1.5.0'
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "spring"
