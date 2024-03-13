@@ -27,7 +27,7 @@
   <div class="home_section">
     <h2 class="section_heading"><%= t('.explore_rankings') %></h2>
 
-    <%= form_tag gobierto_budgets_places_ranking_path(GobiertoBudgets::SearchEngineConfiguration::Year.last,'G','functional','amount'), method: 'GET' do %>
+    <%= form_tag locations_ranking_path(GobiertoBudgets::SearchEngineConfiguration::Year.last,'G','functional','amount'), method: 'GET' do %>
       <%= image_tag('illustrations/analitica.jpg') %>
       <%= hidden_field_tag 'f[aarr]' %>
       <div id="explore_prompt">

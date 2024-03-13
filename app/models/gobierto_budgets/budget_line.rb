@@ -17,144 +17,6 @@ module GobiertoBudgets
       self
     end
 
-    def self.first
-      terms = [
-        {term: { kind: @conditions[:kind] }},
-        {term: { year: @conditions[:year] }},
-        {term: { code: @conditions[:code] }},
-        {missing: { field: 'functional_code'}},
-        {missing: { field: 'custom_code'}},
-        {term: { ine_code: @conditions[:place].id }}
-      ]
-
-      query = {
-        sort: [
-          { @sort_attribute => { order: @sort_order } }
-        ],
-        query: {
-          filtered: {
-            filter: {
-              bool: {
-                must: terms
-              }
-            }
-          }
-        },
-        size: 10_000
-      }
-
-      if @conditions[:area_name] == GobiertoBudgets::BudgetLine::ECONOMIC
-        area = GobiertoBudgets::EconomicArea
-      else
-        area = GobiertoBudgets::FunctionalArea
-      end
-
-      response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
-                                                             type: @conditions[:area_name], body: query
-
-      BudgetLinePresenter.new response['hits']['hits'].first['_source'].merge({kind: @conditions[:kind], area_name: @conditions[:area_name], area: area})
-    end
-
-    def self.functional_codes_for_economic_budget_line(conditions)
-      terms = [
-        {term: { kind: conditions[:kind] }},
-        {term: { year: conditions[:year] }},
-        {term: { code: conditions[:functional_code] }},
-        {exists: { field: 'functional_code'}},
-        {term: { ine_code: conditions[:place].id }}
-      ]
-
-      query = {
-        sort: [
-          { @sort_attribute => { order: @sort_order } }
-        ],
-        query: {
-          filtered: {
-            filter: {
-              bool: {
-                must: terms
-              }
-            }
-          }
-        },
-        aggs: {
-          total_budget: { sum: { field: 'amount' } },
-          total_budget_per_inhabitant: { sum: { field: 'amount_per_inhabitant' } },
-        },
-        size: 10_000
-      }
-
-      response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
-                                                             type: ECONOMIC, body: query
-
-      response['hits']['hits'].map{ |h| h['_source'] }.map do |row|
-        next if row['functional_code'].length != 1
-        area = GobiertoBudgets::FunctionalArea
-        row['code'] = row['functional_code']
-
-        BudgetLinePresenter.new(row.merge({ kind: EXPENSE, area_name: FUNCTIONAL, area: area }))
-      end.compact.sort{|b,a| a.amount <=> b.amount }
-    end
-
-    def self.all
-      terms = [
-        {term: { kind: @conditions[:kind] }},
-        {term: { year: @conditions[:year] }},
-        {term: { ine_code: @conditions[:place].id }}
-      ]
-
-      terms.push({term: { level: @conditions[:level] }}) if @conditions[:level]
-      terms.push({term: { parent_code: @conditions[:parent_code] }}) if @conditions[:parent_code]
-      if @conditions[:functional_code]
-        if @conditions[:area_name] == FUNCTIONAL
-          @conditions[:area_name] = ECONOMIC
-          terms.push({term: { functional_code: @conditions[:functional_code] }})
-        else
-          @conditions[:area_name] = FUNCTIONAL
-          return functional_codes_for_economic_budget_line(@conditions)
-        end
-      else
-        terms.push({missing: { field: 'functional_code'}})
-        terms.push({missing: { field: 'custom_code'}})
-      end
-
-      query = {
-        sort: [
-          { @sort_attribute => { order: @sort_order } }
-        ],
-        query: {
-          filtered: {
-            filter: {
-              bool: {
-                must: terms
-              }
-            }
-          }
-        },
-        aggs: {
-          total_budget: { sum: { field: 'amount' } },
-          total_budget_per_inhabitant: { sum: { field: 'amount_per_inhabitant' } },
-        },
-        size: 10_000
-      }
-
-      if @conditions[:area_name] == ECONOMIC
-        area = GobiertoBudgets::EconomicArea
-      else
-        area = GobiertoBudgets::FunctionalArea
-      end
-
-      response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
-                                                             type: @conditions[:area_name], body: query
-
-      response['hits']['hits'].map{ |h| h['_source'] }.map do |row|
-        BudgetLinePresenter.new(row.merge({
-          kind: @conditions[:kind], area_name: @conditions[:area_name], area: area, total: response['aggregations']['total_budget']['value'],
-          total_budget_per_inhabitant: response['aggregations']['total_budget_per_inhabitant']['value']
-        }))
-      end
-    end
-
     def self.search(options)
 
       terms = [
@@ -205,7 +67,7 @@ module GobiertoBudgets
       # HACK: aggregation values returned by ES are wrong. This option recalculates them.
       if options[:recalculate_aggregations] == true
         total_budget = response["hits"]["hits"].map { |h| h["_source"]["amount"] }.sum
-        total_budget_per_inhabitant = response["hits"]["hits"].map { |h| h["_source"]["amount_per_inhabitant"] }.sum
+        total_budget_per_inhabitant = response["hits"]["hits"].map { |h| h["_source"]["amount_per_inhabitant"] }.compact.sum
         response["aggregations"]["total_budget"]["value"] = total_budget
         response["aggregations"]["total_budget_per_inhabitant"]["value"] = total_budget_per_inhabitant
       end
@@ -223,7 +85,8 @@ module GobiertoBudgets
         { term: { code: options[:code] } }
       ]
 
-      ine_codes = []
+      places_restriction = GobiertoBudgets::PlaceSet.new(places_collection: options[:places_collection])
+
       permitted_organizations = []
 
       if options[:filters].present?
@@ -236,20 +99,15 @@ module GobiertoBudgets
       if (population_filter && (population_filter[:from].to_i > GobiertoBudgets::Population::FILTER_MIN || population_filter[:to].to_i < GobiertoBudgets::Population::FILTER_MAX))
         reduced_filter = { population: population_filter }
         reduced_filter.merge!(aarr: aarr_filter) if aarr_filter
-        results, total_elements = GobiertoBudgets::Population.for_ranking(options[:year], 0, nil, reduced_filter)
-        results_ine_codes = results.map{|p| p['ine_code']}
-        ine_codes.concat(results_ine_codes) if results_ine_codes.any?
+        results, total_elements = GobiertoBudgets::Population.for_ranking(options[:year], 0, nil, options[:places_collection], reduced_filter)
+        places_restriction.restrict(
+          ine_codes: results.map { |r| r["ine_code"] }.compact_blank,
+          organization_ids: results.map { |r| r["organization_id"] }.compact_blank
+        )
       end
 
-      append_ine_codes(terms, ine_codes)
-
-      if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
-        permitted_municipalities = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
-        (permitted_municipalities &= ine_codes) if ine_codes.any?
-        permitted_organizations = permitted_municipalities + AssociatedEntity.where(ine_code: permitted_municipalities).pluck(:entity_id)
-      end
-
-      terms << { terms: { organization_id: permitted_organizations.compact } } if permitted_organizations.any?
+      append_ine_codes(terms, places_restriction.ine_codes)
+      append_organization_ids(terms, places_restriction.organization_ids + places_restriction.associated_entity_ids)
 
       if total_filter && (
         total_filter[:from].to_i > GobiertoBudgets::BudgetTotal::TOTAL_FILTER_MIN ||
@@ -273,8 +131,8 @@ module GobiertoBudgets
         }
       end
 
-      terms << {term: { autonomy_id: aarr_filter }}  unless aarr_filter.blank?
-      terms << { exists: { field: "ine_code" } } if only_municipalities
+      terms << { term: { autonomy_id: aarr_filter } }  unless aarr_filter.blank?
+      terms << { exists: { field: "ine_code" } } unless !only_municipalities || options[:places_collection].present? && options[:places_collection] != :ine
       terms << { missing: { field: "custom_code" } }
       terms << { missing: { field: "functional_code" } }
 
@@ -301,7 +159,7 @@ module GobiertoBudgets
         type: options[:area_name],
         body: query,
         filter_path: options[:to_rank] ? "hits.total" : "hits.hits._source,hits.total",
-        _source: ["population", "ine_code", "amount", "amount_per_inhabitant"]
+        _source: ["population", "ine_code", "organization_id", "amount", "amount_per_inhabitant"]
       )
     end
 
@@ -392,7 +250,7 @@ module GobiertoBudgets
     def self.has_children?(options)
       options.symbolize_keys!
       conditions = { parent_code: options[:code], level: options[:level].to_i + 1, type: options[:area] }
-      conditions.merge! options.slice(:ine_code,:kind,:year)
+      conditions.merge! options.slice(:ine_code, :kind, :year, :organization_id).compact_blank
 
       return search(conditions)['hits'].length > 0
     end
@@ -429,7 +287,7 @@ module GobiertoBudgets
 
       results = {}
       planned_results.each do |p|
-        if e = executed_results.detect{|e| e['code'] == p['code']}
+        if p["amount"].to_f.positive? && (e = executed_results.detect{|e| e['code'] == p['code']})
           results[p['code']] = [p['amount'], e['amount'], ((e['amount'].to_f - p['amount'].to_f)/p['amount'].to_f) * 100]
         end
       end
@@ -493,7 +351,7 @@ module GobiertoBudgets
 
     def place
       if place_id
-        INE::Places::Place.find(place_id)
+        PlaceDecorator.find_in_all_collections(place_id)
       end
     end
 

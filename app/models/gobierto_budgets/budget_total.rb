@@ -34,7 +34,7 @@ module GobiertoBudgets
       nil
     end
 
-    def self.budget_evolution_for(ine_code, b_or_e = BudgetTotal::BUDGETED, kind = BudgetLine::EXPENSE)
+    def self.budget_evolution_for(organization_id, b_or_e = BudgetTotal::BUDGETED, kind = BudgetLine::EXPENSE)
       query = {
         sort: [
           { year: { order: 'asc' } }
@@ -44,7 +44,7 @@ module GobiertoBudgets
             filter: {
               bool: {
                 must: [
-                  {term: {ine_code: ine_code}},
+                  {term: {organization_id: organization_id}},
                   {term: {kind: kind}}
                 ]
               }
@@ -84,7 +84,7 @@ module GobiertoBudgets
         type: SearchEngineConfiguration::TotalBudget.type,
         body: query,
         filter_path: "hits.hits._source",
-        _source: ["total_budget", "ine_code", "total_budget_per_inhabitant"]
+        _source: ["total_budget", "ine_code", "organization_id", "total_budget_per_inhabitant"]
       )
 
       if response.empty?
@@ -94,8 +94,8 @@ module GobiertoBudgets
       end
     end
 
-    def self.for_ranking(year, variable, kind, offset, per_page, filters = {})
-      response = budget_total_ranking_query(year: year, variable: variable, kind: kind, filters: filters, offset: offset, per_page: per_page)
+    def self.for_ranking(year, variable, kind, offset, per_page, places_collection, filters = {})
+      response = budget_total_ranking_query(year: year, variable: variable, kind: kind, filters: filters, offset: offset, per_page: per_page, places_collection: places_collection)
       if response.empty?
         return [], 0
       end
@@ -109,6 +109,7 @@ module GobiertoBudgets
       return results, total_elements
     end
 
+    # TODO - Deprecated Remove
     def self.place_position_in_ranking(year, variable, ine_code, kind, filters)
       response = budget_total_ranking_query(year: year, variable: variable, kind: kind, filters: filters, to_rank: true)
 
@@ -121,9 +122,9 @@ module GobiertoBudgets
     def self.budget_total_ranking_query(options)
       terms =  [{term: { year: options[:year]}}]
       terms << {term: { kind: options[:kind]}} if options[:kind].present?
-      terms << { exists: { field: "ine_code" } }  # Ensure only city councils appear
+      terms << { exists: { field: "ine_code" } } unless options[:places_collection].present? && options[:places_collection] != :ine # Ensure only city councils appear
 
-      ine_codes = []
+      places_restriction = GobiertoBudgets::PlaceSet.new(places_collection: options[:places_collection])
 
       if options[:filters].present?
         population_filter =  options[:filters][:population]
@@ -135,20 +136,16 @@ module GobiertoBudgets
       if (population_filter && (population_filter[:from].to_i > Population::FILTER_MIN || population_filter[:to].to_i < Population::FILTER_MAX))
         reduced_filter = {population: population_filter}
         reduced_filter.merge!(aarr: aarr_filter) if aarr_filter
-        results,total_elements = Population.for_ranking(options[:year], 0, nil, reduced_filter)
-        results_ine_codes = results.map{|p| p['ine_code']}
-        ine_codes.concat(results_ine_codes) if results_ine_codes.any?
+        results,total_elements = Population.for_ranking(options[:year], 0, nil, options[:places_collection], reduced_filter)
+
+        places_restriction.restrict(
+          ine_codes: results.map { |r| r["ine_code"] }.compact_blank,
+          organization_ids: results.map { |r| r["organization_id"] }.compact_blank
+        )
       end
 
-      if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
-        if ine_codes.any?
-          ine_codes = ine_codes & GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
-        else
-          ine_codes = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
-        end
-      end
-
-      append_ine_codes(terms, ine_codes)
+      append_ine_codes(terms, places_restriction.ine_codes)
+      append_organization_ids(terms, places_restriction.organization_ids)
 
       if (total_filter && (total_filter[:from].to_i > BudgetTotal::TOTAL_FILTER_MIN || total_filter[:to].to_i < BudgetTotal::TOTAL_FILTER_MAX))
         terms << {range: { total_budget: { gte: total_filter[:from].to_i, lte: total_filter[:to].to_i} }}
@@ -188,7 +185,7 @@ module GobiertoBudgets
         type: SearchEngineConfiguration::TotalBudget.type,
         body: query,
         filter_path: "hits.hits._source,hits.total",
-        _source: ["total_budget", "ine_code", "total_budget_per_inhabitant"]
+        _source: ["total_budget", "ine_code", "organization_id", "total_budget_per_inhabitant"]
     end
   end
 end

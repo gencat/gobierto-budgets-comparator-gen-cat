@@ -17,7 +17,7 @@ module GobiertoBudgets
 
     def show
       if @year.nil?
-        redirect_to gobierto_budgets_place_path(current_organization.combined_slug, SearchEngineConfiguration::Year.last) and return
+        redirect_to location_path(current_organization.combined_slug, SearchEngineConfiguration::Year.last) and return
       end
       load_budget_lines(allow_year_fallback: true, start_year: @year)
 
@@ -43,7 +43,7 @@ module GobiertoBudgets
 
       if @top_possitive_difference_income.empty?
         flash[:alert] = t('.no_data', year: @year)
-        redirect_to gobierto_budgets_place_execution_path(current_organization.combined_slug, @year.to_i - 1) and return
+        redirect_to location_execution_path(current_organization.combined_slug, @year.to_i - 1) and return
       end
 
       @top_possitive_difference_expending_economic, @top_negative_difference_expending_economic = GobiertoBudgets::BudgetLine.top_differences(
@@ -126,6 +126,7 @@ module GobiertoBudgets
         code: @code,
         kind: @kind,
         area_name: @area_name,
+        places_collection: @places_collection,
         filters: @filters
       })
 
@@ -147,7 +148,7 @@ module GobiertoBudgets
       @current_organization = Organization.new(organization_id: params[:ine_code])
       year = params[:year] || ::GobiertoBudgets::SearchEngineConfiguration::Year.last
       if current_organization.present?
-        redirect_to gobierto_budgets_place_path(current_organization.combined_slug, year)
+        redirect_to location_path(current_organization.combined_slug, year)
       end
     end
 
@@ -159,7 +160,9 @@ module GobiertoBudgets
       @area_name = params[:area] || 'functional'
       @year = params[:year].present? ? params[:year].to_i : nil
       @code = params[:code]
-      @selected_place = INE::Places::Place.find(params[:ine_code]) if params[:ine_code]
+      @places_collection = params[:places_collection]&.to_sym || :ine
+      @selected_place = PlaceDecorator.find(params[:ine_code], places_collection: @places_collection) if params[:ine_code]
+
       if params[:variable].present?
         @variable = params[:variable]
         render_404 and return unless valid_variables.include?(@variable)
@@ -184,9 +187,9 @@ module GobiertoBudgets
 
     def set_current_organization
       @current_organization = if params[:slug]
-                                Organization.new(slug: params[:slug])
+                                Organization.new(slug: params[:slug], places_collection: params[:places_collection])
                               elsif params[:organization_id]
-                                Organization.new(id: params[:organization_id])
+                                Organization.new(id: params[:organization_id], places_collection: params[:places_collection])
                               end
       render_404 and return if @current_organization.nil? || (@current_organization.place.nil? && @current_organization.associated_entity.nil?)
     end

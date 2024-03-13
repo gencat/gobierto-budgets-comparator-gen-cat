@@ -60,7 +60,7 @@ module GobiertoBudgets
               delta_percentage: helpers.number_with_precision(delta_percentage(total_budget_data[:value], total_budget_data_previous_year[:value]), precision: 2),
               ranking_position: position,
               ranking_total_elements: helpers.number_with_precision(total_budget_data[:total_elements], precision: 0),
-              ranking_url: gobierto_budgets_places_ranking_path(
+              ranking_url: locations_ranking_path(
                 year,
                 "G",
                 "economic",
@@ -76,13 +76,13 @@ module GobiertoBudgets
       def population
         year = params[:year].to_i
         no_data_this_year = nil
-        population_data = GobiertoBudgets::Population.ranking_hash_for(params[:ine_code].to_i,year)
+        population_data = GobiertoBudgets::Population.ranking_hash_for(params[:ine_code], year, places_collection: params[:places_collection])
         if population_data[:value].nil?
           year -= 1
-          population_data = GobiertoBudgets::Population.ranking_hash_for(params[:ine_code].to_i,year)
+          population_data = GobiertoBudgets::Population.ranking_hash_for(params[:ine_code], year, places_collection: params[:places_collection])
           no_data_this_year = year
         end
-        population_data_previous_year = GobiertoBudgets::Population.ranking_hash_for(params[:ine_code].to_i,year - 1)
+        population_data_previous_year = GobiertoBudgets::Population.ranking_hash_for(params[:ine_code], year - 1, places_collection: params[:places_collection])
         position = population_data[:position]
         sign = sign(population_data[:value], population_data_previous_year[:value])
 
@@ -118,7 +118,7 @@ module GobiertoBudgets
               delta_percentage: helpers.number_with_precision(delta_percentage(total_budget_data[:value], total_budget_data_previous_year[:value]), precision: 2),
               ranking_position: position,
               ranking_total_elements: helpers.number_with_precision(total_budget_data[:total_elements], precision: 0),
-              ranking_url: gobierto_budgets_places_ranking_path(
+              ranking_url: locations_ranking_path(
                 year,
                 'G',
                 'economic',
@@ -265,6 +265,7 @@ module GobiertoBudgets
         @kind = params[:kind]
         @var = params[:variable]
         @code = params[:code]
+        @places_collection = params[:places_collection] || :ine
 
         only_municipalities = (params[:only_municipalities] == "true")
 
@@ -280,6 +281,7 @@ module GobiertoBudgets
             kind: @kind,
             code: @code,
             variable: @variable,
+            places_collection: @places_collection,
             offset: 0,
             per_page: 5
           }
@@ -287,7 +289,7 @@ module GobiertoBudgets
           results, _total_elements = GobiertoBudgets::BudgetLine.for_ranking(opts, only_municipalities)
         else
           @variable = (@var == 'amount') ? 'total_budget' : 'total_budget_per_inhabitant'
-          results, _total_elements = GobiertoBudgets::BudgetTotal.for_ranking(@year, @variable, @kind, offset, max_results)
+          results, _total_elements = GobiertoBudgets::BudgetTotal.for_ranking(@year, @variable, @kind, offset, max_results, @places_collection)
         end
 
         top = results.first
@@ -298,9 +300,9 @@ module GobiertoBudgets
               title: title,
               top_place_name: place_name(top['ine_code']),
               top_amount: helpers.number_to_currency(top[@variable], precision: 0, strip_insignificant_zeros: true),
-              ranking_path: gobierto_budgets_places_ranking_path(@year, @kind, @area, @var, @code),
-              ranking_url: gobierto_budgets_places_ranking_url(@year, @kind, @area, @var, @code),
-              twitter_share: ERB::Util.url_encode(twitter_share(title, gobierto_budgets_places_ranking_url(@year, @kind, @area, @var, @code))),
+              ranking_path: locations_ranking_path(@year, @kind, @area, @var, @code),
+              ranking_url: locations_ranking_url(@year, @kind, @area, @var, @code),
+              twitter_share: ERB::Util.url_encode(twitter_share(title, locations_ranking_url(@year, @kind, @area, @var, @code))),
               top_5: results.map { |r| { place_name: place_name(r['ine_code']) } }
             }.to_json
           end
@@ -587,10 +589,12 @@ module GobiertoBudgets
           { term: { kind: GobiertoBudgets::BudgetLine::EXPENSE } }
         ]
 
-        if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
-          organizations_ids = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
-          terms << { terms: { organization_id: organizations_ids.compact } } if organizations_ids.any?
-        end
+        organizations_ids = if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
+                              GobiertoBudgets::SearchEngineConfiguration::Scopes.organizations_scope
+                            elsif params[:places_collection].present?
+                              PlaceDecorator.collection_organization_ids(params[:places_collection])
+                            end
+        terms << { terms: { organization_id: organizations_ids.compact } } if organizations_ids.present?
 
         body = {
           sort: [
@@ -703,9 +707,9 @@ module GobiertoBudgets
         return unless params[:ine_code] || params[:organization_slug]
 
         @current_organization = if params[:ine_code]
-                                  Organization.new(organization_id: params[:ine_code])
+                                  Organization.new(organization_id: params[:ine_code], places_collection: params[:places_collection])
                                 else
-                                  Organization.new(slug: params[:organization_slug])
+                                  Organization.new(slug: params[:organization_slug], places_collection: params[:places_collection])
                                 end
         render_404 and return if @current_organization.nil? || (@current_organization.place.nil? && @current_organization.associated_entity.nil?)
       end

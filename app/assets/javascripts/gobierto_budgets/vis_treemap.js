@@ -67,7 +67,8 @@ var TreemapVis = Class.extend({
             }
           }.bind(this))
         .attr("title", function(d){
-          return "<strong>" + d.data.name + "</strong><br>" + accounting.formatMoney(d.data.budget, "€", 0, '.') + "<br>" + accounting.formatMoney(d.data.budget_per_inhabitant, "€", 0, ',') + " /hab";
+          var extraPerInhabitantText = d.data.population ? "<br>" + accounting.formatMoney(d.data.budget_per_inhabitant, "€", 0, ',') + " /hab" : "";
+          return "<strong>" + d.data.name + "</strong><br>" + accounting.formatMoney(d.data.budget, "€", 0, '.') + extraPerInhabitantText;
         }.bind(this))
         .attr("data-url", function(d){
           if(this.clickable){
@@ -85,7 +86,8 @@ var TreemapVis = Class.extend({
           } else {
             // If the square is small, don't add the text
             if((d.x1 - d.x0) > 70 && (d.y1 - d.y0) > 90) {
-              return "<p><strong>" + d.data.name + "</strong></p><p>" + accounting.formatMoney(d.data.budget_per_inhabitant, "€", 0) + "/hab</p>";
+              var dataText = d.data.population ? accounting.formatMoney(d.data.budget_per_inhabitant, "€", 0) + "/hab" : accounting.formatMoney(d.data.budget, "€", 0, '.');
+              return "<p><strong>" + d.data.name + "</strong></p><p>" + dataText + "</p>";
             }
           }
         })

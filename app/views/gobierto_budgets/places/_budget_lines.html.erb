@@ -2,15 +2,17 @@
   <td class="item_name">
     <% if GobiertoBudgets::BudgetLine.has_children?(budget_line.merge(area: area_name)) %>
       <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe,
-            gobierto_budgets_place_budget_path(current_organization.combined_slug, budget_line['year'], budget_line['kind'], area_name, budget_line['code']), remote: true %>
+            location_budget_path(current_organization.combined_slug, budget_line['year'], budget_line['kind'], area_name, budget_line['code']), remote: true %>
     <% else %>
-      <i class="fa fa-plus-square-o invisible"></i>
+      <i class="fa fa-square-o invisible"></i>
     <% end %>
     <%= link_to budget_line_denomination(area_name, budget_line['code'], kind),
-          gobierto_budgets_budget_line_path(current_organization.combined_slug, budget_line['year'], budget_line['code'].parameterize, budget_line['kind'], area_name)  %>
+          location_budget_line_path(current_organization.combined_slug, budget_line['year'], budget_line['code'].parameterize, budget_line['kind'], area_name)  %>
   </td>
   <td class="right total"><%= number_to_currency budget_line['amount'], precision: 0 %></td>
-  <td class="right per_hab"><%= number_to_currency budget_line['amount_per_inhabitant'], precision: 0 %></td>
+  <% if current_organization.population? %>
+    <td class="right per_hab"><%= number_to_currency budget_line['amount_per_inhabitant'], precision: 0 %></td>
+  <% end %>
   <td class="right percentage"><strong><%= percentage_of_total budget_line['amount'], total_budget %></strong></td>
   <td class="bar_cont"><div class="bar" style="width:<%= percentage_of_total(budget_line['amount'], total_budget).tr(',','.') %>"></div></td>
 </tr>

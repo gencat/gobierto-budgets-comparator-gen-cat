@@ -19,6 +19,8 @@ $(document).on('turbolinks:load', function() {
   // $('.spinner').hide();
   // Turbolinks.enableProgressBar();
 
+  var placesFile = window.placesFile || '/places.json';
+
   // Modals
   $('.open_modal').magnificPopup({
     type: 'inline',
@@ -46,7 +48,7 @@ $(document).on('turbolinks:load', function() {
 
   var searchOptions = {
     lookup: function (query, done) {
-      $.ajax('/places.json', {
+      $.ajax(placesFile, {
         complete: function(data) {
           var suggestions = data.responseJSON.filter(function(result){
             return result.value.indexOf(query) !== -1 || result.data.slug.indexOf(query) !== -1 ||

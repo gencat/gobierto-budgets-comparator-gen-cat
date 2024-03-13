@@ -26,6 +26,7 @@
 
 
 <script type="text/javascript">
+  window.placesFile = "<%= Settings.places_file || "/places.json" %>"
   $(function () {
     <%= yield :javascript %>
   });

@@ -51,14 +51,14 @@
 
   <h1 title="<%= t('.local_budgets_from', name: current_organization.name) %>">
 
-    <%= render partial: 'gobierto_budgets/places/year_switcher' %>
+    <%= render partial: 'gobierto_budgets/places/year_switcher', locals: { path_helper: :location_path }%>
 
     <% if current_organization.city_council? %>
-      <%= link_to_unless_current current_organization.name, gobierto_budgets_place_path(current_organization.combined_slug, @year) %>
+      <%= link_to_unless_current current_organization.name, location_path(current_organization.combined_slug, @year) %>
     <% else %>
-      <%= link_to current_organization.parent_place_name, gobierto_budgets_place_path(current_organization.parent_place_slug, @year) %>
+      <%= link_to current_organization.parent_place_name, location_path(current_organization.parent_place_slug, @year) %>
       <span class="sep">/</span>
-      <%= link_to_unless_current current_organization.name, gobierto_budgets_place_path(current_organization.combined_slug, @year) %>
+      <%= link_to_unless_current current_organization.name, location_path(current_organization.combined_slug, @year) %>
     <% end %>
 
     <% if params[:area] %>
@@ -78,7 +78,7 @@
 
   <% if params['controller'] == 'budget_lines' %>
   <div class="breadcrumb">
-    <span class="sep"><%= link_to kind_literal(@kind).capitalize, gobierto_budgets_place_budget_path(current_organization.combined_slug, @year, @kind, @area_name, nil) %> »</span>
+    <span class="sep"><%= link_to kind_literal(@kind).capitalize, location_budget_path(current_organization.combined_slug, @year, @kind, @area_name, nil) %> »</span>
     <%= render partial: 'breadcrumb',
               collection: budget_line_crumbs(@parent_line, @area_name),
               as: 'budget_line',
