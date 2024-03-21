@@ -43,6 +43,8 @@
     window.placesFile = "<%= Settings.places_file || "/places.json" %>";
     window.placesType = "<%= PlaceDecorator.place_type(places_collection_key) %>";
     window.placesPath = "<%= location_root_path %>";
+    window.entitiesPath = <%== places_collections_root_paths.to_json %>;
+    window.combinePlacesCollectionsInSearches = <%= Settings.combine_places_collections_in_searches || false %>;
   </script>
 </head>
 
