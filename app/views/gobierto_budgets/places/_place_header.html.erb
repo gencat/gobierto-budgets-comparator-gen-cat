@@ -35,7 +35,7 @@
           <%= link_to %Q{<span>#{t('.in_your_web')}</span> <i class="fa fa-share"></i>}.html_safe, '', class: 'tool_button' %>
           <div class="inner widget_share" >
             <div class="cta_claim">
-              <h3><%= t('.municipality_responsible') %></h3>
+              <h3><%= t(".#{places_collection_key}.location_responsible") %></h3>
               <p><%= t('.cta_desc') %></p>
               <%= link_to t('.ask_for_info'), new_user_path(place_id: current_organization.combined_slug, pro: true), class: 'button' %>
             </div>
@@ -73,8 +73,8 @@
 </header>
 
 <header class="sticky_top">
-  <%= link_to image_tag('Gobierto-Avatar@2x.png', size: '30x30'), root_path %>
-  <input type="text" class="places_search search_auto" value="<%= current_organization.name %>" placeholder="<%= t('.search_municipality') %>" >
+  <%= link_to image_tag('Gobierto-Avatar@2x.png', size: '30x30'), location_root_path %>
+  <input type="text" class="places_search search_auto" value="<%= current_organization.name %>" placeholder="<%= t(".#{places_collection_key}.search_location") %>" >
 
   <% if params['controller'] == 'budget_lines' %>
   <div class="breadcrumb">

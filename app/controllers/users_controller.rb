@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new create_user_params
     if @user.save
-      redirect_to root_path, notice: 'Por favor, confirma tu email'
+      redirect_to location_root_path, notice: 'Por favor, confirma tu email'
     else
       render 'new'
     end
@@ -35,9 +35,9 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html do
         if created
-          redirect_to root_path, notice: 'Por favor, confirma tu email'
+          redirect_to location_root_path, notice: 'Por favor, confirma tu email'
         else
-          redirect_back fallback_location: root_path
+          redirect_back fallback_location: location_root_path
         end
       end
       format.js do
@@ -63,7 +63,7 @@ class UsersController < ApplicationController
         store_subscriptions
       end
       @user.save!
-      redirect_to root_path, notice: 'Datos actualizados correctamente'
+      redirect_to location_root_path, notice: 'Datos actualizados correctamente'
     else
       flash.now.alert = 'No se han podido actualizar los datos'
       render 'edit'

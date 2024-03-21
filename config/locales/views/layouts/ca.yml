@@ -2,6 +2,12 @@
 ca:
   layouts:
     gobierto_budgets_application:
+      ine:
+        search_location: Busqueu municipi...
+        your_location: El vostre municipi
+      deputation_eu:
+        search_location: Busqueu diputació...
+        your_location: La teva diputació
       about: Sobre
       checkout_gobierto_blog: Consulta el blog de Gobierto
       close_session: Tancar sessió
@@ -17,11 +23,10 @@ ca:
       maps: Mapes
       methodology_and_sources: Metodologia i fonts
       municipalities: Municipis
+      deputations: Diputacions
       privacy: Política de privacitat
       rankings: Rànquings
       recent_comparisons: Comparacions recents
-      recent_municipalities: Municipis recents
-      search_municipality: Busqueu municipi...
+      recent_locations: Llocs recents
       services: Serveis
       site_title: Gobierto Pressupostos Municipals
-      your_municipality: El vostre municipi

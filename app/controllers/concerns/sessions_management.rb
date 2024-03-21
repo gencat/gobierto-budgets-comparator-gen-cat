@@ -39,7 +39,7 @@ module SessionsManagement
 
     unless current_user.admin?
       flash[:alert] = t('controllers.sessions_managment.admin_user.alert')
-      redirect_to root_path and return false
+      redirect_to location_root_path and return false
     end
   end
 

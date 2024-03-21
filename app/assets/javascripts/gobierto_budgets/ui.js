@@ -20,6 +20,8 @@ $(document).on('turbolinks:load', function() {
   // Turbolinks.enableProgressBar();
 
   var placesFile = window.placesFile || '/places.json';
+  var placesType = window.placesType || 'Place';
+  var placesPath = window.placesPath || '/municipios';
 
   // Modals
   $('.open_modal').magnificPopup({
@@ -51,8 +53,11 @@ $(document).on('turbolinks:load', function() {
       $.ajax(placesFile, {
         complete: function(data) {
           var suggestions = data.responseJSON.filter(function(result){
-            return result.value.indexOf(query) !== -1 || result.data.slug.indexOf(query) !== -1 ||
-              result.value.toLowerCase().indexOf(query) !== -1
+          return result.data.type == placesType && (
+            result.value.indexOf(query) !== -1 ||
+            result.data.slug.indexOf(query) !== -1 ||
+            result.value.toLowerCase().indexOf(query) !== -1
+          )
           });
           var result = {
             suggestions: suggestions
@@ -62,12 +67,12 @@ $(document).on('turbolinks:load', function() {
       })
     },
     onSelect: function(suggestion) {
-      if(suggestion.data.type == 'Place') {
+      if(suggestion.data.type == placesType) {
         ga('send', 'event', 'Place Search', 'Click', 'Search', {nonInteraction: true});
         if(mixpanel.length > 0) {
           mixpanel.track('Place Search', { 'Place': suggestion.data.slug});
         }
-        window.location.href = '/places/' + suggestion.data.slug;
+        window.location.href = placesPath + '/' + suggestion.data.slug;
       }
     },
     groupBy: 'category'

@@ -10,4 +10,31 @@ map_center_lon: -5.6
 map_zoom_level: 6
 map_topojson: '/municipalities_topojson.json'
 twitter_account: '@gobierto'
-places_file: '/places.json'
+places_file: '/places_with_deputations.json'
+search_examples:
+  ine:
+    - "santander"
+    - "talavan"
+    - "orgiva"
+    - "zaragoza"
+  deputation_eu:
+    - "dip-bizkaia"
+    - "dip-alava"
+    - "dip-gipuzkoa"
+compare_examples:
+  ine:
+    -
+      - "coruna-a"
+      - "pontevedra"
+      - "lugo"
+      - "ferrol"
+    -
+      - "madrid"
+      - "barcelona"
+      - "valencia"
+      - "sevilla"
+  deputation_eu:
+    -
+      - "dip-bizkaia"
+      - "dip-alava"
+      - "dip-gipuzkoa"

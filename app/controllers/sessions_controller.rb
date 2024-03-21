@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
   before_action :logged_in_user, only: :destroy
 
   def new
-    redirect_to root_path and return if logged_in?
+    redirect_to location_root_path and return if logged_in?
   end
 
   def create
@@ -27,7 +27,7 @@ class SessionsController < ApplicationController
           if params[:back_url].present?
             redirect_to params[:back_url]
           else
-            redirect_back fallback_location: root_path
+            redirect_back fallback_location: location_root_path
           end
         else
           render 'new'
@@ -43,7 +43,7 @@ class SessionsController < ApplicationController
       redirect_to admin_users_path
     else
       log_out
-      redirect_to root_path
+      redirect_to location_root_path
     end
   end
 end

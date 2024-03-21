@@ -24,7 +24,7 @@ module GobiertoBudgets
         :budget_percentage_previous_year,
         :ranking,
         :budget_execution_deviation,
-        cache_path: ->(c) { { locale: I18n.locale} }
+        cache_path: ->(_c) { byebug && { locale: I18n.locale, places_collection: places_collection_key } }
       )
 
       caches_action(
@@ -41,7 +41,7 @@ module GobiertoBudgets
         :budget_percentage_previous_year,
         :ranking,
         :budget_execution_deviation,
-        cache_path: ->(c) { { locale: I18n.locale} }
+        cache_path: -> { { locale: I18n.locale, places_collection: places_collection_key } }
       )
 
       def total_budget
@@ -146,7 +146,7 @@ module GobiertoBudgets
       end
 
       def compare
-        @organizations = get_places params[:ine_codes]
+        @organizations = get_places params[:ine_codes], places_collection: params[:places_collection]
 
         data_line = GobiertoBudgets::Data::Lines.new(
           organization: @organizations,
@@ -294,17 +294,24 @@ module GobiertoBudgets
 
         top = results.first
         title = ranking_title(@variable, @year, @kind, @code, @area)
+
+        data = if results.blank?
+                {}
+              else
+                {
+                  title: title,
+                  top_place_name: place_name(top["organization_id"], places_collection: @places_collection),
+                  top_amount: helpers.number_to_currency(top[@variable], precision: 0, strip_insignificant_zeros: true),
+                  ranking_path: locations_ranking_path(@year, @kind, @area, @var, @code),
+                  ranking_url: locations_ranking_url(@year, @kind, @area, @var, @code),
+                  twitter_share: ERB::Util.url_encode(twitter_share(title, locations_ranking_url(@year, @kind, @area, @var, @code))),
+                  top_5: results.map { |r| { place_name: place_name(r["organization_id"], places_collection: @places_collection) } }
+                }
+              end
+
         respond_to do |format|
           format.json do
-            render json: {
-              title: title,
-              top_place_name: place_name(top['ine_code']),
-              top_amount: helpers.number_to_currency(top[@variable], precision: 0, strip_insignificant_zeros: true),
-              ranking_path: locations_ranking_path(@year, @kind, @area, @var, @code),
-              ranking_url: locations_ranking_url(@year, @kind, @area, @var, @code),
-              twitter_share: ERB::Util.url_encode(twitter_share(title, locations_ranking_url(@year, @kind, @area, @var, @code))),
-              top_5: results.map { |r| { place_name: place_name(r['ine_code']) } }
-            }.to_json
+            render json: data.to_json
           end
         end
       end
@@ -691,8 +698,8 @@ module GobiertoBudgets
         end.reject(&:nil?)
       end
 
-      def get_places(ine_codes)
-        ine_codes.split(":").map { |code| Organization.new(organization_id: code) }
+      def get_places(ine_codes, places_collection: :ine)
+        ine_codes.split(":").map { |code| Organization.new(organization_id: code, places_collection:) }
       end
 
       def respond_lines_to_json(data_line)
