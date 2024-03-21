@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::UnknownFormat, with: :render_404
   rescue_from Elasticsearch::Transport::Transport::Errors::BadRequest, with: :render_404
 
-  helper_method :helpers, :users_enabled?, :places_collection_key, :location_root_path
+  helper_method :helpers, :users_enabled?, :places_collection_key, :location_root_path, :places_collections_root_paths
 
   before_action :set_locale, :set_cache_headers
 
@@ -81,8 +81,14 @@ class ApplicationController < ActionController::Base
                                end
   end
 
-  def location_root_path
-    if places_collection_key == :deputation_eu
+  def places_collections_root_paths
+    PlaceDecorator.places_keys.each_with_object({}) do |key, paths|
+      paths[PlaceDecorator.place_type(key)] = location_root_path(key)
+    end
+  end
+
+  def location_root_path(key = places_collection_key)
+    if key == :deputation_eu
       deputation_root_path
     else
       place_root_path
