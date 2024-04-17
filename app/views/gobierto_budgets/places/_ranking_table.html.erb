@@ -39,7 +39,7 @@
           <td class="r_pos"><%= GobiertoBudgets::Ranking.position(i, @page) %>.</td>
           <td class="location"><%= link_to ranking_item.place.name, location_path(ranking_item.place.slug, @year) %> (<%= ranking_item.place.province.name %>)</td>
           <td class="expense <%= class_if('selected', filter_selected?('population')) %>"><%= number_with_precision ranking_item.population, precision: 0, delimiter: '.' %></td>
-          <td class="expense_per <%= class_if('selected', filter_selected?('amount_per_inhabitant')) %>"><%= formatted_amount(ranking_item.amount_per_inhabitant) %></td>
+          <td class="expense expense_per <%= class_if('selected', filter_selected?('amount_per_inhabitant')) %>"><%= formatted_amount(ranking_item.amount_per_inhabitant) %></td>
           <td class="expense <%= class_if('selected', filter_selected?('amount')) %>"><%= formatted_amount(ranking_item.amount.to_i) %></td>
           <% if @variable != 'population' && @code.present? %>
             <td class="percentage" <%= class_if('selected', filter_selected?('amount')) %>><%= percentage_of_total(ranking_item.amount, ranking_item.total) %></td>
