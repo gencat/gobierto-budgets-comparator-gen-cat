@@ -66,7 +66,7 @@ namespace :gobierto_budgets do
 
     def import_total_budget(year, index, kind, opts = {})
       places_key = opts.fetch(:place_type, :ine)
-      places = PlaceDecorator.collection(places_key)
+      places = GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.collection(places_key)
 
       places.each do |place|
         place.attributes.each do |key, value|

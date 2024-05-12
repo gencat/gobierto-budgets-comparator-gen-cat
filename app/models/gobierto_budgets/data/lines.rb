@@ -33,7 +33,7 @@ module GobiertoBudgets
       private
 
       def mean_places_collection(places_collection_key)
-        filters = [{ terms: { organization_id: PlaceDecorator.collection_organization_ids(places_collection_key) } }]
+        filters = [{ terms: { organization_id: GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.collection_organization_ids(places_collection_key) } }]
 
         mean_results(filters)
       end

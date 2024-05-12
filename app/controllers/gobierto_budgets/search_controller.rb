@@ -45,7 +45,7 @@ module GobiertoBudgets
     def place_from_params
       collection_key = params[:places_collection]&.to_sym || :ine
 
-      collection_key == :ine ? INE::Places::Place.find_by_slug(params[:slug]) : PlaceDecorator.collection(collection_key).find { |place| place.slug == params[:slug] }
+      collection_key == :ine ? INE::Places::Place.find_by_slug(params[:slug]) : GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.collection(collection_key).find { |place| place.slug == params[:slug] }
     end
 
     def get_year_codes(place, area, kind, year)

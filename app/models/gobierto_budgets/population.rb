@@ -83,7 +83,7 @@ module GobiertoBudgets
 
       places_restriction = GobiertoBudgets::PlaceSet.new(options)
       organization_id_conversions = places_restriction.population_organization_id_conversions
-      type = PlaceDecorator.population_type_index(options[:places_collection])
+      type = GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.population_type_index(options[:places_collection])
 
       append_ine_codes(terms, places_restriction.ine_codes)
       append_organization_ids(terms, organization_id_conversions.values) if organization_id_conversions.present?

@@ -76,14 +76,14 @@ class ApplicationController < ActionController::Base
 
   def places_collection_key
     @places_collection_key ||= begin
-                                 keys = PlaceDecorator.places_keys
+                                 keys = GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.places_keys
                                  keys.include?(params[:places_collection]&.to_sym) ? params[:places_collection].to_sym : keys.first
                                end
   end
 
   def places_collections_root_paths
-    PlaceDecorator.places_keys.each_with_object({}) do |key, paths|
-      paths[PlaceDecorator.place_type(key)] = location_root_path(key)
+    GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.places_keys.each_with_object({}) do |key, paths|
+      paths[GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.place_type(key)] = location_root_path(key)
     end
   end
 

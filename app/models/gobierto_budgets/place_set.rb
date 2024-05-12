@@ -27,7 +27,7 @@ module GobiertoBudgets
     def default_organization_ids
       return [] if @organization_ids == :ine
 
-      PlaceDecorator.collection_organization_ids(@places_collection)
+      GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.collection_organization_ids(@places_collection)
     end
 
     def organization_ids
@@ -46,7 +46,7 @@ module GobiertoBudgets
       return if @places_collection == :ine
 
       organization_ids.each_with_object({}) do |organization_id, hash|
-        hash[organization_id] = PlaceDecorator.find(organization_id, places_collection: @places_collection).population_organization_id
+        hash[organization_id] = GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.find(organization_id, places_collection: @places_collection).population_organization_id
       end
     end
   end

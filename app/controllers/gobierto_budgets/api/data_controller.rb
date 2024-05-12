@@ -599,7 +599,7 @@ module GobiertoBudgets
         organizations_ids = if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
                               GobiertoBudgets::SearchEngineConfiguration::Scopes.organizations_scope
                             elsif params[:places_collection].present?
-                              PlaceDecorator.collection_organization_ids(params[:places_collection])
+                              GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.collection_organization_ids(params[:places_collection])
                             end
         terms << { terms: { organization_id: organizations_ids.compact } } if organizations_ids.present?
 

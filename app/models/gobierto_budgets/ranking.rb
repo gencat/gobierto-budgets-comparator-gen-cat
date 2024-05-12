@@ -54,7 +54,7 @@ module GobiertoBudgets
         id = h["organization_id"]
 
         Item.new({
-          place: PlaceDecorator.find(id, places_collection:),
+          place: GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.find(id, places_collection:),
           population: h['population'],
           amount_per_inhabitant: h['amount_per_inhabitant'],
           amount: h['amount'],
@@ -74,7 +74,7 @@ module GobiertoBudgets
         id = h["organization_id"]
 
         Item.new({
-          place: PlaceDecorator.find(id, places_collection: places_collection),
+          place: GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.find(id, places_collection: places_collection),
           population: h["value"],
           amount_per_inhabitant: total_results[id][:total_budget_per_inhabitant],
           amount: total_results[id.to_s][:total_budget],
@@ -105,7 +105,7 @@ module GobiertoBudgets
         id = h["organization_id"]
 
         Item.new({
-          place: PlaceDecorator.find(id, places_collection: places_collection),
+          place: GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.find(id, places_collection: places_collection),
           population: population_results[id.to_s],
           amount_per_inhabitant: h['total_budget_per_inhabitant'],
           amount: h['total_budget'],
