@@ -30,7 +30,6 @@ module GobiertoBudgets
       result = SearchEngine.client.get(index: index, type: type, id: id)
       result["_source"]["total_budget"].to_f
     rescue ::Elasticsearch::Transport::Transport::Errors::NotFound => e
-      # Rollbar.error(e, "#{self.class}\#for has no indexed doc for #{index}, #{type}, #{id}")
       nil
     end
 
