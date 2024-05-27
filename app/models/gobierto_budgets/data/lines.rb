@@ -64,15 +64,12 @@ module GobiertoBudgets
           filters.push({term: { code: @code }})
           filters.push({term: { kind: @kind }})
         end
+        filters.push({term: { type: type }})
 
         query = {
           query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: filters
-                }
-              }
+            bool: {
+              must: filters
             }
           },
           size: 10_000,
@@ -93,7 +90,7 @@ module GobiertoBudgets
           }
         }
 
-        response = SearchEngine.client.search index: index, type: type, body: query
+        response = SearchEngine.client.search index: index, body: query
         data = {}
         response['aggregations']["#{@variable}_per_year"]['buckets'].each do |r|
           data[r['key']] = (r['budget_sum']['value'].to_f / r['doc_count'].to_f).round(2)
@@ -122,24 +119,22 @@ module GobiertoBudgets
           filters.push(term: { kind: @kind })
         end
 
+        filters.push({ term: { type: type }})
+
         query = {
           sort: [
             { year: { order: 'desc' } }
           ],
           query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: filters
-                }
-              }
+            bool: {
+              must: filters
             }
           },
           size: 10_000
         }
 
         result = []
-        response = SearchEngine.client.search index: index, type: type, body: query
+        response = SearchEngine.client.search index: index, body: query
         values = Hash[response['hits']['hits'].map{|h| h['_source']}.map{|h| [h['year'],h[@variable]] }]
         values.each do |k,v|
           dif = 0

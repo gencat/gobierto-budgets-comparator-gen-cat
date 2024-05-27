@@ -13,19 +13,16 @@ module GobiertoBudgets
 
         query = {
           query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: [
-                    {term: { area: 'functional' }},
-                  ]
-                }
-              }
+            bool: {
+              must: [
+                {term: { area: 'functional' }},
+                {term: { type: SearchEngineConfiguration::BudgetCategories.type }}
+              ]
             }
           },
           size: 10_000
         }
-        response = SearchEngine.client.search index: SearchEngineConfiguration::BudgetCategories.index, type: SearchEngineConfiguration::BudgetCategories.type, body: query
+        response = SearchEngine.client.search index: SearchEngineConfiguration::BudgetCategories.index, body: query
 
         response['hits']['hits'].each do |h|
           source = h['_source']

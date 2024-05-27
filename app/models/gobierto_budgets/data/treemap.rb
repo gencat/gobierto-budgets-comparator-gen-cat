@@ -16,7 +16,8 @@ module GobiertoBudgets
           {term: { kind: @kind }},
           {missing: { field: 'functional_code'}},
           {missing: { field: 'custom_code'}},
-          {term: { year: @year }}
+          {term: { year: @year }},
+          {term: { type: @type }}
         ]
 
         if @parent_code.nil?
@@ -30,12 +31,8 @@ module GobiertoBudgets
             { amount: { order: 'desc' } }
           ],
           query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: options
-                }
-              }
+            bool: {
+              must: options
             }
           },
           size: 10_000
@@ -43,7 +40,7 @@ module GobiertoBudgets
 
         areas = @type == 'economic' ? EconomicArea : FunctionalArea
 
-        response = SearchEngine.client.search index: SearchEngineConfiguration::BudgetLine.index_forecast, type: @type, body: query
+        response = SearchEngine.client.search index: SearchEngineConfiguration::BudgetLine.index_forecast, body: query
         children_json = response['hits']['hits'].map do |h|
           {
             name: areas.all_items[@kind][h['_source']['code']],

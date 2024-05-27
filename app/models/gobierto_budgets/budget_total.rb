@@ -39,15 +39,12 @@ module GobiertoBudgets
           { year: { order: 'asc' } }
         ],
         query: {
-          filtered: {
-            filter: {
-              bool: {
-                must: [
-                  {term: {organization_id: organization_id}},
-                  {term: {kind: kind}}
-                ]
-              }
-            }
+          bool: {
+            must: [
+              {term: {organization_id: organization_id}},
+              {term: {kind: kind}},
+              {term: {type: SearchEngineConfiguration::TotalBudget.type}}
+            ]
           }
         },
         size: 10_000
@@ -55,24 +52,21 @@ module GobiertoBudgets
 
       index = index = (b_or_e == BudgetTotal::EXECUTED) ? SearchEngineConfiguration::TotalBudget.index_executed : SearchEngineConfiguration::TotalBudget.index_forecast
 
-      response = SearchEngine.client.search index: index, type: SearchEngineConfiguration::TotalBudget.type, body: query
+      response = SearchEngine.client.search index: index, body: query
       response['hits']['hits'].map{ |h| h['_source'] }
     end
 
     def self.for_places(organizations_ids, year)
       terms = [
         { terms: { organization_id: organizations_ids } },
-        { term: { year: year } }
+        { term: { year: year } },
+        { term: { type: SearchEngineConfiguration::TotalBudget.type } }
       ]
 
       query = {
         query: {
-          filtered: {
-            filter: {
-              bool: {
-                must: terms
-              }
-            }
+          bool: {
+            must: terms
           }
         },
         size: 10000
@@ -80,10 +74,9 @@ module GobiertoBudgets
 
       response = SearchEngine.client.search(
         index: SearchEngineConfiguration::TotalBudget.index_forecast,
-        type: SearchEngineConfiguration::TotalBudget.type,
         body: query,
         filter_path: "hits.hits._source",
-        _source: ["total_budget", "ine_code", "organization_id", "total_budget_per_inhabitant"]
+        _source: ["amount", "ine_code", "organization_id", "amount_per_inhabitant"]
       )
 
       if response.empty?
@@ -106,16 +99,6 @@ module GobiertoBudgets
         results = []
       end
       return results, total_elements
-    end
-
-    # TODO - Deprecated Remove
-    def self.place_position_in_ranking(year, variable, ine_code, kind, filters)
-      response = budget_total_ranking_query(year: year, variable: variable, kind: kind, filters: filters, to_rank: true)
-
-      buckets = response['hits']['hits'].map{|h| h['_id']}
-      id = [ine_code, year, kind].join('/')
-      position = buckets.index(id) ? buckets.index(id) + 1 : 0;
-      return position
     end
 
     def self.budget_total_ranking_query(options)
@@ -155,18 +138,15 @@ module GobiertoBudgets
       end
 
       terms << {term: { autonomy_id: aarr_filter }} unless aarr_filter.blank?
+      terms << {term: {type: SearchEngineConfiguration::TotalBudget.type }}
 
       query = {
         sort: [
           { options[:variable].to_sym => { order: 'desc' } }
         ],
         query: {
-          filtered: {
-            filter: {
-              bool: {
-                must: terms
-              }
-            }
+          bool: {
+            must: terms
           }
         },
         size: 10000
@@ -181,10 +161,9 @@ module GobiertoBudgets
       end
 
       SearchEngine.client.search index: index,
-        type: SearchEngineConfiguration::TotalBudget.type,
         body: query,
         filter_path: "hits.hits._source,hits.total",
-        _source: ["total_budget", "ine_code", "organization_id", "total_budget_per_inhabitant"]
+        _source: ["amount", "ine_code", "organization_id", "amount_per_inhabitant"]
     end
   end
 end

@@ -15,14 +15,11 @@ module GobiertoBudgets
 
         query = {
           query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: [
-                    {term: { area: 'economic' }},
-                  ]
-                }
-              }
+            bool: {
+              must: [
+                {term: { area: 'economic' }},
+                {term: { type: SearchEngineConfiguration::BudgetCategories.type }}
+              ]
             }
           },
           size: 10_000

@@ -51,22 +51,19 @@ module GobiertoBudgets
     def get_year_codes(place, area, kind, year)
       query = {
         query: {
-          filtered: {
-            filter: {
-              bool: {
-                must: [
-                  {term: { organization_id: place.id }},
-                  {term: { kind: kind}},
-                  {term: { year: year }},
-                ]
-              }
-            }
+          bool: {
+            must: [
+              {term: { organization_id: place.id }},
+              {term: { kind: kind}},
+              {term: { year: year }},
+              {term: { type: area }},
+            ]
           }
         },
         size: 10_000
       }
 
-      response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: area, body: query
+      response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, body: query
       response['hits']['hits'].map{|h| h['_source']['code'] }
     end
   end

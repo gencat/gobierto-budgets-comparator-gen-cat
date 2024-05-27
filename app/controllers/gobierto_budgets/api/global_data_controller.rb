@@ -144,6 +144,7 @@ module GobiertoBudgets
 
       def total_budget_data(year, field)
         terms = [ {term: { year: year }}, {term: { kind: GobiertoBudgets::BudgetLine::EXPENSE }} ]
+        terms << { term: { type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type }}
 
         if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
           ine_codes = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
@@ -152,12 +153,8 @@ module GobiertoBudgets
 
         query = {
           query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: terms
-                }
-              }
+            bool: {
+              must: terms
             }
           },
           size: 10_000,
@@ -171,14 +168,15 @@ module GobiertoBudgets
           }
         }
 
-        value = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast, type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, body: query
+        value = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast, body: query
         value['aggregations']['total']['value'].to_f.round(2)
       end
 
       def total_budget_data_executed(year, field)
         terms = [
           {term: { year: year }},
-          {term: { kind: GobiertoBudgets::BudgetLine::EXPENSE }}
+          {term: { kind: GobiertoBudgets::BudgetLine::EXPENSE }},
+          {term: { type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type }}
         ]
 
         if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
@@ -188,12 +186,8 @@ module GobiertoBudgets
 
         query = {
           query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: terms
-                }
-              }
+            bool: {
+              must: terms
             }
           },
           size: 10_000,
@@ -207,13 +201,13 @@ module GobiertoBudgets
           }
         }
 
-        value = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_executed, type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, body: query
+        value = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_executed, body: query
         value['aggregations']['total']['value'].to_f.round(2)
       end
 
 
       def total_population(year)
-        terms = [ {term: { year: year }} ]
+        terms = [ {term: { year: year }}, {term: { type: GobiertoBudgets::SearchEngineConfiguration::Data.type_population }} ]
 
         if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
           ine_codes = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
@@ -222,12 +216,8 @@ module GobiertoBudgets
 
         query = {
           query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: terms
-                }
-              }
+            bool: {
+              must: terms
             }
           },
           size: 10_000,
@@ -241,13 +231,13 @@ module GobiertoBudgets
           }
         }
 
-        value = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::Data.index, type: GobiertoBudgets::SearchEngineConfiguration::Data.type_population, body: query
+        value = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::Data.index, body: query
         return nil if value['hits']['total'] == 0
         value['aggregations']['total']['value']
       end
 
       def total_debt(year)
-        terms = [ {term: { year: year }} ]
+        terms = [ {term: { year: year }}, {term: { type: GobiertoBudgets::SearchEngineConfiguration::Data.type_debt }} ]
 
         if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
           ine_codes = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
@@ -256,12 +246,8 @@ module GobiertoBudgets
 
         query = {
           query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: terms
-                }
-              }
+            bool: {
+              must: terms
             }
           },
           size: 10_000,
@@ -275,7 +261,7 @@ module GobiertoBudgets
           }
         }
 
-        value = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::Data.index, type: GobiertoBudgets::SearchEngineConfiguration::Data.type_debt, body: query
+        value = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::Data.index, body: query
         return nil if value['hits']['total'] == 0
         value['aggregations']['total']['value'].to_f.round(2)
       end
