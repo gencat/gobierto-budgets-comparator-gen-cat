@@ -34,7 +34,6 @@ In this tutorial we are going to show you how to install Gobierto in a simple Li
 
 - Amazon AWS S3 keys
 - Mailchimp API credentials (only if you want to integrate with Mailchimp)
-- Rollbar, as exception notification tool (you can replace it easily)
 
 We recommend you to prepare the credentials from these services before you continue with this
 tutorial.
@@ -85,7 +84,6 @@ production:
 ```yaml
 production:
   secret_key_base: ''
-  rollbar_access_token: ''
   elastic_url: 'http://localhost:9200'
   mailchimp_api_key: ''
   amazon_access_key: ''
@@ -94,13 +92,11 @@ production:
 
 4.1 - Run `rake secret` in your dev environment and paste the result as `secret_key_base`
 
-4.2 - Paste your Rollbar API key. If you don't use Rollbar, leave that variable in blank
+4.2 - Update the URL of the ElasticSearch in case you use a remote server
 
-4.3 - Update the URL of the ElasticSearch in case you use a remote server
+4.3 - Paste your Mailchimp API Key
 
-4.4 - Paste your Mailchimp API Key
-
-4.5 - Paste Amazon credentials
+4.4 - Paste Amazon credentials
 
 5 - Deploy the site
 
