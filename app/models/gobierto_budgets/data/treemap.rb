@@ -14,11 +14,13 @@ module GobiertoBudgets
         options = [
           {term: { organization_id: @place.id }},
           {term: { kind: @kind }},
-          {missing: { field: 'functional_code'}},
-          {missing: { field: 'custom_code'}},
           {term: { year: @year }},
           {term: { type: @type }}
         ]
+
+        must_not_terms = []
+        must_not_terms.push({exists: { field: 'functional_code'}})
+        must_not_terms.push({exists: { field: 'custom_code'}})
 
         if @parent_code.nil?
           options.push({term: { level: @level }})
@@ -33,7 +35,7 @@ module GobiertoBudgets
           query: {
             bool: {
               must: options
-            }
+            }.merge(must_not_terms.present? ? { must_not: must_not_terms } : {})
           },
           size: 10_000
         }
