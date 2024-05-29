@@ -167,7 +167,7 @@ module GobiertoBudgets
     def self.for_ranking(options, only_municipalities=false)
       response = budget_line_query(options, only_municipalities)
       if results = response['hits']['hits']
-        return results.map{|h| h['_source']}, response['hits']['total']
+        return results.map{|h| h['_source']}, response['hits']['total']['value']
       else
         return [], 0
       end
@@ -177,7 +177,7 @@ module GobiertoBudgets
       id = %w{organization_id year code kind type}.map {|f| options[f.to_sym]}.join('/')
       response = budget_line_query(options.merge(to_rank: true), only_municipalities)
       position = response['hits']['hits'].map{ |h| h['_id'] }.index(id) + 1 rescue 0
-      return position, response['hits']['total']
+      return position, response['hits']['total']['value']
     end
 
     def self.compare(options)
