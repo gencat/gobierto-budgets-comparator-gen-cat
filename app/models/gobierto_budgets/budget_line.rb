@@ -152,12 +152,7 @@ module GobiertoBudgets
       query.merge!(from: options[:offset]) if options[:offset].present?
       query.merge!(_source: false) if options[:to_rank]
 
-      GobiertoBudgets::SearchEngine.client.search(
-        index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
-        body: query,
-        filter_path: options[:to_rank] ? "hits.total" : "hits.hits._source,hits.total",
-        _source: ["population", "ine_code", "organization_id", "amount", "amount_per_inhabitant"]
-      )
+      GobiertoBudgets::SearchEngine.client.search(index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, body: query, _source: ["population", "ine_code", "organization_id", "amount", "amount_per_inhabitant"])
     end
 
     def self.find(options)
@@ -174,7 +169,7 @@ module GobiertoBudgets
     end
 
     def self.place_position_in_ranking(options, only_municipalities=false)
-      id = %w{organization_id year code kind type}.map {|f| options[f.to_sym]}.join('/')
+      id = %w{organization_id year code kind area_name}.map {|f| options[f.to_sym]}.join('/')
       response = budget_line_query(options.merge(to_rank: true), only_municipalities)
       position = response['hits']['hits'].map{ |h| h['_id'] }.index(id) + 1 rescue 0
       return position, response['hits']['total']['value']
