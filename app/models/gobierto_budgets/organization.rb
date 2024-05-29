@@ -50,7 +50,7 @@ module GobiertoBudgets
     end
 
     def places_collection
-      @places_collection ||= PlaceDecorator.collection(@places_collection_key)
+      @places_collection ||= GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.collection(@places_collection_key)
     end
 
     def autonomous_region_id

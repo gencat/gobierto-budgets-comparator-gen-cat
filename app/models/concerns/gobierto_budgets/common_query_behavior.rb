@@ -7,7 +7,7 @@ module GobiertoBudgets
       def self.append_to_terms(terms, items, key = :ine_code)
         return if items.compact.blank?
 
-        terms << [{ terms: { key => items.compact } }]
+        terms << { terms: { key => items.compact } }
       end
 
       def append_to_terms(terms, items, key = :ine_code)

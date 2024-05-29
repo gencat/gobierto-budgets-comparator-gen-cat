@@ -57,7 +57,7 @@ class User < ActiveRecord::Base
   def location_by_collection(collection_key)
     return if place_id.blank?
 
-    PlaceDecorator.collection(collection_key).find do |location|
+    GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.collection(collection_key).find do |location|
       location.population_place_ids.include? place_id.to_s
     end
   end

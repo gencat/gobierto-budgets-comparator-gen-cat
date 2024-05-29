@@ -65,7 +65,7 @@ module GobiertoBudgets
         organization_id: @current_organization.id,
         type: @area_name,
         range_hash: {
-          level: { ge: 3 },
+          level: { gte: 4 },
           amount_per_inhabitant: { gt: 0 }
         }
       )["hits"]
@@ -171,19 +171,17 @@ module GobiertoBudgets
         begin
           result = GobiertoBudgets::SearchEngine.client.get(
             index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
-            type: area,
-            id: [current_organization.id, year, code, kind].join("/")
+            id: [current_organization.id, year, code, kind, area].join("/")
           )
 
           amount = result['_source']['amount'].to_f
 
           result = GobiertoBudgets::SearchEngine.client.get(
             index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast,
-            type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type,
-            id: [current_organization.id, year, BudgetLine::EXPENSE].join('/')
+            id: [current_organization.id, year, BudgetLine::EXPENSE, GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type].join('/')
           )
 
-          total_amount = result['_source']['total_budget'].to_f
+          total_amount = result['_source']['amount'].to_f
 
           percentage = (amount.to_f * 100)/total_amount
         rescue Elasticsearch::Transport::Transport::Errors::NotFound
@@ -212,7 +210,7 @@ module GobiertoBudgets
       field = options[:field]
       ranking = options[:ranking] != false
 
-      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: area, id: [current_organization.id, year, code, kind].join('/')
+      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, id: [current_organization.id, year, code, kind, area].join('/')
       value = result['_source'][field]
 
       total_elements = 0

@@ -1,4 +1,4 @@
-<% place_type = PlaceDecorator.place_type(places_collection_key) %>
+<% place_type = GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.place_type(places_collection_key) %>
 <h2 class="section_heading"><%= t(".#{places_collection_key}.compare") %></h2>
 
 <%= form_tag '#', id: 'compare_form' do %>

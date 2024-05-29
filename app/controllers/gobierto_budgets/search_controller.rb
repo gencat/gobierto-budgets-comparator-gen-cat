@@ -45,28 +45,25 @@ module GobiertoBudgets
     def place_from_params
       collection_key = params[:places_collection]&.to_sym || :ine
 
-      collection_key == :ine ? INE::Places::Place.find_by_slug(params[:slug]) : PlaceDecorator.collection(collection_key).find { |place| place.slug == params[:slug] }
+      collection_key == :ine ? INE::Places::Place.find_by_slug(params[:slug]) : GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.collection(collection_key).find { |place| place.slug == params[:slug] }
     end
 
     def get_year_codes(place, area, kind, year)
       query = {
         query: {
-          filtered: {
-            filter: {
-              bool: {
-                must: [
-                  {term: { organization_id: place.id }},
-                  {term: { kind: kind}},
-                  {term: { year: year }},
-                ]
-              }
-            }
+          bool: {
+            must: [
+              {term: { organization_id: place.id }},
+              {term: { kind: kind}},
+              {term: { year: year }},
+              {term: { type: area }},
+            ]
           }
         },
         size: 10_000
       }
 
-      response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: area, body: query
+      response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, body: query
       response['hits']['hits'].map{|h| h['_source']['code'] }
     end
   end

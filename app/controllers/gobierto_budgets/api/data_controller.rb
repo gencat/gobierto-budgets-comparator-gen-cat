@@ -46,8 +46,8 @@ module GobiertoBudgets
 
       def total_budget
         year = params[:year].to_i
-        total_budget_data = total_budget_data(year, 'total_budget')
-        total_budget_data_previous_year = total_budget_data(year - 1, 'total_budget', false)
+        total_budget_data = total_budget_data(year, 'amount')
+        total_budget_data_previous_year = total_budget_data(year - 1, 'amount', false)
         position = total_budget_data[:position].to_i
         sign = sign(total_budget_data[:value], total_budget_data_previous_year[:value])
 
@@ -104,8 +104,8 @@ module GobiertoBudgets
 
       def total_budget_per_inhabitant
         year = params[:year].to_i
-        total_budget_data = total_budget_data(year, 'total_budget_per_inhabitant')
-        total_budget_data_previous_year = total_budget_data(year - 1, 'total_budget_per_inhabitant', false)
+        total_budget_data = total_budget_data(year, 'amount_per_inhabitant')
+        total_budget_data_previous_year = total_budget_data(year - 1, 'amount_per_inhabitant', false)
         position = total_budget_data[:position].to_i
         sign = sign(total_budget_data[:value], total_budget_data_previous_year[:value])
 
@@ -219,16 +219,14 @@ module GobiertoBudgets
         begin
           result = GobiertoBudgets::SearchEngine.client.get(
             index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
-            type: @area,
-            id: [current_organization.id, @year, @code, @kind].join('/')
+            id: [current_organization.id, @year, @code, @kind, @area].join('/')
           )
 
           amount = result['_source']['amount'].to_f
 
           result = GobiertoBudgets::SearchEngine.client.get(
             index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
-            type: @area,
-            id: [current_organization.id, @year - 1, @code, @kind].join('/')
+            id: [current_organization.id, @year - 1, @code, @kind, @area].join('/')
           )
 
           amount_previous_year = result['_source']['amount'].to_f
@@ -288,7 +286,7 @@ module GobiertoBudgets
 
           results, _total_elements = GobiertoBudgets::BudgetLine.for_ranking(opts, only_municipalities)
         else
-          @variable = (@var == 'amount') ? 'total_budget' : 'total_budget_per_inhabitant'
+          @variable = (@var == 'amount') ? 'amount' : 'amount_per_inhabitant'
           results, _total_elements = GobiertoBudgets::BudgetTotal.for_ranking(@year, @variable, @kind, offset, max_results, @places_collection)
         end
 
@@ -318,8 +316,8 @@ module GobiertoBudgets
 
       def total_budget_execution
         year = params[:year].to_i
-        total_budget_data_planned = total_budget_data(year, 'total_budget', false)
-        total_budget_data_executed = total_budget_data_executed(year, 'total_budget')
+        total_budget_data_planned = total_budget_data(year, 'amount', false)
+        total_budget_data_executed = total_budget_data_executed(year, 'amount')
         diff = total_budget_data_executed[:value] - total_budget_data_planned[:value] rescue ""
         sign = sign(total_budget_data_executed[:value], total_budget_data_planned[:value])
         diff = format_currency(diff) if diff.is_a?(Float)
@@ -368,26 +366,24 @@ module GobiertoBudgets
       def municipalities_population
         year = params[:year].to_i
 
-        terms = [{term: { year: year }}]
+        terms = [
+          {term: { year: year }},
+          {term: { type: GobiertoBudgets::SearchEngineConfiguration::Data.type_population}}
+        ]
 
         query = {
           sort: [
             { ine_code: { order: 'asc' } }
           ],
           query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: terms
-                }
-              }
+            bool: {
+              must: terms
             }
           },
           size: 10_000
         }
 
-        response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::Data.index,
-          type: GobiertoBudgets::SearchEngineConfiguration::Data.type_population, body: query
+        response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::Data.index, body: query
 
         result = response['hits']['hits'].map{ |h| h['_source'] }
 
@@ -410,27 +406,24 @@ module GobiertoBudgets
       def municipalities_debt
         year = params[:year].to_i
 
-        terms = [{term: { year: year }}]
+        terms = [
+          {term: { year: year }},
+          {term: { type: GobiertoBudgets::SearchEngineConfiguration::Data.type_debt}}
+        ]
 
         query = {
           sort: [
             { ine_code: { order: 'asc' } }
           ],
           query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: terms
-                }
-              }
+            bool: {
+              must: terms
             }
           },
           size: 10_000
         }
 
-        response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::Data.index,
-          type: GobiertoBudgets::SearchEngineConfiguration::Data.type_debt, body: query
-
+        response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::Data.index, body: query
         result = response['hits']['hits'].map{ |h| h['_source'].merge({'value' => h['_source']['value']*1_000}) }
 
         respond_to do |format|
@@ -460,24 +453,20 @@ module GobiertoBudgets
             { 'code' => { order: 'asc' } }
           ],
           query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: [
-                    {term: { year: year }},
-                    {term: { ine_code: place.id }},
-                    {term: { kind: kind }}
-                  ]
-                }
-              }
+            bool: {
+              must: [
+                {term: { year: year }},
+                {term: { ine_code: place.id }},
+                {term: { kind: kind }},
+                {term: { type: area_name }}
+              ]
             }
           },
           size: 10_000
         }
         area = area_name == 'economic' ? EconomicArea : FunctionalArea
 
-        response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
-                                                               type: area_name, body: query
+        response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, body: query
         items = response['hits']['hits'].map do |h|
               h['_source'].merge({category: area.all_items[kind][h['_source']['code']]})
             end
@@ -522,10 +511,11 @@ module GobiertoBudgets
       private
 
       def get_debt(year, organization_id)
-        id = "#{organization_id}/#{year}"
+        id = "#{organization_id}/#{year}/#{GobiertoBudgets::SearchEngineConfiguration::Data.type_debt}"
 
         terms = []
         terms.push({ term: { year: year } })
+        terms.push({term: { type: GobiertoBudgets::SearchEngineConfiguration::Data.type_debt }})
 
         if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
           organizations_ids = GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope
@@ -534,12 +524,8 @@ module GobiertoBudgets
 
         query = {
           query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: terms
-                }
-              }
+            bool: {
+              must: terms
             }
           },
           size: 10_000,
@@ -548,11 +534,11 @@ module GobiertoBudgets
 
         value = nil
         begin
-          response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::Data.index, type: GobiertoBudgets::SearchEngineConfiguration::Data.type_debt, body: query
+          response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::Data.index, body: query
           debts = response['hits']['hits'].map{|h| h['_id']}
           position = debts.index(id) + 1 rescue 0
 
-          value = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::Data.index, type: GobiertoBudgets::SearchEngineConfiguration::Data.type_debt, id: id
+          value = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::Data.index, id: id
           value = value['_source']['value']
         rescue Elasticsearch::Transport::Transport::Errors::NotFound
           debts = []
@@ -576,10 +562,10 @@ module GobiertoBudgets
       end
 
       def budget_data_executed(year, field)
-        id = "#{current_organization.id}/#{year}/#{@code}/#{@kind}"
+        id = "#{current_organization.id}/#{year}/#{@code}/#{@kind}/#{@area}"
 
         begin
-          value = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, type: @area, id: id
+          value = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, id: id
           value = value['_source'][field]
         rescue Elasticsearch::Transport::Transport::Errors::NotFound
           value = nil
@@ -593,13 +579,14 @@ module GobiertoBudgets
       def total_budget_data(year, field, ranking = true)
         terms = [
           { term: { year: year } },
-          { term: { kind: GobiertoBudgets::BudgetLine::EXPENSE } }
+          { term: { kind: GobiertoBudgets::BudgetLine::EXPENSE } },
+          { term: { type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type } }
         ]
 
         organizations_ids = if GobiertoBudgets::SearchEngineConfiguration::Scopes.places_scope?
                               GobiertoBudgets::SearchEngineConfiguration::Scopes.organizations_scope
                             elsif params[:places_collection].present?
-                              PlaceDecorator.collection_organization_ids(params[:places_collection])
+                              GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.collection_organization_ids(params[:places_collection])
                             end
         terms << { terms: { organization_id: organizations_ids.compact } } if organizations_ids.present?
 
@@ -608,24 +595,19 @@ module GobiertoBudgets
             { field.to_sym => { order: 'desc' } }
           ],
           query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: terms
-                }
-              }
+            bool: {
+              must: terms
             }
           },
           size: 10_000,
           _source: false
         }
 
-        id = "#{current_organization.id}/#{year}/#{BudgetLine::EXPENSE}"
+        id = "#{current_organization.id}/#{year}/#{BudgetLine::EXPENSE}/#{GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type}"
 
         if ranking
           response = GobiertoBudgets::SearchEngine.client.search(
             index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast,
-            type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type,
             body: body
           )
           buckets = response['hits']['hits'].map{|h| h['_id']}
@@ -638,7 +620,6 @@ module GobiertoBudgets
         begin
           value = GobiertoBudgets::SearchEngine.client.get(
             index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast,
-            type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type,
             id: id
           )
           value = value['_source'][field]
@@ -654,10 +635,10 @@ module GobiertoBudgets
       end
 
       def total_budget_data_executed(year, field)
-        id = "#{current_organization.id}/#{year}/#{BudgetLine::EXPENSE}"
+        id = "#{current_organization.id}/#{year}/#{BudgetLine::EXPENSE}/#{GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type}"
 
         begin
-          value = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_executed, type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: id
+          value = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_executed, id: id
           value = value['_source'][field]
           value = nil if value == 0
         rescue Elasticsearch::Transport::Transport::Errors::NotFound

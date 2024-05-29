@@ -62,20 +62,6 @@ module GobiertoBudgets
       }
     end
 
-    # TODO - Deprecated Remove
-    def self.place_position_in_ranking(year, ine_code, filters)
-      id = [ine_code, year].join('/')
-      response = population_query({year: year, to_rank: true, filters: filters})
-      total_elements = response['hits']['total']
-      if total_elements == 0
-        response = population_query({year: year-1, to_rank: true, filters: filters})
-        total_elements = response['hits']['total']
-      end
-      buckets = response['hits']['hits'].map{|h| h['_id']}
-      position = buckets.index(id) ? buckets.index(id) + 1 : 0;
-      return position + 1
-    end
-
     private
 
     def self.population_query(options)
@@ -83,7 +69,7 @@ module GobiertoBudgets
 
       places_restriction = GobiertoBudgets::PlaceSet.new(options)
       organization_id_conversions = places_restriction.population_organization_id_conversions
-      type = PlaceDecorator.population_type_index(options[:places_collection])
+      type = GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.population_type_index(options[:places_collection])
 
       append_ine_codes(terms, places_restriction.ine_codes)
       append_organization_ids(terms, organization_id_conversions.values) if organization_id_conversions.present?
@@ -124,18 +110,15 @@ module GobiertoBudgets
       end
 
       terms << { term: { autonomy_id: aarr_filter } } unless aarr_filter.blank?
+      terms << { term: { type: type } }
 
       query = {
         sort: [
           { value: { order: 'desc' } }
         ],
         query: {
-          filtered: {
-            filter: {
-              bool: {
-                must: terms
-              }
-            }
+          bool: {
+            must: terms
           }
         },
         size: 10_000
@@ -147,7 +130,6 @@ module GobiertoBudgets
 
       results = SearchEngine.client.search(
         index: SearchEngineConfiguration::Data.index,
-        type: type,
         body: query,
         filter_path: options[:to_rank] ? "hits.total" : "hits.hits._source,hits.hits._id,hits.total",
         _source: ["value", "ine_code", "organization_id"]
