@@ -33,10 +33,10 @@ module GobiertoBudgets
 
     def self.for_ranking(year, offset, per_page, places_collection, filters)
       response = population_query(year: year, offset: offset, per_page: per_page, places_collection: places_collection, filters: filters)
-      total_elements = response['hits']['total']
+      total_elements = response['hits']['total']['value']
       if total_elements == 0
         response = population_query(year: year-1, offset: offset, per_page: per_page, places_collection: places_collection, filters: filters)
-        total_elements = response['hits']['total']
+        total_elements = response['hits']['total']['value']
       end
       if result = response['hits']['hits']
         return result.map{|h| h['_source']}, total_elements
