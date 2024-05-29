@@ -107,9 +107,9 @@ module GobiertoBudgets
         Item.new({
           place: GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.find(id, places_collection: places_collection),
           population: population_results[id.to_s],
-          amount_per_inhabitant: h['total_budget_per_inhabitant'],
-          amount: h['total_budget'],
-          total: h['total_budget']
+          amount_per_inhabitant: h['amount_per_inhabitant'],
+          amount: h['amount'],
+          total: h['amount']
         })
       end, total_elements
     end

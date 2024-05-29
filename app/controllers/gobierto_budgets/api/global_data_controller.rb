@@ -232,7 +232,7 @@ module GobiertoBudgets
         }
 
         value = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::Data.index, body: query
-        return nil if value['hits']['total'] == 0
+        return nil if value['hits']['total']['value'] == 0
         value['aggregations']['total']['value']
       end
 
@@ -262,7 +262,7 @@ module GobiertoBudgets
         }
 
         value = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::Data.index, body: query
-        return nil if value['hits']['total'] == 0
+        return nil if value['hits']['total']['value'] == 0
         value['aggregations']['total']['value'].to_f.round(2)
       end
     end
