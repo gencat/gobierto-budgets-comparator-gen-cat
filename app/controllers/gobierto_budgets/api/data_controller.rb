@@ -46,8 +46,8 @@ module GobiertoBudgets
 
       def total_budget
         year = params[:year].to_i
-        total_budget_data = total_budget_data(year, 'total_budget')
-        total_budget_data_previous_year = total_budget_data(year - 1, 'total_budget', false)
+        total_budget_data = total_budget_data(year, 'amount')
+        total_budget_data_previous_year = total_budget_data(year - 1, 'amount', false)
         position = total_budget_data[:position].to_i
         sign = sign(total_budget_data[:value], total_budget_data_previous_year[:value])
 
@@ -104,8 +104,8 @@ module GobiertoBudgets
 
       def total_budget_per_inhabitant
         year = params[:year].to_i
-        total_budget_data = total_budget_data(year, 'total_budget_per_inhabitant')
-        total_budget_data_previous_year = total_budget_data(year - 1, 'total_budget_per_inhabitant', false)
+        total_budget_data = total_budget_data(year, 'amount_per_inhabitant')
+        total_budget_data_previous_year = total_budget_data(year - 1, 'amount_per_inhabitant', false)
         position = total_budget_data[:position].to_i
         sign = sign(total_budget_data[:value], total_budget_data_previous_year[:value])
 
@@ -219,16 +219,14 @@ module GobiertoBudgets
         begin
           result = GobiertoBudgets::SearchEngine.client.get(
             index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
-            type: @area,
-            id: [current_organization.id, @year, @code, @kind].join('/')
+            id: [current_organization.id, @year, @code, @kind, @area].join('/')
           )
 
           amount = result['_source']['amount'].to_f
 
           result = GobiertoBudgets::SearchEngine.client.get(
             index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
-            type: @area,
-            id: [current_organization.id, @year - 1, @code, @kind].join('/')
+            id: [current_organization.id, @year - 1, @code, @kind, @area].join('/')
           )
 
           amount_previous_year = result['_source']['amount'].to_f
@@ -288,7 +286,7 @@ module GobiertoBudgets
 
           results, _total_elements = GobiertoBudgets::BudgetLine.for_ranking(opts, only_municipalities)
         else
-          @variable = (@var == 'amount') ? 'total_budget' : 'total_budget_per_inhabitant'
+          @variable = (@var == 'amount') ? 'amount' : 'amount_per_inhabitant'
           results, _total_elements = GobiertoBudgets::BudgetTotal.for_ranking(@year, @variable, @kind, offset, max_results, @places_collection)
         end
 
@@ -318,8 +316,8 @@ module GobiertoBudgets
 
       def total_budget_execution
         year = params[:year].to_i
-        total_budget_data_planned = total_budget_data(year, 'total_budget', false)
-        total_budget_data_executed = total_budget_data_executed(year, 'total_budget')
+        total_budget_data_planned = total_budget_data(year, 'amount', false)
+        total_budget_data_executed = total_budget_data_executed(year, 'amount')
         diff = total_budget_data_executed[:value] - total_budget_data_planned[:value] rescue ""
         sign = sign(total_budget_data_executed[:value], total_budget_data_planned[:value])
         diff = format_currency(diff) if diff.is_a?(Float)

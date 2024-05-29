@@ -181,7 +181,7 @@ module GobiertoBudgets
             id: [current_organization.id, year, BudgetLine::EXPENSE, GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type].join('/')
           )
 
-          total_amount = result['_source']['total_budget'].to_f
+          total_amount = result['_source']['amount'].to_f
 
           percentage = (amount.to_f * 100)/total_amount
         rescue Elasticsearch::Transport::Transport::Errors::NotFound
