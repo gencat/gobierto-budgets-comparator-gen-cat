@@ -281,7 +281,7 @@ module GobiertoBudgets
       if places_collection.to_sym == :ine
         INE::Places::Place.find(organization_id).try(:name)
       else
-        PlaceDecorator.find(organization_id, places_collection:).try(:name)
+        GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.find(organization_id, places_collection:).try(:name)
       end
     end
 

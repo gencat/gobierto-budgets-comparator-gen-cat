@@ -111,7 +111,7 @@ module GobiertoBudgets
       @search_examples ||= begin
                              return DEFAULT_SEARCH_EXAMPLES if Settings.search_examples.blank?
 
-                             PlaceDecorator.places_keys.each_with_object({}) do |key, examples|
+                             GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.places_keys.each_with_object({}) do |key, examples|
                                examples[key] = expand_location_values(Settings.search_examples[key], key) || DEFAULT_SEARCH_EXAMPLES[key]
                              end
                            end
@@ -121,7 +121,7 @@ module GobiertoBudgets
       @compare_examples ||= begin
                               return DEFAULT_COMPARE_EXAMPLES if Settings.compare_examples.blank?
 
-                              PlaceDecorator.places_keys.each_with_object({}) do |key, examples|
+                              GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.places_keys.each_with_object({}) do |key, examples|
                                 examples[key] = if Settings.compare_examples[key].present?
                                                   Settings.compare_examples[key].map do |list|
                                                     locations = expand_location_values(list, key)
@@ -140,7 +140,7 @@ module GobiertoBudgets
       return unless slugs.present?
 
       slugs.map do |slug|
-        location = PlaceDecorator.find_by_slug(slug, places_collection:)
+        location = GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.find_by_slug(slug, places_collection:)
         next if location.blank?
 
         [location.name, location.slug]

@@ -54,7 +54,7 @@ module GobiertoBudgets
         id = h["organization_id"]
 
         Item.new({
-          place: PlaceDecorator.find(id, places_collection:),
+          place: GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.find(id, places_collection:),
           population: h['population'],
           amount_per_inhabitant: h['amount_per_inhabitant'],
           amount: h['amount'],
@@ -74,7 +74,7 @@ module GobiertoBudgets
         id = h["organization_id"]
 
         Item.new({
-          place: PlaceDecorator.find(id, places_collection: places_collection),
+          place: GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.find(id, places_collection: places_collection),
           population: h["value"],
           amount_per_inhabitant: total_results[id][:total_budget_per_inhabitant],
           amount: total_results[id.to_s][:total_budget],
@@ -85,11 +85,11 @@ module GobiertoBudgets
 
     def self.total_budget_ranking(variable, year, kind, offset, places_collection, filters)
       variable = if variable == 'amount'
-                   'total_budget'
+                   'amount'
                  elsif variable == 'population'
                    variable
                  else
-                   'total_budget_per_inhabitant'
+                   'amount_per_inhabitant'
                  end
 
       results, total_elements = BudgetTotal.for_ranking(year, variable, kind, offset, self.per_page, places_collection, filters)
@@ -105,11 +105,11 @@ module GobiertoBudgets
         id = h["organization_id"]
 
         Item.new({
-          place: PlaceDecorator.find(id, places_collection: places_collection),
+          place: GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.find(id, places_collection: places_collection),
           population: population_results[id.to_s],
-          amount_per_inhabitant: h['total_budget_per_inhabitant'],
-          amount: h['total_budget'],
-          total: h['total_budget']
+          amount_per_inhabitant: h['amount_per_inhabitant'],
+          amount: h['amount'],
+          total: h['amount']
         })
       end, total_elements
     end

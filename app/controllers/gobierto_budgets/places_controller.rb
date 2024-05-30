@@ -161,7 +161,7 @@ module GobiertoBudgets
       @year = params[:year].present? ? params[:year].to_i : nil
       @code = params[:code]
       @places_collection = params[:places_collection]&.to_sym || :ine
-      @selected_place = PlaceDecorator.find(params[:ine_code], places_collection: @places_collection) if params[:ine_code]
+      @selected_place = GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.find(params[:ine_code], places_collection: @places_collection) if params[:ine_code]
 
       if params[:variable].present?
         @variable = params[:variable]
@@ -178,7 +178,7 @@ module GobiertoBudgets
     end
 
     def get_places(slug_list)
-      slug_list.split(':').map { |slug| PlaceDecorator.find_by_slug(slug, places_collection: @places_collection) }.compact
+      slug_list.split(':').map { |slug| GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.find_by_slug(slug, places_collection: @places_collection) }.compact
     end
 
     def valid_variables

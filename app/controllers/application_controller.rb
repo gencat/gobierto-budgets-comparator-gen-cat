@@ -3,9 +3,9 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-  rescue_from ActionController::RoutingError, with: :render_404
-  rescue_from ActionController::UnknownFormat, with: :render_404
-  rescue_from Elasticsearch::Transport::Transport::Errors::BadRequest, with: :render_404
+  # rescue_from ActionController::RoutingError, with: :render_404
+  # rescue_from ActionController::UnknownFormat, with: :render_404
+  # rescue_from Elasticsearch::Transport::Transport::Errors::BadRequest, with: :render_404
 
   helper_method :helpers, :users_enabled?, :places_collection_key, :location_root_path, :places_collections_root_paths
 
@@ -76,14 +76,14 @@ class ApplicationController < ActionController::Base
 
   def places_collection_key
     @places_collection_key ||= begin
-                                 keys = PlaceDecorator.places_keys
+                                 keys = GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.places_keys
                                  keys.include?(params[:places_collection]&.to_sym) ? params[:places_collection].to_sym : keys.first
                                end
   end
 
   def places_collections_root_paths
-    PlaceDecorator.places_keys.each_with_object({}) do |key, paths|
-      paths[PlaceDecorator.place_type(key)] = location_root_path(key)
+    GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.places_keys.each_with_object({}) do |key, paths|
+      paths[GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.place_type(key)] = location_root_path(key)
     end
   end
 

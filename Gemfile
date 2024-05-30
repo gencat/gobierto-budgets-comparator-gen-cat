@@ -6,7 +6,6 @@ gem 'sass-rails', '~> 5.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'redcarpet', require: true
 gem 'bcrypt'
-gem 'rollbar'
 gem 'meta-tags'
 gem 'ine-places'
 gem 'actionpack-action_caching'
@@ -38,8 +37,6 @@ gem 'flight-for-rails'
 gem "i18n-js", "~> 3.8.3"
 
 # Elastic search
-gem 'elasticsearch'
-gem 'elasticsearch-extensions'
 gem 'oj'
 gem 'hashie'
 
