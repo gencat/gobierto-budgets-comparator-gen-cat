@@ -71,18 +71,98 @@ module GobiertoBudgets
           description: description.downcase,
           link: link_to(
             budget_line_denomination(area_name, code[0..-2], kind),
-            gobierto_budgets_budget_line_path(current_organization_slug, params[:year], code[0..-2], kind, area_name)
+            location_budget_line_path(current_organization_slug, params[:year], code[0..-2], kind, area_name)
           )
         ).html_safe
       end
     end
 
-    def kind_literal(kind, plural = true)
-      if kind == 'I'
-        plural ? t('common.incomes') : t('common.income')
+    def location_budget_path(*args)
+      if params[:places_collection] == "deputation_eu"
+        gobierto_budgets_deputation_budget_path(*args)
       else
-        plural ? t('common.expenses') : t('common.expense')
+        gobierto_budgets_place_budget_path(*args)
       end
+    end
+
+    def location_execution_path(*args)
+      if params[:places_collection] == "deputation_eu"
+        gobierto_budgets_deputation_execution_path(*args)
+      else
+        gobierto_budgets_place_execution_path(*args)
+      end
+    end
+
+    def location_path(*args)
+      if params[:places_collection] == "deputation_eu"
+        gobierto_budgets_deputation_path(*args)
+      else
+        gobierto_budgets_place_path(*args)
+      end
+    end
+
+    def locations_global_ranking_path(*args)
+      if params[:places_collection] == "deputation_eu"
+        gobierto_budgets_deputations_ranking_path(*args)
+      else
+        gobierto_budgets_ranking_path(*args)
+      end
+    end
+
+    def locations_ranking_path(*args)
+      if params[:places_collection] == "deputation_eu"
+        gobierto_budgets_deputations_places_ranking_path(*args)
+      else
+        gobierto_budgets_places_ranking_path(*args)
+      end
+    end
+
+    def locations_ranking_url(*args)
+      if params[:places_collection] == "deputation_eu"
+        gobierto_budgets_deputations_places_ranking_url(*args)
+      else
+        gobierto_budgets_places_ranking_url(*args)
+      end
+    end
+
+    def location_budget_line_path(*args)
+      if params[:places_collection] == "deputation_eu"
+        gobierto_budgets_deputation_budget_line_path(*args)
+      else
+        gobierto_budgets_budget_line_path(*args)
+      end
+    end
+
+    def locations_population_ranking_path(*args)
+      if params[:places_collection] == "deputation_eu"
+        gobierto_budgets_deputations_population_ranking_path(*args)
+      else
+        gobierto_budgets_population_ranking_path(*args)
+      end
+    end
+
+    def locations_compare_path(*args)
+      if params[:places_collection] == "deputation_eu"
+        gobierto_budgets_deputations_compare_path(*args)
+      else
+        gobierto_budgets_compare_path(*args)
+      end
+    end
+
+    def locations_places_compare_path(*args)
+      if params[:places_collection] == "deputation_eu"
+        gobierto_budgets_deputations_places_compare_path(*args)
+      else
+        gobierto_budgets_places_compare_path(*args)
+      end
+    end
+
+    def kind_literal(kind, plural = true)
+      t("#{kind_key(kind)}#{plural ? "s" : ""}", scope: "common")
+    end
+
+    def kind_key(kind)
+      kind == "I" ? "income" : "expense"
     end
 
     def area_literal(area)
@@ -110,7 +190,7 @@ module GobiertoBudgets
     def link_to_parent_comparison(places, year, kind, area_name, parent_code)
       options = {}
       options[:parent_code] = parent_code[0..-2] if parent_code.length > 1
-      link_to('« anterior', gobierto_budgets_places_compare_path(places.map(&:slug).join(':'),year,kind,area_name, options))
+      link_to('« anterior', locations_places_compare_path(places.map(&:slug).join(':'),year,kind,area_name, options))
     end
 
     def lines_chart_api_path(what, compared_level, places, year, kind, parent_code = nil, area_name = 'economic')
@@ -123,10 +203,11 @@ module GobiertoBudgets
           kind,
           parent_code,
           area_name,
-          format: :json
+          format: :json,
+          places_collection: params[:places_collection]
         )
       else
-        gobierto_budgets_api_data_compare_path(place_ids, year, what, kind: kind, format: :json)
+        gobierto_budgets_api_data_compare_path(place_ids, year, what, kind: kind, format: :json, places_collection: params[:places_collection])
       end
       path
     end
@@ -163,7 +244,7 @@ module GobiertoBudgets
         attrs << %Q{data-bubbles-data="https://gobierto-populate-#{Rails.env.development? ? 'dev' : Rails.env }.s3.eu-west-1.amazonaws.com/gobierto_budgets/#{current_organization.id}/data/bubbles.json"}
         attrs << %Q{data-max-year="#{GobiertoBudgets::SearchEngineConfiguration::Year.last}"}
         # TODO: End TODO
-        attrs << %Q{data-track-url="#{gobierto_budgets_place_path(target.slug, @year || GobiertoBudgets::SearchEngineConfiguration::Year.last)}"}
+        attrs << %Q{data-track-url="#{location_path(target.slug, @year || GobiertoBudgets::SearchEngineConfiguration::Year.last)}"}
         attrs << %Q{data-place-slug="#{target.slug}"}
         attrs << %Q{data-place-name="#{target.name}"}
       end
@@ -194,10 +275,14 @@ module GobiertoBudgets
       "#{place.name}|#{gobierto_budgets_place_path(place, year)}|#{place.slug}"
     end
 
-    def place_name(ine_code)
-      return if ine_code.blank?
+    def place_name(organization_id, places_collection: :ine)
+      return if organization_id.blank?
 
-      INE::Places::Place.find(ine_code).try(:name)
+      if places_collection.to_sym == :ine
+        INE::Places::Place.find(organization_id).try(:name)
+      else
+        GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.find(organization_id, places_collection:).try(:name)
+      end
     end
 
     def places_for_select

@@ -12,7 +12,7 @@ class PasswordResetsController < ApplicationController
       user.generate_password_reset_token!
       UserMailer.password_reset(user).deliver_now
 
-      redirect_to root_path, notice: 'Te hemos enviado por e-mail instrucciones para recuperar tu contraseña'
+      redirect_to location_root_path, notice: 'Te hemos enviado por e-mail instrucciones para recuperar tu contraseña'
     else
       flash.now[:alert] = 'E-mail no es válido'
       render 'new'

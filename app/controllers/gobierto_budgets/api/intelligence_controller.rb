@@ -41,40 +41,34 @@ module GobiertoBudgets
           {term: { kind: GobiertoBudgets::BudgetLine::EXPENSE }},
           {term: { ine_code: options.fetch(:place).id }},
           {term: { level: 3 }},
+          {term: { type: GobiertoBudgets::BudgetLine::FUNCTIONAL }}
         ]
         conditions.push({term: { year: options.fetch(:year) }}) if options.has_key?(:year)
         conditions.push({terms: { year: options.fetch(:years) }}) if options.has_key?(:years)
 
         query = {
           query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: conditions
-                }
-              }
+            bool: {
+              must: conditions
             }
           },
           size: 10_000
         }
-        response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: GobiertoBudgets::BudgetLine::FUNCTIONAL, body: query
+        response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,  body: query
         response['hits']['hits'].map{|g| g['_source'] }
       end
 
       def merge_hits_with_province_mean(options)
         query = {
           query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: [
-                    {term: { kind: GobiertoBudgets::BudgetLine::EXPENSE }},
-                    {term: { province_id: options.fetch(:place).province.id }},
-                    {term: { level: 3 }},
-                    {term: { year: options.fetch(:year) }},
-                  ]
-                }
-              }
+            bool: {
+              must: [
+                {term: { kind: GobiertoBudgets::BudgetLine::EXPENSE }},
+                {term: { province_id: options.fetch(:place).province.id }},
+                {term: { level: 3 }},
+                {term: { year: options.fetch(:year) }},
+                {term: { type: GobiertoBudgets::BudgetLine::FUNCTIONAL }}
+              ]
             }
           },
           aggs: {
@@ -101,7 +95,7 @@ module GobiertoBudgets
           },
           size: 0 # Don't return hits
         }
-        response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: GobiertoBudgets::BudgetLine::FUNCTIONAL, body: query
+        response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, body: query
         avgs = response['aggregations']['group_by_code']['buckets']
         options.fetch(:hits).map do |hit|
           hit['avg_province'] = if v = avgs.detect{|h| h['key'] == hit['code'] }
@@ -121,17 +115,14 @@ module GobiertoBudgets
       def merge_hits_with_autonomous_region_mean(options)
         query = {
           query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: [
-                    {term: { kind: GobiertoBudgets::BudgetLine::EXPENSE }},
-                    {term: { autonomy_id: options.fetch(:place).province.autonomous_region.id }},
-                    {term: { level: 3 }},
-                    {term: { year: options.fetch(:year) }},
-                  ]
-                }
-              }
+            bool: {
+              must: [
+                {term: { kind: GobiertoBudgets::BudgetLine::EXPENSE }},
+                {term: { autonomy_id: options.fetch(:place).province.autonomous_region.id }},
+                {term: { level: 3 }},
+                {term: { year: options.fetch(:year) }},
+                {term: { type: GobiertoBudgets::BudgetLine::FUNCTIONAL }}
+              ]
             }
           },
           aggs: {
@@ -158,7 +149,7 @@ module GobiertoBudgets
           },
           size: 0 # Don't return hits
         }
-        response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: GobiertoBudgets::BudgetLine::FUNCTIONAL, body: query
+        response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, body: query
         avgs = response['aggregations']['group_by_code']['buckets']
         options.fetch(:hits).map do |hit|
           hit['avg_autonomy'] = if v = avgs.detect{|h| h['key'] == hit['code'] }
@@ -178,16 +169,13 @@ module GobiertoBudgets
       def merge_hits_with_country_mean(options)
         query = {
           query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: [
-                    {term: { kind: GobiertoBudgets::BudgetLine::EXPENSE }},
-                    {term: { level: 3 }},
-                    {term: { year: options.fetch(:year) }},
-                  ]
-                }
-              }
+            bool: {
+              must: [
+                {term: { kind: GobiertoBudgets::BudgetLine::EXPENSE }},
+                {term: { level: 3 }},
+                {term: { year: options.fetch(:year) }},
+                {term: { type: GobiertoBudgets::BudgetLine::FUNCTIONAL }}
+              ]
             }
           },
           aggs: {
@@ -214,7 +202,7 @@ module GobiertoBudgets
           },
           size: 0 # Don't return hits
         }
-        response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: GobiertoBudgets::BudgetLine::FUNCTIONAL, body: query
+        response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, body: query
         avgs = response['aggregations']['group_by_code']['buckets']
         options.fetch(:hits).map do |hit|
           hit['avg_country'] = if v = avgs.detect{|h| h['key'] == hit['code'] }

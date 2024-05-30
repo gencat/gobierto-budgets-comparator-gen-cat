@@ -1,12 +1,11 @@
 source 'https://rubygems.org'
 
-gem "rails", "~> 7.1.0"
+gem "rails", "~> 7.1.3"
 gem "pg", "~> 1.1"
 gem 'sass-rails', '~> 5.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'redcarpet', require: true
 gem 'bcrypt'
-gem 'rollbar'
 gem 'meta-tags'
 gem 'ine-places'
 gem 'actionpack-action_caching'
@@ -18,7 +17,7 @@ gem 'config'
 gem 'dalli'
 gem "aws-ses", git: "https://github.com/zebitex/aws-ses.git", ref: "78-sigv4-problem"
 gem 'cocoon'
-gem 'nokogiri', '~> 1.14'
+gem 'nokogiri', '~> 1.16'
 gem 'json', '~> 2.1'
 gem "gobierto_budgets_data", git: "https://github.com/PopulateTools/gobierto_budgets_data.git"
 gem "bootsnap"
@@ -38,13 +37,14 @@ gem 'flight-for-rails'
 gem "i18n-js", "~> 3.8.3"
 
 # Elastic search
-gem 'elasticsearch'
-gem 'elasticsearch-extensions'
 gem 'oj'
 gem 'hashie'
 
 # Log
 gem "lograge"
+
+# Redirections
+gem 'rack-rewrite', '~> 1.5.0'
 
 group :development, :test do
   gem "byebug", platform: :mri

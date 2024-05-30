@@ -20,8 +20,8 @@
           <div class="switcher kind_switcher">
             <%= link_to "#{kind_literal(@kind).capitalize} <i class='fa fa-angle-down'></i>".html_safe, '', class: 'current' %>
             <ul>
-              <li><%= link_to kind_literal(@kind).capitalize, gobierto_budgets_places_compare_path(@places.map(&:slug).join(':'),@year,@kind,'economic') %></li>
-              <li><%= link_to kind_literal(other_kind(@kind)).capitalize, gobierto_budgets_places_compare_path(@places.map(&:slug).join(':'),@year,other_kind(@kind),'economic') %></li>
+              <li><%= link_to kind_literal(@kind).capitalize, locations_places_compare_path(@places.map(&:slug).join(':'),@year,@kind,'economic') %></li>
+              <li><%= link_to kind_literal(other_kind(@kind)).capitalize, locations_places_compare_path(@places.map(&:slug).join(':'),@year,other_kind(@kind),'economic') %></li>
             </ul>
           </div>
 
@@ -41,12 +41,12 @@
             end
             items = items_in_level(@budgets_and_ancestors, level, previous_branch_code)
             %>
-            <%= link_to "#{current_link_literal} <i class='fa fa-angle-down'></i>".html_safe, gobierto_budgets_places_compare_path(@places.map(&:slug).join(':'),@year,@kind,@area_name, {parent_code: selected_branch_code }), class: 'current' %>
+            <%= link_to "#{current_link_literal} <i class='fa fa-angle-down'></i>".html_safe, locations_places_compare_path(@places.map(&:slug).join(':'),@year,@kind,@area_name, {parent_code: selected_branch_code }), class: 'current' %>
             <% if items.any? %>
               <ul>
                 <% items.each do |bl| %>
                   <li><%= link_to budget_line_denomination(@area_name, bl['code'], @kind),
-                    gobierto_budgets_places_compare_path(@places.map(&:slug).join(':'),@year,@kind,@area_name, {parent_code: bl['code'] }) %></li>
+                    locations_places_compare_path(@places.map(&:slug).join(':'),@year,@kind,@area_name, {parent_code: bl['code'] }) %></li>
                 <% end %>
               </ul>
             <% end %>
@@ -76,8 +76,8 @@
   <% if @kind == 'G' %>
     <div class="form_filters">
       <ul>
-        <li><%= link_to t('common.economic').capitalize, gobierto_budgets_places_compare_path(@places.map(&:slug).join(':'),@year,@kind,'economic'), class: "#{'buttonSelected' if @area_name == 'economic'}", id: 'Economica' %></li>
-        <li><%= link_to t('common.functional').capitalize, gobierto_budgets_places_compare_path(@places.map(&:slug).join(':'),@year,@kind,'functional'), class: "#{'buttonSelected' if @area_name == 'functional'}", id: 'Funcional' %></li>
+        <li><%= link_to t('common.economic').capitalize, locations_places_compare_path(@places.map(&:slug).join(':'),@year,@kind,'economic'), class: "#{'buttonSelected' if @area_name == 'economic'}", id: 'Economica' %></li>
+        <li><%= link_to t('common.functional').capitalize, locations_places_compare_path(@places.map(&:slug).join(':'),@year,@kind,'functional'), class: "#{'buttonSelected' if @area_name == 'functional'}", id: 'Funcional' %></li>
       </ul>
     </div>
   <% end %>
@@ -91,16 +91,16 @@
       </th>
       <% @places.each do |place| %>
         <th class="location">
-          <%= link_to place.name, gobierto_budgets_place_path(place.slug, @year), class: 'compared_place', data: {slug: place.slug} %>
+          <%= link_to place.name, location_path(place.slug, @year), class: 'compared_place', data: {slug: place.slug} %>
           <% if @places.size > 1 %>
             <%= link_to 'X', '', class: 'remove tipsit', title: t('.delete') %>
           <% end %>
         </th>
       <% end %>
       <th class="location add_location_cont">
-        <%= link_to '+', '', class: 'add', title: t('.add') %>
+        <%= link_to '+', '', class: 'add', title: t(".#{places_collection_key}.add") %>
         <div class="add_location">
-          <%= t('.add_another') %>:
+          <%= t(".#{places_collection_key}.add_another") %>:
           <input type="text" id="add_place">
         </div>
       </th>
@@ -122,8 +122,8 @@
           </td>
           <% @places.each do |place| %>
             <td class="variable_values">
-              <% total_line = @totals.select {|tl| tl['ine_code'] == place.id.to_i }.first %>
-              <% population = @population.select {|tl| tl['ine_code'] == place.id.to_i }.first %>
+              <% total_line = @totals.select { |tl| tl["organization_id"].to_s == place.id.to_s }.first %>
+              <% population = @population.select { |tl| tl["organization_id"].to_s == place.id.to_s }.first %>
               <ul>
                 <li class='total-budget'><%= number_to_currency total_line['total_budget'], precision: 0 %></li>
                 <li class='per-person'><%= number_to_currency total_line['total_budget_per_inhabitant'], precision: 0 %></li>

@@ -14,10 +14,13 @@ module GobiertoBudgets
         options = [
           {term: { organization_id: @place.id }},
           {term: { kind: @kind }},
-          {missing: { field: 'functional_code'}},
-          {missing: { field: 'custom_code'}},
-          {term: { year: @year }}
+          {term: { year: @year }},
+          {term: { type: @type }}
         ]
+
+        must_not_terms = []
+        must_not_terms.push({exists: { field: 'functional_code'}})
+        must_not_terms.push({exists: { field: 'custom_code'}})
 
         if @parent_code.nil?
           options.push({term: { level: @level }})
@@ -30,26 +33,23 @@ module GobiertoBudgets
             { amount: { order: 'desc' } }
           ],
           query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: options
-                }
-              }
-            }
+            bool: {
+              must: options
+            }.merge(must_not_terms.present? ? { must_not: must_not_terms } : {})
           },
           size: 10_000
         }
 
         areas = @type == 'economic' ? EconomicArea : FunctionalArea
 
-        response = SearchEngine.client.search index: SearchEngineConfiguration::BudgetLine.index_forecast, type: @type, body: query
+        response = SearchEngine.client.search index: SearchEngineConfiguration::BudgetLine.index_forecast, body: query
         children_json = response['hits']['hits'].map do |h|
           {
             name: areas.all_items[@kind][h['_source']['code']],
             code: h['_source']['code'],
             budget: h['_source']['amount'],
-            budget_per_inhabitant: h['_source']['amount_per_inhabitant']
+            budget_per_inhabitant: h['_source']['amount_per_inhabitant'],
+            population: @place.population?
           }
         end
 

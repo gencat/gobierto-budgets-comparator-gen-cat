@@ -4,19 +4,33 @@ module GobiertoBudgets
     attr_accessor :id, :place, :associated_entity
 
     def initialize(attributes)
+      @places_collection_key = attributes[:places_collection]&.to_sym || :ine
+
       if (slug_param = attributes[:slug])
         (slug_param = slug_param.split("/").last) if slug_param.include?("/")
 
-        if @place = ::INE::Places::Place.find_by_slug(slug_param)
+        if @place = ine_place? ? ::INE::Places::Place.find_by_slug(slug_param) : places_collection.find { |place| place.slug == slug_param }
           @id = @place.id
         elsif @associated_entity = AssociatedEntity.find_by(slug: slug_param)
           @id = @associated_entity.entity_id
         end
       elsif attributes[:organization_id]
         @id = attributes[:organization_id]
-        @place = ::INE::Places::Place.find(id)
+        @place = ine_place? ? ::INE::Places::Place.find(id) : places_collection.find { |place| place.id == id }
         @associated_entity = AssociatedEntity.find_by(id: id)
       end
+    end
+
+    def ine_place?
+      @ine_place ||= @places_collection_key == :ine
+    end
+
+    def population?
+      ine_place? || place.population?
+    end
+
+    def debt?
+      ine_place? || place.debt?
     end
 
     def name
@@ -33,6 +47,10 @@ module GobiertoBudgets
 
     def parent_place_associated_entities
       city_council? ? [] : AssociatedEntity.by_place(associated_entity_place)
+    end
+
+    def places_collection
+      @places_collection ||= GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.collection(@places_collection_key)
     end
 
     def autonomous_region_id

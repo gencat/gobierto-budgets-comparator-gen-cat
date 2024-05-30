@@ -7,13 +7,13 @@
   <h1><%= image_tag('LogoGobierto.png', width: '180') %> <span><%= t('.local_budgets') %></span></h1>
   <h2><%= t('.subtitle') %></h2>
 
-  <input type="text" class="places_search search_auto" placeholder="<%= t('.search_municipality') %>" autofocus="true">
+  <input type="text" class="places_search search_auto" placeholder="<%= t(".#{places_collection_key}.search_location") %>" autofocus="true">
 
   <p class="example"><%= t('.for_example') %>:
 
     <span class="" id="suggested_location"></span>
 
-  <%= link_to 'Santander', '/places/santander' %>, <%= link_to 'Talaván', "/places/talavan/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}"  %>, <%= link_to 'Órgiva', "/places/orgiva/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}"  %>, <%= link_to 'Zaragoza', "/places/zaragoza/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}"  %>.
+  <%= search_examples[places_collection_key].map { |text, slug| link_to(text, location_path(slug, GobiertoBudgets::SearchEngineConfiguration::Year.last)) }.join(", ").html_safe %>.
   </p>
 
   <div class="home_section">
@@ -27,29 +27,33 @@
   <div class="home_section">
     <h2 class="section_heading"><%= t('.explore_rankings') %></h2>
 
-    <%= form_tag gobierto_budgets_places_ranking_path(GobiertoBudgets::SearchEngineConfiguration::Year.last,'G','functional','amount'), method: 'GET' do %>
+    <% if places_collection_key == :ine %>
+      <%= form_tag locations_ranking_path(GobiertoBudgets::SearchEngineConfiguration::Year.last,'G','functional','amount'), method: 'GET' do %>
+        <%= image_tag('illustrations/analitica.jpg') %>
+        <%= hidden_field_tag 'f[aarr]' %>
+        <div id="explore_prompt">
+          <%= t('.explore_the_ranking_for') %>
+          <div id="home_kind_switcher" class="switcher kind_switcher">
+            <%= link_to "#{t('common.expenses')} <i class='fa fa-angle-down'></i>".html_safe, '#', data: {value: 'G'}, class: 'selected' %>
+            <ul>
+              <li><%= link_to t('common.expenses'), '#', data: {value: 'G'} %></li>
+              <li><%= link_to t('common.incomes'), '#', data: {value: 'I'} %></li>
+            </ul>
+          </div>
+          <%= t('.for_municipalities_of') %>
+          <div id="home_aarr_switcher"  class="switcher aarr_switcher">
+            <%= link_to "#{rankings_select.first.first} <i class='fa fa-angle-down'></i>".html_safe, '#', data: {value: ''}, class: 'selected'  %>
+            <ul>
+              <% rankings_select.each do |ar| %>
+                <li><%= link_to ar[0], '#', data: { value: ar[1] } %></li>
+              <% end %>
+            </ul>
+          </div>
+          <%= submit_tag t('.explore') %>
+        </div>
+      <% end %>
+    <% else %>
       <%= image_tag('illustrations/analitica.jpg') %>
-      <%= hidden_field_tag 'f[aarr]' %>
-      <div id="explore_prompt">
-        <%= t('.explore_the_ranking_for') %>
-        <div id="home_kind_switcher" class="switcher kind_switcher">
-          <%= link_to "#{t('common.expenses')} <i class='fa fa-angle-down'></i>".html_safe, '#', data: {value: 'G'}, class: 'selected' %>
-          <ul>
-            <li><%= link_to t('common.expenses'), '#', data: {value: 'G'} %></li>
-            <li><%= link_to t('common.incomes'), '#', data: {value: 'I'} %></li>
-          </ul>
-        </div>
-        <%= t('.for_municipalities_of') %>
-        <div id="home_aarr_switcher"  class="switcher aarr_switcher">
-          <%= link_to "#{rankings_select.first.first} <i class='fa fa-angle-down'></i>".html_safe, '#', data: {value: ''}, class: 'selected'  %>
-          <ul>
-            <% rankings_select.each do |ar| %>
-              <li><%= link_to ar[0], '#', data: { value: ar[1] } %></li>
-            <% end %>
-          </ul>
-        </div>
-        <%= submit_tag t('.explore') %>
-      </div>
     <% end %>
 
     <p id="ranking_examples"><%= t('.some_examples') %></p>
@@ -57,19 +61,41 @@
     <div class="ranking_cards_carousel">
       <div class="nav left_side"><a href='#' class='prev'>&lt;</a></div>
       <div class="the_content">
-        <% [ "/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/I/economic/amount/344.json",
-           "/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/functional/amount_per_inhabitant/336.json",
-           "/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/functional/amount/342.json",
-           "/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/functional/amount_per_inhabitant/165.json",
-           "/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/functional/amount/162.json",
-           "/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/functional/amount_per_inhabitant/44.json",
-           "/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/I/economic/amount/313.json",
-           "/#{GobiertoBudgets::SearchEngineConfiguration::Year.last}/G/functional/amount_per_inhabitant/171.json" ].each_with_index do |data_url,i| %>
+        <% ranking_examples_args = {
+             ine: [
+               ["I", "economic", "amount", 344],
+               ["G", "functional", "amount_per_inhabitant", 336],
+               ["G", "functional", "amount", 342],
+               ["G", "functional", "amount_per_inhabitant", 165],
+               ["G", "functional", "amount", 162],
+               ["G", "functional", "amount_per_inhabitant", 44],
+               ["I", "economic", "amount", 313],
+               ["G", "functional", "amount_per_inhabitant", 171]
+             ],
+             deputation_eu: [
+               ["I", "economic", "amount", 391],
+               ["G", "functional", "amount_per_inhabitant", 336],
+               ["G", "functional", "amount", 341],
+               ["G", "functional", "amount_per_inhabitant", 136],
+               ["G", "functional", "amount", 231],
+               ["G", "functional", "amount_per_inhabitant", 44],
+               ["I", "economic", "amount", "220-07"],
+               ["G", "functional", "amount_per_inhabitant", 414]
+             ]
+        } %>
 
+      <% ranking_examples_args[places_collection_key].each_with_index do |args, i|
+           widget_api_path = gobierto_budgets_api_data_ranking_path(
+             GobiertoBudgets::SearchEngineConfiguration::Year.last,
+             *args,
+             format: :json,
+             only_municipalities: true,
+             places_collection: places_collection_key
+           ) %>
             <div class="ranking_card clearfix"
                 data-widget-type="ranking_<%= i %>"
                 data-widget-template="#widget-template"
-                data-widget-data-url="/api/data/widget/ranking<%= data_url %>">
+                data-widget-data-url="<%= widget_api_path %>">
             </div>
       <% end %>
 

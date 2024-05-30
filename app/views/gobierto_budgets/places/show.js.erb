@@ -3,7 +3,7 @@ $('#total_expense_budget').text("<%= number_to_currency @expense_lines[@area_nam
 $('#expense_lines').html("<%= j render(partial: 'gobierto_budgets/places/expense_lines', locals: { area_name: @area_name }) %>");
 
 $('#show_expenses_link').replaceWith("<%= j link_to 'Ver desglose de gastos',
-                                                  gobierto_budgets_place_budget_path(current_organization.combined_slug, @year, 'expense', @area_name, nil ),
+                                                  location_budget_path(current_organization.combined_slug, @year, 'expense', @area_name, nil ),
                                                   class: 'list_view_more', id: 'show_expenses_link' %>")
 
 window.expenseTreemap.render($('#expense-treemap').data("<%= @area_name %>-url"));
