@@ -2,12 +2,11 @@
 
 <div class="pre_home">
 
-  <h2><%= t('custom.gobierto_budgets.home.subtitle') %></h2>
+  <h2><%= t('.subtitle') %></h2>
 
-  <input type="text" class="places_search search_auto" placeholder="<%= t('.search_municipality') %>" autofocus="true">
+  <input type="text" class="places_search search_auto" placeholder="<%= t(".#{places_collection_key}.search_location") %>" autofocus="true">
 
   <p class="example"><%= t('.for_example') %>:
-
     <%= link_to 'Barcelona', '/places/barcelona' %>, <%= link_to 'Lleida', '/places/lleida'  %>, <%= link_to 'Girona', '/places/girona'  %>, <%= link_to 'Tarragona', '/places/tarragona'  %>.
   </p>
 
