@@ -1,167 +1,70 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <% set_meta_tags twitter: { :site => Settings.twitter_account} %>
-  <%= display_meta_tags site: t('.site_title'), reverse: true %>
-
   <%= stylesheet_link_tag    'gobierto_budgets/application', media: 'all', 'data-turbolinks-track' => true %>
   <% if action_name == 'map' %>
     <%= javascript_include_tag 'gobierto_budgets/application_maps', 'data-turbolinks-track' => true %>
   <% else %>
     <%= javascript_include_tag 'gobierto_budgets/application', 'data-turbolinks-track' => true %>
   <% end %>
+
   <%= csrf_meta_tags %>
 
-  <%= yield :header %>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="google-site-verification" content="ecNoEaligHFBWMfXXqbQAQYu7_XlW2vZtDuvom7c5DA" />
 
-  <link rel="apple-touch-icon" sizes="57x57" href="<%= asset_path('favicons/apple-touch-icon-57x57.png') %>">
-  <link rel="apple-touch-icon" sizes="60x60" href="<%= asset_path('favicons/apple-touch-icon-60x60.png') %>">
-  <link rel="apple-touch-icon" sizes="72x72" href="<%= asset_path('favicons/apple-touch-icon-72x72.png') %>">
-  <link rel="apple-touch-icon" sizes="76x76" href="<%= asset_path('favicons/apple-touch-icon-76x76.png') %>">
-  <link rel="apple-touch-icon" sizes="114x114" href="<%= asset_path('favicons/apple-touch-icon-114x114.png') %>">
-  <link rel="apple-touch-icon" sizes="120x120" href="<%= asset_path('favicons/apple-touch-icon-120x120.png') %>">
-  <link rel="apple-touch-icon" sizes="144x144" href="<%= asset_path('favicons/apple-touch-icon-144x144.png') %>">
-  <link rel="apple-touch-icon" sizes="152x152" href="<%= asset_path('favicons/apple-touch-icon-152x152.png') %>">
-  <link rel="apple-touch-icon" sizes="180x180" href="<%= asset_path('favicons/apple-touch-icon-180x180.png') %>">
-  <link rel="icon" type="image/png" href="<%= asset_path('favicons/favicon-32x32.png') %>" sizes="32x32">
-  <link rel="icon" type="image/png" href="<%= asset_path('favicons/favicon-194x194.png') %>" sizes="194x194">
-  <link rel="icon" type="image/png" href="<%= asset_path('favicons/favicon-96x96.png') %>" sizes="96x96">
-  <link rel="icon" type="image/png" href="<%= asset_path('favicons/android-chrome-192x192.png') %>" sizes="192x192">
-  <link rel="icon" type="image/png" href="<%= asset_path('favicons/favicon-16x16.png') %>" sizes="16x16">
   <link rel="manifest" href="<%= asset_path('favicons/manifest.json') %>">
   <link rel="mask-icon" href="<%= asset_path('favicons/safari-pinned-tab.svg') %>" color="#5bbad5">
+
   <meta name="msapplication-TileColor" content="#da532c">
   <meta name="msapplication-TileImage" content="<%= asset_path('favicons/mstile-144x144.png') %>">
   <meta name="theme-color" content="#ffffff">
 
-  <%= render 'layouts/analytics_header' %>
+  <%= yield(:header) %>
 
   <script type="text/javascript">
     I18n.defaultLocale = "<%= I18n.default_locale %>";
     I18n.locale = "<%= I18n.locale %>";
-    window.placesFile = "<%= Settings.places_file || "/places.json" %>";
-    window.placesType = "<%= GobiertoBudgetsData::GobiertoBudgets::PlaceDecorator.place_type(places_collection_key) %>";
-    window.placesPath = "<%= location_root_path %>";
-    window.entitiesPath = <%== places_collections_root_paths.to_json %>;
-    window.combinePlacesCollectionsInSearches = <%= Settings.combine_places_collections_in_searches || false %>;
   </script>
 
-  <%= render 'layouts/gencat_analytics_head' %>
+
+
+  <%= render "layouts/analytics_header" %>
+  <%= render "custom/layouts/custom_head_content_#{I18n.locale}" %>
+
+  <style>
+    <%= render partial: "custom/gobierto" %>  /* CSS Resets */
+  </style>
+
 </head>
 
 <body <%= data_attributes %>>
 
 <%= render 'layouts/gencat_analytics_noscript' %>
 
-<% unless logged_in? %>
-  <div class="top-claim">
-    <p>
-      <%# link_to t('.download_guide'), new_user_path(pro: true) %>
-      <%= link_to t('.checkout_gobierto_blog'), 'https://gobierto.es/blog' %>
-      <span class="f_right"><%= link_to 'English', gobierto_budgets_en_path %></span>
-    </p>
-  </div>
-<% end %>
+<!-- Overridable by Gencat -->
+<%= render "custom/layouts/header_#{I18n.locale}" %>
+<!-- ./Overridable by Gencat -->
+
+<%= render "custom/layouts/breadcrumb" %>
 
 <div class="container">
 
-  <header class="global">
-
-    <div class="logo">
-      <%= link_to_unless_current image_tag('LogoGobiertoPresupuestos.png', width: '158'), location_root_path %>
-    </div>
-
-    <div class="resp ham">
-      <%= link_to '<i class="fa fa-bars"></i>'.html_safe, '' %>
-    </div>
-
-    <div class="desktop">
-
-      <input type="text" class="places_search search_auto" value="" placeholder="<%= t(".#{places_collection_key}.search_location") %>" >
-
-      <menu>
-        <ul>
-          <%# TODO REVIEW THE PATHS TO CONSIDER DEPUTATIONS %>
-          <li><%= link_to t('.municipalities'), place_root_path, class: class_if('selected', current_page?(root_path) || current_page?(place_root_path))  %></li>
-          <li><%= link_to t('.deputations'), deputation_root_path, class: class_if('selected', current_page?(deputation_root_path))  %></li>
-          <li><%= link_to t('.compare'), locations_compare_path , class: class_if('selected', current_page?(gobierto_budgets_compare_path) || action_name == 'compare')%></li>
-          <li><%= link_to t('.rankings'), locations_global_ranking_path , class: class_if('selected', current_page?(gobierto_budgets_ranking_path) || action_name == 'ranking' || action_name == "deputations_ranking")%></li>
-          <li><%= link_to t('.services'), gobierto_budgets_about_path(anchor: 'municipalities') , class: class_if('selected', current_page?(gobierto_budgets_about_path))%></li>
-          <li><%= link_to t('.maps'), gobierto_budgets_map_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), class: class_if('selected', current_page?(gobierto_budgets_map_path(Date.today.year))), data: {no_turbolink: true} %></li>
-        </ul>
-      </menu>
-
-      <% if logged_in? %>
-      <div class="links_list personal_links">
-        <p><%= t('.hi') %> <strong><%= current_user.full_name %></strong></p>
-        <% if current_user.place_id %>
-          <p><%= t(".ine.your_location") %>: <%= link_to INE::Places::Place.find(current_user.place_id).name, gobierto_budgets_place_path(INE::Places::Place.find(current_user.place_id), year: GobiertoBudgets::SearchEngineConfiguration::Year.last) %></p>
-          <% if (location = current_user.location_by_collection(:deputation_eu)).present? %>
-            <p><%= t(".deputation_eu.your_location") %>: <%= link_to location.name, gobierto_budgets_deputation_path(location.slug, year: GobiertoBudgets::SearchEngineConfiguration::Year.last) %></p>
-          <% end %>
-        <% end %>
-        <p><%= link_to t('.edit_your_personal_data'), edit_user_path %></p>
-        <p><%= link_to t('.close_session'), logout_path, method: :delete, class: 'logout' %></p>
-      </div>
-      <% end %>
-
-      <div class="links_list">
-        <h3><%= t('.recent_locations') %></h3>
-        <ul id="history">
-        </ul>
-      </div>
-
-      <div class="links_list">
-        <h3><%= t('.recent_comparisons') %></h3>
-        <ul id="comparisons-history">
-        </ul>
-      </div>
-
-    </div>
-
-  </header>
-
   <div class="main_content clearfix">
+    <%= render "custom/layouts/navigation" %>
+
     <%= yield %>
   </div>
 
 </div>
 
-<footer>
-  <div class="gobierto_ref">
-    <p><%= link_to image_tag('GobiertoFooter@2x.png', size: '401x18'), 'https://' + Settings.gobierto_host, target: 'blank' %></p>
-    <% if gobierto_contratos_place_url.present? %>
-      <p>Consulta los <%= link_to "contratos del Ayuntamiento de #{current_organization.place.name}", gobierto_contratos_place_url, target: "blank" %></p>
-    <% end %>
-    <p><a href="https://gobierto.es">gobierto.es</a>: experiencia ciudadana, buen gobierno, y contratación.</p>
-  </div>
 
-  <menu>
-    <ul>
-      <li><%= link_to t('.about'), gobierto_budgets_about_path %></li>
-      <li><%= link_to t('.faq'), gobierto_budgets_faq_path %></li>
-      <li><%= link_to t('.methodology_and_sources'), gobierto_budgets_about_path(anchor: 'method') %></li>
-      <li><%= link_to t('.contact'), gobierto_budgets_about_path(anchor: 'contact') %></li>
-    </ul>
-
-    <ul class="legal">
-      <li><%= link_to t('.legal_warning'), gobierto_budgets_legal_legal_path %></li>
-      <li><%= link_to t('.privacy'), gobierto_budgets_legal_privacy_path %></li>
-      <li><%= link_to t('.cookies'), gobierto_budgets_legal_cookies_path %></li>
-    </ul>
-  </menu>
-
-  <a href="https://mixpanel.com/f/partner"><img src="//cdn.mxpnl.com/site_media/images/partner/badge_light.png" alt="Mobile Analytics" /></a>
-
-</footer>
-
+<!-- Overridable by Gencat -->
+<%= render "custom/layouts/footer_#{I18n.locale}" %>
+<!-- ./Overridable by Gencat -->
 
 <script type="text/javascript">
-
-    'use strict';
-    <%= yield :javascript %>
-
+  'use strict';
+  <%= yield :javascript %>
 </script>
 
 </body>
