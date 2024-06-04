@@ -1,0 +1,38 @@
+---
+eu:
+  layouts:
+    gobierto_budgets_application:
+      about: Buruz
+      checkout_gobierto_blog: Kontsultatu Jaurlaritzaren bloga
+      close_session: Saioa itxi
+      compare_deputation: Konparatu diputazioak
+      compare_ine: Konparatu udalerriak
+      contact: Harremanetan jarri
+      cookies: Cookieen politika
+      deputation_eu:
+        search_location: Diputazioa bilatzen...
+        your_location: Zure diputazioa
+      deputations: Diputazioak
+      download_guide: Deskargatu Udalentzako Komunikazio Gida
+      edit_your_personal_data: Editatu datu pertsonalak
+      faq: Maiz galderak
+      glossary: Glosarioa
+      hi: Kaixo
+      ine:
+        search_location: Bilatu erakunde publikoa...
+        your_location: Zure udalerria
+      legal_warning: Lege abisua
+      local_budgets: Aurrekontu publikoak
+      maps: Mapak
+      methodology_and_sources: Metodologia eta iturriak
+      municipalities: Udalerriak
+      participate: Parte hartzen du
+      participatory_budgets: Partaidetza-aurrekontuak
+      privacy: Pribatutasun-politika
+      rankings: Sailkapenak
+      recent_comparisons: Azken konparaketak
+      recent_locations: Azken lekuak
+      services: Zerbitzuak
+      site_title: Jaurlaritzaren Udal Aurrekontuak
+      understanding_budgets: Aurrekontuak ulertzea
+      webs: Aurrekontuen web atariak

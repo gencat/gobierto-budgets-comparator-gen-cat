@@ -1,0 +1,15 @@
+---
+eu:
+  controllers:
+    sessions:
+      create:
+        alert: Kredentzialak baliogabeak
+    sessions_management:
+      admin_user:
+        alert: Orri hau bisitatzeko administratzailea izan behar duzu
+    users:
+      create:
+        alert: 'Arazo bat izan da zure erabiltzailea sortzeko: %{messages}'
+      update:
+        alert: Arazo bat izan da zure datuak eguneratzean
+        notice: Ona! Datuak behar bezala eguneratu dira

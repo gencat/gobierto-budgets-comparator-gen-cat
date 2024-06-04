@@ -1,0 +1,102 @@
+---
+eu:
+  actions:
+    confirm: Ziur zaude?
+    create: Sortu
+    delete: Ezabatu
+    edit: Editatu
+    see_page: Ikus orrialdea
+    send: Bidali
+    update: Eguneratu
+  admin:
+    registered_users:
+      one: Erregistratutako erabiltzaile 1
+      other: Erregistratutako %{count} erabiltzaile
+    user_email: Posta elektronikoa
+    user_last_activity: Azken jarduera
+    user_name: Izena
+    user_signed_up_date: Erregistratua
+    users_edit: Editatu erabiltzailearen informazioa
+    users_impersonate: Hasi saioa erabiltzaile gisa
+    users_restore: 'Berrezarri erabiltzailea: saioa hasi eta berriro argitaratu ahal
+      izango duzu; haren jarduera berriro publikoa izango da'
+    users_soft_delete: 'Ezabatu erabiltzailea: ezin izango duzu saioa hasi edo edukia
+      argitaratu; Zure jarduera desagertuko da (administratzaileentzat ikusgai egongo
+      da oraindik)'
+  common:
+    and: eta
+    economic: ekonomikoa
+    expense: gastatu
+    expenses: fakturak
+    functional: funtzionala
+    income: errenta
+    incomes: errenta
+    per_inhabitant: Biztanle bakoitzeko
+    totals: guztirakoak
+  helpers:
+    budget_line_description: 'Izenburu honek %{kind_what} barne hartzen du %{description}-n.
+      Joko honi buruz gehiago jakin nahi baduzu, gurasoen jokoa kontsulta dezakezu:
+      %{link}'
+    in: In
+  layout:
+    add: Gehitu
+    admin: Administrazioa
+    autocomplete_no_results: Sentitzen dugu, baina ez dago emaitzarik.
+    configuration: Ezarpena
+    council_of: "%{name} Udaletxea"
+    cta_login: Badaukazu dagoeneko konturik? Saioa hasi
+    cta_signup: Berria zara? Izena eman
+    edit: Editatu
+    gobierto: Administrazio Publikoen Gardentasuna, Gobernu Irekia eta Partaidetzarako
+      web plataforma
+    login: Saioa hasi
+    login_or_signup: Hasi saioa edo erregistratu
+    logout: Deskonektatu
+    news: Berriak
+    pages: orrialdeak
+    remove: Ezabatu
+    search: Bilatu
+    sections: Atalak
+    signup: Izena eman
+    transparency_and_participation: Gardentasuna eta Partaidetza
+    users: Erabiltzaileak
+    your_account: Zure kontua
+    your_email: Zure emaila
+    your_notifications: Zure jakinarazpenak
+    your_notifications_temp: Atal honetan zure jakinarazpen pertsonalak egiaztatu
+      ditzakezu, webgune honetan gertatzen den guztiaren jarraipena erraza izan dezazun
+    your_password: Zure pasahitza
+  users:
+    accept: onartzen dut
+    complete_signup: Osatu zure erregistroa
+    confirm_filling_fields: Berretsi zure erregistroa eremu hauek betez
+    current_password: Oraingo pasahitza
+    document_tip: Zure identitatea geroago egiaztatzeko beharrezkoa da. Ez da publikoki
+      agertuko
+    email_notification_message: E-mail bat bidali dizugu izena emateko esteka batekin.
+    email_notification_successful: Urrats bat gehiago
+    email_tip: Hau da egiaztatutako helbide elektronikoa. Behar izanez gero, geroago
+      alda dezakezu.
+    password_tip: Pasahitza eguneratu nahi baduzu bakarrik
+    privacy: Pribatutasun-politika
+    signup_successful: Primeran, dagoeneko erregistratuta zaude.
+    terms_and_conditions: Erabilera baldintzak
+    want_to_update_password: Pasahitza aldatu nahi duzu?
+    welcome_message_1: Prest zaude %{name} Udaleko Gardentasun eta Partaidetza orrialdeak
+      eskaintzen dituen tresna desberdinak parte hartzeko eta erabiltzeko
+    welcome_message_2: "<strong>Parte hartu</strong>: Udalak egiten dizkizuten kontsultetan,
+      bidali ideiak edo txostenak."
+    welcome_message_3: "<strong>Laguntza eskaerak</strong>: bat egin beste auzokideek
+      hasitako eskariekin."
+    welcome_message_4: "<strong>Jarraitu</strong> interesatzen zaizun informazioa.
+      Orrialde bakoitzean ikono bat duzu jarraipena egiteko. Informazio hau eguneratzen
+      denean, automatikoki mezu elektroniko bat jasoko duzu."
+    your_account: Zure kontua
+    your_account_description: Kudeatu zure datu pertsonalak
+  views:
+    pagination:
+      first: "&laquo; Lehenengoa"
+      last: Azken &raquo;
+      next: Hurrengoa &rsaquo;
+      previous: "&lsaquo; Ohia"
+      truncate: "&hellip;"
