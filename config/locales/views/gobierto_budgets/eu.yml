@@ -1,0 +1,649 @@
+---
+eu:
+  gobierto_budgets:
+    api:
+      data:
+        G_deviation: Gastuen desbideratzea %{year}-n
+        I_deviation: Diru-sarreren desbideratzea %{year}-n
+        budget_execution:
+          expense_planned_vs_executed: Aurreikusitako gastua vs exekutatua
+          income_planned_vs_executed: Aurreikusitako eta gauzatutako diru-sarrerak
+        budget_per_inhabitant:
+          expenses_per_inhabitant: Biztanle bakoitzeko gastua
+          income_per_inhabitant: Biztanle bakoitzeko diru-sarrerak
+        budget_percentage_over_total:
+          percentage_over_total: Guztizkoaren ehunekoa
+        budget_percentage_previous_year:
+          percentage_previous_year: Aurreko urtearekiko ehunekoa.
+        budgets_execution_header: "%{kind} desbideratzea %{year}-n"
+        category_per_inhabitant: "%{category} biztanleko"
+        debt:
+          debt: Zor ordaintzea
+        expense_down: aurreikusitakoa baino %{percentage}% (%{diff}) gutxiago gastatu
+          da
+        expense_per_inhabitant: Biztanle bakoitzeko gastua
+        expense_up: Aurreikusitakoa baino %{percentage}% (%{diff}) gehiago gastatu
+          du
+        income_down: aurreikusitakoa baino %{percentage}% (%{diff}) gutxiago sartu
+          da
+        income_up: aurreikusitakoa baino %{percentage}% (%{diff}) gehiago sartu da
+        population:
+          population: Biztanleria
+        total_budget:
+          total_expenses: Kostu osoa
+        total_budget_execution:
+          planned_vs_executed: Exekuzioa vs Aurrekontua
+        total_budget_per_inhabitant:
+          expenses_per_inhabitant: Biztanle bakoitzeko gastua
+        total_expense: Kostu osoa
+      global_data:
+        budget_execution:
+          expense_planned_vs_executed: Aurreikusitako gastua vs exekutatua
+          income_planned_vs_executed: Aurreikusitako eta gauzatutako diru-sarrerak
+        budget_per_inhabitant:
+          expenses_per_inhabitant: Biztanle bakoitzeko gastua
+          income_per_inhabitant: Biztanle bakoitzeko diru-sarrerak
+        budget_percentage_over_total:
+          percentage_over_total: Guztizkoaren ehunekoa
+        budgets_execution_header: "%{kind} desbideratzea %{year}-n"
+        category_per_inhabitant: "%{category} biztanleko"
+        debt:
+          debt: Zor ordaintzea
+        deviation: "%{kind} desbideratzea %{year}-n"
+        expense_down: aurreikusitakoa baino %{percentage}% (%{diff}) gutxiago gastatu
+          da
+        expense_per_inhabitant: Biztanle bakoitzeko gastua
+        expense_up: Aurreikusitakoa baino %{percentage}% (%{diff}) gehiago gastatu
+          du
+        income_down: aurreikusitakoa baino %{percentage}% (%{diff}) gutxiago sartu
+          da
+        income_up: aurreikusitakoa baino %{percentage}% (%{diff}) gehiago sartu da
+        population:
+          population: Biztanleria
+        total_budget:
+          total_expenses: Kostu osoa
+        total_budget_execution:
+          planned_vs_executed: Exekuzioa vs Aurrekontua
+        total_budget_per_inhabitant:
+          expenses_per_inhabitant: Biztanle bakoitzeko gastua
+        total_expense: Kostu osoa
+    budget_lines:
+      show:
+        about: Joko honi buruz
+        ask_for_it: Eskatu zure udalari informazio hori sartzeko.
+        coming_soon: Laster
+        contracts: Elementu honekin lotutako kontratuak
+        council_comment: Udalaren iruzkina
+        description: Deskribapena
+        no_information: Oraindik ez dago informaziorik.
+        qa: Galderak eta erantzunak
+        search: Bilatu beste %{kind} jokoak
+        share_text: Udal %{kind} %{place} %{budget_line} %{year}-n
+        title: "%{kind} %{budget_line}-n %{place}-n %{year}-n"
+        total_budget: Elementu honen %{kind} guztira aurten
+        total_budget_per_inhabitant: Aurtengo elementu honen %{kind} guztira biztanleko
+    featured_budget_lines:
+      show:
+        per_inhabitant: Biztanle bakoitzeko
+        percentage_over_total: Guztizkoaren ehunekoa
+        question: Zenbat gastatzen du %{name}-k...
+        show_me_another: beste bat erakutsi
+        title: Jolas aipagarriak
+    pages:
+      about:
+      - title: Zertarako da webgune hau?
+        paragraphs:
+        - Webgune honek tresna bisuala eta intuitiboa izan nahi du jendeak horrela
+          aurrekontu publikoak modu erraz eta ulergarrian kontsulta ditzake euskal
+          erakunde publiko nagusienak, hizkuntza bat erabiliz eta grafiko sinpleak,
+          irakurtzen ari garena argi ulertzeko aukera ematen digutenak eta ikustea.
+        - Webgune honetan lagungarri izango zaizkizun tresna desberdinak aurki ditzakezu.
+          apur bat hobeto ulertzen zer diren aurrekontu publikoak, nondik datozen
+          etortzen dira eta erakunde publikoek kudeatzen duten dirua nora doa. Horrez
+          gain, leku bakarrean aurki ditzakezu hainbat aurrekontu erakundeak, kontsultatu
+          eta elkarrekin ulertzeko aukera emango dizuna euskal erakunde publiko nagusien
+          aurrekontuak.
+        - Erabilera doakoa da eta ez duzu ezer instalatu behar, jarraitu zure intuizioa.
+      - title: Zergatik egin dugu proiektu hau?
+        paragraphs:
+        - Administrazio publiko baten aurrekontuak tresna naturala dira baliabide
+          publikoak planifikatzen eta kudeatzen laguntzen diena, ahalbidetzen die
+          aurkeztu diru publikoarekin zer egiteko asmoa duzun eta zertarako konpromisoa
+          hartzen duzun eta, urte amaieran, zer egin den eta zer kontu eman Ez. Beraz,
+          plangintza eta kudeaketa tresna oso garrantzitsua da. administrazioentzat
+          (funtzionatzeko aukera ematen duelako), baina baita ere Herritarrentzat
+          da (kontrola eta parte hartzeko aukera ematen duelako)
+        - Baina herritarren kritika ohikoenetako bat zein zaila da aurrekontu publiko
+          horiek zer diren eta nola kudeatzen diren ulertzeko, batzuetan ezagutza
+          faltagatik eta beste batzuetan, informazioa dugulako eskaintzen da konplexua
+          eta oso hitz teknikoekin, eta horrek egiten du Bere konpresioa zeregin korapilatsua
+          da, gehienentzat zaila dena. pertsonena.
+        - Beharrezkoa zen, beraz, horretarako balioko zuen tresna bat sortzea erakutsi
+          gardentasunez, hizkuntza eta bisualizazioa erabiliz herritarrei horiek ulertu
+          eta interpretatzeko aukera ematen dien sinplea eta, Hori dela eta, kudeaketa
+          publikoa ere behar bezala baloratu dezake euskal erakunde publikoek egiten
+          dute, halaber, lortuz pertsonak erantzuleak dira eta politika publikoetan
+          gehiago parte hartzen dute aktiboki.
+      - title: Zer da OGP EUSKADI?
+        paragraphs:
+        - Open Government Partnership (OGP) nazioarteko erakunde bat da gobernuak
+          aurrera eramatea bultzatzea helburu duen erreferentzia zerbitzatzeko modua
+          eraldatzen duten proiektuak eta tresnak aurrera beren herritarrak eta gobernu
+          irekiago eta arduratsu bihurtzea eta herritarrekiko sentibera.
+        - Euskadiko Erakunde Publiko nagusiek konpromiso bera dute eta horregatik
+          2018an sarean sartu ginen <a href="https://www.ogp.euskadi.eus/inicio/"
+          sortuz. target="_blank">OGP Euskadi</a> eta proiektu komunak sustatuz, lanean
+          elkarrekin, gure lurraldeko erronka konplexuei aurre egiteko.
+        - Harrezkero ezberdinen bidez lan egin dugu eta lanean jarraitzen dugu arlo
+          ezberdinetako proiektu komunak, hala nola kontuak, herritarren ahalduntzea,
+          etika publikoa, datu irekiak, parte hartzea herritartasuna, inklusioa, krisiaren
+          erantzuna edo gardentasuna. Eta barruan Lan bateratu honen baitan jaiotzen
+          da aurkezten dizuegun proiektu hau.
+      compare_big:
+        check_some_examples: Edo saiatu adibide batzuk
+        compare: Konparatu
+        deputation_eu:
+          compare: Konparatu diputazioak
+          description: Orrialde honen goialdean dagoen bilatzailea erabiltzeaz gain,
+            konparazio zerrendara diputazio bat gehi dezakezu dagokion diputazioaren
+            orrialdetik. Erabili 'Konparatu' botoia konparazioa gehitzeko eta sartzeko.
+            Konparazio orritik beste udal batzuk ere gehi ditzakezu edo konparaziotik
+            behar dituzunak kendu.
+          search: Bilatu %{n} diputazioa
+          select: 'Hautatu hainbat udal aurrekontuak alderatzeko:'
+        how_it_works: Nola dabil?
+        ine:
+          compare: Konparatu entitateak
+          description: Orrialde honen goialdean dagoen bilatzailea erabiltzeaz gain,
+            konparazio-zerrendan udalerri bat gehi dezakezu dagokion udalerriko orrialdetik.
+            Erabili 'Konparatu' botoia konparazioa gehitzeko eta sartzeko. Konparazio
+            orritik beste udalerri batzuk ere gehi ditzakezu edo konparaziotik behar
+            dituzunak ezabatu.
+          search: Bilatu %{n} entitatea
+          select: 'Hautatu hainbat udal aurrekontuak alderatzeko:'
+      glossary:
+        ACTIVO FINANCIERO: Balio fisikorik gabeko dokumentu edo notazio bat da, zeinaren
+          erosleak etorkizuneko diru-sarrerak sortuko dituela espero baitu.
+        APORTACIONES A OTRAS ADMINISTRACIONES: beste administrazio publiko batzuei
+          aldian-aldian egiten zaizkien ondasunen eskualdaketak jasotzen dituen aurrekontuaren
+          atala, haiek beren eskumenak erabili ahal izateko.
+        APORTACIONES DE OTRAS ADMINISTRACIONES: beste administrazio publikoetatik
+          aldian-aldian erakunde batek bere eskumenak gauzatu ahal izateko egiten
+          diren ondasunen eskualdaketak jasotzen dituen aurrekontuaren atala.
+        CAPITAL: Erakunde publiko batek onurak edo irabaziak sortzeko dituen baliabide
+          fisiko eta finantzario guztiak dira.
+        CLASIFICACIÓN ECONÓMICA: 'Aurrekontu-partida guztien sailkapena da, izaera
+          ekonomikoaren edo gastu-motaren arabera: pertsonal-gastuak, ondasun eta
+          zerbitzuetako gastu arruntak, finantza-gastuak, inbertsio errealak, etab.'
+        CLASIFICACIÓN ORGÁNICA: 'Aurrekontu-partida guztien sailkapena da, horiek
+          kudeatzen dituen administrazio-unitatearen arabera: Ministerioak, Sailak,
+          Zuzendaritza Nagusiak, etab.'
+        CLASIFICACIÓN POR PROGRAMA: 'Aurrekontu-partida guztien sailkapena da beren
+          jarduera-eremuaren edo harekin lotutako politikaren arabera: oinarrizko
+          zerbitzu publikoak, etxebizitza eta hirigintza, ingurumena, zeharkako zergak,
+          etab.'
+        CONTABILIDAD: Eragiketa ekonomiko guztiak kontrolatu eta erregistratzeaz arduratzen
+          da, erakunde publikoa nondik atera den, non gastatu den eta zenbat geratzen
+          den jakiteko, hau da, entitatearen kontuak eramatea.
+        CUENTA GENERAL: Erakunde publiko batek bere aurrekontuen arabera urte osoko
+          diru-sarreren eta gastuen azken balantzea zehatz-mehatz aurkezten duen dokumentuak
+          dira, hau da, zertan gastatu duen eta aurreikusitako diru-sarrerak nondik
+          datozen.
+        CUOTA A CARGO DEL EMPLEADOR: Erakunde publikoak Gizarte Segurantzari ordaindu
+          behar dion kuota da langile bakoitzarengatik.
+        DEUDA PÚBLICA: Administrazio publiko batek bere jarduera egin ahal izateko
+          baliabideak behar dituenean eta jasotzen dituen diru-sarrerak horiek ordaintzeko
+          nahikoak ez direnean, finantza-entitateei dirua eskatzen die, zor publikoa
+          sortuz. Datozen urteetan ordaindu beharko duzun dirua adierazten du, gehienetan
+          interesekin (mailegu bat balitz bezala).
+        EJECUCIÓN PRESUPUESTARIA: Urte hasieran aurreikusitako diru-sarreren eta gastuen
+          betetze-mailari egiten dio erreferentzia. Exekutaturiko aurrekontua ere
+          deitzen zaio.
+        EXACCIÓN PARAFISCAL: Erakunde publikoen diru-sarrera mota bat da, aurrekontuetan
+          aurreikusita ez dagoena eta zerga edo tasen bilketatik datorrena.
+        FUNCIONARIO: Soldata baten truke Administrazio Publikoaren zerbitzura lan
+          egiten duen pertsona da, eta erakundearekin duen lotura administrazio-zuzenbidearen
+          araberakoa da.
+        GASTO: Erakunde publikoak ondasun edo zerbitzu bat eskuratzeko edo besterendu
+          ahal izateko egin behar duen ordainketa da.
+        GASTOS CORRIENTES EN BIENES Y SERVICIOS: Erakunde publikoek beren jarduera
+          garatzeko beharrezkoak diren ondasun eta zerbitzuen gastuak dira.
+        GASTOS DE PERSONAL: Erakunde publiko bateko langileen soldatak, kotizazioak
+          eta prestazioak ordaintzeko erabiltzen den dirua da. Hau da aurrekontuetan
+          “1. kapitulua” deitzen dena.
+        GASTOS FINANCIEROS: Erakunde publikoei dirua mailegatu dieten bankuei eta
+          finantza entitateei interesak ordaintzeagatiko gastuak dira.
+        IMPUESTO: 'Jendeak erakunde publikoei ordaindu behar dien diru-kopurua da,
+          haren ordainketagatik zuzeneko onurarik eman edo ziurtatu gabe. Pertsonek
+          emandako diru hori zerbitzu publikoak funtzionatzeko erabiltzen da (adibidez:
+          argiteria publikoa edo kirol instalazio publikoak).'
+        IMPUESTO DE SOCIEDADES: enpresek lortutako etekinei aplikatzen zaien zuzeneko
+          zerga.
+        IMPUESTO DIRECTO: Pertsonen diru-sarreretan edo ondasunetan zuzenean eragiten
+          duena da. Zerga mota honetan argi eta garbi identifikatzen da nork ordaindu
+          behar duen eta zenbat. Pertsona guztiek ez dute berdin ordaintzen, pertsona
+          bakoitzaren gaitasun ekonomikoa kontuan hartzen delako. Adibidez, pertsona
+          fisikoen errentaren gaineko zerga.
+        IMPUESTO ESPECIAL: ondasun edo zerbitzu jakin batzuen kontsumoari (alkohola
+          edo gasolioa, esaterako) aplikatzen zaion zeharkako zerga. Pertsona guztiek
+          kopuru bera ordaintzen dute, errenta maila edo erosteko ahalmena edozein
+          dela ere.
+        IMPUESTO INDIRECTO: Pertsona batek zerbait kontsumitzeagatik edo erabiltzeagatik
+          ordaindu behar duena da. Guztioi berdin eragiten digun zerga da, hau da,
+          zenbateko bera ordaintzen dugu gure errenta maila edo erosteko ahalmena
+          edozein dela ere. Adibidez, erosten ditugun produktuen BEZa.
+        IMPUESTO SOBRE DONACIONES Y SUCESIONES: Zuzeneko zerga da, jaraunspenen ondorioz,
+          edo bizidunen artean egindako dohaintzen edo beste eskualdaketen ondorioz
+          pertsonen arteko ondasunen eskualdaketan aplikatzen dena.
+        IMPUESTO SOBRE EL PATRIMONIO: Ondasun pertsonalari banaka aplikatzen zaion
+          zerga zuzena eta pertsonala da, eta zure ondasun guztien balioaren arabera
+          kalkulatzen da.
+        IMPUESTO SOBRE EL VALOR AÑADIDO (IVA): Zeharkako zerga bat da, kontsumoa zergapetzen
+          duena. Erosten dugun elementu bakoitzaren edo jasotzen dugun zerbitzu bakoitzaren
+          ehuneko bat biltzen du.
+        IMPUESTO SOBRE LA GANANCIA DE CAPITAL: Zuzeneko zerga da, ondasun bat erosketagatik
+          ordaindutakoa baino prezio altuago batean salduz irabazia lortzen denean
+          ordaintzen dena.
+        IMPUESTO SOBRE LA RENTA DE LAS PERSONAS FÍSICAS (IRPF): 'Pertsona bakoitzak
+          urtebeteko irabaziei aplikatzen zaien zuzeneko zerga da. Jasotako urteko
+          diru-sarrerak kalkulatzeko, laneko errentez gain (soldata, etab.), beste
+          ondasun-iturri batzuk hartzen dira kontuan: enpresetako akzio eta partaidetzak,
+          etxebizitzen alokairuak, jarduera ekonomikoen diru-sarrerak, etab.'
+        INDEMNIZACIÓN POR DAÑOS Y PERJUICIOS: Erakunde publikoak ordaindu behar dituen
+          balizko kalte-ordainetarako aurreikusitako gastuak dira.
+        INFORME ECONÓMICO: Justifikazio gisa aurrekontuarekin batera doan txostena
+          da, hau da, diru-sarrera eta gastu horiek zergatik aurreikusi diren azaltzen
+          du eta ez bestelakoak.
+        INGRESO: 'Erakunde publikoak bere ohiko formen bidez urtean zehar biltzen
+          duen dirua da. Bilketa modu arruntak hauek dira: zergak, tasak, eskualdaketak,
+          ondasunak, inbertsioak eta finantza-eragiketak.'
+        INVERSIÓN: Baliabideak (aktiboak, kapitalak, etab.) etorkizuneko irabaziak
+          edo diru-sarrerak lortzeko jarduteko ekintza da.
+        INVERSIÓN REAL: Etorkizuneko etekinak sortzeko aktibo fisikoak eskuratzera
+          edo hobetzera bideratzen den inbertsio hori da.
+        MATERIALES Y SUMINISTROS: Aurrekontuen atal honetan zerbitzu publikoak emateko
+          beharrezkoak diren material eta hornigaiak eskuratzearekin lotutako gastu
+          arruntak sartzen dira. Adibidez, bulegoko materiala edo elektrizitate hornidura.
+        OPERACION FINANCIERA: Bi subjektu ekonomiko edo gehiagok kapitala trukatzen
+          dutena da.
+        PARTIDA PRESUPUESTARIA: Aurrekontua aurrekontuko partida ezberdinek osatzen
+          dute. Aurrekontu-partida bakoitzak mota bereko gastuak edo diru-sarrerak
+          barne hartzen ditu (adibidez, ekipo informatikoen erosketa edo mendeko pertsonentzako
+          laguntza-programa).
+        PASIVO FINANCIERO: Edozein motatako entitaterekin eskuratutako zorrak dira,
+          izan banku, kreditu-erakunde edo enpresa batekin, eta epe labur, ertain
+          edo luzean ordaindu beharko direnak (hipoteka, adibidez).
+        PATRIMONIO: Erakunde publikoak dituen ondasun, eskubide, zama eta betebeharren
+          multzoa da.
+        PERSONAL EVENTUAL: norbaiten borondatez eginkizun berezi edo aholkulari batzuetarako
+          izendatu den langile publikoa da. Ez da funtzionarioa, ez da finkoa eta
+          izendatu duen agintaritzak edozein unetan kendu dezake kargutik.
+        PRESTACIÓN: Gizarte Segurantzak edo beste entitateek langileei ematen dieten
+          laguntza, dirutan edo dirutan, haien beharrak asetzeko. Prestazio horiek
+          ordaintzeko behar den dirua enpresaburuaren ekarpenetik dator.
+        PRESUPUESTO PÚBLICO: Erakunde publikoek beren baliabideak planifikatzeko eta
+          kudeatzeko erabiltzen duten tresna da. Urte oso baterako egin beharreko
+          diru-sarreren eta gastuen aurreikuspena jasotzen da eta zein motatakoak
+          diren adierazten da. Aurrekontuak urte hasieran onartzen dira eta nahitaezkoak
+          dira.
+        REPARACIÓN, MANTENIMIENTO Y CONSERVACIÓN: Aurrekontu atal honek erakunde publikoen
+          egoitza eta instalazioak martxan mantentzeko erabiltzen diren gastu arruntak
+          jasotzen ditu.
+        RETRIBUCIÓN EN ESPECIE: diruarekin egin beharrean ondasunak edo zerbitzuak
+          doan erabili, kontsumitu edo eskuratzean egiten den ordainketa.
+        TASA: 'Zerbitzu publiko bat erabiltzeko ordaintzen den dirua da (adibidez:
+          zabor bilketarako kuota edo kultur etxe batean ikastaro batean izena ematea).'
+        TRANSFERENCIA: Erakunde batetik bestera eskualdatzen den ondarea da euren
+          lan-eremuetan erabili ahal izateko (esaterako, foru-aldundietatik urtero
+          dirua transferitzen zaie lurraldeko udalei beren barnean zerbitzuak eman
+          ditzaten). botereak).
+      home:
+        checkout_gobierto_blog: Kontsultatu Jaurlaritzaren bloga
+        checkout_gobierto_blog_desc: Gobernu irekiari, gardentasunari eta partaidetzari
+          buruzko istorioak eta azterketa
+        deputation_eu:
+          search_location: Diputazioa bilatzen...
+        explore: Arakatu
+        explore_rankings: Arakatu sailkapenak
+        explore_the_ranking_for: Arakatu sailkapena
+        for_example: Adibidez
+        for_municipalities_of: eko udalentzat
+        ine:
+          search_location: Bilatu erakunde publikoa...
+        local_budgets: Aurrekontu publikoak
+        more_information: Informazio gehiago
+        some_examples: Adibide batzuk jokoka
+        subtitle: Euskadiko udal aurrekontuak kontsultatu, aztertu eta alderatu
+        whole_spain: Espainia osoa
+      map:
+        debt: Zorra
+        expense: Kostu osoa
+        expense_per_inhabitant: Biztanle bakoitzeko gastua
+        for_what: Zertarako gastatzen da?
+        in_what: Zertan gastatzen da?
+        income_per_inhabitant: Biztanle bakoitzeko diru-sarrerak
+        incomes: Errenta
+        meta_description: Ikusi eta arakatu aurrekontuen mapa %{year} barru
+        municipality_maps: Mapak udalerrika
+        people: jendea
+        planned_vs_executed: Planifikatua vs Exekutatua
+        population: Biztanleria
+        search: Bilatu jokoak
+        search_municipality: Bilatu udalerri bat
+        title: Aurrekontu mapak %{year}
+      map_metrics:
+        tipsit_planned_vs_executed: Aurreikusitako gastuen (Aurrekontua) eta azkenean
+          gastatu denaren arteko aldea (Exekutatuta). Egin klik xehetasunak ikusteko
+          eta baita diru-sarreren exekuzioa ere
+      participatory_budgets:
+        es: Esteka
+        eu: Esteka
+        place: Entitatea
+      ranking:
+        deputation_eu:
+          subtitle: Kontsultatu partida bakoitzeko diru-sarrera eta gastu gehien dituzten
+            udalak, guztira eta biztanleko.
+        highlights: Zifra nabarmen batzuk
+        ine:
+          subtitle: Kontsultatu partida bakoitzeko diru-sarrera eta gastu gehien dituzten
+            udalak, guztira eta biztanleko.
+        rankings: Sailkapenak
+      understanding_budgets:
+      - title: Zer da aurrekontu publikoa?
+        paragraphs:
+        - Aurrekontu publikoa edozein erakunderen oinarrizko tresna da publiko. Bildutako
+          dokumentu bat edo dokumentu sorta bat da nola kudeatuko den dirua (funts
+          publikoak) hornitu ahal izateko herritarrei zerbitzuak eta politika publikoak
+          egitea.
+        - 'Aurrekontu publiko batek sarrera eta gastu zehatzak jasotzen ditu urte
+          osorako aurreikusita erakunde publiko batean:'
+        - "<b><u>Errenta</u></b>: erakunde publikoak biltzea espero duen dirua da,
+          zergen eta tasa publikoen bidez egiten duena."
+        - "&emsp;Adibideak: errentaren gaineko zerga, kiroldegiko harpidetza kuota
+          udal, NANa berritzeko tasa"
+        - "<b><u>Gastuak</u></b>: erakunde publikoak gastatzea espero duen dirua da
+          jarduera edo arlo bakoitzean."
+        - "&emsp;Adibideak: ekipoak erostea, mantentze lanak, soldatak langileena."
+        - Aurrekontuak egokitu behar dira, hau da, guztizko batura Diru-sarrerak gastuen
+          batura osoaren berdinak izan behar dira.
+        - image: eu.irudia ingresos gastos.jpg
+        - Aurrekontuak urte bakoitzaren hasieran eta erakunde publikoetan onartzen
+          dira Horiek zorrotz betetzeko betebeharra dute. Printzipioz, ezin da egin
+          aurrekontu horretan sartzen ez den gastu bat edo diru-sarrera bat biltzea,
+          aldaketa batzuk egiteko aukera dagoen arren baina behar dira oso ondo justifikatu
+          eta beti ezarritako mugak betez legea.
+      - title: Nola biltzen dira funts publikoak?
+        paragraphs:
+        - 'Erakunde publikoek herritarrengandik dirua biltzen (jasotzen dute), enpresek,
+          elkarteek eta gainerako administrazioek honako hauen bitartez komunikabideak:'
+        - "<b><u>Zergak</u></b>: erakunde publikoari ordaintzen diogun dirua da gure
+          jardueretan edo gure irabazietan oinarrituta; hala ezartzen du legea eta
+          derrigorrezkoa da."
+        - "&emsp;Adibideak: BEZa, Errentaren gaineko Zerga, Ondasun Higiezinen gaineko
+          Zerga, jardueren gaineko zerga, ibilgailuen gaineko zerga, etab."
+        - Euskal Autonomia Erkidegoan udalek bakarrik kobra ditzakete zergak eta foru
+          aldundiak. Udalek zergen bidez biltzen dute Udalek eta foru aldundiek foru
+          zergen bidez kobratzen dute. Zerga guztiak legez onartu behar dira.
+        - "<b><u>Tasak</u></b>: zerbitzu zehatz bat jasotzeko ordaintzen dugun dirua
+          da edo ondasun publiko bat modu zehatz batean erabiltzeagatik."
+        - "&emsp;Adibideak: Udal kirol txartela, zabor zerga, zerga NAN berritzea,
+          etab."
+        - Edozein administrazio publikok kobra ditzake tasak. Tarifak izan behar dira
+          lege batek edo arau-arau batek onartuta.
+        - "<b><u>Administrazioen arteko transferentziak</u></b>: trukeak dira gauzatu
+          ahal izateko erakunde publikoen artean egiten den dirua beren botereak.
+          Bi erakundeen arteko akordio baten bidez gauzatzen dira, lege batean jasotzen
+          dena."
+        - "&emsp;Adibideak: Euskal Autonomia Erkidegoak Espainiako Estatuari duen
+          kuota, Foru Aldundietatik Udaletara transferentziak, etab."
+      - title: Nola gastatzen dira funts publikoak?
+        paragraphs:
+        - Erakunde publikoek dirua erabiltzen (gastatu) zerbitzuak emateko herritarrei
+          eta politika publikoen exekuzioan, baina haien kasuan Aurrekontuek gastu
+          hori barne hartzen dute.
+        - Gastua normalean enpresa batekin egindako kontratu baten bidez egiten da.
+          Hau kontratuak ezarritako muga batzuk bete behar ditu legeak onartzen dira
+          enpresa guztiek aukera berdinak izan ditzaten administrazioarekin kontratatzeko.
+        - Gastu bat oso handia denean eta kontratuak urtebete baino gehiago iraungo
+          duenean, badago aurrekontu publikoetan biltzea, baldintza batzuk jarrita.
+        - 'Gastu publikoak modu ezberdinetan sailka daitezke:'
+        - "&bull;&emsp;<b>Inplikatutako gastu motaren arabera</b> (sailkapena deitzen
+          da Ekonomikoa):"
+        - "&emsp;&bull;&emsp;Pertsonal gastuak: pertsonen soldatak ordaintzea erakunde
+          publikoarentzat lan egiten dutenak."
+        - "&emsp;&bull;&emsp;Ondasun eta zerbitzuen gastu arruntak: ondasunen erosketa
+          materialak, ondasunak (bulegoko altzariak, egoitza baterako oheak) edo zerbitzuak
+          (elektrizitatea, garbiketa, etab.)."
+        - "&emsp;&bull;&emsp;Transferentziak: ondasunak beste erakunde publiko batzuetara
+          bidaltzea."
+        - "&emsp;&bull;&emsp;Inbertsioak: ga baten gauzatzeazer erabiliko den etorkizunean."
+        - "&emsp;&bull;&emsp;Gastu finantzarioak: eragiketak kapital ondasunak ondasun
+          errealen ordez."
+        - "&bull;&emsp;<b>Gastua zein arlotarako egiten den arabera</b> (deitzen da
+          Sailkapen funtzionala):"
+        - "&emsp;&bull;&emsp;hirigintza"
+        - "&emsp;&bull;&emsp;Kultura"
+        - "&emsp;&bull;&emsp;Segurtasuna"
+        - "&emsp;&bull;&emsp;Kirolak"
+        - "&emsp;&bull;&emsp;eta abar."
+        - "&bull;&emsp;<b>Gastua nork egiten duenaren arabera</b> (sailkapena deitzen
+          da Organikoa):"
+        - "&emsp;&bull;&emsp;Departamendua"
+        - "&emsp;&bull;&emsp;Zuzendaritza Orokorra"
+        - "&emsp;&bull;&emsp;zentroa"
+        - "&emsp;&bull;&emsp;eta abar."
+      - title: Nola banatzen dira baliabide publikoak administrazioen artean Euskadi?
+        paragraphs:
+        - 'Euskadin administrazio publikoen maila desberdinak aurki ditzakegu:'
+        - "&emsp;&bull;&emsp;<b><u>Udal eta tokiko administrazioa</u></b>: dira Udaletxeak,
+          Elkarteak, Kontzejuak, Taldeak, etab."
+        - "&emsp;&bull;&emsp;<b><u>Foru Administrazioa</u></b>: Foru Aldundiak dira.
+          hiru Lurralde Historikoetako foruak (Araba, Bizkaia, Gipuzkoa)."
+        - "&emsp;&bull;&emsp;<b><u>Euskal Autonomia Erkidegoko Administrazioa</u></b>:
+          Eusko Jaurlaritza eta hari lotutako erakundeak dira (Osakidetza, Lanbide,
+          EITB; Eusko Trenbideak, etab.)"
+        - "&emsp;&bull;&emsp;<b><u>Estatuko Administrazio Orokorra</u></b>: Gobernua
+          da Espainiako eta bere Ministerioak eta erakunde elkartuak (Gizarte Segurantza,
+          Zuzendaritza Trafiko Orokorra, etab.)"
+        - Maila ezberdinetako entitate publikoek baliabide publikoak trukatzen dituzte
+          haien arteko transferentzien bidez. Erakunde publikoek banatu dute estatuak
+          bete behar dituen eskumenak edo eginkizunak eta, beraz baliabideak banatu
+          behar dira, entitate bakoitzak gauzatu ahal izateko betetzeaz arduratzen
+          den eginkizunak.
+        - 'Jarraian daude transferentzia nagusietako batzuk Euskadiko erakunde publikoen
+          artean egiten dira:'
+        - image: eu.Irudia_Distribucion recursos publicos CAV.jpg
+      - title: Nola banatzen dira eskumenak administrazio publikoen artean Euskadi?
+        paragraphs:
+        - 'Euskadiko administrazioen arteko eskumenak banatzen dira araudi ezberdinek
+          ezartzen dutenaren arabera (Autonomi Estatutua, Legea Lurralde Historikoak,
+          Espainiako Konstituzioa, etab.). Alboan Adibide gisa, bakoitzak dituen gaitasun
+          batzuk seinalatzen ditugu suposatu:'
+        - "&emsp;&bull;&emsp;<b><u>Udalak:</u></b>"
+        - "&emsp;&emsp;&bull;&emsp;hirigintza"
+        - "&emsp;&emsp;&bull;&emsp;Etxebizitza sustapena eta kudeaketa"
+        - "&emsp;&emsp;&bull;&emsp;Kaleak, lorategiak, errepideak mantentzea"
+        - "&emsp;&emsp;&bull;&emsp;Oinarrizko zerbitzuak: ura, zaborra, argiteria,
+          hilerria, etab."
+        - "&emsp;&emsp;&bull;&emsp;Oinarrizko gizarte zerbitzuak"
+        - "&emsp;&emsp;&bull;&emsp;Udaltzaingoa"
+        - "&emsp;&emsp;&bull;&emsp;Udal zergen bilketa"
+        - "&emsp;&emsp;&bull;&emsp;eta abar."
+        - "&emsp;&bull;&emsp;<b><u>Foru Kontseiluak:</u></b>"
+        - "&emsp;&emsp;&bull;&emsp;Lurralde-antolamendua"
+        - "&emsp;&emsp;&bull;&emsp;Probintziako Errepideak"
+        - "&emsp;&emsp;&bull;&emsp;Sustapen ekonomikoa"
+        - "&emsp;&emsp;&bull;&emsp;Basoen kudeaketa eta nekazaritza"
+        - "&emsp;&emsp;&bull;&emsp;Foru zerga-bilketa"
+        - "&emsp;&emsp;&bull;&emsp;Politika sozialak"
+        - "&emsp;&emsp;&bull;&emsp;Garraioa"
+        - "&emsp;&emsp;&bull;&emsp;Kultura"
+        - "&emsp;&emsp;&bull;&emsp;eta abar."
+        - "&emsp;&bull;&emsp;<b><u>Euskal Autonomia Erkidegoko Administrazioa:</u></b>"
+        - "&emsp;&emsp;&bull;&emsp;Osasuna (Osakidetza)"
+        - "&emsp;&emsp;&bull;&emsp;Hezkuntza"
+        - "&emsp;&emsp;&bull;&emsp;Ingurumena"
+        - "&emsp;&emsp;&bull;&emsp;Industria eta ekonomia-sektoreen kudeaketa"
+        - "&emsp;&emsp;&bull;&emsp;Ertzaintza"
+        - "&emsp;&emsp;&bull;&emsp;trenbideak"
+        - "&emsp;&emsp;&bull;&emsp;portuak"
+        - "&emsp;&emsp;&bull;&emsp;Itsas salbamendua"
+        - "&emsp;&emsp;&bull;&emsp;Salgaien garraioa"
+        - "&emsp;&emsp;&bull;&emsp;eta abar."
+        - "&emsp;&bull;&emsp;<b><u>Estatuko Administrazio Orokorra:</u></b>"
+        - "&emsp;&emsp;&bull;&emsp;Trafikoa"
+        - "&emsp;&emsp;&bull;&emsp;Nazioarteko harremanak"
+        - "&emsp;&emsp;&bull;&emsp;Inmigrazioa eta ohiturak"
+        - "&emsp;&emsp;&bull;&emsp;Defentsa eta indar armatuak"
+        - "&emsp;&emsp;&bull;&emsp;Trenbideak, aireportuak"
+        - "&emsp;&emsp;&bull;&emsp;Estatuko Segurtasun Indarrak"
+        - "&emsp;&emsp;&bull;&emsp;Kostaren plangintza"
+        - "&emsp;&emsp;&bull;&emsp;eta abar."
+      - title: Terminoen hiztegia
+        paragraphs:
+        - Glosario honetan terminoen eta hitzen definizio sinplea aurkituko duzu aurrekontu
+          publikoen dokumentuetan formalki erabiltzen direnak, bere esanahia hobeto
+          ulertu ahal izateko.
+        - Egin klik <a href="/budgets/glossary">hemen</a> glosariora joateko.
+      webs:
+        deputations:
+          es: Esteka
+          eu: Esteka
+          place: Diputazioak
+        entities:
+          es: Esteka
+          eu: Esteka
+          place: Entitateak
+    places:
+      compare:
+        delete: Konparaziotik kendu
+        deputation_eu:
+          add: Gehitu beste diputazio bat
+          add_another: Gehitu beste diputazio bat
+        ine:
+          add: Gehitu beste udalerri bat
+          add_another: Gehitu beste udalerri bat
+        per_inhabitant: Biztanle bakoitzeko
+        population: Biztanleria
+        title: Konparatu %{places} udal aurrekontuak
+        total: Guztira
+        totals: Guztira
+      execution:
+        budget_lines_expense_higher: Gastu partidak aurrekontua baino askoz handiagoak
+        budget_lines_expense_lower: Gastu-partidak aurrekontua baino askoz txikiagoak
+        budget_lines_income_higher: Diru-sarrerak aurrekontua baino askoz handiagoak
+        budget_lines_income_lower: Diru sarrerak aurrekontua baino askoz txikiagoak
+        description: "%{place}-ko %{year} udal aurrekontuaren exekuzioari buruzko
+          xehetasuna. Egiaztatu aurrekontuaren eta gauzatutakoaren arteko aldea."
+        execution_disclaimer: Normala da desbideratzeak egotea, ezinezkoa baita gastu
+          guztiak erabateko zehaztasunarekin aurreikustea.
+        execution_help: Exekuzioa hasiera batean aurreikusitakoaren gainetik gastatu
+          den zenbatekoa da.
+        no_data: Ez dago %{year}-n daturik eskuragarri, beraz lehen urtea erakusten
+          dizugu datuekin
+        title: "%{place}-ko %{year} udal aurrekontuaren exekuzioa"
+      execution_table:
+        deviation: Desf
+        executed: Exekuzioa
+        planned: Plana.
+        view_less: Ikus Gutxiago
+        view_more: gehiago ikusi
+      expense_lines:
+        per_inhabitant: gela bakoitzeko
+        percentage_over_total: s/guztira
+        search_budget_lines_expense: Bilatu gastu-elementuak
+        search_budget_lines_income: Bilatu errenta elementuak
+        total: guztira
+      no_data:
+        no_data_this_year: Hmm... Ez dugu aurtengo toki honi buruzko daturik. Saiatu
+          beste urte bat...
+        why: Zergatik ez dago daturik?
+      place_header:
+        add_to_comparing_list_html: Gehitu <strong>%{name}</strong> zerrendara eta
+          alderatu
+        ask_for_info: Informazioa eskatu
+        compare: Konparatu
+        cta_desc: Gobiertok bistaratze horien integrazio pertsonalizatua egiteko aukera
+          ematen dizu zure webgunean.
+        deputation_eu:
+          location_responsible: Diputazio honen arduraduna zara?
+          search_location: Diputazioa bilatzen...
+        in_your_web: Zure webgunean
+        ine:
+          location_responsible: Udal honen arduraduna zara?
+          search_location: Bilatu erakunde publikoa...
+        local_budgets_from: "%{name} udal aurrekontuak"
+        planned: aurrekontua
+        view_comparison_html: Ikus konparazioa
+        without: "%{name} gabe"
+        your_comparison_list: Zure konparazio zerrenda
+      ranking:
+        and: eta
+        autonomous_region: Autonomia-erkidegoa
+        between: Tartean
+        budget_line_short_title: "%{kind}-ren sailkapena %{budget_line}-n"
+        budget_line_title: "%{kind}-en sailkapena %{budget_line}-n %{year}-n"
+        budget_lines_short_title: "%{kind} sailkapena"
+        budget_lines_title: "%{kind} sailkapena %{year}-n"
+        deputation_eu:
+          size: Diputazioaren tamaina
+        disclaimer: Erabiltzen dugun datu-baseak ez ditu udalen %100eko datuak jasotzen,
+          beraz, ez ditugu daturik ez dauden udalerriak erakusten.
+        ine:
+          size: Udalerriaren tamaina
+        per_inhabitant: Biztanle bakoitzeko
+        population: Biztanleria
+        population_short_title: Biztanleen sailkapena
+        population_title: Biztanleen sailkapena %{year}-n
+        total: Guztira
+        why: Zergatik ez dago udal guztien daturik?
+      ranking_table:
+        compare: Konparatu
+        deputation_eu:
+          location: Diputazioa
+        ine:
+          location: Udalerria
+        inhabitants: Biztanleria
+      related_entities_budget:
+        entity: Entitatea
+        expense: Pasatu
+        explore: Arakatu
+        income: Errenta
+        table_title: Kontsultatu %{name} menpeko entitateen aurrekontua
+      show:
+        about_the_data: Datuei buruzko oharra
+        about_the_data_desc: Erabiltzen dugun datu-baseak ez ditu udalerrien %100eko
+          daturik jasotzen, beraz, batez bestekoak dauden datuekin soilik kalkulatzen
+          dira (gehiengo zabala da). Informazio gehiago gure ohiko galderetan
+        explore_income_expenses: Arakatu %{name}ren diru-sarrerak eta gastuak
+        main_budget_levels_legend_down: Jaitsi dira
+        main_budget_levels_legend_one: Urte honen arteko aldaketa
+        main_budget_levels_legend_two: eta iragana
+        main_budget_levels_legend_up: Altxatu dira
+        main_budget_levels_per_inhabitant: Biztanle bakoitzeko
+        main_budget_levels_timeline: Urtez urte gastuak eta diru-sarrerak alderatu
+        main_budget_levels_tooltip_article: tik
+        main_budget_levels_tooltip_down: a jaitsi da
+        main_budget_levels_tooltip_up: gora egin du a
+        main_budget_lines: Sarrera eta gastu nagusiak %{from_your_organization_name}
+        main_budget_lines_expense: Fakturak
+        main_budget_lines_income: Errenta
+        meta_description: Kontsultatu eta ikusi %{name}ren %{year}-ko udal aurrekontuak.
+          Kontsultatu gastuak eta diru-sarrerak, aurrekontu-adierazleak, exekuzio
+          datuak...
+        new: Berria
+        per_inhabitant: gela bakoitzeko
+        percentage_over_total: s/guztira
+        related_entities: Lotutako entitateak
+        related_entities_budget:
+          see_all: Ikusi erlazionatutako entitate guztiak (%{number})
+          see_less: Ikus Gutxiago
+        search_budget_lines_income: Bilatu errenta elementuak
+        title: "%{name}-ko %{year} udal aurrekontuak"
+        total: guztira
+    visualizations:
+      mean_autonomy: Eskualdeko batez bestekoa
+      mean_deputation_eu: Diputazio erdiak
+      mean_national: Nazioko batez bestekoa
+      mean_province: Foru batez bestekoa
+      previous_year_diff: Aurreko urteko aldaketa

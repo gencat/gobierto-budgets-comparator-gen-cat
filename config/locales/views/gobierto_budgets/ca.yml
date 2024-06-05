@@ -88,6 +88,15 @@ ca:
       compare_big:
         check_some_examples: O proveu amb alguns exemples
         compare: Comparar
+        deputation_eu:
+          compare: Compareu deputacions
+          description: A més d'usar el buscador a la part superior d'aquesta pàgina,
+            podeu afegir una diputació a la vostra llista de comparació des de la
+            pàgina de la diputació en qüestió. Utilitzeu el botó 'Compareu' per a
+            afegir i accedir a la comparació. Des de la pàgina de comparació també
+            podràs afegir altres diputacions o eliminar els que necessitis de la comparació.
+          search: Busqueu una diputació %{n}
+          select: 'Seleccioneu diverses diputacions per a comparar-ne els pressupostos:'
         how_it_works: Com funciona?
         ine:
           compare: Compareu municipis
@@ -98,18 +107,7 @@ ca:
             municipis o eliminar els que necessitis de la comparació.
           search: Busqueu un municipi %{n}
           select: 'Seleccioneu diversos municipis per a comparar-ne els pressupostos:'
-        deputation_eu:
-          compare: Compareu deputacions
-          description: A més d'usar el buscador a la part superior d'aquesta pàgina,
-            podeu afegir una diputació a la vostra llista de comparació des de la pàgina
-            de la diputació en qüestió. Utilitzeu el botó 'Compareu' per a afegir i accedir
-            a la comparació. Des de la pàgina de comparació també podràs afegir altres
-            diputacions o eliminar els que necessitis de la comparació.
-          search: Busqueu una diputació %{n}
-          select: 'Seleccioneu diverses diputacions per a comparar-ne els pressupostos:'
       home:
-        ine:
-          search_location: Busqueu municipi...
         deputation_eu:
           search_location: Busqueu diputació...
         explore: Explorar
@@ -117,6 +115,8 @@ ca:
         explore_the_ranking_for: Exploreu el rànquing de
         for_example: Per exemple
         for_municipalities_of: per municipis de
+        ine:
+          search_location: Busqueu municipi...
         local_budgets: Pressupostos municipals
         more_information: més informació
         some_examples: Alguns exemples per partides
@@ -143,23 +143,23 @@ ca:
           i el que finalment s'ha gastat (Executat). Feu clic per a veure el detall
           i l'execució dels ingressos.
       ranking:
-        ine:
-          subtitle: Consulteu els municipis que més ingressos i despeses, total i per
-            habitant, realitzen per cada partida.
         deputation_eu:
-          subtitle: Consulteu les diputacions que més ingressos i despeses, total i per
-            habitant, realitzen per cada partida.
+          subtitle: Consulteu les diputacions que més ingressos i despeses, total
+            i per habitant, realitzen per cada partida.
         highlights: Algunes xifres destacades
+        ine:
+          subtitle: Consulteu els municipis que més ingressos i despeses, total i
+            per habitant, realitzen per cada partida.
         rankings: Rànquing
     places:
       compare:
-        ine:
-          add: Afegir un altre municipi
-          add_another: Afegiu un altre municipi
+        delete: Eliminar de la comparació
         deputation_eu:
           add: Afegir una altra diputació
           add_another: Afegiu una altra diputació
-        delete: Eliminar de la comparació
+        ine:
+          add: Afegir un altre municipi
+          add_another: Afegiu un altre municipi
         per_inhabitant: Per habitant
         population: Població
         title: Compareu els pressupostos municipals de %{places}
@@ -192,33 +192,29 @@ ca:
         search_budget_lines_income: Busqueu partides d'ingressos
         total: total
       no_data:
-        no_data_this_year: Mmm... No tenim dades sobre aquest lloc per aquest
-          any. Trieu-ne un altre...
+        no_data_this_year: Mmm... No tenim dades sobre aquest lloc per aquest any.
+          Trieu-ne un altre...
         why: Per què no hi ha dades?
       place_header:
-        ine:
-          location_responsible: Sou responsable d'aquest municipi?
-          search_location: Busqueu municipi...
-        deputation_eu:
-          location_responsible: Sou responsable d'aquesta diputació?
-          search_location: Busqueu diputació...
         add_to_comparing_list_html: Afegiu <strong>%{name}</strong> a la vostra llista
           i compareu
         ask_for_info: Sol·liciteu informació
         compare: Compareu
         cta_desc: Gobierto us permet fer una integració personalitzada d'aquestes
           visualitzacions en el vostre web.
+        deputation_eu:
+          location_responsible: Sou responsable d'aquesta diputació?
+          search_location: Busqueu diputació...
         in_your_web: Al vostre web
+        ine:
+          location_responsible: Sou responsable d'aquest municipi?
+          search_location: Busqueu municipi...
         local_budgets_from: Pressupostos municipals de %{name}
         planned: pressupostats
         view_comparison_html: Veure comparació
         without: sense %{name}
         your_comparison_list: La vostra llista de comparació
       ranking:
-        ine:
-          size: Grandària del municipi
-        deputation_eu:
-          size: Grandària de la diputació
         and: i
         autonomous_region: Comunitat autònoma
         between: Entre
@@ -226,8 +222,12 @@ ca:
         budget_line_title: Rànquing de %{kind} en %{budget_line} el %{year}
         budget_lines_short_title: Rànquing de %{kind}
         budget_lines_title: Rànquing de %{kind} el %{year}
+        deputation_eu:
+          size: Grandària de la diputació
         disclaimer: La base de dades que utilitzem no inclou dades per al 100% dels
           municipis, per tant no mostrem els municipis que no tenen dades.
+        ine:
+          size: Grandària del municipi
         per_inhabitant: per habitant
         population: Població
         population_short_title: Rànquing d'habitants
@@ -235,11 +235,11 @@ ca:
         total: Total
         why: Per què no hi ha dades de tots els municipis?
       ranking_table:
-        ine:
-          location: Municipi
+        compare: Compareu
         deputation_eu:
           location: Diputació
-        compare: Compareu
+        ine:
+          location: Municipi
         inhabitants: Habitants
       related_entities_budget:
         entity: Entitat
@@ -280,8 +280,8 @@ ca:
         title: Pressupostos municipals de %{name} del %{year}
         total: total
     visualizations:
-      mean_deputation_eu: Mitjana diputacions
       mean_autonomy: Mitjana nacional
+      mean_deputation_eu: Mitjana diputacions
       mean_national: Mitjana nacional
       mean_province: Mitjana provincial
       previous_year_diff: Canvi any anterior
