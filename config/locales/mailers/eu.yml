@@ -1,0 +1,13 @@
+---
+eu:
+  mailers:
+    user:
+      confirm_account:
+        body:
+          p1: Kaixo,
+          p2: Ongi etorri %{site_name} %{location_name} orrialdera
+          p3: 'Zure helbide elektronikoa egiaztatzeko eta zure kontua berresteko,
+            egin klik hurrengo estekan:'
+          p4: Egun ona izan,
+          p5: "%{site_name} taldea"
+        subject: Berretsi zure kontua %{site_name} %{location_name} orrialdean

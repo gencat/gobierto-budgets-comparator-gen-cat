@@ -1,0 +1,17 @@
+---
+eu:
+  shared:
+    embed:
+      title_embed: Erabili hurrengo kodea orri hau eta zure webgunean bistaratzeko.
+        Zabalera eta altuera automatikoki egokituko dira.
+    widget_template:
+      datum: Izan ere
+    widget_template_debt:
+      datum: Izan ere
+      not_available: ez dago eskuragarri
+    widget_template_deviation:
+      expenses_planned: Aurrekontuen gastuak
+      incomes_planned: Aurrekontu-sarrerak
+      real: benetakoa
+    widget_template_execution:
+      not_available: Ez dago eskuragarri

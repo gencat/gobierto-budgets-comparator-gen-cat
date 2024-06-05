@@ -1,0 +1,435 @@
+---
+"economic":
+  "G":
+    "1": "Mota guztietako ordainsari eta konpentsazio finko eta aldakorrak, dirutan zein gauzatan, toki entitateek eta haien erakunde autonomoek horietan zerbitzuak ematen dituzten langileei ordaindu beharrekoak. Toki entitateen eta bere erakunde autonomoen nahitaezko ekarpenak. Beren zerbitzuko langileen Gizarte Segurantzako erregimen ezberdinei, toki-entitateek eta haien autonomia-erakundeek hartutako familia-erantzukizunen arabera eman beharreko pentsio eta ordainsari-mota guztiak barne beren langileak".
+    "10": "Gobernu-organoetako kideen eta zuzendaritzako langileen ordainsari-kontzeptuak barne hartzen ditu"
+    "11": "Toki-erakundeko organo eskudunak izendatutako aldi baterako langileen oinarrizko ordainsariak eta gainerako ordainsariak barne hartzen ditu, indarrean dauden xedapenen arabera, eta izendapena egin duen agintaritzak hori egiten duenean automatikoki amaitzen direnak".
+    "12": "Artikulu honi egotziko zaizkio funtzionarioen ordainsari-kontzeptuak (oinarrizko ordainsariak, osagarriak eta gauzazkoak), praktikak egiten ari direnak barne, hautapen prozesu baten barruan"
+    "13": "Artikulu honek toki entitateen eta haien erakunde autonomoen zerbitzura dauden langileei ordaindu beharreko ordainsariak eta kalte-ordainak jasotzen ditu, aplikatzen zaizkien hitzarmen kolektiboen edo lan arauen arabera".
+    "14": "Lanaldi puntualak edo atipikoak betetzen dituzten langileen eta indarrean dagoen legediaren arabera kontratatutako langileen ordainsariak. Artikulu honetan ez dira barne hartzen bitarteko funtzionarioak konpentsatzeko krediturik, zeinek beren ordainsaria jaso behar baitute bete gabeko lanpostu hutsengatik. karrerako funtzionario lanpostuak".
+    "15": "Egindako eginkizunak betetzeko interesa edo ekimena errendimendu berezia, aparteko jarduera eta ekimena saritzera zuzendutako ordainsariak barne hartzen ditu".
+    "16": "Gizarte aseguruaren kuotak, prestazioak eta enpresaburuak bere gain hartzen dituen gainerako gizarte-gastuak barne hartzen ditu".
+    "2": "Kapitulu honek kapital edo ondare publikoaren gehikuntzarik sortzen ez duten toki entitateen eta haien erakunde autonomoen jarduerak gauzatzeko beharrezkoak diren ondasun eta zerbitzuen gastuak barne hartzen ditu".
+    "20": "Ondasun higigarrien eta higiezinen alokairuaren izaera horretako gastuak. Besteak beste, lur, eraikin eta lokalen alokairua, ekipo informatikoen alokairua eta garraioa barne hartzen ditu".
+    "21": "Artikulu honen kargura izango dira azpiegitura, eraikin eta lokalak, makineria, garraio-tresneria eta gainerako ondasun materialak mantentzeko eta kontserbatzeko gastuak, "Errentamenduak" 20. artikuluan adierazitako kontzeptu berdinetan banatuta.
+    "212": "Toki entitatearen administrazio-eraikinen eta eraikuntzaren konponketa, mantentze eta kontserbazio gastuak".
+    "213": "Makineria konpontzera, mantentzera eta kontserbatzera bideratutako gastuak, toki entitatearen makinen multzoa bezala ulertuta, barne-garraio-elementuak barne hartzen dituen tailer edo instalazio antzekoen barruan langileak, animaliak, materialak eta salgaiak garraiatzeko. Era berean, toki entitatearen instalazio teknikoen konponketa, mantentze eta kontserbazio gastuak barne hartuko dira, erabilera espezializaturako unitate konplexu gisa ulertuta, eraikinak, makineria, elementuak, sistema informatikoak barne, zeinak, nahiz eta berez bereizgarriak izan. , behin betiko lotzen dira beren funtzionamendurako eta amortizazio-tasa beraren menpe daude makineriarekin erabil daitezkeen tresnak edo tresnak, moldeak eta txantiloiak barne".
+    "214": "Toki-entitatearen ibilgailuen konponketa, mantentze eta kontserbazio gastuak. Pertsonak, animaliak, materialak edo salgaiak lurretik, itsasoz edo airez garraiatzeko xede diren ibilgailuak sartzen dira, 213. kontzeptuan sartu behar direnak izan ezik". Makineria, instalazio teknikoak eta erremintak".
+    "215": "Toki entitatearen altzariak, materialak eta ofimatika ekipamenduak konpontzeko, mantentzeko eta kontserbatzeko gastuak, "Informazio prozesuetarako ekipamendua" 216 kontzeptuan agertu behar direnak izan ezik.
+    "216": "Toki entitatearen ordenagailuen eta bestelako komunikazio elektronikoen eta datuak tratatzeko multzoen konponketa, mantentze eta kontserbazio gastuak".
+    "219": "Aurreko kontzeptuetan jasota ez dauden beste elementu batzuen konponketa, mantentze eta kontserbazio gastuak".
+    "221": "Gerta ezin daitezkeen ura, gasa, elektrizitatea eta beste zerbitzu edo hornidura batzuen gastuak"
+    "222": "Azpikontzeptuetan xehatuta, telefono-zerbitzuen, posta- eta telegrafiko-zerbitzuen gastuak barne hartzen ditu, bai eta beste edozein komunikazio-mota ere".
+    "223": "Mota guztietako garraio-gastuak, langileak izan ezik".
+    "224": "Ibilgailuen, ondasun higiezinen, gainerako aktibo finkoen eta edozein elementu materialaren aseguruaren gastuak, estalitako arriskuen izaera edozein dela ere, 1. Kapituluan sartuko diren bizitzako edo istripu pertsonaleko aseguruak izan ezik, "Langilearen gastuak". ", 162. kontzeptua, "Pertsonalaren gastu sozialak".
+    "225": "Kontzeptu honetan sartuko dira tasak, ekarpenak eta zergak asetzera zuzendutako gastuak, estatukoak, autonomikoak edo tokikoak izan".
+    "226": ""Ondasun eta zerbitzuen gastu arruntak" 2. kapituluko beste kontzeptu batzuetan lekurik ez duten izaera arrunteko gastu guztiak sartuko dira".
+    "227": "Toki-entitateen edo haien erakunde autonomoen ardurapekoak izanik, kanpoko enpresekin edo profesional independenteekin kontratazio bidez gauzatzen diren jarduerei dagozkien gastuak sartuko dira".
+    "227-06": "Ikasketak eta lan teknikoak. Enpresa espezializatuei, profesional independenteei edo adituei agindutako eginkizunetatik eratorritako ikasketa, lan tekniko, estatistiko edo bestelakoen gastuak, plan, programa, aurreproiektu eta inbertsio-proiektuei aplikatzen ez zaizkienak. kasu horretan, 6. kapituluan, "Inbertsio errealak" jasoko dira, halaber, ideia, lan, argitalpen, edizio, erakusketa eta izaera kultural eta artistikoko parte-hartzeen ikerketa eta ikasketa sariak ematea , zientifikoak, teknikoak, juridikoak eta ekonomikoak, toki-entitatearen edo haren erakunde autonomoen jarduerarekin lotutakoak Plan, programa, aurreproiektu eta inbertsio-proiektuei aplikagarri zaizkienean, "Inbertsio errealak" 6. kapituluan agertuko dira.
+    "227-08": "Toki-entitatearen edo haren erakunde autonomoen eskubide ekonomikoen bilketatik eratorritako gastuak beste toki-erakundeek edo beste Administrazio Publiko batzuen menpe dauden erakunde publikoek egiten dituztenean, baita kontratuetatik eratorritako gastuak ere. , gai honetan, entitate kolaboratzaileekin sinatzen dira".
+    "227-99": "Aurreko azpikontzeptuetan aipatzen ez diren beste enpresek egindako lanek sortutako gastuak sartzen dira".
+    "23": "Zerbitzu-batzordeetatik eratorritako gastuak konpentsatzeko eta indarrean dagoen legediaren arabera gobernu-organoetako kideei, funtzionarioei, behin-behineko eta kontratatutako langileei ordaindu behar zaizkien kalte-ordainak. Kontzeptu honi kobratuko zaizkio arauzko kalte-ordainak. epaitegiak eta organo kolegiatuak eta, oro har, bileretara, kontseiluetara edo batzordeetara pertsonalki bertaratzeko".
+    "231": "Gobernu-organoetako kideen joan-etorri-gastuak, bai eta toki entitatean zerbitzuak ematen dituen langileena ere, euren lanpostua edozein dela ere".
+    "240": "Aurrekontuak, ordenantzak, txostenak eta antzekoak bezalako argitalpen instituzionalen gastuak. Argitalpen-jarduera baliabide propioekin egiten bada, gastu desberdinak dagozkion kontzeptu ekonomikoei egotziko zaizkie".
+    "3": "Kapitulu honek barne hartzen ditu interesak, interes inplizituak barne, eta toki entitateak edo bere erakunde autonomoek kontratatutako edo bere gain hartutako finantza-eragiketa eta zorretatik eratorritako gainerako gastuak, bai eta jaulkipen edo formalizazio, aldaketa eta horiek baliogabetzea, truke-diferentziak eta bestelako etekin inplizituak".
+    "30": "Toki-entitateak edo bere erakunde autonomoek eurotan jaulkitako edo bere gain hartutako zor mota guztietako interesak, bai eta horiei lotutako edozein eragiketetatik eratorritako gastuak ere, batez ere etekin inplizituei dagozkienak".
+    "300": "Interesen zenbatekoak, interes inplizituak barne, eurotan izendatutako Zor Publikoko baloreen jaulkipenetatik eratorritakoak, amortizazio-epea edozein izanda ere".
+    "301": "Eurotan izendatutako Zor Publikoko baloreen jaulkipenen zirkulazio, aldaketa eta baliogabetzeen ondoriozko komisioak eta gainerako gastuak".
+    "309": "Artikulu honetan adierazitako zorren etekin inplizituak, deskontuarekin jaulkitako baloreen interes inplizituak izan ezik, 300. kontzeptuan sartu behar direnak. Era berean, aurreko kontzeptuetan jaso ez diren finantza izaerako gastuak".
+    "31": "Toki-entitateak edo bere erakunde autonomoek eurotan kontratatutako edo bere gain hartutako kreditu mota guztien interesak, bai eta horiei lotutako edozein eragiketetatik eratorritako etekin eta gastu inplizituak ere".
+    "310": "Jasotako maileguei eta bestelako finantza-eragiketei dagozkien interesen zenbatekoak, amortizatu gabe, eurotan adierazitakoak, edozein epe eta interes horiek gauzatzeko modua edozein dela ere".
+    "311": "Kontzeptuaren izenan adierazitako eragiketak egiteko beharrezkoak diren gastuak. Kredituak ireki eta mantentzeko komisioak eta maileguei eta bestelako finantza-eragiketei dagozkien bestelako finantza-gastuak".
+    "319": "Maleguen eta bestelako finantza-eragiketen beste finantza-gastuak eurotan. Maileguen etekin inplizituak eurotan eta aurreko kontzeptuetan sartu gabeko gastuak".
+    "32": "Toki-entitateak edo bere erakunde autonomoek euroz bestelako monetan jaulkitako edo bere gain hartutako zor mota guztietako interesak, bai eta zorra baliogabetzetik eratorritako etekin inplizituak eta truke-diferentziak, eta egindako gastuak ere. horiekin lotutako edozein eragiketa egiteko".
+    "320": "Toki-entitateak edo bere erakunde autonomoek euroa ez den beste moneta batean izendatutako Zor Publikoko baloreetatik eratorritako interes kopuruak, interes inplizituak barne, amortizazio-epea edozein dela ere".
+    "321": "Euroa ez beste monetatan izendatutako Zor Publikoko baloreen jaulkipenak zirkulazioan jarri, aldatu eta baliogabetzeak sortutako komisioak eta gainerako gastuak".
+    "322": "Zorraren kanbio-tasaren aldaketek eragindako galerak amortizatzen diren unera arte eta, hala badagokio, honen eta benetako ordainketaren unera arte".
+    "329": "Artikulu honetan aipatzen diren zor-tituluen itzulera inplizituak, beherapenarekin jaulkitako zorraren interes inplizituak izan ezik, 320. kontzeptuan sartu behar direnak, eta izaera finantzarioko gastuak izan ezik. aurreko kontzeptuak".
+    "33": "Toki-entitateak edo bere erakunde autonomoek euroa ez den beste moneta batean kontratatutako edo bere gain hartutako kreditu mota guztien interesak, horiekin lotutako edozein eragiketagatik sortutako etekin eta gastu inplizituak eta horiek baliogabetzetik eratorritako kanbio-aldea barne hartzen ditu. "
+    "330": "Jasotako maileguei eta bestelako finantza-eragiketei dagozkien interesen zenbatekoak, amortizatu gabe, euroz ez den beste moneta batean adierazitakoak, edozein epe eta interes horiek gauzatzeko modua edozein dela ere".
+    "331": "Kontzeptuaren izenean adierazitako eragiketak egiteko beharrezkoak diren gastuak. Kredituak ireki eta mantentzeko komisioak eta maileguei eta beste finantza-eragiketei dagozkien beste diru-gastu batzuk euroaz bestelako monetatan".
+    "332": "Maleguen eta bestelako finantza-eragiketen kanbio-tasaren aldaketek eragindako galerak amortizatzen diren unera arte eta, hala badagokio, hau eta benetako ordainketa-unearen artean".
+    "339": "Maleguen beste finantza-gastu batzuk eta euroa ez den beste moneta batzuetan egindako beste finantza-eragiketa batzuk. Atzerriko dibisan egindako kredituen etekin inplizituak eta aurreko kontzeptuetan jasota ez dauden finantza-izaerako beste gastu batzuk".
+    "340": "Toki-erakundearen edo bere erakunde autonomoen diruzaintzan egindako gordailuetan ordaindu beharreko interesak legez ezarrita".
+    "341": "Legez ezarritako interesak, toki entitatearen edo bere erakunde autonomoen diruzaintzan egindako gordailuen bidez bete beharrekoak".
+    "352": "Ezin diren epeetan betebeharrak ez ordaintzearen ondorioz ordaindu beharreko berandutze interesak".
+    "353": "Interesengatiko gastuak, edo interes-desberdintasunengatik, edo kanbio-diferentziagatik edo finantza-izaerako beste edozeinengatik, finantza estaldura-eragiketetatik eta interes-tasaren eta kanbio-tasaren arriskuaren kudeaketatik eratorritako gastuak sartuko dira".
+    "357": "Toki-erakundeak edo bere erakunde autonomoek emandako bermeak betetzetik eratorritako finantza-gastuen zenbatekoa bilduko da".
+    "358": "Aurrekontu-ekitaldiari dagozkion finantza-errentamendu-kontratuetan ezarritako kuotan jasotako interesen zenbatekoa kobratuko da".
+    "359": "Aurreko kontzeptuetan sartzen ez diren izaera horretako gastuak, hala nola, banku-transferentziak, deskontu-gastuak edo euroaz bestelako dibisetan ordainketetatik eratorritako truke-diferentzia negatiboak, zor-eragiketei eta bestelako komisioei dagozkien banku-zerbitzuei dagozkienak. ez dago beste kontzeptu batzuetan sartuta".
+    "4": "Toki-entitateak edo haren erakunde autonomoek egindako ekarpenengatiko kredituak barne hartzen ditu, agente hartzaileen zuzeneko kalte-ordainik gabe, eta eragiketa arruntak finantzatzeko xedea dutenak".
+    "40": "Artikulu hau toki entitatearen erakunde autonomoen aurrekontuei bakarrik aplikatuko zaie".
+    "41": "Toki-erakundeak edo bere erakunde autonomoek erakunde autonomoei emateko asmoa duten transferentzia korronteak".
+    "42": "Toki-erakundeak edo bere erakunde autonomoek Estatuko Administrazio Orokorrari, bere erakunde autonomoei, fundazioei, erakunde publikoei edo merkataritza-sozietateei eman nahi dizkien eskualdatze korronteak".
+    "43": "Toki entitateak edo bere erakunde autonomoek Gizarte Segurantzaren sistema osatzen duten erakundeetako edozeini emateko asmoa duten transferentzia korronteak".
+    "48": "Ongintza- eta laguntza-zerbitzuei dagozkien gastu arruntetarako transferentziak. Sariak, ikasketa- eta ikerketa-bekak. Toki entitatearen fundazio, erakunde, ongintza edo kirol-entitate eta talde politikoen aldeko diru-laguntzak".
+    "49": "Lurralde nazionaletik kanpo kokatutako garapenerako lankidetzarako eta ekonomia-eragileetara zuzendutako gastu arruntetarako transferentziak, edo lurraldez kanpoko estatusa dutenak, edo euroaz bestelako moneta batean egin behar direnean".
+    "5": "Kapitulu honek Aurrekontu Egonkortasunari eta Finantza Iraunkortasunari buruzko apirilaren 27ko 2/2012 Lege Organikoaren 31. artikuluan aipatzen den Kontingentzia Funtserako zuzkidura jasotzen du, zeinak nahitaez beren aurrekontuetan sartu beharko baitituzte subjektiboko Toki Erakundeak. Toki Ogasunak arautzen dituen Legearen Testu Bateginaren 111. eta 135. artikuluen aplikazio-eremua, ezusteko, atzeratu ezin diren eta nahitaezko beharrizanetarako, zeinetarako ez dagoen aurrekontu-krediturik edo aurreikusitako zenbatekoa nahikoa ez den esparru subjektibo horretan sartuta ez dauden agintariek irizpide hori bera aplikatuko dute aipatutako xede bererako Kontingentzia Funts bat esleitzea onartzen badute".
+    "6": "Kapitulu honek barne hartzen ditu toki entitateek edo haien erakunde autonomoek zuzenean egin beharreko gastuak, azpiegiturak sortzeko eta zerbitzuen funtzionamendurako beharrezkoak diren inbentario-izaerako ondasunak sortu edo eskuratzera eta gainerako horiek. Izaera amortizagarria duten gastuak, oro har, toki entitateen aurrekontu orokorrekin bat egiten duten inbertsio errealen eranskinetan aurreikusitako gastuak izango dira."
+    "60": "Artikulu honetan sartzen dira erabilera orokorrerako xede diren azpiegituretan eta ondasunetan toki entitatearen edo bere erakunde autonomoen kapitala handitzen duten inbertsioak".
+    "600": "Toki-erakundeak edo bere erakunde autonomoek lurzorua eskuratzea".
+    "61": "Artikulu honetan sartuko dira aurreko artikulukoen izaera bereko gastuak, erabilera orokorrerako azpiegiturak eta ondasunak birgaitzearen edo ordezkatzearen ondorio direnak, edukiera, errendimendua handitzea dakarren eragiketak barne. , aktiboaren eraginkortasuna edo bizitza erabilgarriaren luzapena".
+    "610": "Toki-erakundeak edo bere erakunde autonomoek lursailak egokitzea eta birmoldatzea".
+    "62": "Zerbitzu publikoen funtzionamendua ahalbidetzeko edo hobetzeko xedea duten toki-erakundearen edo haren erakunde autonomoen kapital-izategia handitzen duten inbertsio-proiektu horien gastuak barne hartuko ditu".
+    "622": "Toki entitateak ematen dituen zerbitzu publikoak ustiatzeko xede diren administrazio-eraikinetan eta eraikuntzetan egindako inbertsio-gastuak".
+    "623": "Makineria inbertsiora bideratzen diren gastuak, toki-erakundeak zerbitzu publikoen funtzionamendu operatiborako erabiltzen dituen makinen multzoa, barne-garraioko elementuak barne, tailer edo tailerren barruan langileak, animaliak, materialak eta salgaiak garraiatzeko. antzeko instalazioak, kanpora joan gabe Era berean, zerbitzu publikoen funtzionamendu operatiborako erabiltzen diren instalazio teknikoetan egindako inbertsio-gastuak barne hartuko dira, erabilera espezializaturako unitate konplexutzat ulertuta, eraikinak, makineria, elementuak, sistema informatikoak barne, zeinak, nahiz eta izaeraz bereiz daitezkeen. , behin betiko lotzen dira beren funtzionamendurako eta amortizazio-tasa beraren menpe daude ordezko piezak edo instalazio horietarako soilik balio duten piezak "zerbitzu publikoen funtzionamendurako erabiltzen diren inbertsio-gastuak, multzo gisa definituta". makineriarekin erabil daitezkeen tresneria edo tresnak, moldeak eta txantiloiak barne".
+    "624": "Zerbitzu publikoen funtzionamendu operatiborako erabiltzen diren ibilgailuetan egindako inbertsio-gastuak. Pertsonak, animaliak, materialak edo salgaiak lurretik, itsasoz edo airez garraiatzeko xede diren ibilgailuak sartzen dira, 623 "Makineria" kontzeptuan sartu behar direnak izan ezik. instalazio eta tresna teknikoak".
+    "625": "Zerbitzu publikoen funtzionamendu operatiborako erabiltzen diren altzari, material eta bulegoko ekipoetan egindako inbertsio-gastuak, "Informazio-prozesuetarako ekipamendua" 626 kontzeptuan agertu behar direnak izan ezik.
+    "626": "Ordenagailuetan eta bestelako komunikazio elektronikoetan eta datuak tratatzeko multzoetan egindako inbertsio-gastuak, zerbitzu publikoen funtzionamendu operatiborako erabiltzen direnak".
+    "627": "Inbertsio gastuak, aurreko kontzeptuei printzipioz aplika daitezkeen elementu desberdinak osatuz, tratamendu unitarioa izan eta zerbitzu publikoen funtzionamendu operatibora zuzenduta dauden proiektuetan".
+    "629": "Aurreko kontzeptuetan sartu ez diren eta zerbitzu publikoen funtzionamendu operatibora zuzendutako beste elementu batzuetan egindako inbertsio-gastuak".
+    "63": "Zerbitzuen funtzionamendu operatiboari lotutako 62. artikuluaren izaera bereko gastuak barne hartuko ditu, birgaitzearen edo ordezkapenaren ondorio direnak, konponketa garrantzitsuei dagozkienak barne. ondasunaren ahalmena, errendimendua, eraginkortasuna edo bizitza baliagarriaren luzapena dakar. Artikulu honetan jasotako kontzeptu ezberdinek aipatzen dituzten elementuen definizioak aurreko 62. artikuluan jasotakoekin berdinak dira. zerbitzuen funtzionamendua".
+    "64": "Ekitaldi batean egindako gastuak, aktiboan gauzatu gabeak, etorkizuneko hainbat ekitaldi fiskaletan ondorioak sortzeko gai direnak, turismoa sustatzeko kanpainak, azokak, erakusketak, azterketak eta lan teknikoak, ikerketak eta antzekoak, baita inbertsio horiek ere. ibilgetu ukiezinetan, hala nola administrazio-emakida, jabetza industriala, patenteak, markak eta jabetza intelektuala lortzea, edo izaera horretako beste edozein, toki-entitatearen edo haren erakunde autonomoen jarduerari dagozkion "Leasing" kontratuak sartzen dira. Erosteko aukera behean zehaztutako baldintzetan gauzatuko da."
+    "641": "Kontzeptu horretan sartuko da programa informatikoen titulartasunagatik edo erabiltzeko eskubideagatik ordaindutako zenbatekoa, edo toki entitateak berak garatutakoen ekoizpen-kostua, horien erabilera zenbait urtetarako aurreikusita dagoenean".
+    "648": "Finantza-errentamendu-kontratuetan ezarritako kuoten zenbatekoa erosteko aukera gauzatu nahi denean kobratuko da, ondasunaren kostua eta aurrekontu-ekitaldia berreskuratzeari dagokiona. Gainerakoa, hau da, interesak , 358. kontzeptuari aplikatuko zaio, "Finantza-errentamenduko eragiketen interesak ("leasing") Erosketa-aukera gauzatzeko borondatea dagoela uste da, aipatutako kontzeptuan zehaztutako baldintzetakoren bat betetzen denean baldintza horietako bat ere beteko ez zen, "leasing" operatiboa edo leasing hutsa izango litzateke, eta, beraz, dagokion kontzeptuan sartuko litzateke, ondasunaren izaeraren arabera, "Errentamenduak" 20.
+    "65": "Obra edo proiektu bati dagozkion benetako gastu guztiak barne hartuko ditu, amaitutakoan beste erakunde publiko batzuei laga behar zaizkien, haren finantzaketan parte hartu ala ez".
+    "650": "Beste erakunde publikoentzat kudeatutako inbertsioen gastuak".
+    "68": "Ekainaren 13ko 1372/1986 Errege Dekretuaren bidez onartutako Toki Entitateen Ondare Arautegiaren 6. artikuluan aipatutako ondasunei eragiten dieten inbertsio-proiektu horien gastuak barne hartuko ditu, hau da, toki entitatearen ondasunak, ez daude erabilera publikorako edo inolako zerbitzu publikoren eraginpean daudenak eta horretarako diru-sarrerak izan daitezke".
+    "681": "Ondare-lurzorua eskuratzeko, egokitzeko eta urbanizatzeko gastuak".
+    "682": "Ondare izaera duten eraikin eta eraikuntzak eskuratu eta berritzeko gastuak".
+    "689": "Aurreko kontzeptuetan jasota ez dauden ondasunak eskuratu eta berritzeko gastuak".
+    "69": "Izaera horretako gastu guztiak barne hartuko ditu, bai inbertsio berrietarako, bai ordezkapenetarako, erabilera orokorreko eta zerbitzu publikoko ondasunekin eta ondare izaera duten ondasunekin lotutakoak izan ezik".
+    "7": "Toki-entitateak edo bere erakunde autonomoek egindako ekarpenengatiko kredituak barne hartzen ditu, agente hartzaileen zuzeneko konpentsaziorik gabe eta kapital-eragiketak finantzatzeko xedea dutenak. Gehienak udal-sozietateei edo udalerriko beraren erakunde autonomoei zuzenduta daude, finantzatzera. bere inbertsioen zati bat".
+    "70": "Artikulu hau toki entitatearen erakunde autonomoen aurrekontuei bakarrik aplikatuko zaie".
+    "71": "Toki-erakundeak edo bere erakunde autonomoek erakunde autonomoei emateko asmoa duten kapital-transferentziak".
+    "72": "Toki-erakundeak edo bere erakunde autonomoek Estatuko Administrazio Orokorrari, bere erakunde autonomoei, fundazioei, erakunde publikoei edo merkataritza-sozietateei eman nahi dizkieten kapital-transferentziak".
+    "73": "Toki entitateak edo bere erakunde autonomoek Gizarte Segurantzaren sistema osatzen duten erakundeetako edozeini emateko asmoa duten kapital-transferentziak".
+    "77": "Toki-erakundeak edo bere erakunde autonomoek eman edo eman nahi dituzten kapital-transferentziak".
+    "78": "Toki-erakundeak edo bere erakunde autonomoek familiei, fundazioei, erakundeei edo ongintzazko edo kirol-erakundeei ematen dizkien edo emateko asmoa duten kapital-transferentziak".
+    "79": "Horren artean sartuko dira, besteak beste, garapenerako lankidetza-programei edo nazio-lurraldetik kanpo dauden edo lurraldez kanpoko izaera duten eragile ekonomikoei dagozkien kapital-transferentziak, edo euroaz bestelako moneta batean egin behar direnean".
+    "8": "Kapitulu honek toki entitateek eta haien erakunde autonomoek finantza-aktiboak eskuratzean (baloreak eskuratzea, maileguak ematea...) barnean zein kanpoan egiten dituzten gastuak barne hartzen ditu, edozein delarik ere. epe laburreko, ertain eta luzeko epemugarekin, aurrerakinak eta langileei emandako beste mailegu batzuk barne, kapitulu honetan toki entitateei eskatzen zaizkien gordailuak eta bermeak eratzea ere jasoz".
+    "80": "Sektore publikoko zor mota guztiak eskuratzea, laburrak (urtebete baino gehiagoko mugaegunearekin) eta epe luzekoak (urtebete baino gehiagoko epemugarekin)."
+    "800": "Sektore publikoak jaulkitako letrak, obligazioak eta bestelako baloreak eskuratzea, gehienez 12 hilabeteko epemuga dutenak".
+    "801": "12 hilabetetik gorako epemuga-epea duten sektore publikoak jaulkitako letra, obligazio eta bestelako baloreen erosketak".
+    "81": "Epe laburreko (urtebete baino gehiagoko mugaegunearekin) eta epe luzerako (urtebete baino gehiagoko epemuga), baloreetan dokumentatutako obligazioak eta obligazioak eskuratzea, eta horien jaulkitzaileak estatutik kanpoko agenteak dituztenak. sektore publikoa".
+    "810": "Sektore publikotik kanpoko erakundeek jaulkitako letra, obligazio eta bestelako baloreen erosketa, gehienez 12 hilabeteko epemuga dutenak".
+    "811": "Epe luzeko obligazioak eta sektore publikotik kanpoko obligazioak eskuratzea. Sektoreka garatzea. Sektore publikotik kanpoko erakundeek jaulkitako letra, obligazio eta bestelako baloreen erosketa, 12 hilabetetik gorako epemuga dutenak".
+    "82": "Interesekin edo interesik gabeko maileguak eta aurrerakinak, sektore publikoari emandako amortizazio-epe laburrak (urtebete baino gehiagokoak) eta epe luzekoak (urtebete baino gehiagokoak)."
+    "820": "Aurrerakinak eta maileguak interesik edo interesik gabe, itzultzeko eta baliogabetzeko epea 12 hilabetetik gorakoa ez dena".
+    "821": "Interesekin edo interesik gabeko aurrerakinak eta maileguak, itzultzeko eta baliogabetzeko epea 12 hilabetetik gorakoa izanda".
+    "83": "Sektore publikotik kanpo emandako maileguak, interesekin edo interesik gabe, amortizazio-epe laburrean (urtebete baino gehiago) eta epe luzerako (urtebete baino gehiago)".
+    "830": "Interesekin edo interesik gabeko aurrerakinak eta maileguak, itzultzeko eta baliogabetzeko epea 12 hilabetetik gorakoa ez dena. Kontzeptu horretan sartuko dira, besteak beste, toki-erakundeak eta bere kontrolpean dauden erakunde autonomoek emandako mailegu eta aurrerakinak. langileak. "
+    "831": "Toki-entitateak interesdun edo interesik gabe emandako aurrerakinak eta maileguak, itzultzeko eta baliogabetzeko epea 12 hilabetetik gorakoa izanik. Toki-erakundeak eta erakunde autonomoek beren langileei emandako aurrerakinak eta epe luzerako maileguak sartuko dira"
+    "84": "Toki-erakundeak eta bere erakunde autonomoek beste agente ekonomiko batzuen diruzaintzan edo funtsetan egindako gordailu edo abalen formako funtsak ematea".
+    "840": "Diru-ekarpenak gordailu irregular gisa bilduko dira. Gordailuak eratzen diren epearen arabera bi azpikontzeptu ezartzen dira: epe luzekoa, urtebetetik gorakoa denean, eta epe laburrekoa, bestela. ."
+    "841": "Betebehar bat betetzeko egindako diru-ekarpenak kobratuko dira. Bermeak eratzen diren epearen arabera bi azpikontzeptu ezartzen dira: epe luzekoa, urtebetetik gorakoak direnean, eta laburra. -epea, bestela".
+    "85": "Kapitalaren jabetza ordezkatzen duten baloreen erosketa sartuko da".
+    "850": "Sektore Publikoko entitateetako akzio eta partaidetzen erosketei dagozkien gastuak".
+    "86": "Kapitalaren jabetza ordezkatzen duten baloreen erosketa sartuko da".
+    "860": "Sektore Publikokoak ez diren entitateen akzio eta partaidetzen erosketei dagozkien gastuak".
+    "87": "Toki entitateek edo haien erakunde autonomoek egiten dituzten izaera horretako ekarpenak, betiere balio berdinekoa, finantza-aktiboak edo entitatearen partaidetza handitzea jasotzen badute eta ekarpenak berreskuratzeko itxaropenak badaude. Bestela, behar dute. kapital transferentziatzat hartu behar dira".
+    "9": "Toki-entitateek eta haien erakunde autonomoek finantza-pasiboen (maileguak eta kredituak) amortizatzeko egindako gastuak barne hartzen ditu. Era berean, kapitulu honek izango liratekeen gordailuak eta bermeak itzultzeko hornidurak bildu nahi ditu. toki entitatearen alde ezarrita".
+    "90": "Mota guztietako zorrak baliogabetzea eurotan, laburra (urtebete baino gehiagoko mugaegunearekin) eta epe luzekoa (urtebete baino gehiagokoa), baloreetan, kontu-sarrerak edo beste edozeinetan dokumentatuta. formalki aitortzen duen agiria, maileguak kenduta".
+    "900": "Aipatutako zorra baliogabetzea, zeinaren epemuga eta iraungitze-epea 12 hilabetetik gorakoa ez den".
+    "901": "Artikuluan aipatzen den zorra baliogabetzea, zeinaren epemuga eta iraungitze-epea 12 hilabete baino handiagoa den".
+    "91": "Toki-entitateek eta haien erakunde autonomoek hitzartutako edo bere gain hartutako eurotan egindako maileguak eta antzeko eragiketak baliogabetzea".
+    "910": "Aipatutako eragiketak baliogabetzea, epemuga 12 hilabetetik gorakoa ez den".
+    "911": "Artikuluan aipatutako eragiketak baliogabetzea epemuga 12 hilabetetik gorakoa denean".
+    "912": "Toki-entitateek eta haien erakunde autonomoek sektore publikotik kanpo lortutako eurotan emandako edo bere gain hartutako maileguak baliogabetzea, haien epemuga 12 hilabetetik gorakoa ez dena".
+    "913": "912 kontzeptuan aipatutako zorrak baliogabetzea epemuga 12 hilabete baino handiagoa denean".
+    "92": "Toki-entitateek eta haien erakunde autonomoek jaulkitako edo bere gain hartutako zor publikoa baliogabetzea euroa ez den beste monetan, maileguak kenduta".
+    "920": "Toki-entitateek edo haien erakunde autonomoek euroaz bestelako monetan jaulkitako edo bere gain hartutako zorrak deuseztatzea, haien epemuga eta iraungipena 12 hilabetetik gorakoa ez den".
+    "921": "Toki-entitateek edo haien erakunde autonomoek euroaz bestelako monetan jaulkitako edo bere gain hartutako zorrak baliogabetzea, 12 hilabetetik gorakoa eta iraungitzea".
+    "93": "Toki entitateek eta haien erakunde autonomoek hitzartutako edo bere gain hartutako euroaz bestelako monetatan egindako maileguak baliogabetzea epe laburrean (epe laburrean (urtebetekoa ez den mugaegunarekin) eta epe luzean (urtebetetik gorako mugaegunearekin)."
+    "930": "Toki-entitateek eta haien erakunde autonomoek epemuga-epea 12 hilabetetik gorakoa ez den euroaz bestelako dibisetan egindako maileguak baliogabetzea".
+    "931": "Epemuga-epea 12 hilabetetik gorakoa den toki entitateek edo haien erakunde autonomoek hitzartutako edo bere gain hartutako euroaz bestelako dibisetan egindako maileguak baliogabetzea".
+    "94": "Toki-entitatearen edo haren erakunde autonomoen diruzaintzan egindako gordailuak edo bermeak itzultzeko eragiketak".
+  "I":
+    "1": "Kapitulu honetan, kontraprestaziorik gabe exijitutako baliabideak jasoko dira, zeinen zergapeko egitatea izaera juridiko edo ekonomikoko negozio, egintza edo gertakariek osatzen duten, subjektu pasiboaren zergagaitasuna egiaztatzen dutenak, bat edukitzearen ondorioz. ondarea edo diru-sarrerak lortzea".
+    "10": "Pertsona fisiko edo juridikoen errentaren gaineko zergetatik erator daitezkeen errentak barne hartzen ditu".
+    "100": "Toki entitateen aldeko Pertsona Fisikoen Errentaren gaineko Zergaren eskualdaketatik eratorritakoak sartuko dira Toki Ogasunak Arautzen dituen Legeak baliabide hori ezartzen duenean".
+    "11": "Ondasunaren titulartasunaren gaineko zergetatik eratorritako errentak edo berau osatzen duten elementuen transmisioak frogatutako balio-gehikuntzak barne hartzen ditu".
+    "13": "Enpresa-, lanbide- edo arte-jarduerak nazio-lurraldean egiteak zerga-egitatea eratzen duen zergatik eratorritako errentak barne hartzen ditu, hala dagokionean Toki Ogasunak Arautzen dituen Legeak xedatzen duenaren arabera".
+    "18": "Toki Ogasunak Arautzen dituen Legeak ezabatzen dituen zuzeneko toki-zerga horien errendimendua barne hartzen du. Toki entitateek beren aurrekontuan jaso ditzakete elkarrekin adierazitako baliabideak, edo kontzeptu edo azpikontzeptuen araberako garapena ezarri, banaka biltzeko produktua. desagertzen diren zerga bakoitza".
+    "21": "Hala bada, Balio Erantsiaren gaineko Zergatik erator daitezkeen diru-sarrerak barne hartzen ditu. Zerga hau toki entitateen alde eskualdatzearen ondoriozkoak izango dira Toki Ogasunak Arautzen dituen Legeak baliabide hori ezartzen duenean".
+    "22": "Hala bada, manufakturaren eta kontsumo espezifikoen gaineko Zerga Berezietatik erator daitezkeen diru-sarrerak barne hartzen ditu. Zerga horien eskualdaketaren ondoriozkoak sartuko dira Toki Ogasunaren Legea Arautzaileak baliabide hori ezartzen duenean."
+    "220": "Ekoizpen eta kontsumo espezifikoen gaineko Zerga Berezi bakoitzari dagozkion azpikontzeptuak zehazten dira, eta tokiko erakundeek diru-sarrerak jasotzen dituzte: alkoholaren eta edarien eratorrien gainekoa, garagardoarena, ardoarena eta edari hartzituarena, "tabakoaren fabrikazioari, hidrokarburoei buruzkoa,". zenbait garraiobide, bitarteko produktuak, energia, hidrokarburoen eta gasolinaren txikizkako salmenta".
+    "26": "Estatuko, autonomia-erkidegoetako zeharkako zergen gaineko errekarguak".
+    "27": "Zeharkako zergei buruzko baliabideak, zeinen kuota beste toki entitateei dagokiena".
+    "28": "Toki Ogasunak Arautzen dituen Legeak deuseztatzen dituen zeharkako tokiko zergak, eta itzaltzen diren zeharkako udal, eskualde edo estatuko zergen gaineko errekarguak. Toki entitateek beren aurrekontuan sartu ahal izango dituzte elkarrekin adierazitako baliabideak, edo kontzeptuen bidez garapen bat ezarri. edo azpikontzeptuak, desagertzen diren zerga bakoitzaren produktua banaka biltzeko".
+    "29": "Indarrean dauden zeharkako zergen bilketatik eratorritako gainerako diru-sarrerak barne hartzen ditu, bai eta udal-eremuan edozein eraikuntza, instalazio eta obrak eta zerga bereziak eta zerga bereziak gauzatzearen ondoriozko zerga biltzetik eratorritakoak ere. Kanariar Uharteetako, Ceutako eta Melillako zerga-erregimen berezietan sartutako zergak".
+    "3": "Zergetatik, prezio publikoetatik, ekarpen berezietatik, aurreko urteetako itzulketetatik, isunetatik, zigor-errekarguetatik, berandutze-interesetatik, etab."
+    "30": "Oinarrizko zerbitzu publikoak eskaintzetik eratorritako diru-sarrerak, programen araberako sailkapenaren 1. gastu-eremuan sartuta daudenak ulertuta, zergadunari modu jakin batean eragin edo mesede egiten diotenean, honako egoera hauetakoren bat gertatzen denean: Zerbitzuak direla. Kudeatutakoek borondatezko eskaera edo jaso ez badute. Horiek ez dira borondatezkotzat hartuko lege edo arauzko xedapenek ezartzen dituztenean edo eskatzen diren ondasunak edo zerbitzuak eskatzailearen bizitza pribaturako edo sozialerako ezinbestekoak direnean sektore pribatua, haien erreserba sektore publikoaren alde ezarri ala ez, indarrean dagoen araudiaren arabera".
+    "31": "Izaera sozial eta lehentasunezko zerbitzu publikoak eskaintzetik eratorritako diru-sarrerak, programen araberako sailkapenaren 2. eta 3. gastu-arloan sartuta daudenak ulertuta, zergadunari modu jakin batean eragin edo mesede egiten diotenean, hauetakoren bat sortzen denean. aurreko artikuluan azaldutako inguruabarrak".
+    "32": "Toki-eskumeneko zuzenbide publikoko araubideko administrazio-jarduerak burutzeko tasak. Subjektu pasiboari erreferentzia egiten, eragiten edo mesede egiten dioten tokiko jurisdikzioko zuzenbide publikoko araubideko administrazio-jarduera bat egiteagatik eratorritako errentak. , "Zerbitzuak emateagatiko tasak" aurreko 31. artikuluari dagokionez aipatutako zirkunstantziaren bat gertatzen denean.
+    "33": "Tokiko jabari publikoaren erabilera pribatuaren edo erabilera bereziaren ordain gisa jasotako diru-sarrerak".
+    "34": "Zerbitzuak emateko edo toki-eskumeneko jarduerak egiteko prezio publikoak. Toki-entitateek emandako zerbitzuengatik edo beren eskumeneko jarduerak egiteko ordainsari gisa jasotako diru-sarrerak, baldin eta inguruabarrak ez badira. "Zerbitzuak emateagatiko tasak" 31. artikuluan sartzeko beharrezkoa da.
+    "35": "Herri-lanak egitearen ondorioz edo tokiko zerbitzu publikoak ezartzearen edo hedatzearen ondorioz prestazio berezi bat edo ondasun batzuen balio-gehikuntzaren ordainsari gisa jasotako diru-sarrerak. Nahitaez azpikontzeptu mailan Lan edo eratorritako zerbitzua zehaztu behar da".
+    "36": "Ondasunak ateratze fisikoarekin edo entregarekin egindako eragiketetan jasotako diru-sarrerak, ibilgetua osatzen dutenak eta erabilgarri dauden materialtzat hartzen ez direnak izan ezik. Adierazgarri gisa, ondasunen salmentatik ateratako diru-sarrerak bilduko dira, besteak beste. , inprimatuta".
+    "38": "Toki-entitatearen edo bere erakunde autonomoen diruzaintzan egindako diru-sarrerak, itxitako ekitaldietako itzulketetatik (betebeharra aitortu zenekoa ez den beste ekitaldi batean egindakoak) eragiketa arruntetarako. dagozkion betebeharrak aitortu diren gastuen aurrekontuaren kargura, horien zenbatekoa murriztuz, bai eta toki-erakundearen edo haren berme-erakunde autonomoen aldeko ordainketak ere sartuko dira."
+    "39": "Kapitulu honetako espezifikoak izanik, aurreko artikuluetan sartu ez diren diru-sarrerak barne hartzen ditu".
+    "391": "Indarreko legerian behar bezala sailkatutako ekintza edo hutsegiteengatik ezarritako zehapenetatik eratorritako diru-sarrerak".
+    "392": "Borondatezko aldian zorrak ez ordaintzetik eratorritako errekargu betearazlearen, zigor murriztuaren eta zehapen arruntaren bidez. Era berean, aldez aurretik betekizunik gabeko berandutza aitortzearen errekarguak sartzen dira".
+    "393": "Borondatezko epean ordainketa-epea amaitu eta obligazio nagusia osatzen duen zorra ordaintzen den bitartean, berandutza-interesetatik eratorritako diru-sarrerak. Zorren nagusiarekin batera likidatutako berandutza-interesak. ez da kontzeptu horri aplikatuko, dagokion kontzeptuari baizik".
+    "394": "Prestazio pertsonalak eskudirutan itzultzetik eratorritako diru-sarrerak".
+    "395": "Garraio-zerbitzuen eskudirutan amortizaziotik eratorritako diru-sarrerak".
+    "396-00": "Hirigintza-jarduketetatik eratorritako diru-sarrerak, eskumena duen Administrazio Publikoen lege-mailako arau baten bidez urbanizatzeko azpiegitura osagarriak ezartzeko lurzoruaren titularrei edo lizentzia-eskatzaileei eskatutako ekarpenen ondorioz. hori garatzeko".
+    "396-10": "Hirigintza-jarduketetatik eratorritako diru-sarrerak, urbanizazio-gastuak finantzatzeko toki-erakundeak urbanizazio-gastuak finantzatzeko urbanizazio-gastuak finantzatzeko lursailaren jabeei eskatutako ekarpenen ondorioz".
+    "397-00": "Lurzoru ez urbanizagarrian interes komunitarioko deklaratutako jarduketengatik jasotako Administrazio Publiko eskudunen lege-mailako arau baten bidez ezarritako hirigintza-erabileraren tasaren diru-sarrerak".
+    "397-10": "Toki entitateari dagozkion hirigintza-erabilerak eskudirutan ordezkatzearen ondoriozko diru-sarrerak, aurreko azpikontzeptuan jasotako tasaz gain".
+    "398": "Bizitza ez den aseguru-kontratuetatik eratorritako kalte-ordainei dagozkien diru-sarrerak".
+    "399": "Artikulu honetako diru-sarrerak barne hartzen ditu, aurreko kontzeptuetan jasota ez daudenak. Besteak beste, toki entitateak noizean behin jasotzen dituen diru-sarrerak egongo lirateke, aurrekontu-zorren edo aurrekontuz kanpoko zorrengatik, kontabilitate-erantzukizuneko espedienteetatik eratorritako sarrerak".
+    "4": "Izaera ez zergadun errentak, toki entitateek haiengandik zuzeneko konpentsaziorik gabe jasotzen dituztenak, eragiketa arruntak finantzatzeko xedea dutenak. Kontzeptu eta azpikontzeptuen arabera, transferentziak bereiziko dira ematen dituzten eragileen arabera. Era berean, finalistak bereiziko dira".
+    "40": "Artikulu hau Erakundeko erakunde autonomoen aurrekontuetan soilik izango da aplikagarria".
+    "41": "Toki-entitateek eta haien erakunde autonomoek erakunde bereko erakunde autonomoetatik jasotzea espero duten transferentzia korronteak".
+    "420": "Toki entitateen aldeko transferentziak sartuko dira Estatuko zergen eskualdatze eredutik kanpo dauden entitateen Estatuko zergetan parte hartzeari dagozkionak, Toki Ogasunaren Lege Arautzaileak ezarritako Finantzaketa Osagarriko Funtsean parte hartzeari dagozkionak. Aipatutako eskualdaketa-ereduan sartutako toki-erakundeen alde Era berean, Estatuko Administrazio Orokorrak toki-entitateen alde aitortzen dituen diru-kopuruak estatuko araudiak ematen dituen zerga-onurengatik legea".
+    "421": "Estatuko erakunde autonomoen uneko transferentziak. Honako azpikontzeptu hauek bereizten dira:"
+    "422": "Estatuko fundazioen uneko transferentziak".
+    "423": "Literalean aipatutako entitate eta sozietateen uneko transferentziak. Bi azpikontzeptu bereizten dira:"
+    "43": "Toki entitateek eta haien erakunde autonomoek Gizarte Segurantzaren sistema osatzen duten erakundeetatik edozeinengandik jasotzea espero duten transferentzia korronteak".
+    "44": "Bi kontzeptu ezartzen dira transferentzia arruntak zein entitatetik datozen erakundearen arabera:"
+    "45": "Toki-entitateek eta haien erakunde autonomoek autonomia-erkidegoetatik jasotzea espero duten transferentzia korronteak".
+    "450": "Autonomia-erkidegoetako zergetan parte hartzearen zenbatekoak eta toki entitateek indarrean dauden betebeharrak finantzatzeko haiekin sinatutako hitzarmenetatik eratorritakoak sartuko dira, hala badagokio".
+    "49": "Zehazki, Europar Batasuneko erakundeetatik jasotako transferentzi korronteetatik jasotako diru-sarrerak eta, hala badagokio, beste erakunde batzuetatik eta nazioarteko erakundeetatik datozenak, bai eta estatutik kanpo kokatutako agenteetatik datozenak ere. lurralde nazionala edo lurraldez kanpoko estatusa dutenak".
+    "5": "Toki entitateen eta haien erakunde autonomoen ondaretik datozen diru-sarrerak barne hartzen ditu: Tituluen, baloreen, gordailuen, dibidenduen eta etekinetan parte-hartzearen interesak, ondasun higiezinen errentak, emakida eta erabilera berezietako produktuak, etab.".
+    "50": "Baloreetan finantza-inbertsioetatik eratorritako interesen etekinak barne hartzen ditu".
+    "51": "Agiririk gabeko zorraren interesak baloreen, mota guztietako maileguen, aurrerakinen edo kreditu-polizetan. Kontzeptuka, jasotako interesak Entitateen edo subjektu zordunen multzoen arabera bereiziko dira".
+    "52": "Toki entitateek egindako banku eta kutxetan diru-gordailuetan sortutako interesak. Kontzeptuka, jasotako interesak Erakundeen edo subjektu gordailuen arabera bereiziko dira".
+    "53": "Dibidenduetatik datozen baliabideak eta finantza-inbertsioetatik edo legez ezarritako eskubideetatik eratorritako mozkinetan parte hartzeak. Kontzeptuka, dibidenduak eta jasotako mozkinetan parte hartzea toki-entitateak parte hartzen duen entitateen eta subjektuen arabera bereiziko dira".
+    "534": "Toki-entitatearen menpeko sozietate eta entitateen dibidenduak eta etekinetan parte hartzea zein toki-entitatea partaide soila den sozietate eta entitateei dagozkienak sartuko dira. Aurreko ondorioetarako, ulertuko da. sozietatea edo erakundea toki-entitatearen menpe dago, honako egoera hauetakoren bat gertatzen denean: a) Toki Erakundeak, bere mendeko entitateek, berari lotuta edo bertan parte hartu duten, bere kapital sozialean, zuzenean edo zeharka, gehiengo batean parte hartzea; Toki Entitateko kide edo menpeko den edo haren menpeko edo haren partaide den organo, erakunde edo merkataritza-sozietateak sozietatean boto-eskubide gehientsuenak ditu, zuzenean edo azken honen beste bazkide batzuekin egindako akordioen bidez. c) Edozein erakunde, erakunde edo sozietatek. Toki Entitateko kide edo menpeko den edo bertan parte hartzen duen merkataritza-sozietateak eskubidea du sozietatearen gobernu-organoetako kideen gehiengoa izendatzeko edo kargutik kentzeko, bai zuzenean, bai azken horren beste bazkide batzuekin egindako hitzarmenen bidez; ; d) Toki Erakundearen menpeko edo partaidetza duen toki-erakundeak, erakundeak edo merkataritza-sozietateak bere kide edo aholkulari gisa izendatu duela administratzaile bakarra edo sozietatearen Administrazio Kontseiluko kideren bat. ."
+    "54": "Ondarezko ondasun higiezinak hirugarrenek ustiatu, erabili edo aprobetxatzetik eratorritako errentak".
+    "541": "Hiri-higiezinen alokairutik eratorritako diru-sarrerak, oro har".
+    "542": "Toki-entitatearen jabetzako landa-finkak alokairutik eratorritako diru-sarrerak".
+    "544": "Toki-entitatearen ondasun higiezinen jabetza baliagarria eskualdatzeko urteko pentsioetatik eta beste eskubide ekonomikoetatik eratorritako errolda-kontratu enfiteutikoetatik eratorritako beste edozein izaeratako diru-sarrerak, azken honek bere zuzeneko jabetza gordeta".
+    "549": "Aurreko kontzeptuetan sartu gabeko izaera horretako errentak barne hartzen ditu".
+    "55": "Toki entitateek emandako ikerketa- edo ustiapen-eskubideetatik lortutako errentak eta, oro har, jaso ditzaketen emakida-mota eta erabilera berezietatik eratorritakoak, batez besteko batuketa bat osatzen dutenak bereiziz. aldizkako kuota edo beste modalitateren bat".
+    "550": "Emakiden administratiboetatik eratorritako izaera horretako diru-sarrerak. Toki entitateak zerbitzu publiko baten kudeaketa agintzen dien emakidadunengandik aldian-aldian jaso behar den kuota sartuko da, titulartasunari eutsiz. "
+    "551": "Emakiden administratiboetatik eratorritako izaera horretako diru-sarrerak. Toki-erakundeak zerbitzu publiko baten kudeaketa agintzen dien emakidadunengandik jaso behar den kuota, tarifa lauan edo ez-aldikoan. , bere jabetza gordez".
+    "552": "Toki-entitatearen aldeko kontraprestazioaren diru-sarrerak sartuko dira bere jabetzako lursailak erabilerarako, eraikitzeko, jabeak planak ezarritako denboran lagatzeko. edo. dagozkion hitzarmenak, lur eta eraikin horiek toki-erakundeari itzuliz, eskubidea itzaltzen denean kontzeptu honetan jasotako kontraprestazioa aldizkako kuota izango da."
+    "553": "Toki-entitatearen aldeko kontraprestazioaren diru-sarrerak sartuko dira bere jabetzako lursailak erabilerarako, eraikitzeko, jabeak plangintzak ezarritako denboran lagatzeko. edo dagozkion hitzarmenak, aipatutako lursailak eta eraikinak toki-erakundeari itzuliz, eskubidea iraungitzen denean aurrekoen konbinazioan".
+    "554": "Nekazaritza eta basogintza aprobetxamenduetatik lortutako izaera horretako errentak barne hartzen ditu".
+    "555": "Erabilera berezietatik lortutako izaera horretako errentak barne hartzen ditu".
+    "59": "Aurreko artikuluetan jaso ez diren izaera honetako diru-sarrera guztiak barne hartzen ditu".
+    "591": "Inbertsio finantzarioak osatzen dituzten titulu eta baloreen salmentatik eratorritako onurak barne hartzen ditu, harpidetza-eskubideen salmentatik eratorritako errentak barne".
+    "592": "Kobratzeko interesetatik datozen diru-sarrerak, edo interes-kreditu-diferentziagatik, edo kanbio-tasa-diferentzia positiboetatik edo finantza-izaerako beste edozein diru-sarrerak, finantza-estaldura-eragiketetatik eta moneta-arriskuaren kudeaketatik eratorritakoak sartuko dira. interes eta kanbio-tasa".
+    "599": "Aurreko kontzeptuetan sartu gabeko ondasun-errenta sartzen da".
+    "6": "Toki-entitateen edo haien erakunde autonomoen jabetzako ekipo-ondasunen irteera edo entregarekin egindako eragiketen diru-sarrerak: lursailetatik, landa-finketatik, bide publikoetatik, etxebizitzak eta negozio-lokaletatik soberan dauden lursailetatik, etab.".
+    "60": "Lursailen, landa-ondasunen eta gainerako lurren salmentatik eratorritako errentak barne hartzen ditu".
+    "600": "Eraiki gabeko lursailen salmentatik eratorritako diru-sarrerak".
+    "601": "Landa-finken salmentatik eratorritako diru-sarrerak".
+    "602": "Bide publikoetako soberan dauden lursailen salmentatik eratorritako diru-sarrerak, Toki Entitateen Ondare Arautegiko 7. artikuluaren arabera halakotzat hartutakoak".
+    "603": "Lurzoruaren ondasun publikoaren parte diren ondasunen salmentatik eratorritako diru-sarrerak".
+    "609": "Aurreko kontzeptuetan sartu gabeko lurzoru urbanizaezinaren salmentatik eratorritako diru-sarrerak".
+    "61": "Aurreko artikuluan jaso gabeko inbertsio errealen salmentatik eratorritako errentak barne hartzen ditu".
+    "611": "Toki-erakundeak edo bere erakunde autonomoek jabetza industrial edo intelektualaren salmentatik eratorritako diru-sarrerak bilduko ditu".
+    "612": "Denborarekin hondatzen ez diren eta toki entitateak edo bere erakunde autonomoek balio-biltegi gisa eskuratu eta mantendu dituzten objektuak (adibidez, metal preziatuak edo artelanak, adibidez) saltzeagatik lortutako errentak. "
+    "619": "Aurreko kontzeptuetan jasota ez dauden beste ibilgetu material batzuk besterentzetik eratorritako diru-sarrerak bilduko ditu".
+    "68": "Toki-entitatearen edo haren erakunde autonomoen diruzaintzan gauzatutako diru-sarrerak, itxitako ekitaldi fiskalen itzulketetatik (betebeharra aitortu zenekoa ez den ekitaldi fiskal batean egindakoak) 6. kapituluetako eragiketetarako sortutakoak. 7 "Indarrean dagoen aurrekontuko itzulketak dagozkien betebeharrak aitortu zireneko gastu-aurrekontuaren kargura izango dira, horien zenbatekoa murriztuz, baita dagozkion ordainketak ere".
+    "680": "Toki-entitatearen edo bere erakunde autonomoen aurreko ekitaldiei dagozkien aurrekontuetatik aipatutako kredituen kargura egindako ordainketen itzultzeen diru-sarrerak sartzen dira".
+    "7": "Izaera ez fiskaleko errentak, toki entitateek jasotzen dituztenak, haiengandik zuzeneko konpentsaziorik gabe, kapital-eragiketak finantzatzeko xedea dutenak. Kontzeptuka, transferentziak bereiziko dira horiek ematen dituzten eragileen arabera. Era berean, horiek ematen dituztenak. finalistak bereiziko dira".
+    "70": "Artikulu hau toki entitatearen erakunde autonomoen aurrekontuei bakarrik aplikatuko zaie".
+    "71": "Toki-erakundeak eta bere erakunde autonomoek erakundearen beraren erakunde autonomoetatik jasotzea espero duten kapital-transferentziak".
+    "723": "Literalean aipatutako sozietate eta entitateen kapital-transferentziak. Bi azpikontzeptu bereizten dira".
+    "73": "Toki entitateek eta haien erakunde autonomoek Gizarte Segurantzaren sistema osatzen duten erakundeetatik edozeinengandik jasotzea espero duten kapital-transferentziak".
+    "74": "Kapital transferentziak zein erakunderengandik datozen erakundearen arabera bi kontzeptu ezartzen dira:"
+    "750": "Kontzeptu honen baitan, azpikontzeptu batek Autonomia Erkidegoko Administrazio Orokorreko toki-entitateek jasotzen dituzten diru-laguntzak eta maileguak eta epe laburreko edo luzerako beste finantza-eragiketa batzuen amortizazioaren eraginpean dauden diru-laguntzak bereiziko ditu. entitate horiek".
+    "79": "Europar Batasuneko erakundeetatik jasotako kapital transferentzietatik jasotako diru-sarrerak xehatu dira, eta, batera, beste erakunde batzuetatik eta nazioarteko erakundeetatik datozenak, hala badagokio, baita nazio-lurraldetik kanpo dauden agenteetatik datozenak ere. lurraldez kanpoko estatusa".
+    "8": "Zorraren, akzioen eta betebeharren salmentatik, maileguak itzultzeagatik, bonuak eta gordailuak itzultzeagatiko sarrerak barne hartzen ditu".
+    "80": "Sektore publikoak jaulkitako zor mota guztien salmentaren errentak barne hartzen ditu, laburrak (urtebete baino gehiagoko mugaegunearekin) eta epe luzekoak (urtebete baino gehiagoko epemuga), eta baloreetan dokumentatuta. , kontu-sarrerak edo beste edozein dokumentu, mailegu-kontratua izan ezik."
+    "800": "12 hilabetetik gorako epemuga duen sektore publikoko zorraren salmentatik lortutako diru-sarrerak barne hartzen ditu. Agente jaulkitzailearen arabera azpikontzeptu hauek bereizten dira:"
+    "801": "12 hilabetetik gorako epemuga duen sektore publikoko zorren salmentatik lortutako diru-sarrerak barne hartzen ditu. Igorpen-agentearen arabera azpikontzeptu hauek bereizten dira:"
+    "81": "Mota guztietako obligazio eta bonuen salmentatik datozen errentak barne hartzen ditu, laburrak (urtebete baino gehiagoko mugaegunearekin) eta epe luzekoak (urtebete baino gehiagokoa), sektoretik kanpoko agenteek emandakoak. publikoa, eta baloreetan dokumentatua".
+    "810": "Sektore publikotik kanpoko zorren salmentatik lortutako errentak barne hartzen ditu, gehienez 12 hilabeteko epemuga dutenak".
+    "811": "Sektore publikotik kanpoko zorraren salmentatik lortutako errentak barne hartzen ditu, 12 hilabetetik gorako epemuga dutenak".
+    "82": "Sektore publikoari emandako mailegu eta aurrerakinen itzulketetatik, interesekin edo interesik gabe, epe laburreko amortizazio-epearekin (urtebetetik gorakoa ez dena) eta epe luzerako (urtebetetik gorakoa) itzultzeetatik lortutako errentak barne hartzen ditu".
+    "820": "Sektore publikoko erakundeei emandako mailegu eta aurrerakinen itzulketak barne hartzen ditu, interesekin edo interesik gabe, epemuga 12 hilabetetik gorakoa ez denean".
+    "821": "Sektore publikoko erakundeei emandako mailegu eta aurrerakinen itzulketak barne hartzen ditu, interesekin edo interesik gabe, epemuga 12 hilabetetik gorakoa denean".
+    "83": "Sektore publikotik kanpoko agenteei emandako mailegu edo aurrerakinen itzulketetatik lortutako baliabideak barne hartzen ditu, interesekin edo interesik gabe, amortizazio-epe laburrean (urtebete baino gehiagoz) edo epe luzera (urtebete baino gehiagokoa). 830. eta 831. kontzeptuetan sartuko dira langileei egindako aurrerakinen itzulketak, eta, hala badagokio, horretarako berariazko azpikontzeptu bat sortu ahal izango da."
+    "830": "Sektore publikokoak ez diren entitateei emandako itzulketak eta aurrerakinak barne hartzen ditu, epemuga 12 hilabetetik gorakoa ez denean".
+    "831": "Sektore publikokoak ez diren entitateei emandako itzulketak eta aurrerakinak barne hartzen ditu, epemuga 12 hilabetetik gorakoa denean".
+    "84": "Toki entitateak edo bere erakunde autonomoek egindako gordailuak eta bermeak itzultzeagatiko diru-sarrerak barne hartzen ditu".
+    "85": "Sektore publikoko entitateen kapitalaren titulartasuna adierazten duten baloreen salmentatik datozen errentak barne hartzen ditu".
+    "86": "Sektore publikokoak ez diren entitateen kapitalaren titulartasuna adierazten duten baloreen salmentatik datozen errentak barne hartzen ditu".
+    "87": "Kredituen aldaketak finantzatzeko baliabide gisa erabiltzen den gainerako diruzaintzaren zatia sartuko da".
+    "870": "Ukitutako finantzaketa duten gastuei esleitutako zatia azpikontzeptuen bidez bereiziko da gastu orokorretara esleitutakoarekin".
+    "9": "Toki-entitateen eta haien erakunde autonomoen finantzaketa barne hartzen du zorra, jasotako maileguak, gordailuak eta jasotako abalak jaulkitzetik".
+    "90": "Zorra eurotan jaulkitzeagatik lortutako diru-sarrerak hartzen ditu barne, toki entitateek hori egin dezaketen edozein modalitatetan, bai epe laburrean (urtebete baino gehiagoko mugaegunearekin) bai epe luzera (urtebete baino gehiagoko epemugarekin)."
+    "900": "Toki-entitateek eta haien erakunde autonomoek zor publikoa epe laburrean (urtebete baino gehiagoko mugaegunarekin) jaulkitzeak lortutako diru-sarrerak barne hartzen ditu".
+    "901": "Toki-entitateek eta haien erakunde autonomoek epe luzerako zor publikoa (urtebete baino gehiagoko epemuga) jaulkitzeagatik lortutako errentak barne hartzen ditu eurotan".
+    "91": "Eurotan jasotako maileguetatik eratorritako diru-sarrerak barne hartzen ditu, bai sektore publikoko erakundeek bai sektore publikotik kanpoko agenteek emandakoak, bai laburrak (urtebete baino gehiagoko mugaegunearekin) bai epe luzekoak (mugimenduarekin). urtebete baino handiagoa). Kontzeptuka, mailegu-emailearen izaera publiko edo pribatuaren eta amortizazio-epearen arabera bereiziko dira."
+    "92": "Zorra euroa ez den beste moneta batean jaulkitzeagatik lortutako errentak barne hartzen ditu, epe laburreko (urtebete baino gehiagoko mugaegunearekin) eta epe luzerako (urtebete baino gehiagoko mugaegunearekin). ."
+    "93": "Euroa ez den beste moneta batzuetan izendatutako maileguetatik eratorritako diru-sarrerak barne hartzen ditu, amortizazio-epea edozein dela ere, epe laburrean (urtebetetik gorakoa ez den epearekin) eta epe luzean (To bat baino epe handiagoarekin). urtean)."
+    "94": "Toki entitateen edo haien erakunde autonomoen kutxan eskudirutan egindako gordailuak eta gordailuak barne hartzen ditu".
+"functional":
+  "G":
+    "2": "Arlo edo talde honek pentsioen erregimena osatzen duten gastu eta transferentzia guztiak barne hartzen ditu; funtzionarioentzako pentsioak, karitate-laguntzako zerbitzuak; behar bereziak dituzten kolektiboentzako zerbitzuak, hala nola gazteak, adinekoak, ezindu fisikoak eta adinekoak enplegua sustatzeko neurriak".
+    "3": "Arlo edo talde honek osasun, hezkuntza, kultura, aisialdi eta denbora librea, kirola eta, oro har, kalitatea igo edo hobetzera zuzendutako gastu guztiak barne hartzen ditu toki entitateak. bizitzarena".
+    "4": "Arlo honek jarduera ekonomikoaren sektore ezberdinen potentziala garatzeko joera duten jarduera, zerbitzu eta transferentzien gastuak barne hartzen ditu. Oinarrizko azpiegituren eta garraioaren gastuak; nekazaritza azpiegiturak; komunikazioak; Ikerketa, garapena eta berrikuntza".
+    "5": "Gizarte-ingurunearen ahalmen ekonomikoa garatzeko joera duten jarduerekin lotutako gastu guztiak barne hartzen ditu, ahal dela inbertsioak".
+    "9": "Alor honetan, oro har, toki entitateari eragiten dioten jarduerei dagozkien gastuak sartzen dira, eta gobernu-eginkizunak edo administrazio-laguntza eta erakunde osoaren laguntza logiko eta teknikoa gauzatzean datza. Entitatea, programaren beste edozein epigraferi aplikatu ezin zaizkion transferentzia orokorrak programaren araberako sailkapena ez den beste arlo bati zuzenean sartuko zaizkio, bestela dagokien gastu-politika zehatzera bideratuko dira".
+    "0": "Interesen gastuak eta zorraren amortizazioa eta antzeko izaera duten bestelako finantza-eragiketak barne hartzen ditu, horiek formalizatzeak eragindako gastuak kenduta".
+    "01": "Interesen gastuak eta zorraren amortizazioa eta antzeko izaera duten bestelako finantza-eragiketak barne hartzen ditu, horiek formalizatzeak eragindako gastuak kenduta".
+    "011": "Interesen eta zorraren amortizazio-gastuak eta antzeko izaera duten beste finantza-eragiketa batzuk barne hartzen ditu, horiek formalizatzeak eragindako gastuak kenduta".
+    "1": "Arlo honetan sartzen dira udalek beren kabuz edo elkartean egin behar dituzten oinarrizko zerbitzu publikoetatik eratorritako gastu guztiak, apirilaren 2ko 7/1985 Legearen 26.1 artikuluan xedatutakoaren arabera. Toki Araubideko Oinarriak, edo, hala badagokio, probintziek, Lege bereko 31.2 artikuluan ezarritakoaren arabera, udalei lankidetza- eta laguntza-funtzioa kontuan hartuta, hauek jasotzen dira, ezarritako terminoetan Horietako bakoitzarentzat, oinarrizko lau gastu politika ezarri dituzte: herritarren segurtasuna eta mugikortasuna, etxebizitza eta hirigintza, komunitatearen ongizatea eta ingurumena".
+    "13": "Herritarren segurtasunarekin eta mugikortasunarekin zerikusia duten zerbitzuen gastu guztiak barne hartzen ditu eta toki-erakundeak Estatuko Administrazio Orokorraren edo dagokion autonomia-erkidegoarekin babesaren eta defentsa zibilaren laguntzan lankidetzan jarduteko egin behar dituenak. Ezbeharrak edo hondamendiak, suteak prebenitzea eta itzaltzea eta, oro har, toki-entitatearen edo partikularren ondasunak babesteko ekintzak, baita ibilgailuen zirkulazioa eta aparkalekua antolatzeari dagozkionak ere Programak sailkatzen dira, eta horien xedea hiritarren segurtasun eta babes zibileko zerbitzuekin zuzenean lotutako administrazio-gastu orokorrak estaltzea da gastu-politika osatzen duten kudeaketa-zentro ezberdinen laguntza-funtzioen arabera."
+    "130": "Segurtasun Administrazio Orokorraren eta Babes Zibilaren arloko gastuak barne hartzen ditu"
+    "132": "Segurtasun eta Ordena Publikoaren arloko gastuak barne hartzen ditu"
+    "133": "Trafiko eta aparkalekuen kudeaketaren arloko gastuak barne hartzen ditu"
+    "134": "Udalerriko babes zibilari zuzendutako gastuak barne hartzen ditu"
+    "135": "Udalerriko Suteak Itzaltzeko Zerbitzuari esleitutako gastu guztiak barne hartzen ditu"
+    "136": "Udalerriko suteak prebenitzeko eta itzaltzeko zerbitzurako esleitutako gastu guztiak barne hartzen ditu"
+    "15": "Etxebizitza eta hirigintza-plangintzarekin lotutako zerbitzuen gastu guztiak, baita hauen osagarriak ere, sartzen dira.\n
+    Hala, etxebizitzen eta aterpeen eraikuntza, hobekuntza eta mantentze-lanei dagozkien gastuak, lurzorua eskuratzea barne, bere kargura izango dira; plangintza eta hiri-lurzoruaren erregimenetik eratorritakoak; hiri-bideak eta antzeko izaera duten beste batzuk.\n
+    Gastu-politika hori edozein araubidetan, berezko ekintzen bidez edo beste Administrazio Publiko batzuekin lankidetzan, etxebizitzarako sarbidea ahalbidetzen duten laguntzetan egindako gastuei egozten zaie. Etxebizitza publikoaren sustapenetik eratorritako gastuak ere sartzen dira.\n
+    Lau programa-multzo sailkatzen dira, etxebizitza eta hirigintza-politikaren garapenarekin zuzenean lotutako administrazio-gastu orokorrak estaltzea helburu dutenak bereiziz."
+    "150": "Kontzeptu honek Etxebizitza Administrazio Orokorreko eta hirigintzako gastuak barne hartzen ditu"
+    "151": "Hirigintza-gastuak sartzen dira"
+    "152": "Etxebizitza programen multzoan, bi programa sailkatzen dira, etxebizitza publikoen Sustapen eta Kudeaketari eta eraikinen Kontserbazio eta birgaikuntzari buruzkoak".
+    "152-01": "Etxebizitza publikoaren sustapena eta kudeaketa"
+    "152-02": "Eraikinaren kontserbazioa eta birgaitzea"
+    "153": "Bide publikoen programen multzoan, bi programa sailkatzen dira, biztanle-guneetara sartzeko eta bide publikoen zoladurari buruzkoak".
+    "153-01": "Biztanleguneetarako sarbidea"
+    "153-02": "Bide publikoak asfaltatzea"
+    "154": "Babestutako eraikinen sustapena"
+    "155": "Bide publikoak"
+    "16": "Bizi-kalitatea oro har hobetzea helburu duten ekintza eta zerbitzuekin lotutako gastu guztiak barne hartzen ditu.\n
+    Kobratuko dira saneamendu-zerbitzuen eraikuntza, mantentze, kontserbazio eta ustiapenetik, etxez edateko uraren hornikuntzatik eratorritakoak; hondakinak biltzea, ezabatzea edo tratatzea; kale garbiketa; hilerriak eta hileta zerbitzuak; eta komunitatearen ongizaterako beste zerbitzu batzuk."
+    "160": "Estolda"
+    "161": "Saneamendua, ur-hornikuntza eta banaketa"
+    "162": "Hondakinen bilketa, kudeaketa eta tratamendua programen multzoan hiru programa sailkatzen dira, hondakinen bilketari, hiri hondakin solidoen kudeaketari eta hondakinen tratamenduari dagozkionak".
+    "162-01": "Hondakinen bilketa"
+    "162-02": "Hiri hondakin solidoen kudeaketa"
+    "162-03": "Hondakinen tratamendua"
+    "163": "Bide garbiketa"
+    "164": "Hilerriak eta hileta-zerbitzuak"
+    "165": "Arrizte publikoa"
+    "169": "Komunitate-ongizateko beste zerbitzu batzuk"
+    "17": "Gastu-politika honek ingurumena babestearekin eta hobekuntzarekin lotutako gastu guztiak barne hartuko ditu, bai eta natura-ingurunea babesteko zerbitzuen inbertsioak eta funtzionamenduak ere; basoberritzeak, Erakundeak berak edo beste Administrazio Publiko batzuekin partzuergoan egindakoak. ; baso-suteen kontrako defentsa, hondartzen eta antzeko izaera duten hondartzen mantentze-lanen aurkako markaketa edo borroka;"
+    "170": "Ingurumen administrazio orokorra"
+    "171": "Parkeak eta lorategiak"
+    "172": "Ingurumenaren babesa eta hobekuntza"
+    "172-01": "Zataren, argiaren eta airearen kutsaduraren aurkako babesa hiriguneetan"
+    "179": "Ingurugiroarekin lotutako beste ekintza batzuk"
+    "21": "Funzionarioen eta langile langileen toki-erakundeak edo horien onuradunek ordaintzen dituzten graziazko pentsioak, pentsio-hobekuntzak eta ezohiko pentsioak eta antzeko izaera duten bestelako gastuak".
+    "211": "Pentsioak"
+    "22": "Mota honetako gastu guztiak barne hartzen ditu, baita langileen aldeko gizarte-ekintzatik eratorritakoak ere, enpresaburuak Mutualitaterako eta Gizarte Segurantzarako ordaindutako kuotak izan ezik".
+    "221": "Langileen aldeko beste onura ekonomiko batzuk"
+    "23": "Gastu-politika hori toki entitateak lehen mailako gizarte-laguntzak garatzeko egiten dituenei egotziko zaie: genero-berdintasunaren sustapena, baztertutako pertsonen sustapena eta gizarteratzea, baita zerbitzuen gizarte-zerbitzuen kudeaketarako ere; mendekotasuna duten pertsonei eta gizarte-laguntzak, zaharren egoitzak eta antzeko izaera duten bestelakoak, gizarte-bazterketa-egoeran edo arriskuan dauden pertsonei berehalako arreta ematea eta lankidetzan aritzen diren entitateei eta familiei helburu hauek lortuz.\n
+ "Administrazio Orokorrari dagozkion gastuak sartuko dira, gastu-politika osatzen duten kudeaketa-zentro ezberdinen plangintza, koordinazio, kontrol, antolaketa, administrazio-kudeaketa eta laguntza-funtzioen garapena helburu duten jarduerei dagozkienak".
+    "230": "Gizarte Zerbitzuen Administrazio Orokorra"
+    "231": "Gizarte ekintza"
+    "232": "Gizarte sustapena"
+    "233": "Mendekotasuna duten pertsonentzako laguntzak"
+    "24": "Gastu-politika honek bere ekintzen bidez edo beste Administrazio Publiko batzuekin lankidetzan enplegua sustatzea eta sustatzea helburu dutenak barne hartzen ditu".
+    "241": "Enplegu Sustapena"
+    "31": "Gastu-politika honek gaixotasunak prebenitzera eta sendatzera zuzendutako gastuak barne hartzen ditu, bai eta biztanleriaren osasun-immunitate-egoera mantentzea ere. Ospitale, klinika eta ospitaleen sorkuntza, eraikuntza, ekipamendu eta funtzionamendura zuzendutako gastuak. edozein izaeratako sanatorioak, botikak, larrialdietarako botikak, analisi-laborategiak, baita haien zerbitzu osagarriak ere, elikagaien osasun-zerbitzuak eta osasun-zerbitzuak; desinfekzio, desinfekzio edo desratizazio kanpainak, eta antzeko izaera duten beste batzuk".
+    "311": "Osasun publikoaren babesa"
+    "312": "Ospitaleak, arreta-zerbitzuak eta osasun-zentroak"
+    "313": "Osasunarekin lotutako ekintza publikoak"
+    "32": "Gastu-politika honek mota guztietako hezkuntza-zentro eta -erakundeak eta horien zerbitzu osagarriak sortu, kontserbatu eta funtzionatzetik eratorritako gastu guztiak barne hartzen ditu, baita beste entitate edo familientzako transferentziak ere, horiek lagundu eta sustatzeko.\n
+    Administrazio Orokorreko programen multzoan jasotako gastuak gastu-politika osatzen duten kudeaketa-zentro desberdinen plangintza, koordinazioa, kontrola, antolaketa, kudeaketa administratiboa eta laguntza-funtzioak garatzera zuzendutako jarduerei dagozkie.\n
+    Horrela, hezkuntza-zentroen eraikuntza, horniketa eta funtzionamenduaren kostuak gastu-politika horri egotziko zaizkio, haiek aipatzen dituzten hezkuntza-maila ezberdinen arabera banatuta. Ongintzazko zentroen gastuak ere sartuko dira hezkuntza-izaera nagusi denean.\n
+    Eskola garraiorako gastuak, bekak eta laguntzak hezkuntza-zerbitzu osagarritzat hartzen dira.\n
+    Era berean, herritarren hezkuntza maila hobetzea helburu duten gastuak sartzen dira".
+    "320": "Hezkuntza Administrazio Orokorra"
+    "321": "Haur Hezkuntza eta Lehen Hezkuntza"
+    "322": "DBH"
+    "323": "Hezkuntza sustapena"
+    "324": "Hezkuntza-zerbitzu osagarriak"
+    "325": "Derrigorrezko eskolatzea betetzen den kontrolatzea"
+    "326": "Hezkuntza-zerbitzu osagarriak"
+    "327": "Herritarren bizikidetza sustatzea"
+    "33": "Gastu-politika honek bere izenean aipatzen diren zerbitzuek eragindakoak barne hartzen ditu, aisialdi izaera dutenak barne.\n
+    Administrazio Orokorreko programen multzoan jasotako gastuak gastu-politika osatzen duten kudeaketa-zentro desberdinen plangintza, koordinazioa, kontrola, antolaketa, kudeaketa administratiboa eta laguntza-funtzioak garatzera zuzendutako jarduerei dagozkie.\n
+    Liburutegietarako, museoetarako, artxiboetarako, kultur etxeetarako, kultur jardueretarako, aisialdirako eta denbora librerako (adibidez, jubilatuen egoitzak edo gaztetxeak) erabiltzen diren eraikinak sortu, kontserbatu eta ustiatzeko gastuak; erakusketa-aretoak, hitzaldi-aretoak, zoologikoak, musika bandak eta musika-taldeak, herriko jai herrikoiak, hondartzetan aisialdi-jarduerak, ondare historiko-artistikoa kontserbatu, sustatu eta kudeatzeko ekintzak eta aisialdi eta kultura-gastu batzuk; jendaurreko emanaldien komunikazioa, baimena, ikuskapena eta zehapena; baita jarduera horien sustapenean kolaboratzen duten Entitate edo familiei egindako transferentziak ere".
+    "330": "Kulturaren Administrazio Orokorra"
+    "332": "Liburutegiak eta Artxiboak"
+    "332-01": "Liburutegi publikoak"
+    "332-02": "Fitxategiak"
+    "333": "Museoak eta Arte Plastikoak"
+    "334": "Kultur sustapena"
+    "335": "Arte eszenikoak"
+    "336": "Arkeologia eta Ondare Historiko-Artistikoaren babesa"
+    "337": "Aisia eta denbora librea"
+    "338": "Jai eta ospakizun herrikoiak"
+    "34": "Gastu-politika honek bere izenean aipatzen dituen zerbitzuek eragindakoak barne hartzen ditu, hala nola, kirola sustatzeko eta zabaltzeko, igerilekuetarako erabiltzen diren eraikinak sortu, kontserbatu eta ustiatzeko gastuak, mota guztietako kirol instalazioak edo beste edozein. kirolarekin edo dagokion toki-erakundearen kirol-politikarekin zuzenean lotutako ekintza.\n
+    "Administrazio Orokorreko programen multzoan jasotako gastuak gastu-politika osatzen duten kudeaketa-zentro ezberdinen plangintza, koordinazioa, kontrola, antolaketa, kudeaketa administratiboa eta laguntza-funtzioak garatzea helburu duten jarduerei dagozkie".
+    "340": "Kirol Administrazio Orokorra"
+    "341": "Kirolaren sustapena eta sustapena"
+    "342": "Kirol instalazioak"
+    "41": "Nekazaritza, abeltzaintza eta arrain-hazkuntzako jarduerak hobetu, sustatu eta kudeatzeko era guztietako gastuak barne hartzen ditu.\n
+    Administrazio Orokorreko programen multzoan jasotako gastuak gastu-politika osatzen duten kudeaketa-zentro desberdinen plangintza, koordinazioa, kontrola, antolaketa, kudeaketa administratiboa eta laguntza-funtzioak garatzera zuzendutako jarduerei dagozkie.\n
+    Sektoreko kudeaketa planekin lotutako gastuak bideratuko dira; kolonizazioa eta lur kontzentrazioa; kooperatiba mugimenduaren sustapena eta elkarteen sustapena; nekazaritzako elikagaien industrializazioa sustatzea; ekintzaile gazteen prestakuntza; nekazaritza zabaltzeko zentroak eta izaera bereko beste batzuk.\n
+    Izurriteen kontrolarekin eta desagerrarekin lotutako gastuak ere sartuko dira; hazien eta abereen hobekuntza eta hautaketa, bioteknologia zentroak; nekazaritza-ustiategi esperimentalak eta antzeko izaera duten beste batzuk.\n
+    Nekazaritza, abeltzaintza, arrain-hazkuntza edo ehiza jardueretan oinarrizko azpiegiturak sortu, hobetu eta mantentzearekin lotutako gastuak ere barne hartzen ditu; ureztatzea; egiturak aldatzea eta hobetzea; lurzoruak eta antzeko izaera duten beste batzuk kontserbatzea eta saneamendua.\n
+    Era berean, nekazaritza-gordailuaren ekarpena edo kuota gastu-poliza honi egotziko zaio, hala badagokio".
+    "410": "Nekazaritza, Abeltzaintza eta Arrantza Administrazio Orokorra"
+    "412": "Nekazaritza-egituren eta ekoizpen-sistemen hobekuntza"
+    "414": "Landa garapena"
+    "415": "Arrantza baliabideen babesa eta garapena"
+    "419": "Nekazaritza, abeltzaintza eta arrantzako beste ekintza batzuk"
+    "42": "Toki entitatearen jardun-esparruan industria sustatzeko, laguntzeko eta garatzeko xede diren mota guztietako gastuak barne hartzen ditu.\n
+Administrazio orokorreko programen multzoan jasotako gastuak gastu-politika osatzen duten kudeaketa-zentro desberdinen plangintza, koordinazioa, kontrola, antolaketa, kudeaketa administratiboa eta laguntza-funtzioak garatzea helburu duten jarduerei dagozkie.\n
+Sozietatearen kapitalean inbertitzeak eragindako gastuak gastu-politika horri egotziko zaizkio; enpresa-ekintzaren sustapena; birmoldaketa eta berrindustrializaziorako laguntzak; industria-enpresen elkarteen sustapena, eta helburu horietarako era guztietako transferentziak eta industria-kokapenerako pizgarriak.\n
+Meatzaritza, ikerketa, prestaketa, merkaturatzea eta meatzaritza-ekoizpeneko beste jarduera batzuetarako laguntzarekin lotutako gastuak ere sartuko dira.\n
+Energiaren ekoizpen, garraio eta banaketari lotutako gastuak ere barne hartzen ditu, batez ere gasa eta elektrizitatea. Gastu-politika honi egotziko zaizkio beste agente batzuei egindako transferentziak, bertan aurreikusitako jardueren helburu zehatzetarako."
+    "420": "Industria eta Energia Administrazio Orokorra"
+    "422": "Industria"
+    "423": "Meatzaritza"
+    "425": "Energia"
+    "43": "Entitatearen merkataritza edo merkataritza-jarduerarekin zerikusia duten zerbitzuetarako edozein motatako gastuak sartuko dira.\n
+    Administrazio Orokorreko programen multzoan jasotako gastuak gastu-politika osatzen duten kudeaketa-zentro desberdinen plangintza, koordinazioa, kontrola, antolaketa, kudeaketa administratiboa eta laguntza-funtzioak garatzera zuzendutako jarduerei dagozkie.\n
+    Bertan sartuko dira merkatu zentral edo txikizkakoei, arrandegiei eta antzeko beste edozein instalazioei dagozkien gastuak; lehiaren defentsarako ekintzak; pisuak eta neurriak eta antzeko izaera duten beste batzuk kontrolatzea; establezimenduen ikuskapena eta zehapena.\n
+    Turismoaren garapenarekin eta sustapenarekin lotutako edozein motatako gastuak ere sartuko dira.\n
+    Ostalaritza-establezimenduak, kanpinak, turismo bulegoak, liburuxkak, kartelak eta liburuak argitaratzeko eta publizitate-kanpainen eraikuntza, hobekuntza, kontserbazio eta funtzionamendu gastuak kobratuko dira. Helburu horiek betetzera zuzendutako beste entitate publiko edo pribatu batzuei ematen zaizkien transferentziak ere sartzen dira.\n
+    Azkenik, enpresa txiki eta ertainen garapenera zuzendutakoak sartuko dira gastu politika honetan".
+    "430": "Merkataritza, Turismo eta Enpresa txiki eta ertainen Administrazio Orokorra"
+    "431": "Merkataritza"
+    "431-01": "Azoka"
+    "431-02": "Merkatuak, hornikuntzak eta merkatuak"
+    "431-03": "Kale Merkataritza"
+    "432": "Turismoaren plangintza eta sustapena"
+    "433": "Enpresa garapena"
+    "439": "Beste ekintza sektorialak"
+    "44": "Toki-entitateek garraio publikoaren mantenu, garapen eta finantzaketagatiko gastuak barne hartuko dira.\n
+    Administrazio Orokorreko programen multzoan jasotako gastuak gastu-politika osatzen duten kudeaketa-zentro desberdinen plangintza, koordinazioa, kontrola, antolaketa, kudeaketa administratiboa eta laguntza-funtzioak garatzera zuzendutako jarduerei dagozkie.\n
+    Garraiobideak eskuratzera bideratutako inbertsio-gastu guztiak gastu-politika honi aplikatuko zaizkio; eta azpiegiturak sortzea, hobetzea eta mantentzea, hala nola, autobus geltokiak, portuak, aireportuak eta antzeko izaera duten beste batzuk".
+    "440": "Garraio Administrazio Orokorra"
+    "441": "Garraioaren sustapena, mantentzea eta garapena"
+    "441-01": "Bidaiarien garraio kolektiboa"
+    "441-02": "Beste bidaiarien garraioa"
+    "442": "Garraio azpiegitura"
+    "443": "Salgaien garraioa"
+    "45": "Oinarrizko azpiegiturak sortu, hobetu eta mantentzera zuzendutako mota guztietako gastuak barne hartzen ditu aurreko gastu-politiketan sartuta ez daudenak.\n
+Administrazio Orokorreko programen multzoan jasotako gastuak gastu-politika osatzen duten kudeaketa-zentro desberdinen plangintza, koordinazioa, kontrola, antolaketa, kudeaketa administratiboa eta laguntza-funtzioak garatzera zuzendutako jarduerei dagozkie.\n
+Toki entitatearen ardurapeko autobideak eta toki bideak eraiki eta hobetzera bideratutako inbertsio-gastu guztiak eta aurrekoen osagarri diren gainerako gastuak, hala nola zubiak, biaduktuak, seinaleztapena edo balizak, bai eta aurrekoekin lotutako gastuak ere, izango dira. beharrezkoak diren gastu-politika eta laguntza teknikoko zerbitzuei aplikatuko zaizkie. Baliabide hidraulikoei dagokienez, gastuak bilketa, metaketa eta bideratzeko lanetan sartuko dira hiri-banaketa sarea hasi arte eta antzeko izaera duten beste batzuk".
+    "450": "Azpiegituren Administrazio Orokorra"
+    "452": "Baliabide hidraulikoak"
+    "453": "Errepideak"
+    "454": "Herriko bideak"
+    "459": "Beste azpiegitura batzuk"
+    "46": "Oinarrizko eta aplikatutako ikerketarako administrazio-, azpiegitura-, funtzionamendu- eta laguntza-gastuak barne hartzen ditu, beste agente batzuetarako transferentziak barne.\n
+    "Ezagutza zientifiko hutsa sustatzera bideratutako jarduerekin eta helburu praktiko, zehatz edo konkretuak dituztenak eta beste gastu-politikaren batean aplikatu ezin direnak gastu-politika horri egotziko zaizkio".
+    "462": "Zerbitzu publikoekin lotutako ikerketak eta azterketak"
+    "463": "Ikerkuntza zientifiko, tekniko eta aplikatua"
+    "49": "Telekomunikazio-zerbitzuen kudeaketa, funtzionamendu, laguntza, horniketa eta sustapen gastuak barne hartzen ditu, Informazioaren Gizartea, ezagutzaren kudeaketa eta antzeko izaera duten beste batzuk; komunikabideak, ikus-entzunezko programen ekoizpena eta zabalkundea, administrazio elektronikoa, kontsumo-zerbitzua eta defentsa bulegoak, baita beste agente batzuei eskualdatzeak ere, helburu horiek betetzeko".
+    "491": "Informazioaren gizartea"
+    "492": "Ezagutzaren kudeaketa"
+    "493": "Kontsumitzaileen Defentsa Bulegoak"
+    "91": "Toki entitatearen gobernu-organoen eraketa eta funtzionamenduarekin eta haien ordezkaritzarekin lotutako gastuak barne hartzen ditu. Beraz, lehendakariaren eta korporazioko kideen karguak eta ordainsariak; lehendakaritzako idazkaritza pribatuak; bakoitzeko. dietak eta bidaia-gastuak eta antzeko izaera duten beste gastu materialak eta gobernu-organoak zaintzeko beharrezkoak ere gastu-poliza honen kargura izango dira."
+    "912": "Gobernu-organoak"
+    "92": "Toki-entitatearen gainontzeko guztiei zerbitzatzen edo laguntzen dieten zerbitzu horien gastuak barne hartzen ditu.\n
+    Beraz, bulegoko eta sail orokorretako gastuak gastu-politika horri egotziko zaizkio; informazioa, argitalpenak, erregistroa eta harremanak; barne garapen informatikoak eta euskarriak; koordinazio eta kontrol orokorra: fitxategia, antolaketa eta metodoak, arrazionalizazioa eta mekanizazioa; langileen Administrazioa; hauteskundeak; herritarren arreta eta parte-hartzea, ibilgailu-parkea, dagokion epigrafeari kobratuko zaizkion zerbitzu zehatz batzuei esleitutako ibilgailuak eta entitatearen interesen aholkularitza eta defentsarako gastuak kenduta.\n
+    Gastu-politika honek toki entitatearen zerbitzu ezberdinei buruzko oinarrizko informazio orokorra eta serie estatistikoak prestatzearekin lotutako jardueretatik eratorritakoak integratuko ditu.\n
+    Ikasketa bulegoei eta informazio eta dokumentazio orokorrari dagozkion gastuak ere kobratuko dira".
+    "920": "Administrazio Orokorra"
+    "922": "Toki entitateen koordinazio eta antolaketa instituzionala"
+    "923": "Oinarrizko eta estatistika-informazioa"
+    "923-01": "Aurrekontu Egonkortasunari eta Finantza Iraunkortasunari buruzko apirilaren 27ko 2/2012 Lege Organikoaren 31. artikuluan xedatutakoa betez, testu bategineko 111. eta 135. artikuluen eremu subjektiboan sartutako toki entitateak. Toki Ogasunak arautzen dituen Legeak, martxoaren 5eko 2/2004 Legegintzako Errege Dekretuak onartutakoak, 929 "Ezusteko gertaerak, egoera iragankorrak eta exekuzio-egoerak" programaren barruan sartuko du aurrekontu-kredituen zuzkidura bereizia, Kontingentzia Funtsaren kontzeptuan. aurrekontuaren exekuzioa, izaera ez-diskretiboa eta hasieran onartutako aurrekontuan aurreikusita ez daudenak, ekitaldian zehar sor daitezkeen esparru subjektibo horretan sartuta ez dauden toki-entitateek esleipena onartzeko irizpide hori bera aplikatuko dute Aipatutako helburu bererako Kontingentzia Funts bat".
+    "924": "Herritarren parte-hartzea"
+    "925": "Arreta herritarrei"
+    "926": "Barne komunikazioak"
+    "929": "Ustegabeko gertaerak eta sailkatu gabeko funtzioak"
+    "93": "Gastu politika honek toki entitatearen finantza-administrazioari dagozkion gastu guztiak barne hartzen ditu.\n
+    Ekonomia eta finantza zerbitzuen gastu orokorrak bideratuko dira; plangintza eta aurrekontua eta fiskalitatea; barne kontrola eta kontabilitatea eta kontu orokorrak; diruzaintza kudeaketa; aberastasunaren kudeaketa, aberastasunaren kontabilitatea eta kontuak; tributuen kudeaketa, ikuskapena eta bilketa, zerga erregistroak eratu eta eguneratzea; zergadunaren erreklamazio ekonomiko-administratiboak eta defentsarako eta entitatearen jarduera ekonomiko eta finantzarioarekin lotutako gainerako gastuak ebazteko organoak.\n
+    Erabilera anitzeko eraikin ofizialen eraikuntza, hobekuntza eta kontserbazioarekin lotutako gastuak ere sartzen dira, lurzorua eskuratzea barne".
+    "931": "Politika ekonomikoa eta fiskala"
+    "932": "Zerga sistemaren kudeaketa"
+    "933": "Aberastasunaren kudeaketa"
+    "934": "Zorraren eta diruzaintzaren kudeaketa"
+    "94": "Gastu-politika honi egotziko zaizkio toki entitateak Estatuari edo autonomia-erkidegoari edo beste toki-erakunde batzuen alde agindutako transferentzia generikoak, hala nola, diru-sarrerak, elkarte edo partzuergoen kuotak eta antzeko beste edozein. Ondorio horietarako, tokiko lurralde entitateak bereizten dira (Toki Araubidearen Oinarriak Arautzen dituen Legearen apirilaren 2ko 7/1985 Legearen 3.1 artikulua) eta gainerako toki entitateak.\n
+    Lau programa-talde sailkatzen dira agente hartzailearen arabera".
+    "941": "Kontzeptu honek autonomia-erkidegoetarako transferentzietako gastuak barne hartzen ditu"
+    "942": "Lurralde Toki Erakundeei egindako transferentzietako gastuak barne hartzen ditu partida honek"
+    "943": "Kontzeptu honek beste Toki Erakunde batzuetarako transferentzietako gastuak barne hartzen ditu"
+    "944": "Kontzeptu honek Estatuko Administrazio Orokorrerako eskualdaketen gastuak barne hartzen ditu"
