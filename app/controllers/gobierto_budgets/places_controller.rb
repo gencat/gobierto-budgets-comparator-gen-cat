@@ -13,7 +13,7 @@ module GobiertoBudgets
 
     helper_method :current_organization, :featured_budget_line?
 
-    caches_page :show, :execution, :budget
+    caches_action :show, :execution, :budget, cache_path: ->(c) { { locale: I18n.locale} }
 
     def show
       if @year.nil?
