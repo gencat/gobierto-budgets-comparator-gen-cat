@@ -8,7 +8,7 @@ module GobiertoBudgets
 
     helper_method :current_organization
 
-    caches_page :show
+    caches_action :show, cache_path: ->(c) { { locale: I18n.locale} }
 
     def show
     end
