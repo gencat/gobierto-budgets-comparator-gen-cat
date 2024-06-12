@@ -10,23 +10,6 @@ module GobiertoBudgets
       before_action :set_current_organization
       attr_accessor :current_organization
 
-      caches_page(
-        :total_budget,
-        :total_budget_execution,
-        :population,
-        :total_budget_per_inhabitant,
-        :lines,
-        :budget,
-        :budget_execution,
-        :budget_per_inhabitant,
-        :budget_percentage_over_total,
-        :debt,
-        :budget_percentage_previous_year,
-        :ranking,
-        :budget_execution_deviation,
-        cache_path: ->(_c) { {locale: I18n.locale, places_collection: places_collection_key} }
-      )
-
       caches_action(
         :total_budget,
         :total_budget_execution,
