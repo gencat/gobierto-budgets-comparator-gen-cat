@@ -2,28 +2,28 @@
 ca:
   layouts:
     gobierto_budgets_application:
-      ine:
-        search_location: Busqueu municipi...
-        your_location: El vostre municipi
-      deputation_eu:
-        search_location: Busqueu diputació...
-        your_location: La teva diputació
       about: Sobre
       checkout_gobierto_blog: Consulta el blog de Gobierto
       close_session: Tancar sessió
       compare: Compareu
       contact: Contacte
       cookies: Política de galetes
+      deputation_eu:
+        search_location: Busqueu diputació...
+        your_location: La teva diputació
+      deputations: Diputacions
       download_guide: Descarregeu la Guia de Comunicació per als Municipis
       edit_your_personal_data: Editar dades personals
       faq: Preguntes freqüents
       hi: Hola
+      ine:
+        search_location: Busqueu municipi...
+        your_location: El vostre municipi
       legal_warning: Avís legal
       local_budgets: Pressupostos municipals
       maps: Mapes
       methodology_and_sources: Metodologia i fonts
       municipalities: Municipis
-      deputations: Diputacions
       privacy: Política de privacitat
       rankings: Rànquings
       recent_comparisons: Comparacions recents

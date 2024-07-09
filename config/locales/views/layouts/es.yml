@@ -2,28 +2,28 @@
 es:
   layouts:
     gobierto_budgets_application:
-      ine:
-        search_location: Busca municipio...
-        your_location: Tu municipio
-      deputation_eu:
-        search_location: Busca diputación...
-        your_location: Tu diputación
       about: Acerca de
       checkout_gobierto_blog: Consulta el blog de Gobierto
       close_session: Cerrar sesión
       compare: Compara
       contact: Contacto
       cookies: Política de cookies
+      deputation_eu:
+        search_location: Busca diputación...
+        your_location: Tu diputación
+      deputations: Diputaciones
       download_guide: Descarga la Guía de Comunicación para Municipios
       edit_your_personal_data: Editar datos personales
       faq: Preguntas frecuentes
       hi: Hola
+      ine:
+        search_location: Busca municipio...
+        your_location: Tu municipio
       legal_warning: Aviso legal
       local_budgets: Presupuestos Municipales
       maps: Mapas
       methodology_and_sources: Metodología y fuentes
       municipalities: Municipios
-      deputations: Diputaciones
       privacy: Política de privacidad
       rankings: Ránkings
       recent_comparisons: Comparaciones recientes

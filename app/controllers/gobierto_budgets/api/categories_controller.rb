@@ -1,7 +1,6 @@
 module GobiertoBudgets
   module Api
     class CategoriesController < ApplicationController
-      caches_page :index
       caches_action :index, cache_path: ->(c) { { locale: I18n.locale} }
 
       def index

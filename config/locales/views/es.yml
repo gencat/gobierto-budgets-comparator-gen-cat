@@ -23,7 +23,7 @@ es:
     users_soft_delete: 'Eliminar usuario: no podrá hacer login ni publicar contenido;
       su actividad desaparecerá (seguirá visible para administradores)'
   common:
-    and: y
+    and: "y"
     economic: económica
     expense: gasto
     expenses: gastos
