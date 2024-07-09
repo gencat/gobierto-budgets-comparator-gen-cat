@@ -138,7 +138,7 @@ var VisSlider = Class.extend({
       .attr('dx', function(d) {
         if (d == maxYear) {
           return 10
-        } else if (d == 2010) {
+        } else if (d == years[0]) {
           return -10
         } else {
           return 0
@@ -147,7 +147,7 @@ var VisSlider = Class.extend({
       .attr('text-anchor', function(d) {
         if (d == maxYear) {
           return 'end'
-        } else if (d == 2010) {
+        } else if (d == years[0]) {
           return 'start'
         } else {
           return 'middle'
