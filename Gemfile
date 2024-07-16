@@ -19,7 +19,7 @@ gem "aws-ses", git: "https://github.com/zebitex/aws-ses.git", ref: "78-sigv4-pro
 gem 'cocoon'
 gem 'nokogiri', '~> 1.16'
 gem 'json', '~> 2.1'
-gem "gobierto_budgets_data", git: "https://github.com/PopulateTools/gobierto_budgets_data.git"
+gem "gobierto_budgets_data", git: "https://github.com/PopulateTools/gobierto_budgets_data.git", branch: "verbose_imports"
 gem "bootsnap"
 gem 'sprockets', '~> 3.7.2'
 gem "i18n-tasks"
