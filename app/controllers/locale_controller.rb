@@ -6,6 +6,11 @@ class LocaleController < ApplicationController
         session[:locale] = new_locale
       end
     end
-    redirect_back(fallback_location: location_root_path)
+
+    if request.referrer === set_locale_url(locale: params[:locale])
+      redirect_to root_path
+    else
+      redirect_back(fallback_location: location_root_path)
+    end
   end
 end
