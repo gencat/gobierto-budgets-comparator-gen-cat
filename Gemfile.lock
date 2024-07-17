@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/PopulateTools/gobierto_budgets_data.git
-  revision: 09045bf2c73455007c742b0313753851af905b6e
+  revision: eab5f674c392f72ec83f137c86846cc29a8181fc
   specs:
     gobierto_budgets_data (0.1.0)
       actionpack
@@ -107,7 +107,7 @@ GEM
       public_suffix (>= 2.0.2, < 6.0)
     ast (2.4.2)
     aws-eventstream (1.3.0)
-    aws-partitions (1.953.0)
+    aws-partitions (1.956.0)
     aws-sdk-core (3.201.1)
       aws-eventstream (~> 1, >= 1.3.0)
       aws-partitions (~> 1, >= 1.651.0)
