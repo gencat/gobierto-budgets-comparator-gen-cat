@@ -3,9 +3,9 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-  # rescue_from ActionController::RoutingError, with: :render_404
-  # rescue_from ActionController::UnknownFormat, with: :render_404
-  # rescue_from Elasticsearch::Transport::Transport::Errors::BadRequest, with: :render_404
+  rescue_from ActionController::RoutingError, with: :render_404
+  rescue_from ActionController::UnknownFormat, with: :render_404
+  rescue_from Elasticsearch::Transport::Transport::Errors::BadRequest, with: :render_404
 
   helper_method :helpers, :users_enabled?, :places_collection_key, :location_root_path, :places_collections_root_paths
 
