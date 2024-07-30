@@ -69,6 +69,8 @@ ca:
         contracts: Contractes associats a aquesta partida
         council_comment: Comentari de l'Ajuntament
         description: Descripció
+        expense: Despeses
+        income: Ingressos
         no_information: Encara no hi ha informació
         qa: Preguntes i respostes
         search: Busqueu altres partides de %{kind}
