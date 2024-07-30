@@ -1,5 +1,12 @@
 namespace :gobierto_budgets do
   namespace :cache do
+    desc "Clear"
+    task clear: :environment do
+      Rails.cache.clear
+      FileUtils.rm_rf(Rails.root.join("public/cache"))
+      FileUtils.rm_rf(Rails.root.join("tmp/cache"))
+    end
+
     desc "Warm cache"
     task warm_up: :environment do
       include GobiertoBudgets::ApplicationHelper
