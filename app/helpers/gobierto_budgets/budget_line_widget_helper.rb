@@ -235,7 +235,7 @@ module GobiertoBudgets
     end
 
     def elasticsearch_query_cache_key(method_name, options)
-      "#{method_name}-#{current_organization.id}-#{options[:year]}-#{options[:kind]}-#{options[:area]}-#{options[:code]}"
+      "#{method_name}-#{current_organization.id}-#{options[:year]}-#{options[:kind]}-#{options[:area]}-#{options[:code]}-#{I18n.lcale}"
     end
 
   end
