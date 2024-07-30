@@ -126,7 +126,7 @@ module GobiertoBudgets
       area = options[:area]
       code = options[:code]
 
-      category_name = kind == 'G' ? I18n.t('common.expense').capitalize : I18n.t('common.income').capitalize
+      category_name = kind == 'G' ? I18n.t('gobierto_budgets.budget_lines.show.expense').capitalize : I18n.t('gobierto_budgets.budget_lines.show.income').capitalize
 
       Rails.cache.fetch(elasticsearch_query_cache_key(__method__, options)) do
         budget_data = budget_data(options.merge(field: "amount"))
