@@ -158,7 +158,11 @@ module GobiertoBudgets
     end
 
     def kind_literal(kind, plural = true)
-      t("#{kind_key(kind)}#{plural ? "s" : ""}", scope: "common")
+      if I18n.locale == :eu
+        "gastu partidak"
+      else
+        t("#{kind_key(kind)}#{plural ? "s" : ""}", scope: "common")
+      end
     end
 
     def kind_key(kind)
