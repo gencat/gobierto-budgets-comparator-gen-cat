@@ -69,6 +69,8 @@ es:
         contracts: Contratos asociados a esta partida
         council_comment: Comentario del Ayuntamiento
         description: Descripción
+        expense: Gasto
+        income: Ingreso
         no_information: Todavía no hay información.
         qa: Preguntas y respuestas
         search: Busca otras partidas de %{kind}

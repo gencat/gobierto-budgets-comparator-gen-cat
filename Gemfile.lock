@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/PopulateTools/gobierto_budgets_data.git
-  revision: eab5f674c392f72ec83f137c86846cc29a8181fc
+  revision: 8c80507672013cc2b5eaaae7fe9be1c360aacd2a
   specs:
     gobierto_budgets_data (0.1.0)
       actionpack
@@ -351,8 +351,8 @@ GEM
     responders (3.1.1)
       actionpack (>= 5.2)
       railties (>= 5.2)
-    rexml (3.2.8)
-      strscan (>= 3.0.9)
+    rexml (3.3.6)
+      strscan
     rspec (2.99.0)
       rspec-core (~> 2.99.0)
       rspec-expectations (~> 2.99.0)
@@ -421,7 +421,7 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    stringio (3.1.0)
+    stringio (3.1.1)
     strscan (3.1.0)
     sys-uname (1.0.4)
       ffi (>= 1.0.0)
@@ -501,8 +501,9 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   sprockets (~> 3.7.2)
+  stringio (= 3.1.1)
   turbolinks
   uglifier (>= 1.3.0)
 
 BUNDLED WITH
-   2.2.22
+   2.5.18
