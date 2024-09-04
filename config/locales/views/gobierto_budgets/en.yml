@@ -189,6 +189,8 @@ en:
         total_budget: "Total %{kind} of this budget line this year"
         search: "Search other %{kind} budget lines"
         about: About this budget line
+        expense: Gasto
+        income: Ingreso
         description: Description
         council_comment: City council comment
         contracts: 'Contracts associated to this budget line'
