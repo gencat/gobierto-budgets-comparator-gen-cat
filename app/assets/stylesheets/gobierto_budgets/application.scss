@@ -1522,6 +1522,11 @@ a.list_view_more {
 }
 
 .items {
+  max-height: 500px;
+  overflow-y: auto;
+  padding: 0 1em;
+  box-sizing: border-box;
+
   input.search_items {
     width: 96%;
     padding: 1.5% 2% 1%;
@@ -1566,7 +1571,9 @@ a.list_view_more {
       white-space: nowrap;
     }
     td.item_name {
-      width: 50%;
+      display: flex;
+      justify-content: space-between;
+
       @include screen(740) {
         .fa {
           display: none;
@@ -2563,6 +2570,7 @@ footer {
   .places_search {
     font-size: 1.6em;
     margin: 3em 0 0 0;
+    box-sizing: border-box;
   }
   h2 {
     font-weight: 200;

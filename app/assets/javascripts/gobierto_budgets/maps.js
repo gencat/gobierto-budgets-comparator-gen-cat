@@ -42,6 +42,7 @@ $(document).on('turbolinks:load', function() {
     var queryData = "SELECT+".concat(indicator, "+,place_id+FROM+indicadores_presupuestos_municipales+WHERE+year=").concat(year, "+AND+").concat(indicator, "+IS+NOT+NULL");
 
     var urlData = "".concat(endPoint).concat(queryData, "&token=").concat(token);
+    var originalUrl = urlData
 
     var indicators = document.querySelectorAll('[data-indicator]')
 
@@ -457,6 +458,18 @@ $(document).on('turbolinks:load', function() {
 
       spinner.style.display = 'block'
       var element = e.target.activeElement.dataset
+
+      if (element.categoryCode === "reset") {
+        // reset to defaults
+
+        indicator = 'gasto_por_habitante'
+        urlData = originalUrl
+        completeIndicator = indicatorsValue.gasto_por_habitante.unit
+        tooltipString = indicatorsValue.gasto_por_habitante.name
+        redraw()
+
+        return
+      }
 
       var year = document.getElementsByTagName('body')[0].getAttribute('data-year');
       var area = element.area === 'economic' ? 'e' : 'f'

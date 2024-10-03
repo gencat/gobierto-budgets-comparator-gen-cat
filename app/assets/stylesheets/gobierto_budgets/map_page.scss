@@ -68,7 +68,12 @@ body[data-action="map"] .main_metrics .metric:hover {
   // border-radius: 4px;
 }
 .sidebar_wrapper {
-  margin: 1em;
+  margin: 1em 0;
+
+  > *:not(:last-child) {
+    margin-left: 1em;
+    margin-right: 1em;
+  }
 }
 .sidebar_title {
   font-size: 1.2em;
@@ -150,7 +155,7 @@ body[data-action="map"] .main_metrics .metric:hover {
   width: 300px;
   padding: 1rem;
   position: absolute;
-  right: 1rem;
+  right: 0;
   background-color: rgba(255, 255, 255, .95);
   box-shadow: 5px 5px 5px -5px rgba(0, 0, 0, .2);
   z-index: 1000001;
