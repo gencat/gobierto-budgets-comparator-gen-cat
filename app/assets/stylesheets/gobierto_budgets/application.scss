@@ -31,6 +31,7 @@
 @import "gobierto_budgets/vis_legends";
 @import "gobierto_budgets/vis_bubbles";
 @import "gobierto_budgets/vis_slider";
+@import "gobierto_budgets/back_to_top";
 
 /*
  * Page elements: header, footer...
@@ -48,6 +49,7 @@ body {
   font-size: 16px;
   line-height: 24px;
   color: $text;
+  scroll-behavior: smooth;
 }
 a {
   color: $color_1_dark;
