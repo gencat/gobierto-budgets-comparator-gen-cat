@@ -6,7 +6,6 @@
 //= require velocity.min
 //= require velocity.ui.min
 //= require velocity_settings
-//= require jquery.sticky
 //= require tipsy
 //= require accounting.min
 //= require accounting_settings

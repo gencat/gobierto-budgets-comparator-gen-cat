@@ -1086,15 +1086,9 @@ header.sub {
     padding-top: .5em;
   }
 }
-@include screen(740) {
-  .sticky-wrapper {
-    border: 1px solid red;
-    visibility: hidden;
-  }
-  .sticky-wrapper.is-sticky {
-    border: 1px solid green;
-    visibility: visible;
-  }
+.sticky {
+  position: sticky;
+  top: 0;
 }
 .tools {
   width: 390px;
