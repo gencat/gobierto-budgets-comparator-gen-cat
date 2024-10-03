@@ -333,10 +333,8 @@ $(document).on('turbolinks:load', function() {
 
         function changeStateProps(value, increase) {
           var increaseDecrease = increase === true ? +1 : -1
-          var valueZoom = deckgl.props[value].zoom + increaseDecrease
-          if (valueZoom < 5 || valueZoom > 8) {
-            valueZoom = deckgl.props[value].zoom
-          }
+          var valueZoom = Math.min(Math.max(deckgl.props[value].zoom + increaseDecrease, INITIAL_VIEW_STATE.minZoom), INITIAL_VIEW_STATE.maxZoom)
+
           deckgl.setProps({
             viewState: {
               zoom: valueZoom,
