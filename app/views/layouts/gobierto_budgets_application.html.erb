@@ -5,11 +5,7 @@
   <%= display_meta_tags site: t('.site_title'), reverse: true %>
 
   <%= stylesheet_link_tag    'gobierto_budgets/application', media: 'all', 'data-turbolinks-track' => true %>
-  <% if action_name == 'map' %>
-    <%= javascript_include_tag 'gobierto_budgets/application_maps', 'data-turbolinks-track' => true %>
-  <% else %>
-    <%= javascript_include_tag 'gobierto_budgets/application', 'data-turbolinks-track' => true %>
-  <% end %>
+  <%= javascript_include_tag 'gobierto_budgets/application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 
   <%= yield :header %>
