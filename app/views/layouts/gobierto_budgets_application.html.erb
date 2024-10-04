@@ -51,7 +51,11 @@
     <p>
       <%# link_to t('.download_guide'), new_user_path(pro: true) %>
       <%= link_to t('.checkout_gobierto_blog'), 'https://gobierto.es/blog' %>
-      <span class="f_right"><%= link_to 'English', gobierto_budgets_en_path %></span>
+      <% if I18n.locale == :es %>
+        <%= link_to 'English', "/locale/en", class: "f_right" %>
+      <% else %>
+        <%= link_to 'Castellano', "/locale/es", class: "f_right" %>
+      <% end %>
     </p>
   </div>
 <% end %>
