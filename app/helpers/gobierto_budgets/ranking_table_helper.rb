@@ -3,7 +3,7 @@ module GobiertoBudgets
 
     def column_filters
       [
-        { key: 'population', literal: t('.inhabitants') },
+        { key: 'population', literal: t('inhabitants', scope: 'gobierto_budgets.places.ranking_table') },
         { key: 'amount_per_inhabitant', literal: "#{kind_literal(@kind)}/hab", tooltip: "Gasto por habitante" },
         { key: 'amount', literal: "#{kind_literal(@kind)} #{I18n.t('common.totals')}" }
       ]
@@ -63,21 +63,21 @@ module GobiertoBudgets
 
     def page_title
       if population_sorted?
-        t('.population_title', kind: kind, year: @year)
+        t('population_title', scope: 'gobierto_budgets.places.ranking', kind: kind, year: @year)
       elsif budget_line?
-        t('.budget_line_title', kind: kind, budget_line: budget_line_denomination(@area_name, @code, @kind), year: @year)
+        t('budget_line_title', scope: 'gobierto_budgets.places.ranking', kind: kind, budget_line: budget_line_denomination(@area_name, @code, @kind), year: @year)
       else
-        t('.budget_lines_title', kind: kind, year: @year)
+        t('budget_lines_title', scope: 'gobierto_budgets.places.ranking', kind: kind, year: @year)
       end
     end
 
     def page_short_title
       if population_sorted?
-        t('.population_short_title', kind: kind)
+        t('population_short_title', scope: 'gobierto_budgets.places.ranking', kind: kind)
       elsif budget_line?
-        t('.budget_line_short_title', kind: kind, budget_line: budget_line_denomination(@area_name, @code, @kind))
+        t('budget_line_short_title', scope: 'gobierto_budgets.places.ranking', kind: kind, budget_line: budget_line_denomination(@area_name, @code, @kind))
       else
-        t('.budget_lines_short_title', kind: kind)
+        t('budget_lines_short_title', scope: 'gobierto_budgets.places.ranking', kind: kind)
       end
     end
 
@@ -90,7 +90,7 @@ module GobiertoBudgets
     end
 
     def expense_filter_dropdown_title
-      "#{kind_literal(@kind).capitalize} #{t('.per_inhabitant') if amount_per_inhabitant?} <i class=\"fa fa-angle-down\"></i>".html_safe
+      "#{kind_literal(@kind).capitalize} #{t('per_inhabitant', scope: 'gobierto_budgets.places.ranking') if amount_per_inhabitant?} <i class=\"fa fa-angle-down\"></i>".html_safe
     end
 
     def expense_filter_dropdown_content
