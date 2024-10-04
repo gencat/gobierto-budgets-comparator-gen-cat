@@ -277,6 +277,7 @@ es:
         new: Nuevo
         per_inhabitant: por hab.
         percentage_over_total: s/ total
+        proposal: Propuesta
         related_entities: Entidades relacionadas
         related_entities_budget:
           see_all: Ver todas las entidades relacionadas (%{number})

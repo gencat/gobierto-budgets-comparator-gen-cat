@@ -1,90 +1,100 @@
 ---
 en:
-  common:
-    and: and
-    income: income
-    incomes: incomes
-    expense: expense
-    expenses: expenses
-    economic: economic
-    functional: functional
-    totals: totals
-    per_inhabitant: per inhabitant
   actions:
-    send: Send
-    create: Create
-    update: Update
     confirm: Are you sure?
-    edit: Edit
+    create: Create
     delete: Delete
-    see_page: View page
-  layout:
-    council_of: "Council of %{name}"
-    transparency_and_participation: Transparency and Engagement
-    login_or_signup: Login or signup
-    your_account: Your Account
-    cta_login: Already has an account? Login
-    your_email: Your email
-    your_password: Your password
-    cta_signup: New user? Signup
-    login: Login
-    signup: Signup
-    gobierto: The platform for Transparency, Open Government and Engagement for Public Administration
-    your_account: Your account
-    logout: Logout
-    your_notifications: Your notifications
-    your_notifications_temp: In this section you'll be able to check your personal notifications so its easier for you to follow everything that interests you in this site
-    news: News
-    add: Add
     edit: Edit
-    remove: Remove
-    admin: Administration
-    pages: Pages
-    users: Users
-    configuration: Configuration
-    sections: Sections
-    search: Search
-    news: News
-    autocomplete_no_results: 'Sorry, but there are no results'
+    see_page: View page
+    send: Send
+    update: Update
   admin:
     registered_users:
       one: 1 registered user
       other: "%{count} registered users"
-    user_name: Name
     user_email: Email
-    user_signed_up_date: Signed up
     user_last_activity: Last activity
+    user_name: Name
+    user_signed_up_date: Signed up
     users_edit: Edit user information
     users_impersonate: Login as the user
-    users_soft_delete: "Delete the user: she won't be able to login and publish content, her activity will disappear (it will be visible for administratos)"
-    users_restore: "Restore user"
-  users:
+    users_restore: Restore user
+    users_soft_delete: 'Delete the user: she won''t be able to login and publish content,
+      her activity will disappear (it will be visible for administratos)'
+  common:
+    and: and
+    economic: economic
+    expense: expense
+    expenses: expenses
+    functional: functional
+    income: income
+    incomes: incomes
+    per_inhabitant: per inhabitant
+    totals: totals
+  helpers:
+    budget_line_description: 'This budget line is referred to %{kind_what} in %{description}.
+      If you want to know more, check the parent budget line: %{link}'
+    in: In
+  layout:
+    add: Add
+    admin: Administration
+    autocomplete_no_results: Sorry, but there are no results
+    configuration: Configuration
+    council_of: Council of %{name}
+    cta_login: Already has an account? Login
+    cta_signup: New user? Signup
+    edit: Edit
+    gobierto: The platform for Transparency, Open Government and Engagement for Public
+      Administration
+    login: Login
+    login_or_signup: Login or signup
+    logout: Logout
+    news: News
+    pages: Pages
+    remove: Remove
+    search: Search
+    sections: Sections
+    signup: Signup
+    transparency_and_participation: Transparency and Engagement
+    users: Users
     your_account: Your account
-    your_account_description: Manage your personal information
-    email_tip: This is your verified email. At a later time you'll be able to update it if you need it
-    want_to_update_password: Do you want to update your password?
-    current_password: Current password
-    password_tip: Only if you want to update your password
-    document_tip: Needed to update your identity in the future. It won't be displayed ever
+    your_email: Your email
+    your_notifications: Your notifications
+    your_notifications_temp: In this section you'll be able to check your personal
+      notifications so its easier for you to follow everything that interests you
+      in this site
+    your_password: Your password
+  users:
+    accept: I accept the
     complete_signup: Complete your signup
     confirm_filling_fields: Confirm your signup by filling the following fields
-    accept: I accept the
-    terms_and_conditions: Terms and conditions
-    privacy: Privacy
+    current_password: Current password
+    document_tip: Needed to update your identity in the future. It won't be displayed
+      ever
+    email_notification_message: We have just sent you an email with a link to finish
+      the signup.
     email_notification_successful: An extra step
-    email_notification_message: We have just sent you an email with a link to finish the signup.
+    email_tip: This is your verified email. At a later time you'll be able to update
+      it if you need it
+    password_tip: Only if you want to update your password
+    privacy: Privacy
     signup_successful: Fantastic, you are now a user
-    welcome_message_1: You are ready to use and take part of the tools provided by the Transparency and Engagement from the %{name} Council
-    welcome_message_2: "<strong>Take part</strong>: in the consultations from the Council, send ideas and reports."
+    terms_and_conditions: Terms and conditions
+    want_to_update_password: Do you want to update your password?
+    welcome_message_1: You are ready to use and take part of the tools provided by
+      the Transparency and Engagement from the %{name} Council
+    welcome_message_2: "<strong>Take part</strong>: in the consultations from the
+      Council, send ideas and reports."
     welcome_message_3: "<strong>Support</strong>: join other people requests."
-    welcome_message_4: "<strong>Track</strong> the information you are interested on. Each page has an icon to follow any change on that page. You'll receive automatically an email."
-  helpers:
-    budget_line_description: "This budget line is referred to %{kind_what} in %{description}. If you want to know more, check the parent budget line: %{link}"
-    in: In
+    welcome_message_4: "<strong>Track</strong> the information you are interested
+      on. Each page has an icon to follow any change on that page. You'll receive
+      automatically an email."
+    your_account: Your account
+    your_account_description: Manage your personal information
   views:
     pagination:
       first: "&laquo; First"
-      last: "Last &raquo;"
+      last: Last &raquo;
+      next: Next &rsaquo;
       previous: "&lsaquo; Prev"
-      next: "Next &rsaquo;"
       truncate: "&hellip;"
