@@ -42,6 +42,7 @@ $(document).on('turbolinks:load', function() {
     var queryData = "SELECT+".concat(indicator, "+,place_id+FROM+indicadores_presupuestos_municipales+WHERE+year=").concat(year, "+AND+").concat(indicator, "+IS+NOT+NULL");
 
     var urlData = "".concat(endPoint).concat(queryData, "&token=").concat(token);
+    var originalUrl = urlData
 
     var indicators = document.querySelectorAll('[data-indicator]')
 
@@ -332,10 +333,8 @@ $(document).on('turbolinks:load', function() {
 
         function changeStateProps(value, increase) {
           var increaseDecrease = increase === true ? +1 : -1
-          var valueZoom = deckgl.props[value].zoom + increaseDecrease
-          if (valueZoom < 5 || valueZoom > 8) {
-            valueZoom = deckgl.props[value].zoom
-          }
+          var valueZoom = Math.min(Math.max(deckgl.props[value].zoom + increaseDecrease, INITIAL_VIEW_STATE.minZoom), INITIAL_VIEW_STATE.maxZoom)
+
           deckgl.setProps({
             viewState: {
               zoom: valueZoom,
@@ -457,6 +456,18 @@ $(document).on('turbolinks:load', function() {
 
       spinner.style.display = 'block'
       var element = e.target.activeElement.dataset
+
+      if (element.categoryCode === "reset") {
+        // reset to defaults
+
+        indicator = 'gasto_por_habitante'
+        urlData = originalUrl
+        completeIndicator = indicatorsValue.gasto_por_habitante.unit
+        tooltipString = indicatorsValue.gasto_por_habitante.name
+        redraw()
+
+        return
+      }
 
       var year = document.getElementsByTagName('body')[0].getAttribute('data-year');
       var area = element.area === 'economic' ? 'e' : 'f'

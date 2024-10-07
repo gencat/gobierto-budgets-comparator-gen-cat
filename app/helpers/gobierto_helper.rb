@@ -86,7 +86,7 @@ module GobiertoHelper
   def time_until_in_words(time)
     days = (time - Time.zone.now) / (60*60*24)
     if days <= 10
-      I18n.t('gobierto_participation.in_n_days', count: days.to_i)
+      distance_of_time_in_words(Time.zone.now, days.to_i, short: "datetime.distance_in_words.future")
     else
       I18n.l(time.to_date, format: :short)
     end
