@@ -3,6 +3,7 @@ es:
   layouts:
     gobierto_budgets_application:
       about: Acerca de
+      back_to_top: Volver arriba
       checkout_gobierto_blog: Consulta el blog de Gobierto
       close_session: Cerrar sesión
       compare: Compara

@@ -5,11 +5,7 @@
   <%= display_meta_tags site: t('.site_title'), reverse: true %>
 
   <%= stylesheet_link_tag    'gobierto_budgets/application', media: 'all', 'data-turbolinks-track' => true %>
-  <% if action_name == 'map' %>
-    <%= javascript_include_tag 'gobierto_budgets/application_maps', 'data-turbolinks-track' => true %>
-  <% else %>
-    <%= javascript_include_tag 'gobierto_budgets/application', 'data-turbolinks-track' => true %>
-  <% end %>
+  <%= javascript_include_tag 'gobierto_budgets/application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 
   <%= yield :header %>
@@ -55,7 +51,11 @@
     <p>
       <%# link_to t('.download_guide'), new_user_path(pro: true) %>
       <%= link_to t('.checkout_gobierto_blog'), 'https://gobierto.es/blog' %>
-      <span class="f_right"><%= link_to 'English', gobierto_budgets_en_path %></span>
+      <% if I18n.locale == :es %>
+        <%= link_to 'English', "/locale/en", class: "f_right" %>
+      <% else %>
+        <%= link_to 'Castellano', "/locale/es", class: "f_right" %>
+      <% end %>
     </p>
   </div>
 <% end %>
@@ -120,6 +120,8 @@
 
   <div class="main_content clearfix">
     <%= yield %>
+
+    <a href="#" class="back-to-top" data-turbolinks="false"><%= t('.back_to_top') %> ↑</a>
   </div>
 
 </div>

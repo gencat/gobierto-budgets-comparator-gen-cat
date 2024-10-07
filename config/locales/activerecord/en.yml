@@ -1,24 +1,25 @@
 ---
 en:
   activerecord:
-    models:
-      user: User
     attributes:
       user:
+        current_password: Current password
+        document_number: Document number
+        document_type: Document type
+        email: E-mail
         first_name: First name
         last_name: Last name
-        email: E-mail
         password: Password
         password_confirmation: Password confirmation
-        current_password: Current password
-        document_type: Document type
-        document_number: Document number
     errors:
       models:
         user:
           attributes:
-            document_number:
-              invalid_letter: 'Letter is not valid'
-              invalid_dni_format: 'The format of the document number is not valid. It should be 8 numbers followed by a letter, without space'
             current_password:
-              invalid_current_password: 'Current password is not valid'
+              invalid_current_password: Current password is not valid
+            document_number:
+              invalid_dni_format: The format of the document number is not valid.
+                It should be 8 numbers followed by a letter, without space
+              invalid_letter: Letter is not valid
+    models:
+      user: User

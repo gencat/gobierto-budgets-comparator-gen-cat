@@ -81,7 +81,6 @@ Rails.application.routes.draw do
     get 'legal/cookies' => 'pages#legal_cookies'
     get 'legal/legal' => 'pages#legal_legal'
     get 'legal/privacy' => 'pages#legal_privacy'
-    get 'en' => 'pages#en'
 
     get 'search' => 'search#index'
     get 'categories/:slug/:year/:area/:kind' => 'search#categories', as: :search_categories
