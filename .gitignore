@@ -23,6 +23,7 @@ public/cache
 public/assets
 **/.DS_Store
 public/cached_pages
+public/javascripts
 
 config/settings.local.yml
 config/settings/*.local.yml
