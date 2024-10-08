@@ -34,7 +34,7 @@ gem "bourbon"
 gem 'turbolinks'
 gem 'cookies_eu'
 gem 'flight-for-rails'
-gem "i18n-js"
+gem "i18n-js", "~> 3.9.2"
 
 # Elastic search
 gem 'oj'
