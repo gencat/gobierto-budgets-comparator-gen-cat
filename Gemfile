@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-gem "rails", "~> 7.1.3"
-gem "pg", "~> 1.1"
+gem "rails", "~> 7.1.4"
+gem "pg", "~> 1.5"
 gem 'sass-rails', '~> 5.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'redcarpet', require: true
@@ -34,7 +34,7 @@ gem "bourbon"
 gem 'turbolinks'
 gem 'cookies_eu'
 gem 'flight-for-rails'
-gem "i18n-js", "~> 3.8.3"
+gem "i18n-js", "~> 3.9.2"
 
 # Elastic search
 gem 'oj'

@@ -2,31 +2,32 @@
 en:
   layouts:
     gobierto_budgets_application:
-      ine:
-        search_location: Search for a municipality...
-        your_location: Your municipality
+      about: About
+      back_to_top: Back to top
+      checkout_gobierto_blog: Checkout the Gobierto blog
+      close_session: Close session
+      compare: Compare
+      contact: Contact
+      cookies: Cookies policy
       deputation_eu:
         search_location: Search for a deputation...
         your_location: Your deputation
-      site_title: Gobierto Local Budgets
-      download_guide: Download the Communication Guide for Municipalities
-      municipalities: Municipalities
       deputations: Deputations
-      compare: Compare
-      rankings: Rankings
-      services: Services
-      hi: Hi
+      download_guide: Download the Communication Guide for Municipalities
       edit_your_personal_data: Edit your profile
-      close_session: Close session
-      recent_locations: Recent locations
-      recent_comparisons: Recent comparisons
-      about: About
       faq: F.A.Q.
-      methodology_and_sources: Methodology and sources
-      contact: Contact
+      hi: Hi
+      ine:
+        search_location: Search for a municipality...
+        your_location: Your municipality
       legal_warning: Legal warning
-      privacy: Privacy policy
-      cookies: Cookies policy
-      maps: Maps
       local_budgets: Local budgets
-      checkout_gobierto_blog: Checkout the Gobierto blog
+      maps: Maps
+      methodology_and_sources: Methodology and sources
+      municipalities: Municipalities
+      privacy: Privacy policy
+      rankings: Rankings
+      recent_comparisons: Recent comparisons
+      recent_locations: Recent locations
+      services: Services
+      site_title: Gobierto Local Budgets

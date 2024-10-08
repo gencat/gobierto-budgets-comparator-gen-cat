@@ -54,8 +54,18 @@ function generateTargetUrl(node) {
           area: $(e.target).data('area'),
           url: generateTargetUrl(e.target)
         });
-        $('[data-category-code]').removeClass('active');
-        $(e.target).addClass('active');
+
+        $('[data-category-code], tr').removeClass('active');
+
+        if (e.target.dataset.categoryCode !== "reset") {
+          $(e.target).addClass('active');
+          $(e.target).closest('tr').addClass('active');
+
+          var html = '<a href="#" data-category-code="reset" data-turbolinks="false" class="js-ranking-link">X</a>';
+          $(html).insertAfter($(e.target));
+        }
+
+        this.cleanOldCategories();
       }.bind(this));
 
       $(document).on('click', '[data-select-category]', function(e){
@@ -100,24 +110,19 @@ function generateTargetUrl(node) {
         this.removeCategories(target);
       }.bind(this));
 
-      $(document).on('input propertychange paste', '[data-search-box]', function(e){
+      $(document).on('input propertychange paste focus', '[data-search-box]', function(e){
         var val = $(e.target).val();
-        if(val.length >= 3){
-          this.cleanOldCategories();
 
-          for (var area in this.attr.categories) {
-            for (var kind in this.attr.categories[area]) {
-              var categories = this.attr.categories[area][kind];
-              Object.keys(categories).sort().forEach(function(key) {
-                if(categories[key].toLowerCase().indexOf(val.toLowerCase()) !== -1){
-                  this.addCategory(key, categories[key], area, kind, false);
-                }
-              }.bind(this));
-            }
-          }
-        } else {
-          if(val.length === 0){
-            $('[data-selected]').click();
+        this.cleanOldCategories();
+
+        for (var area in this.attr.categories) {
+          for (var kind in this.attr.categories[area]) {
+            var categories = this.attr.categories[area][kind];
+            Object.keys(categories).sort().forEach(function(key) {
+              if(categories[key].toLowerCase().indexOf(val.toLowerCase()) !== -1){
+                this.addCategory(key, categories[key], area, kind, false);
+              }
+            }.bind(this));
           }
         }
       }.bind(this));
@@ -188,7 +193,7 @@ function generateTargetUrl(node) {
     };
 
     this.cleanOldCategories = function(){
-      this.itemsParent.find('tr').not('tr[data-search-box]').each(function(){
+      this.itemsParent.find('tr').not('tr[data-search-box], tr.active').each(function(){
         this.remove();
       });
     };

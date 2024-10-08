@@ -1,15 +1,15 @@
 ---
 en:
   controllers:
-    users:
-      update:
-        notice: Your data has been updated successfully
-        alert: There was a problem updating your data
-      create:
-        alert: "There was a problem creating your user: %{messages}"
-    sessions_management:
-      admin_user:
-        alert: Admin required
     sessions:
       create:
         alert: Invalid credentials
+    sessions_management:
+      admin_user:
+        alert: Admin required
+    users:
+      create:
+        alert: 'There was a problem creating your user: %{messages}'
+      update:
+        alert: There was a problem updating your data
+        notice: Your data has been updated successfully
