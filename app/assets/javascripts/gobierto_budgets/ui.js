@@ -105,8 +105,6 @@ $(document).on('turbolinks:load', function() {
   };
   $searchBudget.autocomplete($.extend({}, AUTOCOMPLETE_DEFAULTS(), searchCategoriesOptions));
 
-  $('.sticky').sticky({topSpacing:0});
-
   $('#kind').on('change', function(e){
     $.ajax('/categories/economic/' + $(this).val());
   });

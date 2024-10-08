@@ -89,6 +89,10 @@ es:
       x_seconds:
         one: hace 1 segundo
         other: hace %{count} segundos
+      future:
+        x_days:
+          one: en un día
+          other: en %{count} días
     prompts:
       day: Día
       hour: Hora
@@ -120,8 +124,8 @@ es:
       present: debe estar en blanco
       record_invalid: 'La validación falló: %{errors}'
       restrict_dependent_destroy:
-        many: No se puede eliminar el registro porque existen %{record} dependientes
         one: No se puede eliminar el registro porque existe un %{record} dependiente
+        other: No se puede eliminar el registro porque existen %{record} dependientes
       taken: ya está en uso
       too_long: es demasiado largo (%{count} caracteres máximo)
       too_short: es demasiado corto (%{count} caracteres mínimo)

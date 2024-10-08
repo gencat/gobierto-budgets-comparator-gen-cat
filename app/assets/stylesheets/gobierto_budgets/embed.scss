@@ -4,14 +4,14 @@
     margin: 0;
     padding: 0;
   }
-  .sticky-wrapper {
+  .sticky {
     display: none;
   }
   .sticky_top {
     display: none !important;
   }
   .ranking a {
-    display: none !important; 
+    display: none !important;
   }
   .cta_majors {
     display: none !important;
@@ -19,5 +19,5 @@
   .breadcrumb.geo {
     display: none;
   }
-  
+
 }

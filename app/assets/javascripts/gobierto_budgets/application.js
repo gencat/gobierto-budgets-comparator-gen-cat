@@ -6,7 +6,6 @@
 //= require velocity.min
 //= require velocity.ui.min
 //= require velocity_settings
-//= require jquery.sticky
 //= require tipsy
 //= require accounting.min
 //= require accounting_settings
@@ -18,6 +17,9 @@
 //= require d3.min
 //= require d3-legend.min
 //= require d3-jetpack
+//= require topojson-client.min
+//= require slimselect.min
+//= require chroma.min
 //= require gobierto_budgets/vendor/select2.min
 //= require underscore-min
 //= require klass

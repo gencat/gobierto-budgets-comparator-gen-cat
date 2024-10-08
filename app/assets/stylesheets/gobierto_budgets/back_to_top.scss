@@ -1,0 +1,16 @@
+.back-to-top {
+  --offset: 20px;
+
+  position: sticky;
+  bottom: 20px;
+  margin-right: 10px;
+  left: 100%;
+  margin-top: calc(100vh + var(--offset));
+
+  /* visual styling */
+  text-decoration: none;
+  padding: 0.5em;
+  background: darken($color_1_soft, 20%);
+  border-radius: 100px;
+  white-space: nowrap;
+}
