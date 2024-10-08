@@ -21,7 +21,7 @@ Bundler.require(*Rails.groups)
 module GobiertoBudgetsComparator
   class Application < Rails::Application
     config.i18n.default_locale = :es
-    config.i18n.available_locales = [:es, :en]
+    config.i18n.available_locales = [:es, :ca]
 
     config.generators do |g|
       g.test_framework  :rspec, fixtures: false, view_spec: false,

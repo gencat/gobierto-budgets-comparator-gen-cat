@@ -2,7 +2,7 @@
 
 base_locale: es
 ## All available locales are inferred from the data by default. Alternatively, specify them explicitly:
-locales: [es, en]
+locales: [es, ca]
 
 # Read and write translations.
 data:
