@@ -49,6 +49,8 @@ gem 'rack-rewrite', '~> 1.5.0'
 # Ruby requirements
 gem "stringio", "3.1.1"
 
+gem 'puma', '~> 6.4', '>= 6.4.3'
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "spring"
@@ -67,6 +69,5 @@ group :test do
 end
 
 group :development do
-  gem 'puma'
   gem "rubocop"
 end
