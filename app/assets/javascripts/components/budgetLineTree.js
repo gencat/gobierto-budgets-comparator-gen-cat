@@ -61,7 +61,7 @@ function generateTargetUrl(node) {
           $(e.target).addClass('active');
           $(e.target).closest('tr').addClass('active');
 
-          var html = '<a href="#" data-category-code="reset" data-turbolinks="false" class="js-ranking-link">X</a>';
+          var html = '<a href="#" data-category-code="reset" data-turbolinks="false" class="js-ranking-link" style="margin-left: auto">X</a>';
           $(html).insertAfter($(e.target));
         }
 
