@@ -229,7 +229,7 @@ module GobiertoBudgets
     end
 
     def delta_percentage(value, old_value)
-      return "" if value.nil? || old_value.nil?
+      return "" if value.nil? || old_value.nil? || old_value.to_f == 0
 
       ((value.to_f - old_value.to_f)/old_value.to_f) * 100
     end
