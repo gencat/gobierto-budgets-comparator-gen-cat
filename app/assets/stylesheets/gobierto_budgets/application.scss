@@ -1566,7 +1566,6 @@ a.list_view_more {
     }
     td.item_name {
       display: flex;
-      justify-content: space-between;
 
       @include screen(740) {
         .fa {
